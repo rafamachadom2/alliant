@@ -113,6 +113,39 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
 .f-links{display:flex;gap:24px}
 .f-links a{font-size:12px;color:var(--steel);text-decoration:none;transition:color .2s}
 .f-links a:hover{color:var(--white)}
+.cloud{position:absolute;pointer-events:none;z-index:0}
+.cloud svg{width:100%;height:100%}
+.cloud-1{width:320px;top:12%;right:5%;animation:driftR 28s ease-in-out infinite}
+.cloud-2{width:420px;top:28%;right:-60px;animation:driftR 38s ease-in-out infinite reverse}
+.cloud-3{width:240px;top:55%;left:2%;animation:driftL 32s ease-in-out infinite}
+.cloud-4{width:360px;bottom:8%;left:15%;animation:driftL 44s ease-in-out infinite reverse}
+@keyframes driftR{0%,100%{transform:translateX(0) translateY(0)}30%{transform:translateX(18px) translateY(-10px)}60%{transform:translateX(8px) translateY(6px)}80%{transform:translateX(22px) translateY(-4px)}}
+@keyframes driftL{0%,100%{transform:translateX(0) translateY(0)}25%{transform:translateX(-14px) translateY(8px)}55%{transform:translateX(-6px) translateY(-6px)}75%{transform:translateX(-20px) translateY(4px)}}
+.ascii-cloud{
+  position:absolute;
+  top:50%;
+  right:3%;
+  transform:translateY(-50%);
+  z-index:1;
+  font-family:'Courier New',Courier,monospace;
+  font-size:clamp(8px,0.95vw,12px);
+  line-height:1.5;
+  color:rgba(0,194,224,0.11);
+  white-space:pre;
+  pointer-events:none;
+  letter-spacing:0.8px;
+  text-shadow:0 0 18px rgba(0,194,224,0.25),0 0 6px rgba(0,194,224,0.15);
+  animation:cloudFloat 7s ease-in-out infinite;
+  user-select:none;
+  transition:color 0.4s;
+}
+.ascii-cloud.glitch{color:rgba(0,194,224,0.22);text-shadow:2px 0 rgba(255,0,80,0.18),-2px 0 rgba(0,194,224,0.18),0 0 20px rgba(0,194,224,0.4)}
+@keyframes cloudFloat{
+  0%,100%{transform:translateY(-50%) translateX(0)}
+  25%{transform:translateY(calc(-50% - 10px)) translateX(4px)}
+  50%{transform:translateY(calc(-50% - 18px)) translateX(-3px)}
+  75%{transform:translateY(calc(-50% - 8px)) translateX(5px)}
+}
 .fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .fade-in.visible{opacity:1;transform:none}
 @media(max-width:900px){.svc-header,.svc-grid,.why-grid,.ct-grid{grid-template-columns:1fr}.why-grid,.ct-grid{gap:48px}.stats-bar{gap:28px}nav ul{display:none}footer{flex-direction:column;gap:16px;text-align:center}}
@@ -145,6 +178,22 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
   <div class="hero-grid-bg"></div>
   <div class="glow1"></div>
   <div class="glow2"></div>
+  <!-- Animated clouds -->
+  <div class="cloud cloud-1">
+    <svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><path d="M160 60H50C30 60 15 47 15 31 15 16 27 5 42 5c2 0 4 .2 6 .7C54 2 62 0 71 0c22 0 40 16 42 37 2-1 4-1 6-1 17 0 30 12 30 27 0 14-12 24.3-26 24.3H160z" fill="white" fill-opacity="0.04"/></svg>
+  </div>
+  <div class="cloud cloud-2">
+    <svg viewBox="0 0 260 100" xmlns="http://www.w3.org/2000/svg"><path d="M210 78H60C35 78 15 60 15 38 15 18 31 2 51 2c3 0 6 .3 9 1C68 1 79 0 91 0c29 0 53 21 56 49 3-1 6-2 9-2 22 0 40 16 40 36 0 18-16 31.6-34 31.6H210z" fill="white" fill-opacity="0.035"/></svg>
+  </div>
+  <div class="cloud cloud-3">
+    <svg viewBox="0 0 160 65" xmlns="http://www.w3.org/2000/svg"><path d="M128 50H42C24 50 10 38 10 24 10 11 20 2 33 2c2 0 3 .2 5 .6C43 1 50 0 58 0c18 0 32 13 34 30 1-.1 3-.1 4-.1 14 0 24 10 24 22 0 11-10 19-16 19H128z" fill="white" fill-opacity="0.045"/></svg>
+  </div>
+  <div class="cloud cloud-4">
+    <svg viewBox="0 0 220 85" xmlns="http://www.w3.org/2000/svg"><path d="M178 66H52C30 66 13 51 13 33 13 16 27 4 44 4c2 0 5 .3 7 .8C58 2 67 0 78 0c25 0 46 18 49 43 2-1 5-1 7-1 19 0 34 14 34 31 0 16-14 27-16 27H178z" fill="white" fill-opacity="0.03"/></svg>
+  </div>
+  <!-- ASCII Cloud -->
+  <div class="ascii-cloud" id="asciiCloud" aria-hidden="true"></div>
+
   <div class="hero-content fade-in visible">
     <div class="hero-badge"><span class="badge-dot"></span>Nuvem Privada · Containers · Conectividade</div>
     <h1>Onde cada milissegundo<br><span class="accent">faz a diferença.</span></h1>
@@ -155,7 +204,7 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
     </div>
     <div class="stats-bar">
       <div><div class="stat-num">99<em>.9%</em></div><div class="stat-label">SLA garantido</div></div>
-      <div><div class="stat-num">2<em> DCs</em></div><div class="stat-label">Vinhedo · Osasco</div></div>
+      <div><div class="stat-num">2<em> DCs</em></div><div class="stat-label">Redundantes · +25km de distância</div></div>
       <div><div class="stat-num">24<em>/7</em></div><div class="stat-label">Suporte dedicado</div></div>
       <div><div class="stat-num"><em>100%</em></div><div class="stat-label">Dados no Brasil, sempre</div></div>
     </div>
@@ -221,8 +270,8 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
   <div class="why-grid">
     <div class="why-nums fade-in">
       <div class="why-num-item"><div class="wn-val">99.9%</div><div class="wn-lbl">Disponibilidade garantida em contrato</div></div>
-      <div class="why-num-item"><div class="wn-val">2</div><div class="wn-lbl">Data centers próprios em SP</div></div>
-      <div class="why-num-item"><div class="wn-val">&lt;5ms</div><div class="wn-lbl">Latência entre Vinhedo e Osasco</div></div>
+      <div class="why-num-item"><div class="wn-val">2</div><div class="wn-lbl">Infra redundante em SP, separados por +25km</div></div>
+      <div class="why-num-item"><div class="wn-val">&lt;2ms</div><div class="wn-lbl">Latência entre os dois sites redundantes</div></div>
       <div class="why-num-item"><div class="wn-val">100%</div><div class="wn-lbl">Sem contrato de lock-in com fabricante</div></div>
     </div>
     <div class="fade-in">
@@ -232,7 +281,7 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
       <div class="why-pts">
         <div class="why-pt">
           <div class="wpt-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div><div class="wpt-title">Seus dados nunca saem do Brasil</div><p class="wpt-desc">Dois data centers em São Paulo — Vinhedo e Osasco. Conformidade com LGPD por padrão, sem precisar pedir.</p></div>
+          <div><div class="wpt-title">Seus dados nunca saem do Brasil</div><p class="wpt-desc">Dois sites redundantes em São Paulo, separados por mais de 25km — projetados para garantir disponibilidade mesmo em falhas físicas ou desastres regionais. Conformidade com LGPD por padrão.</p></div>
         </div>
         <div class="why-pt">
           <div class="wpt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
@@ -339,7 +388,7 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
 
 <footer>
   <div class="f-logo">Alliant<span>.</span></div>
-  <div class="f-copy">© 2025 Alliant Cloud · Cascavel, PR · Brasil</div>
+  <div class="f-copy">© 2026 Alliant Cloud</div>
   <div class="f-links">
     <a href="#services">Soluções</a>
     <a href="#contact">Contato</a>
@@ -347,9 +396,148 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
   </div>
 </footer>
 
+<!-- Subliminal IP display -->
+<style>.cur{animation:blink .8s step-end infinite;opacity:1}@keyframes blink{50%{opacity:0}}</style>
+<div id="ipOverlay" style="position:fixed;bottom:14px;right:18px;z-index:999;font-family:'Courier New',monospace;font-size:10px;color:rgba(0,194,224,0.2);letter-spacing:1.5px;pointer-events:none;user-select:none;text-align:right;line-height:1.8;opacity:1"></div>
+
 <script>
-const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)} }), {threshold:0.1});
-document.querySelectorAll('.fade-in:not(.visible)').forEach(el => obs.observe(el));
+// ── SCROLL FADE-IN ──────────────────────────────────────────────────────────
+var obs = new IntersectionObserver(function(es) {
+  es.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el) { obs.observe(el); });
+
+// ── ASCII CLOUD ──────────────────────────────────────────────────────────────
+var frames = [
+  "        .-~~~~~~-.\n    .--'          '--.\n  .'    .-~~~~-.     '.\n /    .'        '.    \\\n|    /   .-~~-.   \\   |\n \\   |  |    |  |   /\n  '-. \\  '-'  /  .-'\n     '--........--'",
+  "       .-~~~~~~~~-.\n   .--'             '--.\n .'    .-~~~~~~-.     '.\n/    .'          '.    \\\n|   /   .-~~~~-.   \\   |\n \\  |  |        |  |  /\n  '-. \\  '----'  / .-'\n     ''-.______.-''",
+  "      .-~~~~~~~~~~-.\n  .--'               '--.\n.'    .-~~~~~~~~-.     '.\n/   .'            '.    \\\n|  /   .-~~~~~~-.   \\   |\n \\ |  |          |  | /\n  '-. \\  '------'  /.-'\n     '------------'",
+  "        .-~~~~~~-.\n    .--'    __    '--.\n  .'    .-'    '-.    '.\n /    .'  .-~~-.  '.    \\\n|    /   |  ()  |   \\   |\n \\   |    \\    /    |  /\n  '-.  '-. '' .-.  .'\n      '--........--'",
+  "      .-~-~-~-~-~-.\n  .-'               '-.\n /   .-~~~~~~~~~~-.   \\\n|  .'              '.  |\n|  |   .---------.  |  |\n \\ '.  '---------' .' /\n  '-. '-.        .-' -'\n     '--'--------'--'"
+];
+
+var cloudEl = document.getElementById('asciiCloud');
+var frameIdx = 0;
+var morphing = false;
+
+function nextFrame() {
+  return frames[frameIdx++ % frames.length];
+}
+
+function morphToFrame(newTarget) {
+  if (morphing) return;
+  morphing = true;
+  var src = (cloudEl.textContent || '').split('');
+  var dst = newTarget.split('');
+  var len = Math.max(src.length, dst.length);
+  while (src.length < len) src.push(' ');
+  while (dst.length < len) dst.push(' ');
+  var pos = 0;
+  var glyphs = '_.~-=+*#@$%<>|/\\';
+
+  function step() {
+    if (pos >= len) {
+      cloudEl.textContent = newTarget;
+      morphing = false;
+      setTimeout(function() { morphToFrame(nextFrame()); }, 2600 + Math.random() * 1400);
+      return;
+    }
+    // glitch flash occasionally
+    if (Math.random() < 0.08) {
+      cloudEl.classList.add('glitch');
+      setTimeout(function() { cloudEl.classList.remove('glitch'); }, 100);
+    }
+    var result = dst.slice(0, pos).join('');
+    // scramble cursor zone
+    for (var i = pos; i < Math.min(pos + 6, len); i++) {
+      if (dst[i] === '\n') result += '\n';
+      else result += glyphs[Math.floor(Math.random() * glyphs.length)];
+    }
+    result += dst.slice(Math.min(pos + 6, len)).join('');
+    cloudEl.textContent = result;
+    pos += Math.floor(Math.random() * 5) + 3;
+    setTimeout(step, 14 + Math.random() * 12);
+  }
+  step();
+}
+
+// Boot: scan in first frame
+var bootTarget = nextFrame();
+var bootPos = 0;
+var bootTimer = setInterval(function() {
+  bootPos += 4;
+  cloudEl.textContent = bootTarget.substring(0, bootPos);
+  if (bootPos >= bootTarget.length) {
+    clearInterval(bootTimer);
+    cloudEl.textContent = bootTarget;
+    setTimeout(function() { morphToFrame(nextFrame()); }, 1800);
+  }
+}, 20);
+
+
+// ── SUBLIMINAL IP + LATENCY TERMINAL ────────────────────────────────────────
+var ipEl = document.getElementById('ipOverlay');
+
+function termType(lines, delay, onDone) {
+  var rendered = lines.map(function() { return ''; });
+  var li = 0, ci = 0;
+  function step() {
+    if (li >= lines.length) { if (onDone) setTimeout(onDone, 400); return; }
+    rendered[li] += lines[li][ci];
+    ipEl.innerHTML = rendered.map(function(l, i) {
+      if (!l) return '';
+      var cursor = (i === li) ? '<span class="cur">_</span>' : '';
+      var op = (i === li) ? '1' : '0.55';
+      return '<div style="opacity:' + op + '">' + l + cursor + '</div>';
+    }).filter(Boolean).join('');
+    ci++;
+    if (ci >= lines[li].length) {
+      li++; ci = 0;
+      setTimeout(step, 180 + Math.random() * 140);
+    } else {
+      setTimeout(step, 32 + Math.random() * 24);
+    }
+  }
+  setTimeout(step, delay);
+}
+
+function measureAndRun() {
+  var t0 = performance.now();
+  fetch('https://api.ipify.org?format=json', {cache: 'no-store'})
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var lat = Math.round(performance.now() - t0);
+      var ip = data.ip;
+      // Phase 1
+      termType(['> ALLIANT.NET // PROBE v2.1', '> SCANNING ORIGIN...'], 3000, function() {
+        // Phase 2
+        termType([
+          '> ALLIANT.NET // PROBE v2.1',
+          '> ORIGIN.....: ' + ip,
+          '> RTT........: ' + lat + 'ms',
+          '> ROUTING....: BR / SP',
+          '> STATUS.....: CONNECTED'
+        ], 0, function() {
+          // fade out, then loop
+          setTimeout(function() {
+            ipEl.style.transition = 'opacity 1.8s';
+            ipEl.style.opacity = '0';
+            setTimeout(function() {
+              ipEl.innerHTML = '';
+              ipEl.style.transition = '';
+              ipEl.style.opacity = '1';
+              setTimeout(measureAndRun, 500);
+            }, 2000);
+          }, 9000);
+        });
+      });
+    })
+    .catch(function() {});
+}
+
+measureAndRun();
 </script>
 </body>
 </html>
