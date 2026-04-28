@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alliant Cloud — Nuvem Privada para Empresas que Não Podem Parar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Cabinet+Grotesk:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a0f1e;--navy-mid:#0f172a;--navy-light:#1e2d4a;--blue:#1d6aff;--blue-bright:#3d8bff;--cyan:#00c2e0;--cyan-dim:rgba(0,194,224,0.12);--steel:#8ba3c4;--steel-dim:rgba(139,163,196,0.1);--white:#f0f4ff;--white-dim:rgba(240,244,255,0.6);--border:rgba(139,163,196,0.18);--border-bright:rgba(0,194,224,0.35)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:72px;background:rgba(10,15,30,0.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-mark{width:36px;height:36px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff;flex-shrink:0}
+.logo-text{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--white)}
+.logo-text span{color:var(--cyan)}
+nav ul{display:flex;list-style:none;gap:36px}
+nav ul a{text-decoration:none;color:var(--steel);font-size:14px;transition:color .2s}
+nav ul a:hover{color:var(--white)}
+.nav-cta{background:var(--blue);color:#fff!important;padding:9px 20px;border-radius:6px;font-weight:500!important}
+.nav-cta:hover{background:var(--blue-bright)!important}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:120px 5% 80px;overflow:hidden}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(139,163,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(139,163,196,0.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 70% at 50% 50%,black 30%,transparent 100%);pointer-events:none}
+.glow1{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(29,106,255,.16) 0%,transparent 70%);top:-100px;right:-150px;pointer-events:none}
+.glow2{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,194,224,.1) 0%,transparent 70%);bottom:100px;left:-50px;pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:800px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--cyan-dim);border:1px solid var(--border-bright);color:var(--cyan);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;margin-bottom:28px}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(42px,5.5vw,78px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:24px}
+.accent{background:linear-gradient(135deg,var(--blue-bright),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-tagline{font-family:'Syne',sans-serif;font-size:clamp(15px,1.4vw,18px);font-weight:500;color:var(--steel);letter-spacing:.2px;margin-bottom:28px;font-style:italic}
+.hero-sub{font-size:18px;color:var(--steel);line-height:1.65;max-width:560px;margin-bottom:40px;font-weight:300}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;border:1px solid transparent}
+.btn-p:hover{background:var(--blue-bright);transform:translateY(-1px)}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--white);padding:14px 28px;border-radius:8px;text-decoration:none;font-size:15px;border:1px solid var(--border);transition:all .2s}
+.btn-s:hover{border-color:var(--steel);background:var(--steel-dim)}
+.stats-bar{display:flex;gap:48px;margin-top:72px;padding-top:40px;border-top:1px solid var(--border);flex-wrap:wrap}
+.stat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:700}
+.stat-num em{color:var(--cyan);font-style:normal}
+.stat-label{font-size:12px;color:var(--steel);letter-spacing:.4px;margin-top:2px}
+section{position:relative;z-index:1}
+.s-label{display:inline-block;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:16px}
+.s-title{font-family:'Syne',sans-serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;letter-spacing:-1px;line-height:1.1}
+.s-body{font-size:16px;color:var(--steel);line-height:1.7;margin-top:16px;font-weight:300}
+#services{padding:120px 5%;background:var(--navy-mid);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.svc-header{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:72px}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.svc-card{background:var(--navy-mid);padding:44px 36px;transition:background .3s;position:relative;overflow:hidden}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent);opacity:0;transition:opacity .3s}
+.svc-card:hover{background:var(--navy-light)}
+.svc-card:hover::before{opacity:1}
+.svc-icon{width:48px;height:48px;border-radius:10px;background:var(--steel-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:28px;transition:all .3s}
+.svc-card:hover .svc-icon{background:var(--cyan-dim);border-color:var(--border-bright)}
+.svc-icon svg{width:22px;height:22px;stroke:var(--steel);fill:none;stroke-width:1.5;transition:stroke .3s}
+.svc-card:hover .svc-icon svg{stroke:var(--cyan)}
+.svc-tag{display:inline-block;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--cyan);font-weight:500;margin-bottom:10px}
+.svc-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--white);margin-bottom:16px;letter-spacing:-.5px;line-height:1.2}
+.svc-desc{font-size:14px;color:var(--steel);line-height:1.65;margin-bottom:28px;font-weight:300}
+.svc-feats{list-style:none;display:flex;flex-direction:column;gap:9px}
+.svc-feats li{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--white-dim);line-height:1.4}
+.ck{display:flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:var(--cyan-dim);border:1px solid rgba(0,194,224,.4);flex-shrink:0;margin-top:1px}
+.ck svg{width:8px;height:8px;stroke:var(--cyan);stroke-width:2;fill:none}
+#why{padding:120px 5%}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:72px}
+.why-nums{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.why-num-item{background:var(--navy-mid);padding:32px}
+.wn-val{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:var(--blue);letter-spacing:-1px;line-height:1;margin-bottom:8px}
+.wn-lbl{font-size:13px;color:var(--steel);line-height:1.5}
+.why-pts{display:flex;flex-direction:column;gap:28px;margin-top:36px}
+.why-pt{display:flex;gap:20px;align-items:flex-start}
+.wpt-icon{width:40px;height:40px;border-radius:8px;background:var(--steel-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wpt-icon svg{width:18px;height:18px;stroke:var(--steel);fill:none;stroke-width:1.5}
+.wpt-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:600;color:var(--white);margin-bottom:4px}
+.wpt-desc{font-size:13px;color:var(--steel);line-height:1.6;font-weight:300}
+#partners{padding:80px 5%;border-top:1px solid var(--border);background:var(--navy-mid)}
+.part-lbl{text-align:center;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--steel);margin-bottom:40px}
+.part-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.part-chip{display:flex;align-items:center;gap:10px;background:var(--navy);border:1px solid var(--border);border-radius:8px;padding:12px 20px;font-size:13px;font-weight:500;color:var(--steel);transition:all .2s}
+.part-chip:hover{border-color:var(--blue-bright);color:var(--white)}
+.part-svg{width:20px;height:20px;fill:var(--steel);flex-shrink:0;transition:fill .2s,stroke .2s;color:var(--steel)}
+.part-chip:hover .part-svg{fill:var(--white);color:var(--white)}
+#contact{padding:120px 5%;border-top:1px solid var(--border)}
+.ct-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start}
+.ct-items{display:flex;flex-direction:column;gap:28px;margin-top:40px}
+.ct-item{display:flex;align-items:flex-start;gap:16px}
+.ct-icon{width:40px;height:40px;border-radius:8px;background:var(--steel-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ct-icon svg{width:18px;height:18px;stroke:var(--cyan);fill:none;stroke-width:1.5}
+.ct-lbl{font-size:11px;color:var(--steel);letter-spacing:.4px;margin-bottom:4px}
+.ct-val{font-size:14px;color:var(--white);line-height:1.5}
+.ct-val a{color:var(--white);text-decoration:none;transition:color .2s}
+.ct-val a:hover{color:var(--cyan)}
+.cta-box{background:linear-gradient(135deg,var(--navy-light),#0d1a35);border:1px solid var(--border);border-radius:16px;padding:52px 44px;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(29,106,255,.12) 0%,transparent 70%);pointer-events:none}
+.cta-box h3{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;letter-spacing:-.8px;margin-bottom:12px}
+.cta-box p{font-size:15px;color:var(--steel);line-height:1.6;margin-bottom:32px;font-weight:300}
+.cta-links{display:flex;flex-direction:column;gap:12px}
+.cta-lnk{display:flex;align-items:center;gap:12px;text-decoration:none;padding:16px 20px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;transition:all .2s}
+.cta-lnk:hover{background:rgba(255,255,255,.06);border-color:var(--steel)}
+.cta-lnk-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta-lnk-icon svg{width:18px;height:18px;fill:none;stroke-width:1.5}
+.cta-lnk-main{font-size:14px;font-weight:500;color:var(--white)}
+.cta-lnk-sub{font-size:12px;color:var(--steel);margin-top:1px}
+.cta-arr{margin-left:auto;color:var(--steel);font-size:16px}
+footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-items:center;justify-content:space-between}
+.f-logo{font-family:'Syne',sans-serif;font-size:16px;font-weight:700}
+.f-logo span{color:var(--cyan)}
+.f-copy{font-size:12px;color:var(--steel)}
+.f-links{display:flex;gap:24px}
+.f-links a{font-size:12px;color:var(--steel);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--white)}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:none}
+@media(max-width:900px){.svc-header,.svc-grid,.why-grid,.ct-grid{grid-template-columns:1fr}.why-grid,.ct-grid{gap:48px}.stats-bar{gap:28px}nav ul{display:none}footer{flex-direction:column;gap:16px;text-align:center}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" height="32" viewBox="0 0 15463.28 3759.31" style="fill:#ffffff;display:block">
+ <path d="M2569.5 754.47c54.02,-73.38 -69.45,-36.69 84.88,-73.38l7.72 3026.97 802.49 0 0 -3656.83c-1543.25,0 -1396.64,-177.33 -1921.34,801.08l-1543.25 2880.21 2268.57 -12.23 -15.44 -819.43 -841.07 -6.11 1157.43 -2140.28z"/>
+ <path d="M8464.68 2148.71c0,-305.76 23.15,-336.33 324.08,-336.33 887.36,0 740.76,-12.24 740.76,813.31 0,360.79 0,727.7 0,1088.49l825.63 6.11 0 -1962.95c0,-587.04 -208.35,-776.62 -787.06,-776.62 -1412.06,0 -1952.19,-189.57 -1952.19,776.62 0,1326.98 -185.19,1956.84 779.33,1962.95l763.91 -18.35 0 -801.08 -663.6 -42.81 -30.86 -709.35z"/>
+ <path d="M11620.62 2148.71c0,-317.99 15.43,-336.33 331.79,-336.33 655.88,0 733.04,-61.16 733.04,336.33l0 1571.58c270.07,0 547.85,18.34 817.91,-24.46 0,-587.04 0,-1174.1 0,-1767.26 0,-660.44 -61.73,-947.85 -763.9,-947.85 -1682.14,0 -1952.2,-171.22 -1944.48,996.76 0,574.82 0,1155.75 0,1730.57l825.63 12.24 0 -1571.58z"/>
+ <path d="M15447.86 2906.99c-748.48,-122.3 -725.32,366.91 -709.9,-1143.53l725.32 -18.34 0 -727.7 -725.32 -6.11 -7.71 -898.92 -817.92 0c-30.86,856.11 -7.72,1742.8 -7.72,2598.92 0,464.74 -23.15,807.19 354.95,953.95 208.34,79.5 964.52,79.5 1196,30.58l-7.71 -788.84z"/>
+ <polygon points="3904.4,3720.3 4575.72,3726.41 4730.04,3695.83 4730.04,75.7 4575.72,57.35 3904.4,57.35 "/>
+ <polygon points="5162.15,3720.3 5833.46,3726.41 5987.79,3695.83 5987.79,75.7 5833.46,57.35 5162.15,57.35 "/>
+ <polygon points="6412.17,3714.18 7245.53,3720.3 7245.53,925.7 6574.21,919.58 6412.17,944.04 "/>
+ <path d="M7176.08 63.46c-108.03,-67.26 -578.72,-97.84 -702.18,-6.11 -100.31,79.5 -69.45,452.53 -15.43,599.28 208.34,55.03 571,61.16 733.03,-12.23 69.45,-67.27 69.45,-354.68 30.86,-483.09 -23.15,-85.61 -7.71,-55.03 -46.29,-97.85z"/>
+</svg>
+  </a>
+  <ul>
+    <li><a href="#services">Soluções</a></li>
+    <li><a href="#why">Por que Alliant</a></li>
+    <li><a href="#partners">Parceiros</a></li>
+    <li><a href="#contact" class="nav-cta">Falar com especialista</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="glow1"></div>
+  <div class="glow2"></div>
+  <div class="hero-content fade-in visible">
+    <div class="hero-badge"><span class="badge-dot"></span>Nuvem Privada · Containers · Conectividade</div>
+    <h1>Cada milissegundo<br><span class="accent">faz a diferença.</span></h1>
+    <p class="hero-sub">Enquanto as clouds públicas dividem recursos entre milhares de clientes, a Alliant entrega infraestrutura dedicada — com desempenho previsível, seus dados no Brasil e um time humano para atender quando você precisar.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-p">Solicitar proposta <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      <a href="#services" class="btn-s">Ver soluções</a>
+    </div>
+    <div class="stats-bar">
+      <div><div class="stat-num">99<em>.9%</em></div><div class="stat-label">SLA garantido</div></div>
+      <div><div class="stat-num">2<em> DCs</em></div><div class="stat-label">Vinhedo · Osasco</div></div>
+      <div><div class="stat-num">24<em>/7</em></div><div class="stat-label">Suporte dedicado</div></div>
+      <div><div class="stat-num"><em>100%</em></div><div class="stat-label">Dados no Brasil, sempre</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="svc-header fade-in">
+    <div>
+      <span class="s-label">O que oferecemos</span>
+      <h2 class="s-title">O que a Alliant<br>entrega para você.</h2>
+    </div>
+    <p class="s-body">Cada negócio tem uma necessidade diferente. Por isso oferecemos três soluções que funcionam juntas ou separadas — e crescem conforme sua operação cresce.</p>
+  </div>
+  <div class="svc-grid fade-in">
+
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="5" rx="1"/><rect x="2" y="10" width="20" height="5" rx="1"/><rect x="2" y="17" width="20" height="5" rx="1"/></svg></div>
+      <div class="svc-tag">Nuvem Privada</div>
+      <h3 class="svc-title">Private Cloud</h3>
+      <p class="svc-desc">Servidores, armazenamento e rede exclusivos para sua empresa — sem dividir recursos com ninguém. Você tem previsibilidade de custo, desempenho consistente e controle total sobre o ambiente.</p>
+      <ul class="svc-feats">
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Servidores virtuais prontos em minutos</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Armazenamento escalável e redundante</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Rede isolada e protegida</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Backup automático com recuperação garantida</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>99,9% de disponibilidade com SLA contratual</li>
+      </ul>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><polygon points="12,2 22,8.5 22,15.5 12,22 2,15.5 2,8.5"/><circle cx="12" cy="12" r="3"/></svg></div>
+      <div class="svc-tag">Containers</div>
+      <h3 class="svc-title">Kubernetes Gerenciado</h3>
+      <p class="svc-desc">Rode seus sistemas modernos em containers sem precisar de um time especializado em infraestrutura. A Alliant cuida de toda a plataforma para que seu time foque apenas no produto.</p>
+      <ul class="svc-feats">
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Ambiente pronto em minutos, sem configuração manual</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Escala automática conforme a demanda</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Acesso seguro com HTTPS automático</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Monitoramento e alertas incluídos</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Atualizações sem interrupção do serviço</li>
+      </ul>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h4M18 12h4M12 2v4M12 18v4"/></svg></div>
+      <div class="svc-tag">Conectividade</div>
+      <h3 class="svc-title">Conectividade &amp; Segurança</h3>
+      <p class="svc-desc">Conecte sua empresa à nuvem Alliant de forma segura e rápida — seja do escritório, da fábrica ou de qualquer filial. Sua equipe acessa tudo como se estivesse dentro da empresa.</p>
+      <ul class="svc-feats">
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Conexão exclusiva e de alta velocidade</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Acesso remoto seguro para toda a equipe</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Proteção contra ameaças gerenciada 24/7</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Bloqueio de ataques automático</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Time de rede monitorando sempre</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<section id="why">
+  <div class="why-grid">
+    <div class="why-nums fade-in">
+      <div class="why-num-item"><div class="wn-val">99.9%</div><div class="wn-lbl">Disponibilidade garantida em contrato</div></div>
+      <div class="why-num-item"><div class="wn-val">2</div><div class="wn-lbl">Data centers próprios em SP</div></div>
+      <div class="why-num-item"><div class="wn-val">&lt;5ms</div><div class="wn-lbl">Latência entre Vinhedo e Osasco</div></div>
+      <div class="why-num-item"><div class="wn-val">100%</div><div class="wn-lbl">Sem contrato de lock-in com fabricante</div></div>
+    </div>
+    <div class="fade-in">
+      <span class="s-label">Por que Alliant</span>
+      <h2 class="s-title">Sua operação não pode<br>depender do improviso.</h2>
+      <p class="s-body">Clouds públicas são ótimas para muita coisa — mas quando o assunto é segurança, compliance, latência e custos previsíveis, nada substitui uma infraestrutura dedicada ao seu negócio.</p>
+      <div class="why-pts">
+        <div class="why-pt">
+          <div class="wpt-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div><div class="wpt-title">Seus dados nunca saem do Brasil</div><p class="wpt-desc">Dois data centers em São Paulo — Vinhedo e Osasco. Conformidade com LGPD por padrão, sem precisar pedir.</p></div>
+        </div>
+        <div class="why-pt">
+          <div class="wpt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div><div class="wpt-title">Gente de verdade para te atender</div><p class="wpt-desc">Nosso time atende em português, conhece seu ambiente e responde em até 30 minutos em casos críticos. Sem chatbot, sem fila de ticket internacional.</p></div>
+        </div>
+        <div class="why-pt">
+          <div class="wpt-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div><div class="wpt-title">Sem surpresas na fatura</div><p class="wpt-desc">Preço fixo mensal, sem cobrança por tráfego, por API call ou por recurso surpresa. Você sabe exatamente o que vai pagar no fim do mês.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="partners">
+  <div class="part-lbl fade-in">Ecossistema de parceiros tecnológicos</div>
+  <div class="part-grid fade-in">
+
+    <div class="part-chip">
+      <svg viewBox="0 0 24 24" class="part-svg"><path d="M12.0069 24h-.3572l2.459-6.7453h3.3796c.5907 0 1.2364-.4533 1.4424-1.0166l2.6652-7.3085c.4396-1.1952-.2473-2.1706-1.525-2.1706h-4.6983l-3.929 10.798-2.2255 6.127C3.929 22.434 0 17.6806 0 12.007 0 6.498 3.7092 1.8546 8.7647.4396L6.4705 6.759 2.6514 17.2547h2.5415L8.4488 8.339h1.9095l-3.2558 8.9158H9.644l3.0223-8.3251c.4396-1.1952-.2473-2.1706-1.525-2.1706h-2.143l2.459-6.7453C11.636 0 11.8145 0 11.9931 0 18.6285 0 24 5.3715 24 12.007c.0137 6.6216-5.3578 11.993-11.9931 11.993zM19.2742 8.325h-1.9096l-2.6789 7.336h1.9096l2.6789-7.336z"/></svg>
+      <span>HPE</span>
+    </div>
+
+    <div class="part-chip">
+      <svg viewBox="0 0 24 24" class="part-svg"><path d="M17.963 14.6V9.324h1.222v4.204h2.14v1.07h-3.362zm-9.784-3.288l2.98-2.292c.281.228.56.458.841.687l-2.827 2.14.611.535 2.827-2.216c.281.228.56.458.841.688a295.83 295.83 0 0 1-2.827 2.216l.61.536 2.83-2.295-.001-1.986h1.223v4.204h2.216v1.07h-3.362v-1.987c-.995.763-1.987 1.529-2.981 2.292l-2.981-2.292c-.144.729-.653 1.36-1.312 1.694-.285.147-.597.24-.915.276-.183.022-.367.017-.551.017H3.516V9.325H5.69a2.544 2.544 0 0 1 1.563.557c.454.36.778.872.927 1.43m-3.516-.917v3.21l.953-.001a1.377 1.377 0 0 0 1.036-.523 1.74 1.74 0 0 0 .182-1.889 1.494 1.494 0 0 0-.976-.766c-.166-.04-.338-.03-.507-.032h-.688zM11.82 0h.337a11.94 11.94 0 0 1 5.405 1.373 12.101 12.101 0 0 1 4.126 3.557A11.93 11.93 0 0 1 24 11.82v.36a11.963 11.963 0 0 1-3.236 8.033A11.967 11.967 0 0 1 12.182 24h-.361a11.993 11.993 0 0 1-4.145-.806 12.04 12.04 0 0 1-4.274-2.836A12.057 12.057 0 0 1 .576 15.67 12.006 12.006 0 0 1 0 12.181v-.361a11.924 11.924 0 0 1 1.992-6.396 12.211 12.211 0 0 1 4.71-4.172A11.875 11.875 0 0 1 11.82 0m-.153 1.23a10.724 10.724 0 0 0-6.43 2.375 10.78 10.78 0 0 0-3.319 4.573 10.858 10.858 0 0 0 .193 8.12 10.788 10.788 0 0 0 3.546 4.421 10.698 10.698 0 0 0 4.786 1.946c1.456.209 2.955.124 4.376-.26a10.756 10.756 0 0 0 5.075-3.062 10.742 10.742 0 0 0 2.686-5.28 10.915 10.915 0 0 0-.122-4.682 10.77 10.77 0 0 0-7.098-7.626 10.78 10.78 0 0 0-3.693-.525z"/></svg>
+      <span>Dell Technologies</span>
+    </div>
+
+    <div class="part-chip">
+      <svg viewBox="0 0 24 24" class="part-svg" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="1"/><rect x="2" y="14" width="20" height="8" rx="1"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+      <span>Ascenty</span>
+    </div>
+
+    <div class="part-chip">
+      <svg viewBox="0 0 24 24" class="part-svg"><path d="M18.575 9.29h5.418v5.42h-5.418zM0 9.29h5.419v5.42H0zm18.575 7.827a1.207 1.207 0 0 1-1.206 1.206H6.623a1.207 1.207 0 0 1-1.205-1.206v-.858H0v5.252a2.236 2.236 0 0 0 2.229 2.23h19.53A2.237 2.237 0 0 0 24 21.512V16.26h-5.425zM21.763.258H2.233a2.236 2.236 0 0 0-2.23 2.23V7.74h5.419v-.858a1.206 1.206 0 0 1 1.205-1.206h10.746a1.206 1.206 0 0 1 1.205 1.206v.858H24V2.487A2.237 2.237 0 0 0 21.763.258Z"/></svg>
+      <span>OpenStack</span>
+    </div>
+
+    <div class="part-chip">
+      <svg viewBox="0 0 24 24" class="part-svg"><path d="M17.61.455a3.41 3.41 0 0 0-3.41 3.41 3.41 3.41 0 0 0 3.41 3.41 3.41 3.41 0 0 0 3.41-3.41 3.41 3.41 0 0 0-3.41-3.41zM12.92.8C8.923.777 5.137 2.941 3.148 6.451a4.5 4.5 0 0 1 .26-.007 4.92 4.92 0 0 1 2.585.737A8.316 8.316 0 0 1 12.688 3.6 4.944 4.944 0 0 1 13.723.834 11.008 11.008 0 0 0 12.92.8zm9.226 4.994a4.915 4.915 0 0 1-1.918 2.246 8.36 8.36 0 0 1-.273 8.303 4.89 4.89 0 0 1 1.632 2.54 11.156 11.156 0 0 0 .559-13.089zM3.41 7.932A3.41 3.41 0 0 0 0 11.342a3.41 3.41 0 0 0 3.41 3.409 3.41 3.41 0 0 0 3.41-3.41 3.41 3.41 0 0 0-3.41-3.41zm2.027 7.866a4.908 4.908 0 0 1-2.915.358 11.1 11.1 0 0 0 7.991 6.698 11.234 11.234 0 0 0 2.422.249 4.879 4.879 0 0 1-.999-2.85 8.484 8.484 0 0 1-.836-.136 8.304 8.304 0 0 1-5.663-4.32zm11.405.928a3.41 3.41 0 0 0-3.41 3.41 3.41 3.41 0 0 0 3.41 3.41 3.41 3.41 0 0 0 3.41-3.41 3.41 3.41 0 0 0-3.41-3.41z"/></svg>
+      <span>Ubuntu</span>
+    </div>
+
+    <div class="part-chip">
+      <!-- Check Point: shield icon, no public Simple Icon -->
+      <svg viewBox="0 0 24 24" class="part-svg"><path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V6L12 2zm0 4l5 2.18V12c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V8.18L12 6z"/></svg>
+      <span>Check Point</span>
+    </div>
+
+    <div class="part-chip">
+      <!-- Microsoft four-square logo -->
+      <svg viewBox="0 0 24 24" class="part-svg"><path d="M11.4 11.4H0V0h11.4v11.4zm12.6 0H12.6V0H24v11.4zM11.4 24H0V12.6h11.4V24zm12.6 0H12.6V12.6H24V24z"/></svg>
+      <span>Microsoft</span>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="ct-grid">
+    <div class="fade-in">
+      <span class="s-label">Contato</span>
+      <h2 class="s-title">Vamos conversar<br>sobre o seu negócio.</h2>
+      <p class="s-body">Conte para a gente o que você precisa. Nossa equipe analisa sua operação e apresenta uma proposta clara — sem enrolação e sem compromisso.</p>
+      <div class="ct-items">
+        <div class="ct-item">
+          <div class="ct-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="ct-lbl">Endereço</div><div class="ct-val">Rua das Indústrias, 1478 — Sala 02<br>Distrito Industrial · Cascavel, PR<br>85.818-116 · Brasil</div></div>
+        </div>
+        <div class="ct-item">
+          <div class="ct-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><div class="ct-lbl">Telefone / WhatsApp</div><div class="ct-val"><a href="https://wa.me/5508000200030">0800 020 0030</a></div></div>
+        </div>
+        <div class="ct-item">
+          <div class="ct-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="ct-lbl">E-mail</div><div class="ct-val"><a href="mailto:alliant@alliant.com.br">alliant@alliant.com.br</a></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-in">
+      <div class="cta-box">
+        <h3>Fale agora com a nossa equipe</h3>
+        <p>Preferimos uma conversa direta. Escolha como quer falar com a gente:</p>
+        <div class="cta-links">
+          <a href="https://wa.me/5508000200030" class="cta-lnk">
+            <div class="cta-lnk-icon" style="background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.25)">
+              <svg viewBox="0 0 24 24" stroke="rgb(37,211,102)" fill="none" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <div><div class="cta-lnk-main">WhatsApp</div><div class="cta-lnk-sub">0800 020 0030 · resposta imediata</div></div>
+            <span class="cta-arr">→</span>
+          </a>
+          <a href="mailto:alliant@alliant.com.br" class="cta-lnk">
+            <div class="cta-lnk-icon" style="background:rgba(29,106,255,.12);border:1px solid rgba(29,106,255,.25)">
+              <svg viewBox="0 0 24 24" stroke="#3d8bff" fill="none" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div><div class="cta-lnk-main">E-mail</div><div class="cta-lnk-sub">alliant@alliant.com.br</div></div>
+            <span class="cta-arr">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">Alliant<span>.</span></div>
+  <div class="f-copy">© 2025 Alliant Cloud · Cascavel, PR · Brasil</div>
+  <div class="f-links">
+    <a href="#services">Soluções</a>
+    <a href="#contact">Contato</a>
+    <a href="mailto:alliant@alliant.com.br">E-mail</a>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)} }), {threshold:0.1});
+document.querySelectorAll('.fade-in:not(.visible)').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
