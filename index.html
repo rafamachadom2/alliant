@@ -8,11 +8,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Cabinet+Grotesk:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0a0f1e;--navy-mid:#0f172a;--blue:#1d6aff;--blue-bright:#3d8bff;--cyan:#00c2e0;--cyan-dim:rgba(0,194,224,0.1);--steel:#8ba3c4;--white:#f0f4ff;--white-dim:rgba(240,244,255,0.6);--border:rgba(139,163,196,0.18);--border-bright:rgba(0,194,224,0.35)}
+:root{--navy:#f5f0e8;--navy-mid:#ede8df;--blue:#1d6aff;--blue-bright:#3d8bff;--cyan:#1a6aff;--cyan-dim:rgba(26,106,255,0.08);--steel:#6b5f52;--white:#1a1612;--white-dim:rgba(26,22,18,0.6);--border:rgba(107,95,82,0.16);--border-bright:rgba(26,106,255,0.25)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:"DM Sans",sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;min-height:100vh}
-body::after{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(139,163,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(139,163,196,0.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%);pointer-events:none;z-index:0}
+body{font-family:"DM Sans",sans-serif;background:#f5f0e8;color:#1a1612;overflow-x:hidden;min-height:100vh}
+body::after{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(107,95,82,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(107,95,82,0.07) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%);pointer-events:none;z-index:0}
 .page{position:relative;z-index:1;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;}
 nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6%;}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
@@ -23,25 +23,27 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 .hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:60px 6% 80px;}
 .hero-left{}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--cyan-dim);border:1px solid var(--border-bright);color:var(--cyan);padding:5px 14px;border-radius:100px;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;margin-bottom:28px}
-.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 2s infinite;flex-shrink:0}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse 2s infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(36px,4.5vw,68px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:12px}
-.accent{background:linear-gradient(135deg,var(--blue-bright),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.accent{background:linear-gradient(135deg,#1d6aff,#6637e8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-tagline{font-family:"Syne",sans-serif;font-size:clamp(13px,1.2vw,16px);font-weight:400;color:var(--steel);font-style:italic;margin-bottom:28px;letter-spacing:.2px}
 .hero-sub{font-size:16px;color:var(--steel);line-height:1.7;font-weight:300;max-width:480px;margin-bottom:40px}
 .hero-actions{display:flex;flex-direction:column;gap:12px}
 .btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;width:fit-content}
 .btn-p:hover{background:var(--blue-bright);transform:translateY(-1px)}
-.btn-w{display:inline-flex;align-items:center;gap:8px;background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.25);color:rgb(37,211,102);padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;width:fit-content}
-.btn-w:hover{background:rgba(37,211,102,.15)}
+.btn-w{display:inline-flex;align-items:center;gap:8px;background:rgba(37,180,90,.08);border:1px solid rgba(37,180,90,.3);color:rgb(20,140,70);padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;width:fit-content}
+.btn-w:hover{background:rgba(37,180,90,.15)}
 .btn-p svg,.btn-w svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
 .cta-note{font-size:12px;color:var(--steel);margin-top:8px;letter-spacing:.3px}
 .hero-right{display:flex;align-items:center;justify-content:center}
 #asciiCanvas{display:block;width:100%;max-width:600px;opacity:.9}
 .divider{border:none;border-top:1px solid var(--border);margin:0 6%}
+.cred-strip{padding:28px 6%;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--navy-mid)}
+.cred-line{font-family:"Syne",sans-serif;font-size:clamp(14px,1.3vw,17px);font-weight:600;color:var(--white);letter-spacing:-.2px;opacity:.85;line-height:1.5}
 .about{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin:60px 6%;border:1px solid var(--border);border-radius:16px;overflow:hidden}
 .about-item{background:var(--navy-mid);padding:36px 32px}
-.about-item:hover{background:#131e33}
+.about-item:hover{background:#e5dfd4}
 .about-icon{width:40px;height:40px;border-radius:8px;background:var(--cyan-dim);border:1px solid var(--border-bright);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
 .about-icon svg{width:18px;height:18px;stroke:var(--cyan);fill:none;stroke-width:1.5}
 .about-title{font-family:"Syne",sans-serif;font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px}
@@ -50,15 +52,15 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(36px,4.5vw,68px);fon
 .partners-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--steel);margin-bottom:28px}
 .partners-row{display:flex;flex-wrap:wrap;gap:10px}
 .p-chip{display:flex;align-items:center;gap:8px;background:var(--navy-mid);border:1px solid var(--border);border-radius:8px;padding:9px 18px;font-size:12px;font-weight:500;color:var(--steel);transition:all .2s}
-.p-chip:hover{border-color:rgba(0,194,224,.4);color:var(--white)}
+.p-chip:hover{border-color:rgba(26,106,255,.35);color:#1a1612}
 .p-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0}
 footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .f-copy{font-size:12px;color:var(--steel)}
 .f-links{display:flex;gap:24px}
 .f-links a{font-size:12px;color:var(--steel);text-decoration:none;transition:color .2s}
 .f-links a:hover{color:var(--white)}
-.glow1{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(29,106,255,.12) 0%,transparent 70%);top:-100px;right:-100px;pointer-events:none;z-index:0}
-.glow2{position:fixed;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,194,224,.08) 0%,transparent 70%);bottom:0;left:-50px;pointer-events:none;z-index:0}
+.glow1{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(180,140,80,.1) 0%,transparent 70%);top:-100px;right:-100px;pointer-events:none;z-index:0}
+.glow2{position:fixed;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(180,140,80,.07) 0%,transparent 70%);bottom:0;left:-50px;pointer-events:none;z-index:0}
 @keyframes cloudFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 #asciiCanvas{opacity:.95}
 @media(max-width:800px){.hero{grid-template-columns:1fr;gap:40px}.hero-right{display:none}.about{grid-template-columns:1fr}footer{flex-direction:column;text-align:center}}
@@ -70,7 +72,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 <div class="page">
 <nav>
   <a href="#" class="nav-logo">
-    <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" height="32" viewBox="0 0 15463.28 3759.31" style="fill:#ffffff;display:block">
+    <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" height="32" viewBox="0 0 15463.28 3759.31" style="fill:#1a1612;display:block">
  <path d="M2569.5 754.47c54.02,-73.38 -69.45,-36.69 84.88,-73.38l7.72 3026.97 802.49 0 0 -3656.83c-1543.25,0 -1396.64,-177.33 -1921.34,801.08l-1543.25 2880.21 2268.57 -12.23 -15.44 -819.43 -841.07 -6.11 1157.43 -2140.28z"/>
  <path d="M8464.68 2148.71c0,-305.76 23.15,-336.33 324.08,-336.33 887.36,0 740.76,-12.24 740.76,813.31 0,360.79 0,727.7 0,1088.49l825.63 6.11 0 -1962.95c0,-587.04 -208.35,-776.62 -787.06,-776.62 -1412.06,0 -1952.19,-189.57 -1952.19,776.62 0,1326.98 -185.19,1956.84 779.33,1962.95l763.91 -18.35 0 -801.08 -663.6 -42.81 -30.86 -709.35z"/>
  <path d="M11620.62 2148.71c0,-317.99 15.43,-336.33 331.79,-336.33 655.88,0 733.04,-61.16 733.04,336.33l0 1571.58c270.07,0 547.85,18.34 817.91,-24.46 0,-587.04 0,-1174.1 0,-1767.26 0,-660.44 -61.73,-947.85 -763.9,-947.85 -1682.14,0 -1952.2,-171.22 -1944.48,996.76 0,574.82 0,1155.75 0,1730.57l825.63 12.24 0 -1571.58z"/>
@@ -105,9 +107,13 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
     </div>
   </div>
   <div class="hero-right">
-    <canvas id="asciiCanvas" width="1400" height="660" aria-hidden="true"></canvas>
+    <canvas id="asciiCanvas" width="1600" height="800" aria-hidden="true"></canvas>
   </div>
 </section>
+<div class="cred-strip">
+  <span class="cred-line">Com mais de 18 anos construindo infraestrutura crítica, estamos levando a sério a criação da nuvem privada que o Brasil merece.</span>
+</div>
+
 <div class="about">
   <div class="about-item">
     <div class="about-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
@@ -152,65 +158,71 @@ var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInte
 document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.observe(el);});
 
 (function(){
-  var canvas = document.getElementById("asciiCanvas");
-  if(!canvas) return;
-  var ctx = canvas.getContext("2d");
-  var W = canvas.width, H = canvas.height;
-  var clientIp="?.?.?.?", clientLat="...", dlSpeed="...", distDC="...";
-  var cloudFrames = [["   .-~~~~-.            .-~~~~-.   "," .-'       '-.       .-'       '-.","(-  -  -  -  -)     (-  -  -  -  -)"," '-.       .-'       '-.       .-'","   '-~~~~-'            '-~~~~-'   "],["   .-~~~~~-.           .-~~~~~-.  "," .-'        '-.      .-'        '-.","(   ~  ~  ~   )    (   ~  ~  ~   )"," '-.        .-'      '-.        .-'","   '-~~~~~-'           '-~~~~~-'  "],["   .-~~~~~~-.          .-~~~~~~-. "," .-'         '-.     .-'         '-.","(  . . . . . .  )  (  . . . . . .  )"," '-.         .-'     '-.         .-'","   '-~~~~~~-'          '-~~~~~~-'  "]];
-  var dcRows = ["( .--------. )      ( .--------. )                          ","( | DC-SP1 | )=====( | DC-SP2 | )            .----------. ","( | [====] | ) ipsec( | [====] | )  =======> |  OFFICE  | ","( '--------' )=====( '--------' )  secured   |   you    | ","                                              '----------' "];
-  var rawLines = [">> IP..........: CLIENT_IP",">> RTT.........: LAT_MS ms",">> LINK........: DL_SPEED Mbps",">> TUNNEL......: IPSEC AES-256-GCM",">> SITES.......: DC-SP1 / DC-SP2",">> DIST.DC.....: DIST_DC km from DC-SP1",">> COMPLIANCE..: LGPD OK",">> STATUS......: protected"];
+  var canvas=document.getElementById("asciiCanvas");
+  if(!canvas)return;
+  var ctx=canvas.getContext("2d");
+  var W=canvas.width,H=canvas.height;
+  var clientIp="?.?.?.?",clientLat="...",dlSpeed="...",distDC="...";
+  var cloudFrames=[["      .-~~~~~~~~~-.","   .-'             '-.","  /   ~  ~  ~  ~  ~  \\"," |   ~  ~  ~  ~  ~    |","  '-.               .-'","     '-~~~~~~~~~~~-'"],["      .-~~~~~~~~~~-.","   .-'              '-.","  /  ~ ~  ~ ~  ~ ~  ~ \\"," |  ~ ~  ~ ~  ~ ~  ~   |","  '-.                .-'","     '-~~~~~~~~~~~~-'"],["      .-~~~~~~~~~~~-.","   .-'               '-.","  /  ~  ~ ~  ~ ~  ~  ~ \\"," |  ~  ~ ~  ~ ~  ~  ~   |","  '-.                 .-'","     '-~~~~~~~~~~~~~-'"],["      .-~~~~~~~~~~-.","   .-'   . . . . .  '-.","  /   . . . . . . . .  \\"," |   . . . . . . . . .  |","  '-.   . . . . . .  .-'","     '-~~~~~~~~~~~~-'"]];
+  var dcRows=["  .----------.     .----------.                             ","  | DC-SP1   |=====| DC-SP2   |             .----------.  ","  | [======] | ipsec| [======] |  ========> |  OFFICE  |  ","  '----------'====='-----------'  secured   |   you    |  ","                                            '----------'  "];
+  var rawLines=[">> IP..........: CLIENT_IP",">> RTT.........: LAT_MS ms",">> LINK........: DL_SPEED Mbps",">> DIST.DC.....: DIST_DC km from DC-SP1",">> TUNNEL......: IPSEC AES-256-GCM",">> SITES.......: DC-SP1 / DC-SP2",">> COMPLIANCE..: LGPD OK",">> STATUS......: protected"];
+  var typedLines=[],typing=false,lineIdx=0,charIdx=0;
+  var currentCloud=cloudFrames[0].slice();
+  var nextCloudIdx=1,morphing=false;
+  var glyphs=".-~=+";
+
+  function getLines(){
+    return rawLines.map(function(l){
+      return l.replace(/CLIENT_IP/g,clientIp).replace(/LAT_MS/g,clientLat).replace(/DL_SPEED/g,dlSpeed).replace(/DIST_DC/g,distDC);
+    });
+  }
 
   function drawScene(cloudRows){
     ctx.clearRect(0,0,W,H);
-    ctx.font = "22px \"Courier New\"";
-    var lh = 34;
-    // clouds
+    ctx.font="28px \"Courier New\"";
+    var lh=42;
     cloudRows.forEach(function(row,i){
-      ctx.shadowBlur=6; ctx.shadowColor="rgba(0,194,224,0.2)";
-      ctx.fillStyle="rgba(0,194,224,0.38)";
-      ctx.fillText(row, 6, 28+i*lh);
+      ctx.shadowBlur=0;ctx.shadowColor="rgba(0,0,0,0)";
+      ctx.fillStyle="rgba(15,20,35,0.9)";
+      ctx.fillText(row,6,28+i*lh);
     });
-    // DCs
+    var dcY=28+cloudRows.length*lh+14;
     dcRows.forEach(function(row,i){
-      var isBright=/[=]{3,}|[>]{3,}/.test(row);
-      ctx.shadowBlur=isBright?18:5;
-      ctx.shadowColor=isBright?"rgba(0,194,224,0.8)":"rgba(0,194,224,0.3)";
-      ctx.fillStyle=isBright?"rgba(0,194,224,1)":"rgba(0,194,224,0.65)";
-      ctx.fillText(row, 6, 28+(cloudRows.length+i)*lh);
+      var bright=/[=]{3,}|[>]{3,}/.test(row);
+      ctx.shadowBlur=0;
+      ctx.shadowColor="rgba(0,0,0,0)";
+      ctx.fillStyle=bright?"rgba(15,20,35,1)":"rgba(15,20,35,0.75)";
+      ctx.fillText(row,6,dcY+i*lh);
     });
-    // typed lines
-    ctx.font = "bold 18px \"Courier New\"";
-    var tyY = 28+(cloudRows.length+dcRows.length)*lh+20;
-    ctx.shadowBlur=12; ctx.shadowColor="rgba(0,255,140,0.5)";
-    ctx.fillStyle="rgba(0,255,140,0.9)";
-    // divider
-    ctx.shadowBlur=0; ctx.fillStyle="rgba(0,194,224,0.15)";
-    ctx.fillRect(0, tyY-14, W, 1);
-    ctx.shadowBlur=12; ctx.shadowColor="rgba(0,255,140,0.5)";
-    ctx.fillStyle="rgba(0,255,140,0.9)";
+    ctx.font="bold 20px \"Courier New\"";
+    var tyY=dcY+dcRows.length*lh+18;
+    ctx.shadowBlur=0;ctx.fillStyle="rgba(15,20,35,0.15)";
+    ctx.fillRect(0,tyY-14,W,1);
+    ctx.shadowBlur=0;ctx.shadowColor="rgba(0,0,0,0)";
+    ctx.fillStyle="rgba(15,20,35,0.88)";
     typedLines.forEach(function(line,i){
-      ctx.fillText(line, 10, tyY+i*28);
+      ctx.fillText(line,10,tyY+i*32);
     });
-    // cursor on last line if still typing
-    if(typing){
-      var cur = Date.now()%800 < 400 ? "_" : " ";
-      ctx.fillText(cur, 10+ctx.measureText(typedLines[typedLines.length-1]||"").width, tyY+(typedLines.length-1)*28);
+    if(typing&&typedLines.length>0){
+      var cur=Date.now()%700<350?"_":" ";
+      ctx.fillStyle="rgba(15,20,35,0.88)";ctx.fillText(cur,10+ctx.measureText(typedLines[typedLines.length-1]).width,tyY+(typedLines.length-1)*32);
     }
   }
 
-  var currentCloud = cloudFrames[0].slice();
-  var glyphs=".-~=+*";
-  function morphCloud(targetRows, onDone){
+  function startMorph(){
+    if(morphing)return;
+    morphing=true;
+    var target=cloudFrames[nextCloudIdx];
     var src=currentCloud.join("\n").split("");
-    var dst=targetRows.join("\n").split("");
+    var dst=target.join("\n").split("");
     var len=Math.max(src.length,dst.length);
     var pos=0;
     function tick(){
       if(pos>=len){
-        currentCloud=targetRows.slice();
-        drawScene(currentCloud);
-        if(onDone) onDone();
+        currentCloud=target.slice();
+        nextCloudIdx=(nextCloudIdx+1)%cloudFrames.length;
+        morphing=false;
+        setTimeout(startMorph,3200+Math.random()*800);
         return;
       }
       var out=[];
@@ -219,98 +231,51 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
         else if(i<pos+8){var ch=i<dst.length?dst[i]:" ";out.push(ch==="\n"?"\n":glyphs[Math.floor(Math.random()*glyphs.length)]);}
         else{out.push(i<src.length?src[i]:" ");}
       }
-      drawScene(out.join("").split("\n"));
-      pos+=6+Math.floor(Math.random()*4);
-      setTimeout(tick,18+Math.random()*12);
+      currentCloud=out.join("").split("\n");
+      pos+=5+Math.floor(Math.random()*4);
+      setTimeout(tick,20+Math.random()*14);
     }
     tick();
   }
-
-  var typedLines=[];
-  var typing=false;
-  var lineIdx=0, charIdx=0;
-
-  function getLines(){
-    return rawLines.map(function(l){
-      return l.replace(/CLIENT_IP/g,clientIp).replace(/LAT_MS/g,clientLat).replace(/DL_SPEED/g,dlSpeed).replace(/DIST_DC/g,distDC);
-    });
-  }
+  setTimeout(startMorph,2000);
 
   function startTyping(){
-    typing=true; lineIdx=0; charIdx=0; typedLines=[""];
+    typing=true;lineIdx=0;charIdx=0;typedLines=[""];
     typeNext();
   }
-
   function typeNext(){
     var lines=getLines();
     if(lineIdx>=lines.length){
       typing=false;
-      // restart after pause
-      setTimeout(function(){
-        typedLines=[]; charIdx=0; lineIdx=0;
-        setTimeout(startTyping, 400);
-      }, 6000);
+      setTimeout(function(){typedLines=[];charIdx=0;lineIdx=0;setTimeout(startTyping,400);},6000);
       return;
     }
     var line=lines[lineIdx];
     typedLines[lineIdx]=(typedLines[lineIdx]||"")+line[charIdx];
     charIdx++;
-    if(charIdx>=line.length){
-      lineIdx++; charIdx=0;
-      typedLines[lineIdx]="";
-      setTimeout(typeNext, 180+Math.random()*120);
-    } else {
-      setTimeout(typeNext, 28+Math.random()*18);
-    }
+    if(charIdx>=line.length){lineIdx++;charIdx=0;typedLines[lineIdx]="";setTimeout(typeNext,180+Math.random()*100);}
+    else{setTimeout(typeNext,26+Math.random()*16);}
   }
+  startTyping();
 
-  function loop(){
-    drawScene(currentCloud);
-    requestAnimationFrame(loop);
-  }
+  function loop(){drawScene(currentCloud);requestAnimationFrame(loop);}
   loop();
 
-  morphCloud(cloudFrames[1], function(){
-    morphCloud(cloudFrames[2], function(){
-      morphCloud(cloudFrames[0], function(){
-        startTyping();
-      });
-    });
-  });
-
-  var distDC = "...";
-  // LibreSpeed getIP.php returns IP + distance calculated server-side
-  fetch("http://200.170.174.97:8000/backend/getIP.php",{cache:"no-store",mode:"cors"})
+  fetch("https://api.ipify.org?format=json",{cache:"no-store"})
     .then(function(r){return r.json();})
     .then(function(d){
-      if(d.ip) clientIp=d.ip;
-      // processedString format: "1.2.3.4 - ISP - City - 123 km"
-      if(d.processedString){
-        var km=d.processedString.match(/(\d+)\s*km/i);
-        if(km) distDC=km[1];
-      }
-      // rawIspInfo may have distance directly
-      if(d.rawIspInfo && d.rawIspInfo.distance){
-        distDC=Math.round(d.rawIspInfo.distance);
+      clientIp=d.ip;
+      return fetch("https://ip-api.com/json/"+d.ip+"?fields=query,lat,lon",{cache:"no-store"});
+    })
+    .then(function(r){return r.json();})
+    .then(function(g){
+      if(g&&g.lat&&g.lon){
+        var R=6371,dLat=(g.lat+23.03)*Math.PI/180,dLon=(g.lon+46.97)*Math.PI/180;
+        var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(g.lat*Math.PI/180)*Math.cos(-23.03*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
+        distDC=Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
       }
     })
-    .catch(function(){
-      // fallback: ipify for IP, ip-api for coords -> haversine
-      fetch("https://api.ipify.org?format=json",{cache:"no-store"})
-        .then(function(r){return r.json();})
-        .then(function(d){
-          clientIp=d.ip;
-          return fetch("https://ip-api.com/json/"+d.ip+"?fields=lat,lon",{cache:"no-store"});
-        })
-        .then(function(r){return r.json();})
-        .then(function(g){
-          if(g&&g.lat&&g.lon){
-            var R=6371,dLat=(g.lat+23.03)*Math.PI/180,dLon=(g.lon+46.97)*Math.PI/180;
-            var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(g.lat*Math.PI/180)*Math.cos(-23.03*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
-            distDC=Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
-          }
-        }).catch(function(){});
-    });
+    .catch(function(){clientIp="177."+(100+Math.floor(Math.random()*50))+"."+(10+Math.floor(Math.random()*200))+"."+(10+Math.floor(Math.random()*200));});
 
   setTimeout(function(){
     var ep="http://200.170.174.97:8000/backend/empty.php";
