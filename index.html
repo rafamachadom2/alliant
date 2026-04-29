@@ -293,7 +293,7 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
 
   // RTT: empty.php no-cors (funciona cross-origin, mede tempo de ida e volta)
   setTimeout(function(){
-    var ep="http://200.170.174.97:8000/backend/empty.php";
+    var ep="https://io.alliant.com.br/backend/empty.php";
     var res=[],n=0;
     function ping(cb){
       var t0=performance.now();
@@ -316,7 +316,7 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
   // Speed: garbage.php no-cors, calcula pelo tempo
   setTimeout(function(){
     var t0=performance.now();
-    fetch("http://200.170.174.97:8000/backend/garbage.php?ckSize=4&_="+Date.now(),{cache:"no-store",mode:"no-cors"})
+    fetch("https://io.alliant.com.br/backend/garbage.php?ckSize=4&_="+Date.now(),{cache:"no-store",mode:"no-cors"})
       .then(function(){
         var dt=(performance.now()-t0)/1000;
         // 4MB * 8 bits / tempo = Mbps
