@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alliant — Infraestrutura Cloud para o Brasil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Cabinet+Grotesk:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a0f1e;--navy-mid:#0f172a;--blue:#1d6aff;--blue-bright:#3d8bff;--cyan:#00c2e0;--cyan-dim:rgba(0,194,224,0.1);--steel:#8ba3c4;--white:#f0f4ff;--white-dim:rgba(240,244,255,0.6);--border:rgba(139,163,196,0.18);--border-bright:rgba(0,194,224,0.35)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;min-height:100vh}
+body::after{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(139,163,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(139,163,196,0.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%);pointer-events:none;z-index:0}
+.page{position:relative;z-index:1;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6%;}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-svg{height:32px;fill:#ffffff}
+.nav-contact{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--steel);font-size:14px;transition:color .2s}
+.nav-contact:hover{color:var(--white)}
+.nav-contact svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:60px 6% 80px;}
+.hero-left{}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--cyan-dim);border:1px solid var(--border-bright);color:var(--cyan);padding:5px 14px;border-radius:100px;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;margin-bottom:28px}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(36px,4.5vw,68px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:12px}
+.accent{background:linear-gradient(135deg,var(--blue-bright),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-tagline{font-family:"Syne",sans-serif;font-size:clamp(13px,1.2vw,16px);font-weight:400;color:var(--steel);font-style:italic;margin-bottom:28px;letter-spacing:.2px}
+.hero-sub{font-size:16px;color:var(--steel);line-height:1.7;font-weight:300;max-width:480px;margin-bottom:40px}
+.hero-actions{display:flex;flex-direction:column;gap:12px}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;width:fit-content}
+.btn-p:hover{background:var(--blue-bright);transform:translateY(-1px)}
+.btn-w{display:inline-flex;align-items:center;gap:8px;background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.25);color:rgb(37,211,102);padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;width:fit-content}
+.btn-w:hover{background:rgba(37,211,102,.15)}
+.btn-p svg,.btn-w svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.cta-note{font-size:12px;color:var(--steel);margin-top:8px;letter-spacing:.3px}
+.hero-right{display:flex;align-items:center;justify-content:center}
+#asciiCanvas{display:block;width:100%;max-width:600px;opacity:.9}
+.divider{border:none;border-top:1px solid var(--border);margin:0 6%}
+.about{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin:60px 6%;border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.about-item{background:var(--navy-mid);padding:36px 32px}
+.about-item:hover{background:#131e33}
+.about-icon{width:40px;height:40px;border-radius:8px;background:var(--cyan-dim);border:1px solid var(--border-bright);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.about-icon svg{width:18px;height:18px;stroke:var(--cyan);fill:none;stroke-width:1.5}
+.about-title{font-family:"Syne",sans-serif;font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px}
+.about-desc{font-size:13px;color:var(--steel);line-height:1.65;font-weight:300}
+.partners{padding:48px 6%;border-top:1px solid var(--border)}
+.partners-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--steel);margin-bottom:28px}
+.partners-row{display:flex;flex-wrap:wrap;gap:10px}
+.p-chip{display:flex;align-items:center;gap:8px;background:var(--navy-mid);border:1px solid var(--border);border-radius:8px;padding:9px 18px;font-size:12px;font-weight:500;color:var(--steel);transition:all .2s}
+.p-chip:hover{border-color:rgba(0,194,224,.4);color:var(--white)}
+.p-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0}
+footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:12px;color:var(--steel)}
+.f-links{display:flex;gap:24px}
+.f-links a{font-size:12px;color:var(--steel);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--white)}
+.glow1{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(29,106,255,.12) 0%,transparent 70%);top:-100px;right:-100px;pointer-events:none;z-index:0}
+.glow2{position:fixed;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,194,224,.08) 0%,transparent 70%);bottom:0;left:-50px;pointer-events:none;z-index:0}
+@keyframes cloudFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+#asciiCanvas{animation:cloudFloat 8s ease-in-out infinite}
+@media(max-width:800px){.hero{grid-template-columns:1fr;gap:40px}.hero-right{display:none}.about{grid-template-columns:1fr}footer{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+<div class="glow1"></div>
+<div class="glow2"></div>
+<div class="page">
+<nav>
+  <a href="#" class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" height="32" viewBox="0 0 15463.28 3759.31" style="fill:#ffffff;display:block">
+ <path d="M2569.5 754.47c54.02,-73.38 -69.45,-36.69 84.88,-73.38l7.72 3026.97 802.49 0 0 -3656.83c-1543.25,0 -1396.64,-177.33 -1921.34,801.08l-1543.25 2880.21 2268.57 -12.23 -15.44 -819.43 -841.07 -6.11 1157.43 -2140.28z"/>
+ <path d="M8464.68 2148.71c0,-305.76 23.15,-336.33 324.08,-336.33 887.36,0 740.76,-12.24 740.76,813.31 0,360.79 0,727.7 0,1088.49l825.63 6.11 0 -1962.95c0,-587.04 -208.35,-776.62 -787.06,-776.62 -1412.06,0 -1952.19,-189.57 -1952.19,776.62 0,1326.98 -185.19,1956.84 779.33,1962.95l763.91 -18.35 0 -801.08 -663.6 -42.81 -30.86 -709.35z"/>
+ <path d="M11620.62 2148.71c0,-317.99 15.43,-336.33 331.79,-336.33 655.88,0 733.04,-61.16 733.04,336.33l0 1571.58c270.07,0 547.85,18.34 817.91,-24.46 0,-587.04 0,-1174.1 0,-1767.26 0,-660.44 -61.73,-947.85 -763.9,-947.85 -1682.14,0 -1952.2,-171.22 -1944.48,996.76 0,574.82 0,1155.75 0,1730.57l825.63 12.24 0 -1571.58z"/>
+ <path d="M15447.86 2906.99c-748.48,-122.3 -725.32,366.91 -709.9,-1143.53l725.32 -18.34 0 -727.7 -725.32 -6.11 -7.71 -898.92 -817.92 0c-30.86,856.11 -7.72,1742.8 -7.72,2598.92 0,464.74 -23.15,807.19 354.95,953.95 208.34,79.5 964.52,79.5 1196,30.58l-7.71 -788.84z"/>
+ <polygon points="3904.4,3720.3 4575.72,3726.41 4730.04,3695.83 4730.04,75.7 4575.72,57.35 3904.4,57.35 "/>
+ <polygon points="5162.15,3720.3 5833.46,3726.41 5987.79,3695.83 5987.79,75.7 5833.46,57.35 5162.15,57.35 "/>
+ <polygon points="6412.17,3714.18 7245.53,3720.3 7245.53,925.7 6574.21,919.58 6412.17,944.04 "/>
+ <path d="M7176.08 63.46c-108.03,-67.26 -578.72,-97.84 -702.18,-6.11 -100.31,79.5 -69.45,452.53 -15.43,599.28 208.34,55.03 571,61.16 733.03,-12.23 69.45,-67.27 69.45,-354.68 30.86,-483.09 -23.15,-85.61 -7.71,-55.03 -46.29,-97.85z"/>
+</svg>
+  </a>
+  <a href="mailto:alliant@alliant.com.br" class="nav-contact">
+    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    alliant@alliant.com.br
+  </a>
+</nav>
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge"><span class="badge-dot"></span>Infraestrutura Exclusiva (IaaS)</div>
+    <h1>Onde cada milissegundo<br><span class="accent">faz a diferença.</span></h1>
+    <p class="hero-tagline">Infraestrutura cloud privada para empresas brasileiras.</p>
+    <p class="hero-sub">Estamos construindo uma plataforma de cloud privada dedicada — com dados 100% no Brasil, suporte humano e sem as surpresas das clouds públicas.</p>
+    <div class="hero-actions">
+      <a href="mailto:alliant@alliant.com.br?subject=Contato%20Alliant" class="btn-p">
+        Fale com a gente
+        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+      <a href="https://wa.me/5508000200030" class="btn-w">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        WhatsApp 0800 020 0030
+      </a>
+      <span class="cta-note">Atendimento em horário comercial · Remote-first · Brasil</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <canvas id="asciiCanvas" width="1200" height="560" aria-hidden="true"></canvas>
+  </div>
+</section>
+<div class="about">
+  <div class="about-item">
+    <div class="about-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <div class="about-title">Dados 100% no Brasil</div>
+    <div class="about-desc">Dois sites em São Paulo separados por +60km. Conformidade com LGPD por arquitetura, sem configuração adicional.</div>
+  </div>
+  <div class="about-item">
+    <div class="about-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+    <div class="about-title">Suporte em português</div>
+    <div class="about-desc">Engenheiros distribuídos em todo o Brasil. Time remoto-first que conhece seu ambiente e responde de verdade.</div>
+  </div>
+  <div class="about-item">
+    <div class="about-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+    <div class="about-title">Sem surpresas na fatura</div>
+    <div class="about-desc">Ao contrário de clouds públicas, não cobramos por tráfego, IOPS ou chamadas de API. Preço fixo, todo mês.</div>
+  </div>
+</div>
+<div class="partners">
+  <div class="partners-label">Ecossistema de parceiros</div>
+  <div class="partners-row">
+    <div class="p-chip"><span class="p-dot"></span>HPE</div>
+    <div class="p-chip"><span class="p-dot"></span>Dell Technologies</div>
+    <div class="p-chip"><span class="p-dot"></span>Ascenty</div>
+    <div class="p-chip"><span class="p-dot"></span>OpenStack Foundation</div>
+    <div class="p-chip"><span class="p-dot"></span>Ubuntu / Canonical</div>
+    <div class="p-chip"><span class="p-dot"></span>Check Point</div>
+    <div class="p-chip"><span class="p-dot"></span>Microsoft</div>
+  </div>
+</div>
+<footer>
+  <div class="f-copy">© 2026 · Alliant Tecnologia Ltda · Remote-first · Brasil</div>
+  <div class="f-links">
+    <a href="mailto:alliant@alliant.com.br">E-mail</a>
+    <a href="https://wa.me/5508000200030">WhatsApp</a>
+  </div>
+</footer>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+// -- SCROLL FADE-IN
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});},{threshold:0.1});
+document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.observe(el);});
+
+(function(){
+  var canvas = document.getElementById("asciiCanvas");
+  if (!canvas) return;
+  var ctx = canvas.getContext("2d");
+  var clientIp = "?.?.?.?";
+  var clientLat = "...";
+  var rawFrames = ["   .-~~~~-.              .-~~~~-.                              \n .-'       '-.         .-'       '-.                          \n( .--------. )        ( .--------. )                          \n( | DC-SP1 | )        ( | DC-SP2 | )              .-------.  \n( | [====] | )        ( | [====] | )              | OFFICE|  \n( '--------' )        ( '--------' )              |  you  |  \n '-.       .-'         '-.       .-'              '-------'  \n   '-~~~~-'              '-~~~~-'                             \n                                                              \n                                                              \n  tunnel: idle                                                \n  client: ?.?.?.?                                             \n  status: waiting...                                          ","   .-~~~~-.              .-~~~~-.                              \n .-'       '-.         .-'       '-.                          \n( .--------. )        ( .--------. )                          \n( | DC-SP1 | )        ( | DC-SP2 | )              .-------.  \n( | [====] | )        ( | [====] | )              | OFFICE|  \n( '--------' )        ( '--------' )              |  you  |  \n '-.       .-'         '-.       .-'              '-------'  \n   '-~~~~-'              '-~~~~-'                      |      \n                                                       |      \n  >> ike: init ...                             ipsec --+      \n  >> phase 1: ...                                             \n  client: ?.?.?.?                                             \n  status: negotiating...                                      ","   .-~~~~-.              .-~~~~-.                              \n .-'       '-.         .-'       '-.                          \n( .--------. )~~~~~~~~~~( .--------. )                        \n( | DC-SP1 | )          ( | DC-SP2 | )            .-------.  \n( | [====] | )~~~~~~~~~~( | [====] | )            | OFFICE|  \n( '--------' )  key xchg( '--------' )            |  you  |  \n '-.       .-'           '-.       .-'  <-------- '-------'  \n   '-~~~~-'                '-~~~~-'       CLIENT_IP           \n                                                              \n  >> phase 1: ok                                              \n  >> phase 2: sa negotiation...                               \n  >> src: CLIENT_IP                                           \n  status: handshake...                                        ","   .-~~~~-.              .-~~~~-.                              \n .-'       '-.         .-'       '-.                          \n( .--------. )=========( .--------. )                         \n( | DC-SP1 | )==tunnel==( | DC-SP2 | )            .-------.  \n( | [====] | )=========( | [====] | )   <======== | OFFICE|  \n( '--------' )         ( '--------' )   ipsec ok  |  you  |  \n '-.       .-'          '-.       .-'  <========= '-------'  \n   '-~~~~-'               '-~~~~-'      CLIENT_IP             \n        |_________________________|                            \n  >> sa: established                                          \n  >> enc: AES-256-GCM                                         \n  >> src: CLIENT_IP   LAT_MS ms                               \n  status: tunnel up                                           ","   .-~~~~-.              .-~~~~-.                              \n .-'       '-.         .-'       '-.                          \n( .--------. )>>>>>>>>>( .--------. )                         \n( | DC-SP1 | )>>data>>>( | DC-SP2 | )            .-------.  \n( | active  | )>>>>>>>>>( | mirror | )  >>>>>>>> | OFFICE|  \n( '--------' )         ( '--------' )  >> flow   |  you  |  \n '-.       .-'          '-.       .-'  >>>>>>>>>>'-------'  \n   '-~~~~-'               '-~~~~-'     CLIENT_IP             \n        ^_________________________^         ^                 \n  >> tunnel: live                           |                 \n  >> CLIENT_IP connected                    |                 \n  >> rtt: LAT_MS ms    +60km ok             +                 \n  status: syncing...                                          ","   .-~~~~-.              .-~~~~-.                              \n .-'       '-.         .-'       '-.                          \n( .--------. )---------( .--------. )                         \n( | DC-SP1 | )-protected( | DC-SP2 | )           .-------.  \n( | primary| )---------( | replica | )  -------- | OFFICE|  \n( '--------' )         ( '--------' )   secured  |  you  |  \n '-.       .-'          '-.       .-'  ----------'-------'  \n   '-~~~~-'    <2ms/+60km  '-~~~~-'     CLIENT_IP            \n        |_________________________|                           \n  >> status: protected                                        \n  >> you: CLIENT_IP                                           \n  >> latency: LAT_MS ms                                       \n  status: all systems ok                                      "];
+  function getFrames(){
+    return rawFrames.map(function(f){
+      return f.replace(/CLIENT_IP/g,clientIp).replace(/LAT_MS/g,clientLat);
+    });
+  }
+  function draw(text){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.font = "26px \"Courier New\"";
+    text.split("\n").forEach(function(row,i){
+      var isGreen  = row.indexOf(">>") === 0;
+      var isBright = /[=]{3,}|[>]{3,}|[-]{3,}/.test(row);
+      var isCloud  = /[~]{2,}|[(]|[)]/.test(row);
+      ctx.shadowBlur = isGreen ? 18 : isBright ? 22 : isCloud ? 8 : 6;
+      if (isGreen) {
+        ctx.fillStyle = "rgba(0,255,140,0.95)";
+        ctx.shadowColor = "rgba(0,255,140,0.5)";
+      } else if (isBright) {
+        ctx.fillStyle = "rgba(0,194,224,1)";
+        ctx.shadowColor = "rgba(0,194,224,0.8)";
+      } else if (isCloud) {
+        ctx.fillStyle = "rgba(0,194,224,0.45)";
+        ctx.shadowColor = "rgba(0,194,224,0.2)";
+      } else {
+        ctx.fillStyle = "rgba(0,194,224,0.65)";
+        ctx.shadowColor = "rgba(0,194,224,0.3)";
+      }
+      ctx.fillText(row, 6, 30 + i * 40);
+    });
+  }
+  var fi = 0;
+  var glyphs = ".-~=+*#><|_";
+  function morph(target){
+    var prev = getFrames()[(fi - 1 + rawFrames.length) % rawFrames.length];
+    var src = prev.split("");
+    var dst = target.split("");
+    var len = Math.max(src.length, dst.length);
+    var pos = 0;
+    function tick(){
+      if (pos >= len) { draw(target); return; }
+      var out = [];
+      for (var i = 0; i < len; i++) {
+        if (i < pos) { out.push(i < dst.length ? dst[i] : " "); }
+        else if (i < pos + 12) {
+          var ch = i < dst.length ? dst[i] : " ";
+          out.push(ch === "\n" ? "\n" : glyphs[Math.floor(Math.random() * glyphs.length)]);
+        } else { out.push(i < src.length ? src[i] : " "); }
+      }
+      draw(out.join(""));
+      pos += 9 + Math.floor(Math.random() * 5);
+      setTimeout(tick, 16 + Math.random() * 12);
+    }
+    tick();
+  }
+  function nextFrame(){
+    fi = (fi + 1) % rawFrames.length;
+    morph(getFrames()[fi]);
+    setTimeout(nextFrame, 3200 + Math.random() * 1200);
+  }
+  var boot = getFrames()[0], bi = 0;
+  var bt = setInterval(function(){
+    bi += 5; draw(boot.substring(0, bi));
+    if (bi >= boot.length) { clearInterval(bt); draw(boot); setTimeout(nextFrame, 1000); }
+  }, 18);
+  var t0 = performance.now();
+  fetch("https://api.ipify.org?format=json", {cache:"no-store"})
+    .then(function(r){ return r.json(); })
+    .then(function(d){ clientIp = d.ip; clientLat = Math.round(performance.now() - t0); })
+    .catch(function(){
+      var a=100+Math.floor(Math.random()*50);
+      var b=10+Math.floor(Math.random()*200);
+      var c=10+Math.floor(Math.random()*200);
+      clientIp = "177."+a+"."+b+"."+c;
+      clientLat = 8+Math.floor(Math.random()*20);
+    });
+})();
+
+});
+</script>
+</body>
+</html>
