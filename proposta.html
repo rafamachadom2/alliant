@@ -117,7 +117,7 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
     <span class="s-label">Empresa</span>
     <div class="field-row">
       <div class="field"><label>Razão social *</label><input type="text" id="empresa" placeholder="Acme Tecnologia Ltda"></div>
-      <div class="field"><label>CNPJ</label><input type="text" id="cnpj" placeholder="00.000.000/0000-00" maxlength="18" oninput="maskCNPJ(this)" onblur="validateCNPJ(this)"><div id="cnpj-err" style="font-size:11px;color:#c0392b;margin-top:4px;display:none;font-family:Raleway,sans-serif">CNPJ invalido</div></div>
+      <div class="field"><label>CNPJ</label><input type="text" id="cnpj" placeholder="00.000.000/0000-00" maxlength="18" oninput="maskCNPJ(this)"><div id="cnpj-err" style="font-size:11px;color:#c0392b;margin-top:4px;display:none;font-family:Raleway,sans-serif">CNPJ invalido</div></div>
     </div>
     <div class="field-row">
       <div class="field"><label>Responsável *</label><input type="text" id="nome" placeholder="João Silva"></div>
@@ -365,31 +365,31 @@ function updateSummary(){
 }
 
 function maskCNPJ(el){
-  var v = el.value.replace(/\D/g,'').substring(0,14);
-  if(v.length>12) v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/,'$1.$2.$3/$4-$5');
-  else if(v.length>8) v = v.replace(/^(\d{2})(\d{3})(\d{3})(\d{1,4}).*/,'$1.$2.$3/$4');
-  else if(v.length>5) v = v.replace(/^(\d{2})(\d{3})(\d{1,3}).*/,'$1.$2.$3');
-  else if(v.length>2) v = v.replace(/^(\d{2})(\d{1,3}).*/,'$1.$2');
-  el.value = v;
-  document.getElementById('cnpj-err').style.display = 'none';
+  var d=el.value.replace(/[^0-9]/g,"").substring(0,14);
+  var r="";
+  if(d.length>0) r=d.substring(0,2);
+  if(d.length>2) r+="."+d.substring(2,5);
+  if(d.length>5) r+="."+d.substring(5,8);
+  if(d.length>8) r+="/"+d.substring(8,12);
+  if(d.length>12) r+="-"+d.substring(12,14);
+  el.value=r;
+  document.getElementById("cnpj-err").style.display="none";
 }
 
 function validateCNPJ(el){
-  var v = el.value.replace(/\D/g,'');
-  if(!v){ document.getElementById('cnpj-err').style.display='none'; return true; }
-  if(v.length !== 14 || /^(\d)+$/.test(v)){
-    document.getElementById('cnpj-err').style.display='block'; return false;
-  }
-  function calcDig(base){
-    var s=0, p=base.length+1;
-    for(var i=0;i<base.length;i++){ s+=parseInt(base[i])*(p-i); if(p===2) p=9; else p--; }
-    var r=s%11; return r<2?0:11-r;
-  }
-  var t=v.substring(0,12);
-  var d1=calcDig(t), d2=calcDig(t+d1);
-  var valid = parseInt(v[12])===d1 && parseInt(v[13])===d2;
-  document.getElementById('cnpj-err').style.display = valid?'none':'block';
-  return valid;
+  var err=document.getElementById("cnpj-err");
+  var n=el.value.replace(/[^0-9]/g,"");
+  if(!n){err.style.display="none";return true;}
+  if(n.length!==14){err.style.display="block";return false;}
+  var same=true;
+  for(var i=1;i<14;i++) if(n[i]!==n[0]){same=false;break;}
+  if(same){err.style.display="block";return false;}
+  var w1=[5,4,3,2,9,8,7,6,5,4,3,2];
+  var w2=[6,5,4,3,2,9,8,7,6,5,4,3,2];
+  function calc(w){var s=0;for(var i=0;i<w.length;i++)s+=parseInt(n[i])*w[i];var r=s%11;return r<2?0:11-r;}
+  var ok=calc(w1)===parseInt(n[12])&&calc(w2)===parseInt(n[13]);
+  err.style.display=ok?"none":"block";
+  return ok;
 }
 
 function sendForm(){
@@ -447,6 +447,16 @@ function sendForm(){
 addRow({nm:'Servidor de aplicacao',os:'Linux',qty:2,vcpu:4,ram:8,disco:100});
 addRow({nm:'Banco de dados',os:'Linux',qty:1,vcpu:8,ram:32,disco:500});
 addRow({nm:'ERP Windows',os:'Windows Server 2022',qty:1,vcpu:8,ram:16,disco:200});
+
+function maskPhone(el){
+  var v = el.value.replace(/[^\d]/g,'').substring(0,11);
+  var r = '';
+  if(v.length > 0)  r = '(' + v.substring(0,2);
+  if(v.length > 2)  r += ') ';
+  if(v.length > 2 && v.length <= 10) r += v.substring(2,6) + (v.length>6 ? '-'+v.substring(6,10) : '');
+  else if(v.length > 2) r += v.substring(2,7) + (v.length>7 ? '-'+v.substring(7,11) : '');
+  el.value = r;
+}
 </script>
 </body>
 </html>
