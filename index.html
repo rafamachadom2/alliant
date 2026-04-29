@@ -82,6 +82,13 @@ section{position:relative;z-index:1}
 .why-card-icon svg{width:20px;height:20px;stroke:var(--cyan)}
 .why-card-title{font-family:"Syne",sans-serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:10px;letter-spacing:-.3px}
 .why-card-desc{font-size:13px;color:var(--steel);line-height:1.65;font-weight:300;margin-bottom:16px}
+.workloads-block{margin-top:32px;padding:32px 36px;background:var(--navy-mid);border:1px solid var(--border);border-radius:16px}
+.workloads-label{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:24px}
+.workloads-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.wl-item{display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px 12px;background:var(--navy);border:1px solid var(--border);border-radius:10px;text-align:center;transition:all .2s}
+.wl-item:hover{border-color:var(--border-bright);background:var(--navy-light)}
+.wl-item svg{width:22px;height:22px;stroke:var(--cyan);opacity:.7}
+.wl-item span{font-size:12px;color:var(--steel);font-weight:400;line-height:1.4}
 .why-card-tag{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(0,194,224,0.6);font-weight:500}
 .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:72px}
 .why-nums{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden}
@@ -321,7 +328,7 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
       </div>
       <h3 class="why-card-title">Preço fixo, sem surpresa</h3>
-      <p class="why-card-desc">Mensalidade previsível, sem cobrança por tráfego ou API call. Você sabe exatamente o que vai pagar — todo mês, sem variação.</p>
+      <p class="why-card-desc">Mensalidade previsível. Ao contrário de clouds públicas, não cobramos por tráfego, IOPS ou chamadas de API. Você sabe exatamente o que vai pagar — todo mês, sem variação.</p>
       <div class="why-card-tag">CapEx → OpEx · Previsibilidade</div>
     </div>
 
@@ -329,10 +336,40 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
       <div class="why-card-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
       </div>
-      <h3 class="why-card-title">Sem lock-in de fabricante</h3>
+      <h3 class="why-card-title">Sem lock-in de cloud pública</h3>
       <p class="why-card-desc">Stack 100% open source. Seus workloads não ficam presos a uma plataforma proprietária — migre quando e para onde quiser.</p>
       <div class="why-card-tag">OpenStack · Kubernetes · Ceph</div>
     </div>
+
+  <div class="workloads-block fade-in">
+    <div class="workloads-label">Ideal para workloads críticos</div>
+    <div class="workloads-grid">
+      <div class="wl-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <span>TOTVS Protheus</span>
+      </div>
+      <div class="wl-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <span>SAP</span>
+      </div>
+      <div class="wl-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        <span>Bancos de dados</span>
+      </div>
+      <div class="wl-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <span>Aplicações Windows</span>
+      </div>
+      <div class="wl-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        <span>Aplicações Linux</span>
+      </div>
+      <div class="wl-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        <span>ERP / CRM</span>
+      </div>
+    </div>
+  </div>
 
   </div>
 </section>
