@@ -1,2 +1,0 @@
-# alliant
-Alliant Tecnolgia
