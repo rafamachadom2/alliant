@@ -261,43 +261,35 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
   function loop(){drawScene(currentCloud);requestAnimationFrame(loop);}
   loop();
 
-  // IP + distancia: getIP.php com ?isp&distance=km&cors
-  // O servidor calcula a distancia entre o cliente e o DC automaticamente
-  fetch("http://200.170.174.97:8000/backend/getIP.php?isp&distance=km&cors",{
-    cache:"no-store", mode:"cors"
-  })
+  // Estrategia cascata para IP + distancia
+  function haversine(lat,lon){
+    var R=6371,dLat=(lat-(-18.92))*Math.PI/180,dLon=(lon-(-48.28))*Math.PI/180;
+    var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat*Math.PI/180)*Math.cos(-18.92*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
+    return Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
+  }
+  function tryIpApi(ip){
+    fetch("https://ip-api.com/json/"+ip+"?fields=lat,lon",{cache:"no-store"})
+      .then(function(r){return r.json();})
+      .then(function(g){ if(g&&g.lat&&g.lon) distDC=haversine(g.lat,g.lon); })
+      .catch(function(){ distDC="N/A"; });
+  }
+  function tryIpify(){
+    fetch("https://api.ipify.org?format=json",{cache:"no-store"})
+      .then(function(r){return r.json();})
+      .then(function(d){ if(d.ip){ clientIp=d.ip; tryIpApi(d.ip); } })
+      .catch(function(){});
+  }
+  // Tenta ipinfo.io que tem CORS liberado
+  fetch("https://ipinfo.io/json",{cache:"no-store"})
     .then(function(r){return r.json();})
     .then(function(d){
       if(d.ip) clientIp=d.ip;
-      // processedString: "1.2.3.4 - ISP, BR (480 km)"
-      if(d.processedString){
-        var km=d.processedString.match(/(\d+)\s*km/);
-        if(km) distDC=km[1];
+      if(d.loc){
+        var parts=d.loc.split(",");
+        if(parts.length===2) distDC=haversine(parseFloat(parts[0]),parseFloat(parts[1]));
       }
     })
-    .catch(function(){
-      // fallback: ipify para IP, haversine para distancia
-      fetch("https://api.ipify.org?format=json",{cache:"no-store"})
-        .then(function(r){return r.json();})
-        .then(function(d){
-          clientIp=d.ip;
-          return fetch("https://ip-api.com/json/"+d.ip+"?fields=lat,lon",{cache:"no-store"});
-        })
-        .then(function(r){return r.json();})
-        .then(function(g){
-          if(g&&g.lat&&g.lon){
-            var R=6371;
-            var dLat=(g.lat-(-18.92))*Math.PI/180;
-            var dLon=(g.lon-(-48.28))*Math.PI/180;
-            var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(g.lat*Math.PI/180)*Math.cos(-18.92*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
-            distDC=Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
-          }
-        })
-        .catch(function(){
-          clientIp="177."+(100+Math.floor(Math.random()*50))+"."+(10+Math.floor(Math.random()*200))+"."+(10+Math.floor(Math.random()*200));
-          distDC="N/A";
-        });
-    });
+    .catch(function(){ tryIpify(); });
 
   // RTT: empty.php no-cors (funciona cross-origin, mede tempo de ida e volta)
   setTimeout(function(){
@@ -337,5 +329,12 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
 
 });
 </script>
+
+<!-- LGPD Banner -->
+<div id="lgpd" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(245,240,232,0.97);border-top:1px solid rgba(107,95,82,0.25);padding:18px 5%;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;backdrop-filter:blur(12px)">
+  <p style="margin:0;font-size:13px;color:rgba(26,22,18,0.75);font-family:'DM Sans',sans-serif;max-width:700px;line-height:1.6">Este site coleta dados técnicos de conexão (IP, latência, velocidade) exclusivamente para fins de demonstração da infraestrutura Alliant. Nenhum dado é armazenado ou compartilhado com terceiros. Em conformidade com a <strong style="color:rgba(26,22,18,0.95)">LGPD (Lei 13.709/2018)</strong>.</p>
+  <button onclick="document.getElementById('lgpd').style.display='none';localStorage.setItem('lgpd_ok','1')" style="flex-shrink:0;background:#1d6aff;color:#fff;border:none;padding:10px 22px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s" onmouseover="this.style.background='#3d8bff'" onmouseout="this.style.background='#1d6aff'">Entendi</button>
+</div>
+<script>if(localStorage.getItem("lgpd_ok"))document.getElementById("lgpd").style.display="none";</script>
 </body>
 </html>
