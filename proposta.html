@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -32,53 +31,60 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .field textarea{resize:vertical;min-height:72px}
 
-.vm-table input:focus,.vm-table select:focus{border-color:var(–blue);background:#fff}
+
+
+
+
+.vm-table input:focus,.vm-table select:focus{border-color:var(--blue);background:#fff}
+
 
 .os-win{color:#0078d4;font-weight:600}
 .os-lin{color:#d35400;font-weight:600}
 
+
 .vm-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:4px}
-.vm-card{background:var(–bg);border:1px solid var(–border);border-radius:12px;padding:18px 18px 14px;position:relative;transition:border-color .2s}
+.vm-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:18px 18px 14px;position:relative;transition:border-color .2s}
 .vm-card:hover{border-color:rgba(29,106,255,0.3)}
 .vm-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.vm-card-num{font-family:“DM Mono”,monospace;font-size:11px;font-weight:500;color:var(–ink3);background:var(–surface2);border-radius:4px;padding:2px 7px}
-.vm-card-del{background:none;border:none;cursor:pointer;color:var(–ink3);font-size:18px;line-height:1;padding:2px 6px;border-radius:4px;transition:all .15s;font-weight:400}
+.vm-card-num{font-family:"DM Mono",monospace;font-size:11px;font-weight:500;color:var(--ink3);background:var(--surface2);border-radius:4px;padding:2px 7px}
+.vm-card-del{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:18px;line-height:1;padding:2px 6px;border-radius:4px;transition:all .15s;font-weight:400}
 .vm-card-del:hover{background:rgba(192,57,43,0.1);color:#c0392b}
 .vm-card-field{margin-bottom:10px}
-.vm-card-field label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(–ink3);font-family:“Raleway”,sans-serif;margin-bottom:5px}
-.vm-card-field input,.vm-card-field select{width:100%;background:var(–surface);border:1px solid var(–border);border-radius:7px;padding:8px 10px;font-size:13px;font-family:“DM Sans”,sans-serif;color:var(–ink);outline:none;transition:all .15s}
-.vm-card-field input:focus,.vm-card-field select:focus{border-color:var(–blue);background:#fff}
+.vm-card-field label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:"Raleway",sans-serif;margin-bottom:5px}
+.vm-card-field input,.vm-card-field select{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:8px 10px;font-size:13px;font-family:"DM Sans",sans-serif;color:var(--ink);outline:none;transition:all .15s}
+.vm-card-field input:focus,.vm-card-field select:focus{border-color:var(--blue);background:#fff}
 .vm-card-field input[type=number]{-moz-appearance:textfield}
 .vm-card-field input[type=number]::-webkit-inner-spin-button{opacity:.6}
 .vm-card-specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.vm-card-lic{margin-top:12px;padding-top:10px;border-top:1px solid var(–border)}
+.vm-card-lic{margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
 .os-win{color:#0078d4;font-weight:600}
 .os-lin{color:#d35400;font-weight:600}
-.add-row{display:inline-flex;align-items:center;gap:6px;background:none;border:1px dashed var(–border);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;font-family:“Raleway”,sans-serif;color:var(–ink2);cursor:pointer;transition:all .2s;margin-top:12px}
-.add-row:hover{border-color:var(–blue);color:var(–blue)}
+.add-row{display:inline-flex;align-items:center;gap:6px;background:none;border:1px dashed var(--border);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;font-family:"Raleway",sans-serif;color:var(--ink2);cursor:pointer;transition:all .2s;margin-top:12px}
+.add-row:hover{border-color:var(--blue);color:var(--blue)}
+
+
 
 .summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-.sum-item{background:var(–bg);border:1px solid var(–border);border-radius:10px;padding:14px 16px}
-.sum-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(–ink3);margin-bottom:4px;font-family:“Raleway”,sans-serif}
-.sum-val{font-family:“DM Mono”,monospace;font-size:16px;font-weight:500;color:var(–ink)}
-.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(–border)}
+.sum-item{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.sum-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:4px;font-family:"Raleway",sans-serif}
+.sum-val{font-family:"DM Mono",monospace;font-size:16px;font-weight:500;color:var(--ink)}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
 .toggle-row:last-child{border-bottom:none}
-.toggle-label{font-size:13px;font-weight:600;color:var(–ink);font-family:“Raleway”,sans-serif}
-.toggle-sub{font-size:11px;color:var(–ink3);margin-top:2px;font-family:“Raleway”,sans-serif}
-.tog{display:flex;background:var(–surface2);border:1px solid var(–border);border-radius:6px;overflow:hidden}
-.tog button{padding:6px 16px;font-size:11px;font-weight:600;font-family:“Raleway”,sans-serif;border:none;background:transparent;color:var(–ink2);cursor:pointer;transition:all .15s;letter-spacing:.3px}
-.tog button.on{background:var(–blue);color:#fff}
-.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(–blue);color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;border:none;cursor:pointer;font-family:“DM Sans”,sans-serif}
-.btn-p:hover{background:var(–blue-bright);transform:translateY(-1px)}
+.toggle-label{font-size:13px;font-weight:600;color:var(--ink);font-family:"Raleway",sans-serif}
+.toggle-sub{font-size:11px;color:var(--ink3);margin-top:2px;font-family:"Raleway",sans-serif}
+.tog{display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.tog button{padding:6px 16px;font-size:11px;font-weight:600;font-family:"Raleway",sans-serif;border:none;background:transparent;color:var(--ink2);cursor:pointer;transition:all .15s;letter-spacing:.3px}
+.tog button.on{background:var(--blue);color:#fff}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;border:none;cursor:pointer;font-family:"DM Sans",sans-serif}
+.btn-p:hover{background:var(--blue-bright);transform:translateY(-1px)}
 .btn-p svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
-.btn-s{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(–ink);padding:14px 24px;border-radius:8px;font-weight:500;font-size:14px;transition:all .2s;border:1px solid var(–border);cursor:pointer;font-family:“DM Sans”,sans-serif;text-decoration:none}
-.btn-s:hover{border-color:var(–steel)}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--ink);padding:14px 24px;border-radius:8px;font-weight:500;font-size:14px;transition:all .2s;border:1px solid var(--border);cursor:pointer;font-family:"DM Sans",sans-serif;text-decoration:none}
+.btn-s:hover{border-color:var(--steel)}
 .action-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.send-note{font-size:11px;color:var(–ink3)}
-.lic-note{font-size:12px;color:var(–ink2);line-height:1.6;padding-top:12px;border-top:1px solid var(–border)}
+.send-note{font-size:11px;color:var(--ink3)}
+.lic-note{font-size:12px;color:var(--ink2);line-height:1.6;padding-top:12px;border-top:1px solid var(--border)}
 @media(max-width:640px){.field-row{grid-template-columns:1fr}.summary-grid{grid-template-columns:1fr 1fr}}
 </style>
-
 </head>
 <body>
 
@@ -107,7 +113,6 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
   <p class="hero-sub">Preencha os dados da sua operação. Nossa equipe retorna em até 24h com uma proposta detalhada.</p>
 
   <!-- EMPRESA -->
-
   <div class="card">
     <span class="s-label">Empresa</span>
     <div class="field-row">
@@ -142,7 +147,6 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
   </div>
 
   <!-- VMs -->
-
   <div class="card">
     <span class="s-label">Dimensionamento de VMs</span>
     <p style="font-size:13px;color:var(--ink2);margin-bottom:24px;line-height:1.6">Adicione um card por grupo de máquinas com as mesmas características. O licenciamento Windows é calculado automaticamente.</p>
@@ -154,7 +158,6 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
   </div>
 
   <!-- REDE -->
-
   <div class="card">
     <span class="s-label">Rede & Serviços</span>
     <div class="field-row" style="margin-bottom:16px">
@@ -185,14 +188,12 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
   </div>
 
   <!-- OBS -->
-
   <div class="card">
     <span class="s-label">Observações</span>
     <div class="field"><label>Sistemas críticos / aplicações</label><textarea id="obs" placeholder="Ex: TOTVS Protheus, SQL Server 2022, ERP legado .NET, Oracle DB..."></textarea></div>
   </div>
 
   <!-- SUMMARY -->
-
   <div class="card">
     <span class="s-label">Resumo do ambiente</span>
     <div class="summary-grid" id="summaryGrid"></div>
@@ -200,7 +201,6 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
   </div>
 
   <!-- SUBMIT -->
-
   <div class="action-row">
     <div id="send-status" style="font-size:13px;font-family:Raleway,sans-serif;font-weight:600;display:none;margin-bottom:8px"></div>
     <button class="btn-p" id="submitBtn" onclick="sendForm()">
@@ -422,7 +422,7 @@ function sendForm(){ try {
   status.style.color = 'var(--ink2)';
   status.textContent = 'Enviando...';
 
-  fetch('https://io.alliant.com.br/enviar.php', {
+  fetch('https://io.alliant.com.br/form/enviar.php', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
     body: JSON.stringify(payload)
@@ -463,6 +463,5 @@ function maskPhone(el){
   el.value = r;
 }
 </script>
-
 </body>
 </html>
