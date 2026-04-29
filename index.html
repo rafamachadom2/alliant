@@ -6,7 +6,7 @@
 <title>Alliant — Infraestrutura Cloud para o Brasil</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Cabinet+Grotesk:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Cabinet+Grotesk:wght@700;800&family=DM+Serif+Display:ital@0;1&family=Raleway:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--navy:#f5f0e8;--navy-mid:#ede8df;--blue:#1d6aff;--blue-bright:#3d8bff;--cyan:#1a6aff;--cyan-dim:rgba(26,106,255,0.08);--steel:#6b5f52;--white:#1a1612;--white-dim:rgba(26,22,18,0.6);--border:rgba(107,95,82,0.16);--border-bright:rgba(26,106,255,0.25)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -22,10 +22,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 .nav-contact svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
 .hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:60px 6% 80px;}
 .hero-left{}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--cyan-dim);border:1px solid var(--border-bright);color:var(--cyan);padding:5px 14px;border-radius:100px;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;margin-bottom:28px}
-.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse 2s infinite;flex-shrink:0}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(36px,4.5vw,68px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:12px}
+.hero-badge{display:inline-block;border-left:2px solid var(--cyan);padding-left:12px;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:500;color:var(--cyan);letter-spacing:1px;text-transform:uppercase;margin-bottom:28px}
+
+
+h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(42px,5.5vw,82px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:12px}
 .accent{background:linear-gradient(135deg,#1d6aff,#6637e8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-tagline{font-family:"Syne",sans-serif;font-size:clamp(13px,1.2vw,16px);font-weight:400;color:var(--steel);font-style:italic;margin-bottom:28px;letter-spacing:.2px}
 .hero-sub{font-size:16px;color:var(--steel);line-height:1.7;font-weight:300;max-width:480px;margin-bottom:40px}
@@ -37,16 +37,16 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(36px,4.5vw,68px);fon
 .btn-p svg,.btn-w svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
 .cta-note{font-size:12px;color:var(--steel);margin-top:8px;letter-spacing:.3px}
 .hero-right{display:flex;align-items:center;justify-content:center}
-#asciiCanvas{display:block;width:100%;max-width:600px;opacity:.9}
+#asciiCanvas{display:block;width:100%;max-width:900px;opacity:.95}
 .divider{border:none;border-top:1px solid var(--border);margin:0 6%}
 .cred-strip{padding:28px 6%;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--navy-mid)}
-.cred-line{font-family:"Syne",sans-serif;font-size:clamp(14px,1.3vw,17px);font-weight:600;color:var(--white);letter-spacing:-.2px;opacity:.85;line-height:1.5}
+.cred-line{font-family:"Raleway",sans-serif;font-size:clamp(15px,1.4vw,20px);font-weight:600;color:var(--white);letter-spacing:.2px;line-height:1.6}
 .about{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin:60px 6%;border:1px solid var(--border);border-radius:16px;overflow:hidden}
 .about-item{background:var(--navy-mid);padding:36px 32px}
 .about-item:hover{background:#e5dfd4}
 .about-icon{width:40px;height:40px;border-radius:8px;background:var(--cyan-dim);border:1px solid var(--border-bright);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
 .about-icon svg{width:18px;height:18px;stroke:var(--cyan);fill:none;stroke-width:1.5}
-.about-title{font-family:"Syne",sans-serif;font-size:15px;font-weight:700;color:var(--white);margin-bottom:8px}
+.about-title{font-family:"Raleway",sans-serif;font-size:17px;font-weight:700;color:var(--white);margin-bottom:8px;letter-spacing:.3px;line-height:1.4}
 .about-desc{font-size:13px;color:var(--steel);line-height:1.65;font-weight:300}
 .partners{padding:48px 6%;border-top:1px solid var(--border)}
 .partners-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--steel);margin-bottom:28px}
@@ -90,7 +90,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 </nav>
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-badge"><span class="badge-dot"></span>IaaS enterprise ready</div>
+    <div class="hero-badge">IaaS enterprise ready</div>
     <h1>Onde cada milissegundo<br><span class="accent">faz a diferença.</span></h1>
     <p class="hero-tagline">Infraestrutura cloud privada para empresas brasileiras.</p>
     <p class="hero-sub">Estamos construindo a primeira nuvem privada de verdade do Brasil. Dados que nunca saem do país. Suporte humano real. Performance sem desculpas. Chega de depender de big tech estrangeira.</p>
@@ -107,7 +107,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
     </div>
   </div>
   <div class="hero-right">
-    <canvas id="asciiCanvas" width="1600" height="800" aria-hidden="true"></canvas>
+    <canvas id="asciiCanvas" width="2400" height="1100" aria-hidden="true"></canvas>
   </div>
 </section>
 <div class="cred-strip">
@@ -179,23 +179,23 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
 
   function drawScene(cloudRows){
     ctx.clearRect(0,0,W,H);
-    ctx.font="28px \"Courier New\"";
-    var lh=42;
+    ctx.font="42px \"Courier New\"";
+    var lh=58;
     cloudRows.forEach(function(row,i){
       ctx.shadowBlur=0;ctx.shadowColor="rgba(0,0,0,0)";
       ctx.fillStyle="rgba(15,20,35,0.9)";
-      ctx.fillText(row,6,28+i*lh);
+      ctx.fillText(row,8,44+i*lh);
     });
-    var dcY=28+cloudRows.length*lh+14;
+    var dcY=44+cloudRows.length*lh+18;
     dcRows.forEach(function(row,i){
       var bright=/[=]{3,}|[>]{3,}/.test(row);
       ctx.shadowBlur=0;
       ctx.shadowColor="rgba(0,0,0,0)";
       ctx.fillStyle=bright?"rgba(15,20,35,1)":"rgba(15,20,35,0.75)";
-      ctx.fillText(row,6,dcY+i*lh);
+      ctx.fillText(row,8,dcY+i*lh);
     });
-    ctx.font="bold 20px \"Courier New\"";
-    var tyY=dcY+dcRows.length*lh+18;
+    ctx.font="bold 32px \"Courier New\"";
+    var tyY=dcY+dcRows.length*lh+28;
     ctx.shadowBlur=0;ctx.fillStyle="rgba(15,20,35,0.15)";
     ctx.fillRect(0,tyY-14,W,1);
     ctx.shadowBlur=0;ctx.shadowColor="rgba(0,0,0,0)";
@@ -256,7 +256,16 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
     if(charIdx>=line.length){lineIdx++;charIdx=0;typedLines[lineIdx]="";setTimeout(typeNext,180+Math.random()*100);}
     else{setTimeout(typeNext,26+Math.random()*16);}
   }
-  startTyping();
+  // Aguarda medicoes antes de iniciar digitacao
+  var measureReady={ip:false,rtt:false,speed:false};
+  function checkReady(){
+    if(measureReady.ip&&measureReady.rtt&&measureReady.speed) startTyping();
+  }
+  // Timeout de seguranca: inicia em 6s mesmo que alguma medicao falhe
+  setTimeout(function(){
+    measureReady.ip=true;measureReady.rtt=true;measureReady.speed=true;
+    if(!typing&&typedLines.length===0) startTyping();
+  },6000);
 
   function loop(){drawScene(currentCloud);requestAnimationFrame(loop);}
   loop();
@@ -276,8 +285,8 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
   function tryIpify(){
     fetch("https://api.ipify.org?format=json",{cache:"no-store"})
       .then(function(r){return r.json();})
-      .then(function(d){ if(d.ip){ clientIp=d.ip; tryIpApi(d.ip); } })
-      .catch(function(){});
+      .then(function(d){ if(d.ip){ clientIp=d.ip; tryIpApi(d.ip); } measureReady.ip=true; checkReady(); })
+      .catch(function(){ measureReady.ip=true; checkReady(); });
   }
   // Tenta ipinfo.io que tem CORS liberado
   fetch("https://ipinfo.io/json",{cache:"no-store"})
@@ -306,6 +315,7 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
         var v=res.filter(function(x){return x!==null;});
         if(v.length>1)v.shift();
         if(v.length>0)clientLat=Math.min.apply(null,v);
+        measureReady.rtt=true; checkReady();
         return;
       }
       ping(function(ms){res.push(ms);n++;setTimeout(run,200);});
@@ -322,7 +332,8 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
         // 4MB * 8 bits / tempo = Mbps
         if(dt>0) dlSpeed=((4*8)/dt).toFixed(1);
       })
-      .catch(function(){dlSpeed="N/A";});
+      .then(function(){ measureReady.speed=true; checkReady(); })
+      .catch(function(){ dlSpeed="N/A"; measureReady.speed=true; checkReady(); });
   },3000);
 
 })();
