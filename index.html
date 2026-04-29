@@ -261,35 +261,76 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
   function loop(){drawScene(currentCloud);requestAnimationFrame(loop);}
   loop();
 
-  fetch("https://api.ipify.org?format=json",{cache:"no-store"})
+  // IP + distancia: getIP.php com ?isp&distance=km&cors
+  // O servidor calcula a distancia entre o cliente e o DC automaticamente
+  fetch("http://200.170.174.97:8000/backend/getIP.php?isp&distance=km&cors",{
+    cache:"no-store", mode:"cors"
+  })
     .then(function(r){return r.json();})
     .then(function(d){
-      clientIp=d.ip;
-      return fetch("https://ip-api.com/json/"+d.ip+"?fields=query,lat,lon",{cache:"no-store"});
-    })
-    .then(function(r){return r.json();})
-    .then(function(g){
-      if(g&&g.lat&&g.lon){
-        var R=6371,dLat=(g.lat+23.03)*Math.PI/180,dLon=(g.lon+46.97)*Math.PI/180;
-        var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(g.lat*Math.PI/180)*Math.cos(-23.03*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
-        distDC=Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
+      if(d.ip) clientIp=d.ip;
+      // processedString: "1.2.3.4 - ISP, BR (480 km)"
+      if(d.processedString){
+        var km=d.processedString.match(/(\d+)\s*km/);
+        if(km) distDC=km[1];
       }
     })
-    .catch(function(){clientIp="177."+(100+Math.floor(Math.random()*50))+"."+(10+Math.floor(Math.random()*200))+"."+(10+Math.floor(Math.random()*200));});
+    .catch(function(){
+      // fallback: ipify para IP, haversine para distancia
+      fetch("https://api.ipify.org?format=json",{cache:"no-store"})
+        .then(function(r){return r.json();})
+        .then(function(d){
+          clientIp=d.ip;
+          return fetch("https://ip-api.com/json/"+d.ip+"?fields=lat,lon",{cache:"no-store"});
+        })
+        .then(function(r){return r.json();})
+        .then(function(g){
+          if(g&&g.lat&&g.lon){
+            var R=6371;
+            var dLat=(g.lat-(-18.92))*Math.PI/180;
+            var dLon=(g.lon-(-48.28))*Math.PI/180;
+            var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(g.lat*Math.PI/180)*Math.cos(-18.92*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
+            distDC=Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
+          }
+        })
+        .catch(function(){
+          clientIp="177."+(100+Math.floor(Math.random()*50))+"."+(10+Math.floor(Math.random()*200))+"."+(10+Math.floor(Math.random()*200));
+          distDC="N/A";
+        });
+    });
 
+  // RTT: empty.php no-cors (funciona cross-origin, mede tempo de ida e volta)
   setTimeout(function(){
     var ep="http://200.170.174.97:8000/backend/empty.php";
     var res=[],n=0;
-    function ping(cb){var t0=performance.now();fetch(ep+"?_="+Date.now(),{cache:"no-store",mode:"no-cors"}).then(function(){cb(Math.round(performance.now()-t0));}).catch(function(){cb(null);});}
-    function run(){if(n>=6){var v=res.filter(function(x){return x!==null;});if(v.length>1)v.shift();if(v.length>0)clientLat=Math.min.apply(null,v);return;}ping(function(ms){res.push(ms);n++;setTimeout(run,200);});}
+    function ping(cb){
+      var t0=performance.now();
+      fetch(ep+"?_="+Date.now(),{cache:"no-store",mode:"no-cors"})
+        .then(function(){cb(Math.round(performance.now()-t0));})
+        .catch(function(){cb(null);});
+    }
+    function run(){
+      if(n>=6){
+        var v=res.filter(function(x){return x!==null;});
+        if(v.length>1)v.shift();
+        if(v.length>0)clientLat=Math.min.apply(null,v);
+        return;
+      }
+      ping(function(ms){res.push(ms);n++;setTimeout(run,200);});
+    }
     run();
   },1500);
 
+  // Speed: garbage.php no-cors, calcula pelo tempo
   setTimeout(function(){
     var t0=performance.now();
-    fetch("http://200.170.174.97:8000/backend/garbage.php?ckSize=1&_="+Date.now(),{cache:"no-store",mode:"no-cors"})
-      .then(function(){var dt=(performance.now()-t0)/1000;dlSpeed=((8)/dt).toFixed(1);})
-      .catch(function(){});
+    fetch("http://200.170.174.97:8000/backend/garbage.php?ckSize=4&_="+Date.now(),{cache:"no-store",mode:"no-cors"})
+      .then(function(){
+        var dt=(performance.now()-t0)/1000;
+        // 4MB * 8 bits / tempo = Mbps
+        if(dt>0) dlSpeed=((4*8)/dt).toFixed(1);
+      })
+      .catch(function(){dlSpeed="N/A";});
   },3000);
 
 })();
