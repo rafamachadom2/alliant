@@ -18,7 +18,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 .nav-contact{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--steel);font-size:14px;transition:color .2s}
 .nav-contact:hover{color:var(--ink)}
 .nav-contact svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
-.page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:20px 5% 100px}
+.page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:20px 4% 100px}
 h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin-bottom:10px}
 .accent{background:linear-gradient(135deg,#1d6aff,#0091b5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-sub{font-size:14px;color:var(--ink2);margin-bottom:40px;line-height:1.6}
@@ -35,30 +35,28 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
 
 
 
-.vm-table input:focus,.vm-table select:focus{border-color:var(--blue);background:#fff}
 
 
-.os-win{color:#0078d4;font-weight:600}
-.os-lin{color:#d35400;font-weight:600}
 
 
-.vm-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:4px}
-.vm-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:18px 18px 14px;position:relative;transition:border-color .2s}
-.vm-card:hover{border-color:rgba(29,106,255,0.3)}
-.vm-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.vm-card-num{font-family:"DM Mono",monospace;font-size:11px;font-weight:500;color:var(--ink3);background:var(--surface2);border-radius:4px;padding:2px 7px}
-.vm-card-del{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:18px;line-height:1;padding:2px 6px;border-radius:4px;transition:all .15s;font-weight:400}
-.vm-card-del:hover{background:rgba(192,57,43,0.1);color:#c0392b}
-.vm-card-field{margin-bottom:10px}
-.vm-card-field label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:"Raleway",sans-serif;margin-bottom:5px}
-.vm-card-field input,.vm-card-field select{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:8px 10px;font-size:13px;font-family:"DM Sans",sans-serif;color:var(--ink);outline:none;transition:all .15s}
-.vm-card-field input:focus,.vm-card-field select:focus{border-color:var(--blue);background:#fff}
-.vm-card-field input[type=number]{-moz-appearance:textfield}
-.vm-card-field input[type=number]::-webkit-inner-spin-button{opacity:.6}
-.vm-card-specs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.vm-card-lic{margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
-.os-win{color:#0078d4;font-weight:600}
-.os-lin{color:#d35400;font-weight:600}
+.vm-row-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:4px}
+.vm-row-table th{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:"Raleway",sans-serif;padding:0 5px 10px;text-align:left;white-space:nowrap}
+.vm-row-table td{padding:4px 4px;vertical-align:middle}
+.vm-row-table tr:not(:last-child) td{border-bottom:1px solid var(--border)}
+.vm-row-table input,.vm-row-table select{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-family:"DM Sans",sans-serif;font-size:13px;color:var(--ink);outline:none;transition:border-color .15s;width:100%;-moz-appearance:textfield}
+.vm-row-table input:focus,.vm-row-table select:focus{border-color:var(--blue);background:#fff}
+.vm-row-table input[type=number]::-webkit-inner-spin-button{opacity:.5}
+.col-idx{width:24px;text-align:center;font-size:11px;font-family:"DM Mono",monospace;color:var(--ink3)}
+.col-name{min-width:130px}
+.col-os{width:155px}
+.col-num{width:58px}
+.col-lic{width:130px}
+.col-del{width:28px;text-align:center}
+.vm-del-btn{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:16px;padding:2px 5px;border-radius:4px;transition:all .15s}
+.vm-del-btn:hover{background:rgba(192,57,43,0.1);color:#c0392b}
+.lic-badge{font-size:11px;font-weight:600;font-family:"Raleway",sans-serif;padding:2px 7px;border-radius:4px;white-space:nowrap}
+.lic-win{background:rgba(0,120,212,0.1);color:#0078d4;border:1px solid rgba(0,120,212,0.2)}
+.lic-lin{background:rgba(211,84,0,0.08);color:#d35400;border:1px solid rgba(211,84,0,0.15)}
 .add-row{display:inline-flex;align-items:center;gap:6px;background:none;border:1px dashed var(--border);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;font-family:"Raleway",sans-serif;color:var(--ink2);cursor:pointer;transition:all .2s;margin-top:12px}
 .add-row:hover{border-color:var(--blue);color:var(--blue)}
 
@@ -150,10 +148,25 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
   <div class="card">
     <span class="s-label">Dimensionamento de VMs</span>
     <p style="font-size:13px;color:var(--ink2);margin-bottom:24px;line-height:1.6">Adicione um card por grupo de máquinas com as mesmas características. O licenciamento Windows é calculado automaticamente.</p>
-    <div id="vmCards"></div>
+    <div style="overflow-x:auto">
+      <table class="vm-row-table">
+        <thead><tr>
+          <th class="col-idx">#</th>
+          <th class="col-name">Nome / Funcao</th>
+          <th class="col-os">Sistema Operacional</th>
+          <th class="col-num">Qtd</th>
+          <th class="col-num">vCPU</th>
+          <th class="col-num">RAM GB</th>
+          <th class="col-num">Disco GB</th>
+          <th class="col-lic">Licenca</th>
+          <th class="col-del"></th>
+        </tr></thead>
+        <tbody id="vmBody"></tbody>
+      </table>
+    </div>
     <button class="add-row" onclick="addRow()">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
-      Adicionar grupo de VMs
+      Adicionar grupo
     </button>
   </div>
 
@@ -214,253 +227,114 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
 </div>
 
 <script>
-var rows = [], rid = 0;
-var togs = {bg:true, bk:true, bo:false, ha:false, dr:false};
+var rows=[],rid=0;
+var togs={bg:true,bk:true,bo:false,ha:false,dr:false};
 
-function setTog(k,v){
-  togs[k]=v;
-  document.getElementById(k+'-s').className = v ? 'on' : '';
-  document.getElementById(k+'-n').className = v ? '' : 'on';
+function setTog(k,v){togs[k]=v;document.getElementById(k+'-s').className=v?'on':'';document.getElementById(k+'-n').className=v?'':' on';}
+
+function licLabel(os,vcpu){
+  if(!os||os==='Linux') return '<span class="lic-badge lic-lin">Linux -- incluso</span>';
+  var c=Math.max(16,Math.ceil(vcpu/2)*2),ver=os.replace('Windows Server ','');
+  return '<span class="lic-badge lic-win">Win '+ver+' -- '+c+' cores/VM</span>';
 }
 
-function licLabel(os, vcpu){
-  if(!os || os === 'Linux') return '<span style="font-size:11px;font-weight:600;font-family:Raleway,sans-serif;color:#d35400">Linux -- incluso</span>';
-  var cores = Math.max(16, Math.ceil(vcpu/2)*2);
-  var ver = os.replace('Windows Server ','');
-  return '<span style="font-size:11px;font-weight:600;font-family:Raleway,sans-serif;color:#0078d4">Win '+ver+' -- '+cores+' cores/VM</span>';
-}
-
-function renderCard(r, idx){
-  var d = r.data;
-  var id = r.id;
-  var isWin = d.os && d.os.indexOf('Windows') === 0;
-
-  var card = document.createElement('div');
-  card.className = 'vm-card';
-  card.id = 'vmcard'+id;
-
-  // Header
-  var hdr = document.createElement('div');
-  hdr.className = 'vm-card-header';
-  var num = document.createElement('span');
-  num.className = 'vm-card-num';
-  num.textContent = 'VM '+(idx+1);
-  var del = document.createElement('button');
-  del.className = 'vm-card-del';
-  del.title = 'Remover';
-  del.innerHTML = '&times;';
-  del.addEventListener('click', (function(i){ return function(){ removeRow(i); }; })(id));
-  hdr.appendChild(num); hdr.appendChild(del);
-  card.appendChild(hdr);
-
-  // Name field
-  var fName = document.createElement('div');
-  fName.className = 'vm-card-field';
-  fName.innerHTML = '<label>Nome / Funcao</label>';
-  var iName = document.createElement('input');
-  iName.type = 'text'; iName.placeholder = 'Ex: App server, ERP, DB...';
-  iName.value = d.nm||'';
-  iName.addEventListener('change', (function(i){ return function(){ updCard(i,'nm',this.value); }; })(id));
-  fName.appendChild(iName); card.appendChild(fName);
-
-  // OS field
-  var fOs = document.createElement('div');
-  fOs.className = 'vm-card-field';
-  fOs.innerHTML = '<label>Sistema Operacional</label>';
-  var sel = document.createElement('select');
-  sel.className = isWin ? 'os-win' : 'os-lin';
+function renderRow(r,idx){
+  var d=r.data,id=r.id,isWin=d.os&&d.os.indexOf('Windows')===0;
+  var tr=document.createElement('tr');
+  var tdI=document.createElement('td');tdI.className='col-idx';tdI.textContent=idx+1;tr.appendChild(tdI);
+  var tdN=document.createElement('td');tdN.className='col-name';
+  var iN=document.createElement('input');iN.type='text';iN.placeholder='App server, DB, ERP...';iN.value=d.nm||'';
+  iN.addEventListener('change',(function(i){return function(){upd(i,'nm',this.value);};})(id));
+  tdN.appendChild(iN);tr.appendChild(tdN);
+  var tdO=document.createElement('td');tdO.className='col-os';
+  var sel=document.createElement('select');
+  sel.style.color=isWin?'#0078d4':'#d35400';sel.style.fontWeight='600';
   ['Linux','Windows Server 2025','Windows Server 2022','Windows Server 2019'].forEach(function(opt){
-    var o = document.createElement('option');
-    o.value = opt; o.textContent = opt;
-    if((d.os||'Linux') === opt) o.selected = true;
+    var o=document.createElement('option');o.value=opt;o.textContent=opt;
+    if((d.os||'Linux')===opt)o.selected=true;
     sel.appendChild(o);
   });
-  sel.addEventListener('change', (function(i){ return function(){ updCard(i,'os',this.value); }; })(id));
-  fOs.appendChild(sel); card.appendChild(fOs);
-
-  // Specs row
-  var specs = document.createElement('div');
-  specs.className = 'vm-card-specs';
-  [
-    {key:'qty',  label:'Quantidade', min:1,  max:999,   val:d.qty,  unit:''},
-    {key:'vcpu', label:'vCPU',       min:1,  max:256,   val:d.vcpu, unit:''},
-    {key:'ram',  label:'RAM (GB)',   min:1,  max:2048,  val:d.ram,  unit:''},
-  ].forEach(function(f){
-    var fd = document.createElement('div');
-    fd.className = 'vm-card-field';
-    fd.innerHTML = '<label>'+f.label+'</label>';
-    var inp = document.createElement('input');
-    inp.type = 'number'; inp.min = f.min; inp.max = f.max; inp.value = f.val;
-    inp.addEventListener('change', (function(i,k){ return function(){ updCard(i,k,+this.value); }; })(id,f.key));
-    fd.appendChild(inp); specs.appendChild(fd);
+  sel.addEventListener('change',(function(i){return function(){upd(i,'os',this.value);};})(id));
+  tdO.appendChild(sel);tr.appendChild(tdO);
+  [['qty',1,999,d.qty],['vcpu',1,256,d.vcpu],['ram',1,2048,d.ram],['disco',10,102400,d.disco]].forEach(function(f){
+    var td=document.createElement('td');td.className='col-num';
+    var inp=document.createElement('input');inp.type='number';inp.min=f[1];inp.max=f[2];inp.value=f[3];
+    inp.addEventListener('change',(function(i,k){return function(){upd(i,k,+this.value);};})(id,f[0]));
+    td.appendChild(inp);tr.appendChild(td);
   });
-  card.appendChild(specs);
-
-  // Disco field
-  var fDisco = document.createElement('div');
-  fDisco.className = 'vm-card-field';
-  fDisco.innerHTML = '<label>Disco (GB)</label>';
-  var iDisco = document.createElement('input');
-  iDisco.type = 'number'; iDisco.min = 10; iDisco.max = 102400; iDisco.value = d.disco;
-  iDisco.addEventListener('change', (function(i){ return function(){ updCard(i,'disco',+this.value); }; })(id));
-  fDisco.appendChild(iDisco); card.appendChild(fDisco);
-
-  // License
-  var lic = document.createElement('div');
-  lic.className = 'vm-card-lic';
-  lic.innerHTML = licLabel(d.os, d.vcpu);
-  card.appendChild(lic);
-
-  return card;
+  var tdL=document.createElement('td');tdL.className='col-lic';tdL.innerHTML=licLabel(d.os,d.vcpu);tr.appendChild(tdL);
+  var tdD=document.createElement('td');tdD.className='col-del';
+  var btn=document.createElement('button');btn.className='vm-del-btn';btn.title='Remover';btn.innerHTML='&times;';
+  btn.addEventListener('click',(function(i){return function(){removeRow(i);};})(id));
+  tdD.appendChild(btn);tr.appendChild(tdD);
+  return tr;
 }
 
-function renderCards(){
-  var container = document.getElementById('vmCards');
-  container.innerHTML = '';
-  var grid = document.createElement('div');
-  grid.className = 'vm-cards-grid';
-  rows.forEach(function(r,i){ grid.appendChild(renderCard(r,i)); });
-  container.appendChild(grid);
+function renderTable(){
+  var tb=document.getElementById('vmBody');
+  tb.innerHTML='';
+  rows.forEach(function(r,i){tb.appendChild(renderRow(r,i));});
   updateSummary();
 }
 
-function addRow(d){
-  var id = ++rid;
-  rows.push({id:id, data: d || {nm:'',os:'Linux',qty:1,vcpu:4,ram:8,disco:100}});
-  renderCards();
-}
-
-function removeRow(id){
-  rows = rows.filter(function(r){ return r.id !== id; });
-  renderCards();
-}
-
-function updCard(id,key,val){
-  var r = rows.find(function(r){ return r.id === id; });
-  if(r){ r.data[key]=val; renderCards(); }
-}
+function addRow(d){var id=++rid;rows.push({id:id,data:d||{nm:'',os:'Linux',qty:1,vcpu:4,ram:8,disco:100}});renderTable();}
+function removeRow(id){rows=rows.filter(function(r){return r.id!==id;});renderTable();}
+function upd(id,key,val){var r=rows.find(function(r){return r.id===id;});if(r){r.data[key]=val;renderTable();}}
 
 function updateSummary(){
   var vms=0,win=0,lin=0,cpu=0,ram=0,disco=0,winCores=0;
-  rows.forEach(function(r){
-    var d=r.data, q=+d.qty||0;
-    vms+=q; cpu+=q*(+d.vcpu||0); ram+=q*(+d.ram||0); disco+=q*(+d.disco||0);
-    if(d.os && d.os.indexOf('Windows')===0){ win+=q; winCores+=q*Math.max(16,Math.ceil((+d.vcpu||4)/2)*2); }
-    else lin+=q;
-  });
-  var dt = disco>=1024 ? (disco/1024).toFixed(1).replace('.0','')+' TB' : disco+' GB';
-  var items=[
-    {l:'VMs totais',v:vms},
-    {l:'Windows Server',v:win+' VMs'},
-    {l:'Linux',v:lin+' VMs'},
-    {l:'vCPU total',v:cpu},
-    {l:'RAM total',v:ram+' GB'},
-    {l:'Storage total',v:dt}
-  ];
-  document.getElementById('summaryGrid').innerHTML = items.map(function(i){
-    return '<div class="sum-item"><div class="sum-label">'+i.l+'</div><div class="sum-val">'+i.v+'</div></div>';
-  }).join('');
-  var lic = '';
-  if(win>0) lic = '<strong>Licenciamento Windows Server:</strong> '+win+' VM(s) x minimo 16 core licenses/VM = <strong>'+winCores+' core licenses</strong> no total. Licenciado por core em packs de 2, exige Software Assurance para virtualizacao em nuvem privada.';
-  document.getElementById('licNote').innerHTML = lic;
+  rows.forEach(function(r){var d=r.data,q=+d.qty||0;vms+=q;cpu+=q*(+d.vcpu||0);ram+=q*(+d.ram||0);disco+=q*(+d.disco||0);if(d.os&&d.os.indexOf('Windows')===0){win+=q;winCores+=q*Math.max(16,Math.ceil((+d.vcpu||4)/2)*2);}else lin+=q;});
+  var dt=disco>=1024?(disco/1024).toFixed(1).replace('.0','')+' TB':disco+' GB';
+  document.getElementById('summaryGrid').innerHTML=[{l:'VMs totais',v:vms},{l:'Windows Server',v:win+' VMs'},{l:'Linux',v:lin+' VMs'},{l:'vCPU total',v:cpu},{l:'RAM total',v:ram+' GB'},{l:'Storage total',v:dt}].map(function(i){return '<div class="sum-item"><div class="sum-label">'+i.l+'</div><div class="sum-val">'+i.v+'</div></div>';}).join('');
+  document.getElementById('licNote').innerHTML=win>0?'<strong>Licenciamento Windows Server:</strong> '+win+' VM(s) x minimo 16 cores/VM = <strong>'+winCores+' core licenses</strong>. Requer Software Assurance.':'';  
 }
 
 function maskCNPJ(el){
-  var d=el.value.replace(/[^0-9]/g,"").substring(0,14);
-  var r="";
-  if(d.length>0) r=d.substring(0,2);
-  if(d.length>2) r+="."+d.substring(2,5);
-  if(d.length>5) r+="."+d.substring(5,8);
-  if(d.length>8) r+="/"+d.substring(8,12);
-  if(d.length>12) r+="-"+d.substring(12,14);
-  el.value=r;
-  document.getElementById("cnpj-err").style.display="none";
+  var d=el.value.replace(/[^0-9]/g,'').substring(0,14),r='';
+  if(d.length>0)r=d.substring(0,2);if(d.length>2)r+='.'+d.substring(2,5);if(d.length>5)r+='.'+d.substring(5,8);if(d.length>8)r+='/'+d.substring(8,12);if(d.length>12)r+='-'+d.substring(12,14);
+  el.value=r;document.getElementById('cnpj-err').style.display='none';
 }
 
 function validateCNPJ(el){
-  var err=document.getElementById("cnpj-err");
-  var n=el.value.replace(/[^0-9]/g,"");
-  if(!n){err.style.display="none";return true;}
-  if(n.length!==14){err.style.display="block";return false;}
-  var same=true;
-  for(var i=1;i<14;i++) if(n[i]!==n[0]){same=false;break;}
-  if(same){err.style.display="block";return false;}
-  var w1=[5,4,3,2,9,8,7,6,5,4,3,2];
-  var w2=[6,5,4,3,2,9,8,7,6,5,4,3,2];
+  var err=document.getElementById('cnpj-err'),n=el.value.replace(/[^0-9]/g,'');
+  if(!n){err.style.display='none';return true;}
+  if(n.length!==14){err.style.display='block';return false;}
+  var same=true;for(var i=1;i<14;i++)if(n[i]!==n[0]){same=false;break;}
+  if(same){err.style.display='block';return false;}
+  var w1=[5,4,3,2,9,8,7,6,5,4,3,2],w2=[6,5,4,3,2,9,8,7,6,5,4,3,2];
   function calc(w){var s=0;for(var i=0;i<w.length;i++)s+=parseInt(n[i])*w[i];var r=s%11;return r<2?0:11-r;}
   var ok=calc(w1)===parseInt(n[12])&&calc(w2)===parseInt(n[13]);
-  err.style.display=ok?"none":"block";
-  return ok;
-}
-
-function sendForm(){ try {
-  console.log("sendForm called");
-  var emp = document.getElementById('empresa').value.trim();
-  var eml = document.getElementById('email').value.trim();
-  var nom = document.getElementById('nome').value.trim();
-  if(!emp||!eml||!nom){ alert('Preencha: empresa, responsavel e e-mail.'); return; }
-  var cnpjEl = document.getElementById('cnpj');
-  console.log('CNPJ raw:', cnpjEl.value, 'digits:', cnpjEl.value.replace(/[^0-9]/g,''));
-
-  var payload = {
-    empresa: emp, cnpj: cnpjEl.value, nome: nom,
-    cargo: document.getElementById('cargo').value,
-    email: eml, whatsapp: document.getElementById('whatsapp').value,
-    segmento: document.getElementById('segmento').value,
-    prazo: document.getElementById('prazo').value,
-    ips: document.getElementById('ips').value,
-    banda: document.getElementById('banda').value,
-    obs: document.getElementById('obs').value,
-    servicos: togs,
-    vms: rows.map(function(r){ return r.data; })
-  };
-
-  var btn = document.getElementById('submitBtn');
-  var status = document.getElementById('send-status');
-  btn.disabled = true; btn.style.opacity = '0.6';
-  status.style.display = 'inline-block';
-  status.style.color = 'var(--ink2)';
-  status.textContent = 'Enviando...';
-
-  fetch('https://io.alliant.com.br/form/enviar.php', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(payload)
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(d){
-    if(d.ok){
-      status.style.color = '#27ae60';
-      status.textContent = 'Enviado com sucesso! Retornaremos em ate 24h.';
-      btn.style.display = 'none';
-    } else {
-      status.style.color = '#c0392b';
-      status.textContent = 'Erro: '+(d.error||'Falha no envio');
-      btn.disabled = false; btn.style.opacity = '1';
-    }
-  })
-  .catch(function(){
-    status.style.color = '#c0392b';
-    status.textContent = 'Erro de conexao. Tente novamente.';
-    btn.disabled = false; btn.style.opacity = '1';
-  });
- } catch(e2){ alert('Erro JS: '+e2.message); console.error(e2); }}
-
-if(!window._vmInit){
-  window._vmInit = true;
-  addRow({nm:'Servidor de aplicacao',os:'Linux',qty:2,vcpu:4,ram:8,disco:100});
-  addRow({nm:'Banco de dados',os:'Linux',qty:1,vcpu:8,ram:32,disco:500});
-  addRow({nm:'ERP Windows',os:'Windows Server 2022',qty:1,vcpu:8,ram:16,disco:200});
+  err.style.display=ok?'none':'block';return ok;
 }
 
 function maskPhone(el){
-  var v = el.value.replace(/[^\d]/g,'').substring(0,11);
-  var r = '';
-  if(v.length > 0)  r = '(' + v.substring(0,2);
-  if(v.length > 2)  r += ') ';
-  if(v.length > 2 && v.length <= 10) r += v.substring(2,6) + (v.length>6 ? '-'+v.substring(6,10) : '');
-  else if(v.length > 2) r += v.substring(2,7) + (v.length>7 ? '-'+v.substring(7,11) : '');
-  el.value = r;
+  var v=el.value.replace(/[^0-9]/g,'').substring(0,11),r='';
+  if(v.length>0)r='('+v.substring(0,2);if(v.length>2)r+=') ';
+  if(v.length>2&&v.length<=10)r+=v.substring(2,6)+(v.length>6?'-'+v.substring(6,10):'');
+  else if(v.length>2)r+=v.substring(2,7)+(v.length>7?'-'+v.substring(7,11):'');
+  el.value=r;
+}
+
+function sendForm(){try{
+  var emp=document.getElementById('empresa').value.trim();
+  var eml=document.getElementById('email').value.trim();
+  var nom=document.getElementById('nome').value.trim();
+  if(!emp||!eml||!nom){alert('Preencha: empresa, responsavel e e-mail.');return;}
+  var cnpjEl=document.getElementById('cnpj');
+  var payload={empresa:emp,cnpj:cnpjEl.value,nome:nom,cargo:document.getElementById('cargo').value,email:eml,whatsapp:document.getElementById('whatsapp').value,segmento:document.getElementById('segmento').value,prazo:document.getElementById('prazo').value,ips:document.getElementById('ips').value,banda:document.getElementById('banda').value,obs:document.getElementById('obs').value,servicos:togs,vms:rows.map(function(r){return r.data;})};
+  var btn=document.getElementById('submitBtn'),status=document.getElementById('send-status');
+  btn.disabled=true;btn.style.opacity='0.6';
+  status.style.display='inline-block';status.style.color='var(--ink2)';status.textContent='Enviando...';
+  fetch('https://io.alliant.com.br/form/enviar.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+  .then(function(r){return r.json();})
+  .then(function(d){if(d.ok){status.style.color='#27ae60';status.textContent='Enviado! Retornaremos em ate 24h.';btn.style.display='none';}else{status.style.color='#c0392b';status.textContent='Erro: '+(d.error||'Falha');btn.disabled=false;btn.style.opacity='1';}  })
+  .catch(function(){status.style.color='#c0392b';status.textContent='Erro de conexao.';btn.disabled=false;btn.style.opacity='1';});
+}catch(e2){alert('Erro JS: '+e2.message);console.error(e2);}}
+
+if(!window._vmInit){window._vmInit=true;
+  addRow({nm:'Servidor de aplicacao',os:'Linux',qty:2,vcpu:4,ram:8,disco:100});
+  addRow({nm:'Banco de dados',os:'Linux',qty:1,vcpu:8,ram:32,disco:500});
+  addRow({nm:'ERP Windows',os:'Windows Server 2022',qty:1,vcpu:8,ram:16,disco:200});
 }
 </script>
 </body>
