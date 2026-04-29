@@ -60,7 +60,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 .glow1{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(29,106,255,.12) 0%,transparent 70%);top:-100px;right:-100px;pointer-events:none;z-index:0}
 .glow2{position:fixed;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(0,194,224,.08) 0%,transparent 70%);bottom:0;left:-50px;pointer-events:none;z-index:0}
 @keyframes cloudFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-#asciiCanvas{animation:cloudFloat 8s ease-in-out infinite}
+#asciiCanvas{opacity:.95}
 @media(max-width:800px){.hero{grid-template-columns:1fr;gap:40px}.hero-right{display:none}.about{grid-template-columns:1fr}footer{flex-direction:column;text-align:center}}
 </style>
 </head>
@@ -105,7 +105,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
     </div>
   </div>
   <div class="hero-right">
-    <canvas id="asciiCanvas" width="1200" height="560" aria-hidden="true"></canvas>
+    <canvas id="asciiCanvas" width="1400" height="660" aria-hidden="true"></canvas>
   </div>
 </section>
 <div class="about">
@@ -148,91 +148,185 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 
 <script>
 document.addEventListener("DOMContentLoaded",function(){
-// -- SCROLL FADE-IN
 var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});},{threshold:0.1});
 document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.observe(el);});
 
 (function(){
   var canvas = document.getElementById("asciiCanvas");
-  if (!canvas) return;
+  if(!canvas) return;
   var ctx = canvas.getContext("2d");
-  var clientIp = "?.?.?.?";
-  var clientLat = "...";
-  var rawFrames = ["   .-~~~~-.              .-~~~~-.                              \n .-'       '-.         .-'       '-.                          \n( .--------. )        ( .--------. )                          \n( | DC-SP1 | )        ( | DC-SP2 | )              .-------.  \n( | [====] | )        ( | [====] | )              | OFFICE|  \n( '--------' )        ( '--------' )              |  you  |  \n '-.       .-'         '-.       .-'              '-------'  \n   '-~~~~-'              '-~~~~-'                             \n                                                              \n                                                              \n  tunnel: idle                                                \n  client: ?.?.?.?                                             \n  status: waiting...                                          ","   .-~~~~-.              .-~~~~-.                              \n .-'       '-.         .-'       '-.                          \n( .--------. )        ( .--------. )                          \n( | DC-SP1 | )        ( | DC-SP2 | )              .-------.  \n( | [====] | )        ( | [====] | )              | OFFICE|  \n( '--------' )        ( '--------' )              |  you  |  \n '-.       .-'         '-.       .-'              '-------'  \n   '-~~~~-'              '-~~~~-'                      |      \n                                                       |      \n  >> ike: init ...                             ipsec --+      \n  >> phase 1: ...                                             \n  client: ?.?.?.?                                             \n  status: negotiating...                                      ","   .-~~~~-.              .-~~~~-.                              \n .-'       '-.         .-'       '-.                          \n( .--------. )~~~~~~~~~~( .--------. )                        \n( | DC-SP1 | )          ( | DC-SP2 | )            .-------.  \n( | [====] | )~~~~~~~~~~( | [====] | )            | OFFICE|  \n( '--------' )  key xchg( '--------' )            |  you  |  \n '-.       .-'           '-.       .-'  <-------- '-------'  \n   '-~~~~-'                '-~~~~-'       CLIENT_IP           \n                                                              \n  >> phase 1: ok                                              \n  >> phase 2: sa negotiation...                               \n  >> src: CLIENT_IP                                           \n  status: handshake...                                        ","   .-~~~~-.              .-~~~~-.                              \n .-'       '-.         .-'       '-.                          \n( .--------. )=========( .--------. )                         \n( | DC-SP1 | )==tunnel==( | DC-SP2 | )            .-------.  \n( | [====] | )=========( | [====] | )   <======== | OFFICE|  \n( '--------' )         ( '--------' )   ipsec ok  |  you  |  \n '-.       .-'          '-.       .-'  <========= '-------'  \n   '-~~~~-'               '-~~~~-'      CLIENT_IP             \n        |_________________________|                            \n  >> sa: established                                          \n  >> enc: AES-256-GCM                                         \n  >> src: CLIENT_IP   LAT_MS ms                               \n  status: tunnel up                                           ","   .-~~~~-.              .-~~~~-.                              \n .-'       '-.         .-'       '-.                          \n( .--------. )>>>>>>>>>( .--------. )                         \n( | DC-SP1 | )>>data>>>( | DC-SP2 | )            .-------.  \n( | active  | )>>>>>>>>>( | mirror | )  >>>>>>>> | OFFICE|  \n( '--------' )         ( '--------' )  >> flow   |  you  |  \n '-.       .-'          '-.       .-'  >>>>>>>>>>'-------'  \n   '-~~~~-'               '-~~~~-'     CLIENT_IP             \n        ^_________________________^         ^                 \n  >> tunnel: live                           |                 \n  >> CLIENT_IP connected                    |                 \n  >> rtt: LAT_MS ms    +60km ok             +                 \n  status: syncing...                                          ","   .-~~~~-.              .-~~~~-.                              \n .-'       '-.         .-'       '-.                          \n( .--------. )---------( .--------. )                         \n( | DC-SP1 | )-protected( | DC-SP2 | )           .-------.  \n( | primary| )---------( | replica | )  -------- | OFFICE|  \n( '--------' )         ( '--------' )   secured  |  you  |  \n '-.       .-'          '-.       .-'  ----------'-------'  \n   '-~~~~-'    <2ms/+60km  '-~~~~-'     CLIENT_IP            \n        |_________________________|                           \n  >> status: protected                                        \n  >> you: CLIENT_IP                                           \n  >> latency: LAT_MS ms                                       \n  status: all systems ok                                      "];
-  function getFrames(){
-    return rawFrames.map(function(f){
-      return f.replace(/CLIENT_IP/g,clientIp).replace(/LAT_MS/g,clientLat);
+  var W = canvas.width, H = canvas.height;
+  var clientIp="?.?.?.?", clientLat="...", dlSpeed="...", distDC="...";
+  var cloudFrames = [["   .-~~~~-.            .-~~~~-.   "," .-'       '-.       .-'       '-.","(-  -  -  -  -)     (-  -  -  -  -)"," '-.       .-'       '-.       .-'","   '-~~~~-'            '-~~~~-'   "],["   .-~~~~~-.           .-~~~~~-.  "," .-'        '-.      .-'        '-.","(   ~  ~  ~   )    (   ~  ~  ~   )"," '-.        .-'      '-.        .-'","   '-~~~~~-'           '-~~~~~-'  "],["   .-~~~~~~-.          .-~~~~~~-. "," .-'         '-.     .-'         '-.","(  . . . . . .  )  (  . . . . . .  )"," '-.         .-'     '-.         .-'","   '-~~~~~~-'          '-~~~~~~-'  "]];
+  var dcRows = ["( .--------. )      ( .--------. )                          ","( | DC-SP1 | )=====( | DC-SP2 | )            .----------. ","( | [====] | ) ipsec( | [====] | )  =======> |  OFFICE  | ","( '--------' )=====( '--------' )  secured   |   you    | ","                                              '----------' "];
+  var rawLines = [">> IP..........: CLIENT_IP",">> RTT.........: LAT_MS ms",">> LINK........: DL_SPEED Mbps",">> TUNNEL......: IPSEC AES-256-GCM",">> SITES.......: DC-SP1 / DC-SP2",">> DIST.DC.....: DIST_DC km from DC-SP1",">> COMPLIANCE..: LGPD OK",">> STATUS......: protected"];
+
+  function drawScene(cloudRows){
+    ctx.clearRect(0,0,W,H);
+    ctx.font = "22px \"Courier New\"";
+    var lh = 34;
+    // clouds
+    cloudRows.forEach(function(row,i){
+      ctx.shadowBlur=6; ctx.shadowColor="rgba(0,194,224,0.2)";
+      ctx.fillStyle="rgba(0,194,224,0.38)";
+      ctx.fillText(row, 6, 28+i*lh);
     });
-  }
-  function draw(text){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.font = "26px \"Courier New\"";
-    text.split("\n").forEach(function(row,i){
-      var isGreen  = row.indexOf(">>") === 0;
-      var isBright = /[=]{3,}|[>]{3,}|[-]{3,}/.test(row);
-      var isCloud  = /[~]{2,}|[(]|[)]/.test(row);
-      ctx.shadowBlur = isGreen ? 18 : isBright ? 22 : isCloud ? 8 : 6;
-      if (isGreen) {
-        ctx.fillStyle = "rgba(0,255,140,0.95)";
-        ctx.shadowColor = "rgba(0,255,140,0.5)";
-      } else if (isBright) {
-        ctx.fillStyle = "rgba(0,194,224,1)";
-        ctx.shadowColor = "rgba(0,194,224,0.8)";
-      } else if (isCloud) {
-        ctx.fillStyle = "rgba(0,194,224,0.45)";
-        ctx.shadowColor = "rgba(0,194,224,0.2)";
-      } else {
-        ctx.fillStyle = "rgba(0,194,224,0.65)";
-        ctx.shadowColor = "rgba(0,194,224,0.3)";
-      }
-      ctx.fillText(row, 6, 30 + i * 40);
+    // DCs
+    dcRows.forEach(function(row,i){
+      var isBright=/[=]{3,}|[>]{3,}/.test(row);
+      ctx.shadowBlur=isBright?18:5;
+      ctx.shadowColor=isBright?"rgba(0,194,224,0.8)":"rgba(0,194,224,0.3)";
+      ctx.fillStyle=isBright?"rgba(0,194,224,1)":"rgba(0,194,224,0.65)";
+      ctx.fillText(row, 6, 28+(cloudRows.length+i)*lh);
     });
+    // typed lines
+    ctx.font = "bold 18px \"Courier New\"";
+    var tyY = 28+(cloudRows.length+dcRows.length)*lh+20;
+    ctx.shadowBlur=12; ctx.shadowColor="rgba(0,255,140,0.5)";
+    ctx.fillStyle="rgba(0,255,140,0.9)";
+    // divider
+    ctx.shadowBlur=0; ctx.fillStyle="rgba(0,194,224,0.15)";
+    ctx.fillRect(0, tyY-14, W, 1);
+    ctx.shadowBlur=12; ctx.shadowColor="rgba(0,255,140,0.5)";
+    ctx.fillStyle="rgba(0,255,140,0.9)";
+    typedLines.forEach(function(line,i){
+      ctx.fillText(line, 10, tyY+i*28);
+    });
+    // cursor on last line if still typing
+    if(typing){
+      var cur = Date.now()%800 < 400 ? "_" : " ";
+      ctx.fillText(cur, 10+ctx.measureText(typedLines[typedLines.length-1]||"").width, tyY+(typedLines.length-1)*28);
+    }
   }
-  var fi = 0;
-  var glyphs = ".-~=+*#><|_";
-  function morph(target){
-    var prev = getFrames()[(fi - 1 + rawFrames.length) % rawFrames.length];
-    var src = prev.split("");
-    var dst = target.split("");
-    var len = Math.max(src.length, dst.length);
-    var pos = 0;
+
+  var currentCloud = cloudFrames[0].slice();
+  var glyphs=".-~=+*";
+  function morphCloud(targetRows, onDone){
+    var src=currentCloud.join("\n").split("");
+    var dst=targetRows.join("\n").split("");
+    var len=Math.max(src.length,dst.length);
+    var pos=0;
     function tick(){
-      if (pos >= len) { draw(target); return; }
-      var out = [];
-      for (var i = 0; i < len; i++) {
-        if (i < pos) { out.push(i < dst.length ? dst[i] : " "); }
-        else if (i < pos + 12) {
-          var ch = i < dst.length ? dst[i] : " ";
-          out.push(ch === "\n" ? "\n" : glyphs[Math.floor(Math.random() * glyphs.length)]);
-        } else { out.push(i < src.length ? src[i] : " "); }
+      if(pos>=len){
+        currentCloud=targetRows.slice();
+        drawScene(currentCloud);
+        if(onDone) onDone();
+        return;
       }
-      draw(out.join(""));
-      pos += 9 + Math.floor(Math.random() * 5);
-      setTimeout(tick, 16 + Math.random() * 12);
+      var out=[];
+      for(var i=0;i<len;i++){
+        if(i<pos){out.push(i<dst.length?dst[i]:" ");}
+        else if(i<pos+8){var ch=i<dst.length?dst[i]:" ";out.push(ch==="\n"?"\n":glyphs[Math.floor(Math.random()*glyphs.length)]);}
+        else{out.push(i<src.length?src[i]:" ");}
+      }
+      drawScene(out.join("").split("\n"));
+      pos+=6+Math.floor(Math.random()*4);
+      setTimeout(tick,18+Math.random()*12);
     }
     tick();
   }
-  function nextFrame(){
-    fi = (fi + 1) % rawFrames.length;
-    morph(getFrames()[fi]);
-    setTimeout(nextFrame, 3200 + Math.random() * 1200);
-  }
-  var boot = getFrames()[0], bi = 0;
-  var bt = setInterval(function(){
-    bi += 5; draw(boot.substring(0, bi));
-    if (bi >= boot.length) { clearInterval(bt); draw(boot); setTimeout(nextFrame, 1000); }
-  }, 18);
-  var t0 = performance.now();
-  fetch("https://api.ipify.org?format=json", {cache:"no-store"})
-    .then(function(r){ return r.json(); })
-    .then(function(d){ clientIp = d.ip; clientLat = Math.round(performance.now() - t0); })
-    .catch(function(){
-      var a=100+Math.floor(Math.random()*50);
-      var b=10+Math.floor(Math.random()*200);
-      var c=10+Math.floor(Math.random()*200);
-      clientIp = "177."+a+"."+b+"."+c;
-      clientLat = 8+Math.floor(Math.random()*20);
+
+  var typedLines=[];
+  var typing=false;
+  var lineIdx=0, charIdx=0;
+
+  function getLines(){
+    return rawLines.map(function(l){
+      return l.replace(/CLIENT_IP/g,clientIp).replace(/LAT_MS/g,clientLat).replace(/DL_SPEED/g,dlSpeed).replace(/DIST_DC/g,distDC);
     });
+  }
+
+  function startTyping(){
+    typing=true; lineIdx=0; charIdx=0; typedLines=[""];
+    typeNext();
+  }
+
+  function typeNext(){
+    var lines=getLines();
+    if(lineIdx>=lines.length){
+      typing=false;
+      // restart after pause
+      setTimeout(function(){
+        typedLines=[]; charIdx=0; lineIdx=0;
+        setTimeout(startTyping, 400);
+      }, 6000);
+      return;
+    }
+    var line=lines[lineIdx];
+    typedLines[lineIdx]=(typedLines[lineIdx]||"")+line[charIdx];
+    charIdx++;
+    if(charIdx>=line.length){
+      lineIdx++; charIdx=0;
+      typedLines[lineIdx]="";
+      setTimeout(typeNext, 180+Math.random()*120);
+    } else {
+      setTimeout(typeNext, 28+Math.random()*18);
+    }
+  }
+
+  function loop(){
+    drawScene(currentCloud);
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  morphCloud(cloudFrames[1], function(){
+    morphCloud(cloudFrames[2], function(){
+      morphCloud(cloudFrames[0], function(){
+        startTyping();
+      });
+    });
+  });
+
+  var distDC = "...";
+  // LibreSpeed getIP.php returns IP + distance calculated server-side
+  fetch("http://200.170.174.97:8000/backend/getIP.php",{cache:"no-store",mode:"cors"})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.ip) clientIp=d.ip;
+      // processedString format: "1.2.3.4 - ISP - City - 123 km"
+      if(d.processedString){
+        var km=d.processedString.match(/(\d+)\s*km/i);
+        if(km) distDC=km[1];
+      }
+      // rawIspInfo may have distance directly
+      if(d.rawIspInfo && d.rawIspInfo.distance){
+        distDC=Math.round(d.rawIspInfo.distance);
+      }
+    })
+    .catch(function(){
+      // fallback: ipify for IP, ip-api for coords -> haversine
+      fetch("https://api.ipify.org?format=json",{cache:"no-store"})
+        .then(function(r){return r.json();})
+        .then(function(d){
+          clientIp=d.ip;
+          return fetch("https://ip-api.com/json/"+d.ip+"?fields=lat,lon",{cache:"no-store"});
+        })
+        .then(function(r){return r.json();})
+        .then(function(g){
+          if(g&&g.lat&&g.lon){
+            var R=6371,dLat=(g.lat+23.03)*Math.PI/180,dLon=(g.lon+46.97)*Math.PI/180;
+            var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(g.lat*Math.PI/180)*Math.cos(-23.03*Math.PI/180)*Math.sin(dLon/2)*Math.sin(dLon/2);
+            distDC=Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
+          }
+        }).catch(function(){});
+    });
+
+  setTimeout(function(){
+    var ep="http://200.170.174.97:8000/backend/empty.php";
+    var res=[],n=0;
+    function ping(cb){var t0=performance.now();fetch(ep+"?_="+Date.now(),{cache:"no-store",mode:"no-cors"}).then(function(){cb(Math.round(performance.now()-t0));}).catch(function(){cb(null);});}
+    function run(){if(n>=6){var v=res.filter(function(x){return x!==null;});if(v.length>1)v.shift();if(v.length>0)clientLat=Math.min.apply(null,v);return;}ping(function(ms){res.push(ms);n++;setTimeout(run,200);});}
+    run();
+  },1500);
+
+  setTimeout(function(){
+    var t0=performance.now();
+    fetch("http://200.170.174.97:8000/backend/garbage.php?ckSize=1&_="+Date.now(),{cache:"no-store",mode:"no-cors"})
+      .then(function(){var dt=(performance.now()-t0)/1000;dlSpeed=((8)/dt).toFixed(1);})
+      .catch(function(){});
+  },3000);
+
 })();
 
 });
