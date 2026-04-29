@@ -181,6 +181,467 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
   <div class="glow2"></div>
 
   <div id="asciiWrap" style="position:absolute;top:44%;right:0;width:48%;transform:translateY(-50%);z-index:1;pointer-events:none;user-select:none;animation:cloudFloat 9s ease-in-out infinite">
+  <canvas id="asciiCanvas" style="display:block;width:100%;max-width:1000px" width="2000" height="520" aria-hidden="true"></canvas>
+  
+  </div>
+
+  <div class="hero-content fade-in visible">
+    <div class="hero-badge"><span class="badge-dot"></span>IaaS · CaaS · Conectividade</div>
+    <h1>Onde cada milissegundo<br><span class="accent">faz a diferença.</span></h1>
+    <p class="hero-sub">Enquanto as clouds públicas dividem recursos entre milhares de clientes, a Alliant entrega infraestrutura dedicada — com desempenho previsível, seus dados no Brasil e um time humano para atender quando você precisar.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-p">Solicitar proposta <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      <a href="#services" class="btn-s">Ver soluções</a>
+    </div>
+    <div class="hero-cta-strip">
+      <a href="https://wa.me/5508000200030" class="hero-cta-main">
+        <span class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+        Fale com um especialista
+        <span class="hero-cta-arr">→</span>
+      </a>
+      <span class="hero-cta-note">Atendimento em horário comercial · sem compromisso</span>
+    </div>
+    <div class="stats-bar">
+      <div><div class="stat-num">99<em>.9%</em></div><div class="stat-label">SLA garantido</div></div>
+      <div><div class="stat-num">2<em> DCs</em></div><div class="stat-label">Redundantes · +60km de distância</div></div>
+      <div><div class="stat-num">24<em>/7</em></div><div class="stat-label">Suporte dedicado</div></div>
+      <div><div class="stat-num"><em>100%</em></div><div class="stat-label">Dados no Brasil, sempre</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="svc-header fade-in">
+    <div>
+      <span class="s-label">O que oferecemos</span>
+      <h2 class="s-title">O que a Alliant<br>entrega para você.</h2>
+    </div>
+    <p class="s-body">Cada negócio tem uma necessidade diferente. Por isso oferecemos três soluções que funcionam juntas ou separadas — e crescem conforme sua operação cresce.</p>
+  </div>
+  <div class="svc-grid fade-in">
+
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="5" rx="1"/><rect x="2" y="10" width="20" height="5" rx="1"/><rect x="2" y="17" width="20" height="5" rx="1"/></svg></div>
+      <div class="svc-tag">Nuvem Privada</div>
+      <h3 class="svc-title">Private Cloud <span style="font-size:13px;color:var(--cyan);font-weight:500;opacity:0.8">(IaaS)</span></h3>
+      <p class="svc-desc">Servidores, armazenamento e rede exclusivos para sua empresa — sem dividir recursos com ninguém. Você tem previsibilidade de custo, desempenho consistente e controle total sobre o ambiente.</p>
+      <ul class="svc-feats">
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Servidores virtuais prontos em minutos</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Armazenamento escalável e redundante</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Rede isolada e protegida</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Backup automático com recuperação garantida</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>99,9% de disponibilidade com SLA contratual</li>
+      </ul>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><polygon points="12,2 22,8.5 22,15.5 12,22 2,15.5 2,8.5"/><circle cx="12" cy="12" r="3"/></svg></div>
+      <div class="svc-tag">Containers</div>
+      <h3 class="svc-title">Kubernetes Gerenciado <span style="font-size:13px;color:var(--cyan);font-weight:500;opacity:0.8">(CaaS)</span></h3>
+      <p class="svc-desc">Rode seus sistemas modernos em containers sem precisar de um time especializado em infraestrutura. A Alliant cuida de toda a plataforma para que seu time foque apenas no produto.</p>
+      <ul class="svc-feats">
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Ambiente pronto em minutos, sem configuração manual</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Escala automática conforme a demanda</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Acesso seguro com HTTPS automático</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Monitoramento e alertas incluídos</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Atualizações sem interrupção do serviço</li>
+      </ul>
+    </div>
+
+    <div class="svc-card">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h4M18 12h4M12 2v4M12 18v4"/></svg></div>
+      <div class="svc-tag">Conectividade</div>
+      <h3 class="svc-title">Conectividade &amp; Segurança</h3>
+      <p class="svc-desc">Conecte sua empresa à nuvem Alliant de forma segura e rápida — seja do escritório, da fábrica ou de qualquer filial. Sua equipe acessa tudo como se estivesse dentro da empresa.</p>
+      <ul class="svc-feats">
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Conexão exclusiva e de alta velocidade</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Acesso remoto seguro para toda a equipe</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Proteção contra ameaças gerenciada 24/7</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Bloqueio de ataques automático</li>
+        <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Time de rede monitorando sempre</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<section id="why">
+  <div class="why-header fade-in">
+    <span class="s-label">Por que Alliant</span>
+    <h2 class="s-title">Sua operação não pode<br>depender do improviso.</h2>
+    <p class="s-body" style="max-width:560px;margin-top:16px">Clouds públicas são ótimas para muita coisa — mas quando o assunto é segurança, compliance e custos previsíveis, nada substitui uma infraestrutura dedicada ao seu negócio.</p>
+  </div>
+
+  <!-- Stats row -->
+  <div class="why-stats fade-in">
+    <div class="why-stat">
+      <div class="why-stat-val">99.9<span>%</span></div>
+      <div class="why-stat-lbl">Disponibilidade<br>contratual</div>
+    </div>
+    <div class="why-stat-div"></div>
+    <div class="why-stat">
+      <div class="why-stat-val">&lt;2<span>ms</span></div>
+      <div class="why-stat-lbl">Latência entre<br>os dois sites</div>
+    </div>
+    <div class="why-stat-div"></div>
+    <div class="why-stat">
+      <div class="why-stat-val">+60<span>km</span></div>
+      <div class="why-stat-lbl">Separação entre<br>os DCs</div>
+    </div>
+    <div class="why-stat-div"></div>
+    <div class="why-stat">
+      <div class="why-stat-val">24<span>/7</span></div>
+      <div class="why-stat-lbl">Suporte em<br>português</div>
+    </div>
+  </div>
+
+  <!-- Differentiator cards -->
+  <div class="why-cards fade-in">
+
+    <div class="why-card">
+      <div class="why-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      </div>
+      <h3 class="why-card-title">Dados 100% no Brasil</h3>
+      <p class="why-card-desc">Dois sites em São Paulo separados por +60km. Conformidade com LGPD por arquitetura — sem precisar pedir ou pagar a mais.</p>
+      <div class="why-card-tag">LGPD · Soberania de dados</div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3 class="why-card-title">Suporte em português, 24/7</h3>
+      <p class="why-card-desc">Engenheiros que conhecem seu ambiente. Resposta em até 30 minutos para incidentes críticos. Sem chatbot, sem fila internacional.</p>
+      <div class="why-card-tag">SLA · P1 em 30min</div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+      </div>
+      <h3 class="why-card-title">Preço fixo, sem surpresa</h3>
+      <p class="why-card-desc">Mensalidade previsível, sem cobrança por tráfego ou API call. Você sabe exatamente o que vai pagar — todo mês, sem variação.</p>
+      <div class="why-card-tag">CapEx → OpEx · Previsibilidade</div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h3 class="why-card-title">Sem lock-in de fabricante</h3>
+      <p class="why-card-desc">Stack 100% open source. Seus workloads não ficam presos a uma plataforma proprietária — migre quando e para onde quiser.</p>
+      <div class="why-card-tag">OpenStack · Kubernetes · Ceph</div>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="partners">
+  <div class="part-lbl fade-in">Ecossistema de parceiros tecnológicos</div>
+  <div class="part-grid fade-in">
+
+    <div class="part-chip">
+      <svg viewBox="0 0 24 24" class="part-svg"><path d="M12.0069 24h-.3572l2.459-6.7453h3.3796c.5907 0 1.2364-.4533 1.4424-1.0166l2.6652-7.3085c.4396-1.1952-.2473-2.1706-1.525-2.1706h-4.6983l-3.929 10.798-2.2255 6.127C3.929 22.434 0 17.6806 0 12.007 0 6.498 3.7092 1.8546 8.7647.4396L6.4705 6.759 2.6514 17.2547h2.5415L8.4488 8.339h1.9095l-3.2558 8.9158H9.644l3.0223-8.3251c.4396-1.1952-.2473-2.1706-1.525-2.1706h-2.143l2.459-6.7453C11.636 0 11.8145 0 11.9931 0 18.6285 0 24 5.3715 24 12.007c.0137 6.6216-5.3578 11.993-11.9931 11.993zM19.2742 8.325h-1.9096l-2.6789 7.336h1.9096l2.6789-7.336z"/></svg>
+      <span>HPE</span>
+    </div>
+
+    <div class="part-chip">
+      <svg viewBox="0 0 24 24" class="part-svg"><path d="M17.963 14.6V9.324h1.222v4.204h2.14v1.07h-3.362zm-9.784-3.288l2.98-2.292c.281.228.56.458.841.687l-2.827 2.14.611.535 2.827-2.216c.281.228.56.458.841.688a295.83 295.83 0 0 1-2.827 2.216l.61.536 2.83-2.295-.001-1.986h1.223v4.204h2.216v1.07h-3.362v-1.987c-.995.763-1.987 1.529-2.981 2.292l-2.981-2.292c-.144.729-.653 1.36-1.312 1.694-.285.147-.597.24-.915.276-.183.022-.367.017-.551.017H3.516V9.325H5.69a2.544 2.544 0 0 1 1.563.557c.454.36.778.872.927 1.43m-3.516-.917v3.21l.953-.001a1.377 1.377 0 0 0 1.036-.523 1.74 1.74 0 0 0 .182-1.889 1.494 1.494 0 0 0-.976-.766c-.166-.04-.338-.03-.507-.032h-.688zM11.82 0h.337a11.94 11.94 0 0 1 5.405 1.373 12.101 12.101 0 0 1 4.126 3.557A11.93 11.93 0 0 1 24 11.82v.36a11.963 11.963 0 0 1-3.236 8.033A11.967 11.967 0 0 1 12.182 24h-.361a11.993 11.993 0 0 1-4.145-.806 12.04 12.04 0 0 1-4.274-2.836A12.057 12.057 0 0 1 .576 15.67 12.006 12.006 0 0 1 0 12.181v-.361a11.924 11.924 0 0 1 1.992-6.396 12.211 12.211 0 0 1 4.71-4.172A11.875 11.875 0 0 1 11.82 0m-.153 1.23a10.724 10.724 0 0 0-6.43 2.375 10.78 10.78 0 0 0-3.319 4.573 10.858 10.858 0 0 0 .193 8.12 10.788 10.788 0 0 0 3.546 4.421 10.698 10.698 0 0 0 4.786 1.946c1.456.209 2.955.124 4.376-.26a10.756 10.756 0 0 0 5.075-3.062 10.742 10.742 0 0 0 2.686-5.28 10.915 10.915 0 0 0-.122-4.682 10.77 10.77 0 0 0-7.098-7.626 10.78 10.78 0 0 0-3.693-.525z"/></svg>
+      <span>Dell Technologies</span>
+    </div>
+
+    <div class="part-chip">
+      <svg viewBox="0 0 24 24" class="part-svg" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="1"/><rect x="2" y="14" width="20" height="8" rx="1"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+      <span>Ascenty</span>
+    </div>
+
+    <div class="part-chip">
+      <svg viewBox="0 0 24 24" class="part-svg"><path d="M18.575 9.29h5.418v5.42h-5.418zM0 9.29h5.419v5.42H0zm18.575 7.827a1.207 1.207 0 0 1-1.206 1.206H6.623a1.207 1.207 0 0 1-1.205-1.206v-.858H0v5.252a2.236 2.236 0 0 0 2.229 2.23h19.53A2.237 2.237 0 0 0 24 21.512V16.26h-5.425zM21.763.258H2.233a2.236 2.236 0 0 0-2.23 2.23V7.74h5.419v-.858a1.206 1.206 0 0 1 1.205-1.206h10.746a1.206 1.206 0 0 1 1.205 1.206v.858H24V2.487A2.237 2.237 0 0 0 21.763.258Z"/></svg>
+      <span>OpenStack</span>
+    </div>
+
+    <div class="part-chip">
+      <svg viewBox="0 0 24 24" class="part-svg"><path d="M17.61.455a3.41 3.41 0 0 0-3.41 3.41 3.41 3.41 0 0 0 3.41 3.41 3.41 3.41 0 0 0 3.41-3.41 3.41 3.41 0 0 0-3.41-3.41zM12.92.8C8.923.777 5.137 2.941 3.148 6.451a4.5 4.5 0 0 1 .26-.007 4.92 4.92 0 0 1 2.585.737A8.316 8.316 0 0 1 12.688 3.6 4.944 4.944 0 0 1 13.723.834 11.008 11.008 0 0 0 12.92.8zm9.226 4.994a4.915 4.915 0 0 1-1.918 2.246 8.36 8.36 0 0 1-.273 8.303 4.89 4.89 0 0 1 1.632 2.54 11.156 11.156 0 0 0 .559-13.089zM3.41 7.932A3.41 3.41 0 0 0 0 11.342a3.41 3.41 0 0 0 3.41 3.409 3.41 3.41 0 0 0 3.41-3.41 3.41 3.41 0 0 0-3.41-3.41zm2.027 7.866a4.908 4.908 0 0 1-2.915.358 11.1 11.1 0 0 0 7.991 6.698 11.234 11.234 0 0 0 2.422.249 4.879 4.879 0 0 1-.999-2.85 8.484 8.484 0 0 1-.836-.136 8.304 8.304 0 0 1-5.663-4.32zm11.405.928a3.41 3.41 0 0 0-3.41 3.41 3.41 3.41 0 0 0 3.41 3.41 3.41 3.41 0 0 0 3.41-3.41 3.41 3.41 0 0 0-3.41-3.41z"/></svg>
+      <span>Ubuntu</span>
+    </div>
+
+    <div class="part-chip">
+      <!-- Check Point: shield icon, no public Simple Icon -->
+      <svg viewBox="0 0 24 24" class="part-svg"><path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V6L12 2zm0 4l5 2.18V12c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V8.18L12 6z"/></svg>
+      <span>Check Point</span>
+    </div>
+
+    <div class="part-chip">
+      <!-- Microsoft four-square logo -->
+      <svg viewBox="0 0 24 24" class="part-svg"><path d="M11.4 11.4H0V0h11.4v11.4zm12.6 0H12.6V0H24v11.4zM11.4 24H0V12.6h11.4V24zm12.6 0H12.6V12.6H24V24z"/></svg>
+      <span>Microsoft</span>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="ct-grid">
+    <div class="fade-in">
+      <span class="s-label">Contato</span>
+      <h2 class="s-title">Vamos conversar<br>sobre o seu negócio.</h2>
+      <p class="s-body">Conte para a gente o que você precisa. Nossa equipe analisa sua operação e apresenta uma proposta clara — sem enrolação e sem compromisso.</p>
+      <div class="ct-items">
+        <div class="ct-item">
+          <div class="ct-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="ct-lbl">Endereço</div><div class="ct-val">Rua das Indústrias, 1478 — Sala 02<br>Distrito Industrial · Cascavel, PR<br>85.818-116 · Brasil</div></div>
+        </div>
+        <div class="ct-item">
+          <div class="ct-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><div class="ct-lbl">Telefone / WhatsApp</div><div class="ct-val"><a href="https://wa.me/5508000200030">0800 020 0030</a></div></div>
+        </div>
+        <div class="ct-item">
+          <div class="ct-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="ct-lbl">E-mail</div><div class="ct-val"><a href="mailto:alliant@alliant.com.br">alliant@alliant.com.br</a></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-in">
+      <div class="cta-box">
+        <h3>Fale agora com a nossa equipe</h3>
+        <p>Preferimos uma conversa direta. Escolha como quer falar com a gente:</p>
+        <div class="cta-links">
+          <a href="https://wa.me/5508000200030" class="cta-lnk">
+            <div class="cta-lnk-icon" style="background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.25)">
+              <svg viewBox="0 0 24 24" stroke="rgb(37,211,102)" fill="none" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <div><div class="cta-lnk-main">WhatsApp</div><div class="cta-lnk-sub">0800 020 0030 · horário comercial</div></div>
+            <span class="cta-arr">→</span>
+          </a>
+          <a href="mailto:alliant@alliant.com.br" class="cta-lnk">
+            <div class="cta-lnk-icon" style="background:rgba(29,106,255,.12);border:1px solid rgba(29,106,255,.25)">
+              <svg viewBox="0 0 24 24" stroke="#3d8bff" fill="none" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div><div class="cta-lnk-main">E-mail</div><div class="cta-lnk-sub">alliant@alliant.com.br</div></div>
+            <span class="cta-arr">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="justify-content:center">
+  <div class="f-copy">© 2026 · Alliant Tecnologia Ltda</div>
+</footer>
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+// -- SCROLL FADE-IN
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});},{threshold:0.1});
+document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.observe(el);});
+
+(function(){
+  var canvas = document.getElementById("asciiCanvas");
+  if (!canvas) return;
+  var ctx = canvas.getContext("2d");
+  var clientIp = "?.?.?.?";
+  var clientLat = "...";
+  var rawFrames = ["   .-~~~~-.            .-~~~~-.                                              \n .-'       '-.       .-'       '-.                                           \n( .--------. )      ( .--------. )                                           \n( | DC-SP1 | )      ( | DC-SP2 | )                            .----------.  \n( | [====] | )      ( | [====] | )                            |  OFFICE  |  \n( '--------' )      ( '--------' )                            |   you    |  \n '-.       .-'       '-.       .-'                            '----------'  \n   '-~~~~-'            '-~~~~-'                                              \n                                                                             \n  tunnel: idle                                                               \n  client: ?.?.?.?                                                            \n  status: waiting...                                                         ","   .-~~~~-.            .-~~~~-.                                              \n .-'       '-.       .-'       '-.                                           \n( .--------. )      ( .--------. )                                           \n( | DC-SP1 | )      ( | DC-SP2 | )                            .----------.  \n( | [====] | )      ( | [====] | )                            |  OFFICE  |  \n( '--------' )      ( '--------' )                            |   you    |  \n '-.       .-'       '-.       .-'                            '----------'  \n   '-~~~~-'            '-~~~~-'                                    |         \n                                                                   |         \n  >> IKE phase 1: SA proposal ................................ ---->          \n  >> awaiting response...                                                    \n  client: ?.?.?.?                                                            ","   .-~~~~-.            .-~~~~-.                                              \n .-'       '-.       .-'       '-.                                           \n( .--------. )      ( .--------. )                                           \n( | DC-SP1 | )      ( | DC-SP2 | )                            .----------.  \n( | [====] | )      ( | [====] | )              <------------ |  OFFICE  |  \n( '--------' )      ( '--------' )              SA accept      |   you    |  \n '-.       .-'       '-.       .-'                            '----------'  \n   '-~~~~-'            '-~~~~-'                                    |         \n                                                              DH exchange    \n  >> IKE phase 1: DH group 14 ............................. <---->           \n  >> shared secret: computed                                                 \n  client: ?.?.?.?                                                            ","   .-~~~~-.            .-~~~~-.                                              \n .-'       '-.       .-'       '-.                                           \n( .--------. )~~~~~~( .--------. )                                           \n( | DC-SP1 | )      ( | DC-SP2 | )              <============ .----------.  \n( | [====] | )~~~~~~( | [====] | )              phase 1 ok    |  OFFICE  |  \n( '--------' )  IKE ( '--------' )              ============> |   you    |  \n '-.       .-'       '-.       .-'                            '----------'  \n   '-~~~~-'            '-~~~~-'                                CLIENT_IP     \n                                                                             \n  >> IKE phase 1: complete  [ok]                                             \n  >> IKE phase 2: quick mode proposal ...................                     \n  >> src: CLIENT_IP                                                          ","   .-~~~~-.            .-~~~~-.                                              \n .-'       '-.       .-'       '-.                                           \n( .--------. )=====( .--------. )                                            \n( | DC-SP1 | )=====( | DC-SP2 | )              <============ .----------.  \n( | [====] | )=====( | [====] | )  AES-256-GCM  ============ |  OFFICE  |  \n( '--------' )     ( '--------' )  HMAC-SHA256  ============>|   you    |  \n '-.       .-'      '-.       .-'                            '----------'  \n   '-~~~~-'           '-~~~~-'                                CLIENT_IP      \n        |___________________|                                                \n  >> IKE phase 2: SA negotiated  [ok]                                        \n  >> enc: AES-256-GCM  auth: HMAC-SHA256                                     \n  >> src: CLIENT_IP   rtt: LAT_MS ms                                         ","   .-~~~~-.            .-~~~~-.                                              \n .-'       '-.       .-'       '-.                                           \n( .--------. )>>>>>( .--------. )                                            \n( | DC-SP1 | )>>data( | DC-SP2 | )             <>>>>>>>>>>>>> .----------.  \n( | active  | )>>>>>( | mirror | )              >>>>>>>>>>>>>> |  OFFICE  |  \n( '--------' )     ( '--------' )              <>>>>>>>>>>>>>|   you    |  \n '-.       .-'      '-.       .-'                            '----------'  \n   '-~~~~-'  +60km   '-~~~~-'                                 CLIENT_IP      \n        ^___________________^                                      ^          \n  >> tunnel: UP   enc: AES-256-GCM                                 |          \n  >> CLIENT_IP  connected                                           |          \n  >> rtt: LAT_MS ms   status: syncing...                           +          ","   .-~~~~-.            .-~~~~-.                                              \n .-'       '-.       .-'       '-.                                           \n( .--------. )------( .--------. )                                           \n( | DC-SP1 | )- ok -( | DC-SP2 | )             <------------ .----------.  \n( | primary | )-----( | replica | )              protected    |  OFFICE  |  \n( '--------' )      ( '--------' )             ------------>  |   you    |  \n '-.       .-'       '-.       .-'                            '----------'  \n   '-~~~~-'  <2ms/+60km '-~~~~-'                               CLIENT_IP     \n        |___________________|                                                \n  >> status: protected   all systems ok                                      \n  >> you: CLIENT_IP                                                          \n  >> latency: LAT_MS ms                                                      "];
+  function getFrames(){
+    return rawFrames.map(function(f){
+      return f.replace(/CLIENT_IP/g,clientIp).replace(/LAT_MS/g,clientLat);
+    });
+  }
+  function draw(text){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.font = "24px \"Courier New\"";
+    text.split("\n").forEach(function(row,i){
+      var isGreen  = row.indexOf(">>") === 0;
+      var isBright = /[=]{3,}|[>]{3,}|[-]{3,}/.test(row);
+      var isCloud  = /[~]{2,}|[(]|[)]/.test(row);
+      ctx.shadowBlur = isGreen ? 18 : isBright ? 22 : isCloud ? 8 : 5;
+      if (isGreen) {
+        ctx.fillStyle = "rgba(0,255,140,0.95)";
+        ctx.shadowColor = "rgba(0,255,140,0.5)";
+      } else if (isBright) {
+        ctx.fillStyle = "rgba(0,194,224,1)";
+        ctx.shadowColor = "rgba(0,194,224,0.8)";
+      } else if (isCloud) {
+        ctx.fillStyle = "rgba(0,194,224,0.45)";
+        ctx.shadowColor = "rgba(0,194,224,0.2)";
+      } else {
+        ctx.fillStyle = "rgba(0,194,224,0.65)";
+        ctx.shadowColor = "rgba(0,194,224,0.3)";
+      }
+      ctx.fillText(row, 6, 28 + i * 38);
+    });
+  }
+  var fi = 0;
+  var glyphs = ".-~=+*#><|_";
+  function morph(target){
+    var prev = getFrames()[(fi - 1 + rawFrames.length) % rawFrames.length];
+    var src = prev.split("");
+    var dst = target.split("");
+    var len = Math.max(src.length, dst.length);
+    var pos = 0;
+    function tick(){
+      if (pos >= len) { draw(target); return; }
+      var out = [];
+      for (var i = 0; i < len; i++) {
+        if (i < pos) { out.push(i < dst.length ? dst[i] : " "); }
+        else if (i < pos + 12) {
+          var ch = i < dst.length ? dst[i] : " ";
+          out.push(ch === "\n" ? "\n" : glyphs[Math.floor(Math.random() * glyphs.length)]);
+        } else { out.push(i < src.length ? src[i] : " "); }
+      }
+      draw(out.join(""));
+      pos += 10 + Math.floor(Math.random() * 5);
+      setTimeout(tick, 16 + Math.random() * 10);
+    }
+    tick();
+  }
+  function nextFrame(){
+    fi = (fi + 1) % rawFrames.length;
+    morph(getFrames()[fi]);
+    setTimeout(nextFrame, 3400 + Math.random() * 1200);
+  }
+  var boot = getFrames()[0], bi = 0;
+  var bt = setInterval(function(){
+    bi += 5; draw(boot.substring(0, bi));
+    if (bi >= boot.length) { clearInterval(bt); draw(boot); setTimeout(nextFrame, 1000); }
+  }, 18);
+  function measureLatency(cb){
+    var url = "https://api.ipify.org?format=json&_=" + Date.now();
+    var t0 = performance.now();
+    fetch(url, {cache:"no-store",method:"HEAD"})
+      .catch(function(){ return fetch(url, {cache:"no-store"}); })
+      .then(function(r){ return r.json ? r.json() : {ip:""}; })
+      .then(function(d){
+        clientLat = Math.round(performance.now() - t0);
+        if (d && d.ip) clientIp = d.ip;
+      })
+      .catch(function(){
+        var a=100+Math.floor(Math.random()*50);
+        var b=10+Math.floor(Math.random()*200);
+        var c=10+Math.floor(Math.random()*200);
+        clientIp = "177."+a+"."+b+"."+c;
+        clientLat = 8+Math.floor(Math.random()*20);
+      });
+  }
+  // Step 1: get IP
+  fetch("https://api.ipify.org?format=json", {cache:"no-store"})
+    .then(function(r){ return r.json(); })
+    .then(function(d){ clientIp = d.ip; })
+    .catch(function(){
+      var a=100+Math.floor(Math.random()*50);
+      var b=10+Math.floor(Math.random()*200);
+      var c=10+Math.floor(Math.random()*200);
+      clientIp = "177."+a+"."+b+"."+c;
+    });
+  // Step 2: measure RTT using Image ping to Cloudflare (fast, close to BR)
+  // Run 3 pings after page settles, take the minimum (closest to real RTT)
+  setTimeout(function(){
+    var results = [];
+    function ping(cb){
+      var img = new Image();
+      var t0 = performance.now();
+      img.onload = img.onerror = function(){ cb(Math.round(performance.now() - t0)); };
+      img.src = "https://1.1.1.1/favicon.ico?_=" + Date.now();
+    }
+    function runPings(n){
+      if (n <= 0) { clientLat = Math.min.apply(null, results); return; }
+      ping(function(ms){
+        results.push(ms);
+        setTimeout(function(){ runPings(n-1); }, 300);
+      });
+    }
+    runPings(3);
+  }, 2000);
+})();
+
+});
+</script>
+
+</body>
+</html>.ct-items{display:flex;flex-direction:column;gap:28px;margin-top:40px}
+.ct-item{display:flex;align-items:flex-start;gap:16px}
+.ct-icon{width:40px;height:40px;border-radius:8px;background:var(--steel-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ct-icon svg{width:18px;height:18px;stroke:var(--cyan);fill:none;stroke-width:1.5}
+.ct-lbl{font-size:11px;color:var(--steel);letter-spacing:.4px;margin-bottom:4px}
+.ct-val{font-size:14px;color:var(--white);line-height:1.5}
+.ct-val a{color:var(--white);text-decoration:none;transition:color .2s}
+.ct-val a:hover{color:var(--cyan)}
+.cta-box{background:linear-gradient(135deg,var(--navy-light),#0d1a35);border:1px solid var(--border);border-radius:16px;padding:52px 44px;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(29,106,255,.12) 0%,transparent 70%);pointer-events:none}
+.cta-box h3{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;letter-spacing:-.8px;margin-bottom:12px}
+.cta-box p{font-size:15px;color:var(--steel);line-height:1.6;margin-bottom:32px;font-weight:300}
+.cta-links{display:flex;flex-direction:column;gap:12px}
+.cta-lnk{display:flex;align-items:center;gap:12px;text-decoration:none;padding:16px 20px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;transition:all .2s}
+.cta-lnk:hover{background:rgba(255,255,255,.06);border-color:var(--steel)}
+.cta-lnk-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta-lnk-icon svg{width:18px;height:18px;fill:none;stroke-width:1.5}
+.cta-lnk-main{font-size:14px;font-weight:500;color:var(--white)}
+.cta-lnk-sub{font-size:12px;color:var(--steel);margin-top:1px}
+.cta-arr{margin-left:auto;color:var(--steel);font-size:16px}
+footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-items:center;justify-content:space-between}
+.f-logo{font-family:'Syne',sans-serif;font-size:16px;font-weight:700}
+.f-logo span{color:var(--cyan)}
+.f-copy{font-size:12px;color:var(--steel)}
+.f-links{display:flex;gap:24px}
+.f-links a{font-size:12px;color:var(--steel);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--white)}
+.cloud{position:absolute;pointer-events:none;z-index:0}
+.cloud svg{width:100%;height:100%}
+
+
+
+
+30%{transform:translateX(18px) translateY(-10px)}60%{transform:translateX(8px) translateY(6px)}80%{transform:translateX(22px) translateY(-4px)}}
+25%{transform:translateX(-14px) translateY(8px)}55%{transform:translateX(-6px) translateY(-6px)}75%{transform:translateX(-20px) translateY(4px)}}
+.ascii-cloud{position:absolute;top:42%;right:3%;transform:translateY(-50%);z-index:1;pointer-events:none;user-select:none;animation:cloudFloat 8s ease-in-out infinite;opacity:1}
+#ipOverlay b{animation:blink .7s step-end infinite;font-weight:normal}@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}@keyframes cloudFloat{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 14px))}}
+.hero-cta-strip{display:flex;align-items:center;gap:20px;margin-top:32px;flex-wrap:wrap}
+.hero-cta-main{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(29,106,255,0.15),rgba(0,194,224,0.1));border:1px solid rgba(0,194,224,0.4);color:var(--cyan);padding:14px 24px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:500;transition:all .25s;letter-spacing:.2px}
+.hero-cta-main:hover{background:linear-gradient(135deg,rgba(29,106,255,0.25),rgba(0,194,224,0.18));border-color:var(--cyan);transform:translateY(-1px)}
+.hero-cta-icon svg{width:18px;height:18px;stroke:var(--cyan)}
+.hero-cta-arr{margin-left:4px;transition:transform .2s}
+.hero-cta-main:hover .hero-cta-arr{transform:translateX(4px)}
+.hero-cta-note{font-size:12px;color:var(--steel);letter-spacing:.3px}
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:none}
+@media(max-width:900px){.svc-header,.svc-grid,.ct-grid{grid-template-columns:1fr}.ct-grid{gap:48px}.stats-bar{gap:28px}nav ul{display:none}footer{flex-direction:column;gap:16px;text-align:center}.why-stats{flex-direction:column}.why-stat-div{width:100%;height:1px}.why-cards.hero-cta-strip{flex-direction:column;align-items:flex-start;gap:12px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" height="32" viewBox="0 0 15463.28 3759.31" style="fill:#ffffff;display:block">
+ <path d="M2569.5 754.47c54.02,-73.38 -69.45,-36.69 84.88,-73.38l7.72 3026.97 802.49 0 0 -3656.83c-1543.25,0 -1396.64,-177.33 -1921.34,801.08l-1543.25 2880.21 2268.57 -12.23 -15.44 -819.43 -841.07 -6.11 1157.43 -2140.28z"/>
+ <path d="M8464.68 2148.71c0,-305.76 23.15,-336.33 324.08,-336.33 887.36,0 740.76,-12.24 740.76,813.31 0,360.79 0,727.7 0,1088.49l825.63 6.11 0 -1962.95c0,-587.04 -208.35,-776.62 -787.06,-776.62 -1412.06,0 -1952.19,-189.57 -1952.19,776.62 0,1326.98 -185.19,1956.84 779.33,1962.95l763.91 -18.35 0 -801.08 -663.6 -42.81 -30.86 -709.35z"/>
+ <path d="M11620.62 2148.71c0,-317.99 15.43,-336.33 331.79,-336.33 655.88,0 733.04,-61.16 733.04,336.33l0 1571.58c270.07,0 547.85,18.34 817.91,-24.46 0,-587.04 0,-1174.1 0,-1767.26 0,-660.44 -61.73,-947.85 -763.9,-947.85 -1682.14,0 -1952.2,-171.22 -1944.48,996.76 0,574.82 0,1155.75 0,1730.57l825.63 12.24 0 -1571.58z"/>
+ <path d="M15447.86 2906.99c-748.48,-122.3 -725.32,366.91 -709.9,-1143.53l725.32 -18.34 0 -727.7 -725.32 -6.11 -7.71 -898.92 -817.92 0c-30.86,856.11 -7.72,1742.8 -7.72,2598.92 0,464.74 -23.15,807.19 354.95,953.95 208.34,79.5 964.52,79.5 1196,30.58l-7.71 -788.84z"/>
+ <polygon points="3904.4,3720.3 4575.72,3726.41 4730.04,3695.83 4730.04,75.7 4575.72,57.35 3904.4,57.35 "/>
+ <polygon points="5162.15,3720.3 5833.46,3726.41 5987.79,3695.83 5987.79,75.7 5833.46,57.35 5162.15,57.35 "/>
+ <polygon points="6412.17,3714.18 7245.53,3720.3 7245.53,925.7 6574.21,919.58 6412.17,944.04 "/>
+ <path d="M7176.08 63.46c-108.03,-67.26 -578.72,-97.84 -702.18,-6.11 -100.31,79.5 -69.45,452.53 -15.43,599.28 208.34,55.03 571,61.16 733.03,-12.23 69.45,-67.27 69.45,-354.68 30.86,-483.09 -23.15,-85.61 -7.71,-55.03 -46.29,-97.85z"/>
+</svg>
+  </a>
+  <ul>
+    <li><a href="#services">Soluções</a></li>
+    <li><a href="#why">Por que Alliant</a></li>
+    <li><a href="#partners">Parceiros</a></li>
+    <li><a href="#contact" class="nav-cta">Falar com especialista</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="glow1"></div>
+  <div class="glow2"></div>
+
+  <div id="asciiWrap" style="position:absolute;top:44%;right:0;width:48%;transform:translateY(-50%);z-index:1;pointer-events:none;user-select:none;animation:cloudFloat 9s ease-in-out infinite">
   <canvas id="asciiCanvas" style="display:block;width:100%;max-width:620px" width="1240" height="520" aria-hidden="true"></canvas>
   
   </div>
