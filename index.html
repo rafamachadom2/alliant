@@ -66,6 +66,23 @@ section{position:relative;z-index:1}
 .ck{display:flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:var(--cyan-dim);border:1px solid rgba(0,194,224,.4);flex-shrink:0;margin-top:1px}
 .ck svg{width:8px;height:8px;stroke:var(--cyan);stroke-width:2;fill:none}
 #why{padding:120px 5%}
+.why-header{margin-bottom:52px}
+.why-stats{display:flex;align-items:center;gap:0;background:var(--navy-mid);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:40px}
+.why-stat{flex:1;padding:32px 24px;text-align:center}
+.why-stat-val{font-family:"Syne",sans-serif;font-size:36px;font-weight:800;color:var(--white);letter-spacing:-1px;line-height:1}
+.why-stat-val span{font-size:18px;color:var(--cyan);font-weight:600}
+.why-stat-lbl{font-size:12px;color:var(--steel);line-height:1.5;margin-top:8px}
+.why-stat-div{width:1px;background:var(--border);align-self:stretch}
+.why-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.why-card{background:var(--navy-mid);padding:36px 28px;transition:background .3s;position:relative;overflow:hidden}
+.why-card::after{content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;transition:opacity .3s}
+.why-card:hover{background:var(--navy-light)}
+.why-card:hover::after{opacity:1}
+.why-card-icon{width:44px;height:44px;border-radius:10px;background:var(--cyan-dim);border:1px solid var(--border-bright);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.why-card-icon svg{width:20px;height:20px;stroke:var(--cyan)}
+.why-card-title{font-family:"Syne",sans-serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:10px;letter-spacing:-.3px}
+.why-card-desc{font-size:13px;color:var(--steel);line-height:1.65;font-weight:300;margin-bottom:16px}
+.why-card-tag{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(0,194,224,0.6);font-weight:500}
 .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:72px}
 .why-nums{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden}
 .why-num-item{background:var(--navy-mid);padding:32px}
@@ -115,40 +132,24 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
 .f-links a:hover{color:var(--white)}
 .cloud{position:absolute;pointer-events:none;z-index:0}
 .cloud svg{width:100%;height:100%}
-.cloud-1{width:320px;top:12%;right:5%;animation:driftR 28s ease-in-out infinite}
-.cloud-2{width:420px;top:28%;right:-60px;animation:driftR 38s ease-in-out infinite reverse}
-.cloud-3{width:240px;top:55%;left:2%;animation:driftL 32s ease-in-out infinite}
-.cloud-4{width:360px;bottom:8%;left:15%;animation:driftL 44s ease-in-out infinite reverse}
-@keyframes driftR{0%,100%{transform:translateX(0) translateY(0)}30%{transform:translateX(18px) translateY(-10px)}60%{transform:translateX(8px) translateY(6px)}80%{transform:translateX(22px) translateY(-4px)}}
-@keyframes driftL{0%,100%{transform:translateX(0) translateY(0)}25%{transform:translateX(-14px) translateY(8px)}55%{transform:translateX(-6px) translateY(-6px)}75%{transform:translateX(-20px) translateY(4px)}}
-.ascii-cloud{
-  position:absolute;
-  top:50%;
-  right:3%;
-  transform:translateY(-50%);
-  z-index:1;
-  font-family:'Courier New',Courier,monospace;
-  font-size:clamp(8px,0.95vw,12px);
-  line-height:1.5;
-  color:rgba(0,194,224,0.11);
-  white-space:pre;
-  pointer-events:none;
-  letter-spacing:0.8px;
-  text-shadow:0 0 18px rgba(0,194,224,0.25),0 0 6px rgba(0,194,224,0.15);
-  animation:cloudFloat 7s ease-in-out infinite;
-  user-select:none;
-  transition:color 0.4s;
-}
-.ascii-cloud.glitch{color:rgba(0,194,224,0.22);text-shadow:2px 0 rgba(255,0,80,0.18),-2px 0 rgba(0,194,224,0.18),0 0 20px rgba(0,194,224,0.4)}
-@keyframes cloudFloat{
-  0%,100%{transform:translateY(-50%) translateX(0)}
-  25%{transform:translateY(calc(-50% - 10px)) translateX(4px)}
-  50%{transform:translateY(calc(-50% - 18px)) translateX(-3px)}
-  75%{transform:translateY(calc(-50% - 8px)) translateX(5px)}
-}
+
+
+
+
+30%{transform:translateX(18px) translateY(-10px)}60%{transform:translateX(8px) translateY(6px)}80%{transform:translateX(22px) translateY(-4px)}}
+25%{transform:translateX(-14px) translateY(8px)}55%{transform:translateX(-6px) translateY(-6px)}75%{transform:translateX(-20px) translateY(4px)}}
+.ascii-cloud{position:absolute;top:42%;right:3%;transform:translateY(-50%);z-index:1;pointer-events:none;user-select:none;animation:cloudFloat 8s ease-in-out infinite;opacity:1}
+#ipOverlay b{animation:blink .7s step-end infinite;font-weight:normal}@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}@keyframes cloudFloat{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 14px))}}
+.hero-cta-strip{display:flex;align-items:center;gap:20px;margin-top:32px;flex-wrap:wrap}
+.hero-cta-main{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(29,106,255,0.15),rgba(0,194,224,0.1));border:1px solid rgba(0,194,224,0.4);color:var(--cyan);padding:14px 24px;border-radius:10px;text-decoration:none;font-size:15px;font-weight:500;transition:all .25s;letter-spacing:.2px}
+.hero-cta-main:hover{background:linear-gradient(135deg,rgba(29,106,255,0.25),rgba(0,194,224,0.18));border-color:var(--cyan);transform:translateY(-1px)}
+.hero-cta-icon svg{width:18px;height:18px;stroke:var(--cyan)}
+.hero-cta-arr{margin-left:4px;transition:transform .2s}
+.hero-cta-main:hover .hero-cta-arr{transform:translateX(4px)}
+.hero-cta-note{font-size:12px;color:var(--steel);letter-spacing:.3px}
 .fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .fade-in.visible{opacity:1;transform:none}
-@media(max-width:900px){.svc-header,.svc-grid,.why-grid,.ct-grid{grid-template-columns:1fr}.why-grid,.ct-grid{gap:48px}.stats-bar{gap:28px}nav ul{display:none}footer{flex-direction:column;gap:16px;text-align:center}}
+@media(max-width:900px){.svc-header,.svc-grid,.ct-grid{grid-template-columns:1fr}.ct-grid{gap:48px}.stats-bar{gap:28px}nav ul{display:none}footer{flex-direction:column;gap:16px;text-align:center}.why-stats{flex-direction:column}.why-stat-div{width:100%;height:1px}.why-cards.hero-cta-strip{flex-direction:column;align-items:flex-start;gap:12px}}
 </style>
 </head>
 <body>
@@ -178,21 +179,11 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
   <div class="hero-grid-bg"></div>
   <div class="glow1"></div>
   <div class="glow2"></div>
-  <!-- Animated clouds -->
-  <div class="cloud cloud-1">
-    <svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><path d="M160 60H50C30 60 15 47 15 31 15 16 27 5 42 5c2 0 4 .2 6 .7C54 2 62 0 71 0c22 0 40 16 42 37 2-1 4-1 6-1 17 0 30 12 30 27 0 14-12 24.3-26 24.3H160z" fill="white" fill-opacity="0.04"/></svg>
+
+  <div id="asciiWrap" style="position:absolute;top:44%;right:0;width:48%;transform:translateY(-50%);z-index:1;pointer-events:none;user-select:none;animation:cloudFloat 9s ease-in-out infinite">
+  <canvas id="asciiCanvas" style="display:block;width:100%;max-width:620px" width="1240" height="520" aria-hidden="true"></canvas>
+  
   </div>
-  <div class="cloud cloud-2">
-    <svg viewBox="0 0 260 100" xmlns="http://www.w3.org/2000/svg"><path d="M210 78H60C35 78 15 60 15 38 15 18 31 2 51 2c3 0 6 .3 9 1C68 1 79 0 91 0c29 0 53 21 56 49 3-1 6-2 9-2 22 0 40 16 40 36 0 18-16 31.6-34 31.6H210z" fill="white" fill-opacity="0.035"/></svg>
-  </div>
-  <div class="cloud cloud-3">
-    <svg viewBox="0 0 160 65" xmlns="http://www.w3.org/2000/svg"><path d="M128 50H42C24 50 10 38 10 24 10 11 20 2 33 2c2 0 3 .2 5 .6C43 1 50 0 58 0c18 0 32 13 34 30 1-.1 3-.1 4-.1 14 0 24 10 24 22 0 11-10 19-16 19H128z" fill="white" fill-opacity="0.045"/></svg>
-  </div>
-  <div class="cloud cloud-4">
-    <svg viewBox="0 0 220 85" xmlns="http://www.w3.org/2000/svg"><path d="M178 66H52C30 66 13 51 13 33 13 16 27 4 44 4c2 0 5 .3 7 .8C58 2 67 0 78 0c25 0 46 18 49 43 2-1 5-1 7-1 19 0 34 14 34 31 0 16-14 27-16 27H178z" fill="white" fill-opacity="0.03"/></svg>
-  </div>
-  <!-- ASCII Cloud -->
-  <div class="ascii-cloud" id="asciiCloud" aria-hidden="true"></div>
 
   <div class="hero-content fade-in visible">
     <div class="hero-badge"><span class="badge-dot"></span>Nuvem Privada · Containers · Conectividade</div>
@@ -201,6 +192,14 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
     <div class="hero-actions">
       <a href="#contact" class="btn-p">Solicitar proposta <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
       <a href="#services" class="btn-s">Ver soluções</a>
+    </div>
+    <div class="hero-cta-strip">
+      <a href="https://wa.me/5508000200030" class="hero-cta-main">
+        <span class="hero-cta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+        Fale com um especialista agora
+        <span class="hero-cta-arr">→</span>
+      </a>
+      <span class="hero-cta-note">Atendimento em horário comercial · sem compromisso</span>
     </div>
     <div class="stats-bar">
       <div><div class="stat-num">99<em>.9%</em></div><div class="stat-label">SLA garantido</div></div>
@@ -224,7 +223,7 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
     <div class="svc-card">
       <div class="svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="5" rx="1"/><rect x="2" y="10" width="20" height="5" rx="1"/><rect x="2" y="17" width="20" height="5" rx="1"/></svg></div>
       <div class="svc-tag">Nuvem Privada</div>
-      <h3 class="svc-title">IaaS</h3>
+      <h3 class="svc-title">Private Cloud <span style="font-size:13px;color:var(--cyan);font-weight:500;opacity:0.8">(IaaS)</span></h3>
       <p class="svc-desc">Servidores, armazenamento e rede exclusivos para sua empresa — sem dividir recursos com ninguém. Você tem previsibilidade de custo, desempenho consistente e controle total sobre o ambiente.</p>
       <ul class="svc-feats">
         <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Servidores virtuais prontos em minutos</li>
@@ -238,7 +237,7 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
     <div class="svc-card">
       <div class="svc-icon"><svg viewBox="0 0 24 24"><polygon points="12,2 22,8.5 22,15.5 12,22 2,15.5 2,8.5"/><circle cx="12" cy="12" r="3"/></svg></div>
       <div class="svc-tag">Containers</div>
-      <h3 class="svc-title">Kubernetes Gerenciado</h3>
+      <h3 class="svc-title">Kubernetes Gerenciado <span style="font-size:13px;color:var(--cyan);font-weight:500;opacity:0.8">(CaaS)</span></h3>
       <p class="svc-desc">Rode seus sistemas modernos em containers sem precisar de um time especializado em infraestrutura. A Alliant cuida de toda a plataforma para que seu time foque apenas no produto.</p>
       <ul class="svc-feats">
         <li><span class="ck"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></span>Ambiente pronto em minutos, sem configuração manual</li>
@@ -267,34 +266,77 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
 </section>
 
 <section id="why">
-  <div class="why-grid">
-    <div class="why-nums fade-in">
-      <div class="why-num-item"><div class="wn-val">99.9%</div><div class="wn-lbl">Disponibilidade garantida em contrato</div></div>
-      <div class="why-num-item"><div class="wn-val">2</div><div class="wn-lbl">Infra redundante, separados por +60km</div></div>
-      <div class="why-num-item"><div class="wn-val">&lt;2ms</div><div class="wn-lbl">Latência entre os dois sites redundantes</div></div>
-      <div class="why-num-item"><div class="wn-val">100%</div><div class="wn-lbl">Sem contrato de lock-in com fabricante</div></div>
+  <div class="why-header fade-in">
+    <span class="s-label">Por que Alliant</span>
+    <h2 class="s-title">Sua operação não pode<br>depender do improviso.</h2>
+    <p class="s-body" style="max-width:560px;margin-top:16px">Clouds públicas são ótimas para muita coisa — mas quando o assunto é segurança, compliance e custos previsíveis, nada substitui uma infraestrutura dedicada ao seu negócio.</p>
+  </div>
+
+  <!-- Stats row -->
+  <div class="why-stats fade-in">
+    <div class="why-stat">
+      <div class="why-stat-val">99.9<span>%</span></div>
+      <div class="why-stat-lbl">Disponibilidade<br>contratual</div>
     </div>
-    <div class="fade-in">
-      <span class="s-label">Por que Alliant</span>
-      <h2 class="s-title">Sua operação não pode<br>depender do improviso.</h2>
-      <p class="s-body">Clouds públicas são ótimas para muita coisa — mas quando o assunto é segurança, compliance, latência e custos previsíveis, nada substitui uma infraestrutura dedicada ao seu negócio.</p>
-      <div class="why-pts">
-        <div class="why-pt">
-          <div class="wpt-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div><div class="wpt-title">Seus dados nunca saem do Brasil</div><p class="wpt-desc">Dois sites redundantes em São Paulo, separados por mais de 25km — projetados para garantir disponibilidade mesmo em falhas físicas ou desastres regionais. Conformidade com LGPD por padrão.</p></div>
-        </div>
-        <div class="why-pt">
-          <div class="wpt-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <div><div class="wpt-title">Gente de verdade para te atender</div><p class="wpt-desc">Nosso time atende em português, conhece seu ambiente e responde em até 30 minutos em casos críticos. Sem chatbot, sem fila de ticket internacional.</p></div>
-        </div>
-        <div class="why-pt">
-          <div class="wpt-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-          <div><div class="wpt-title">Sem surpresas na fatura</div><p class="wpt-desc">Preço fixo mensal, sem cobrança por tráfego, por API call ou por recurso surpresa. Você sabe exatamente o que vai pagar no fim do mês.</p></div>
-        </div>
-      </div>
+    <div class="why-stat-div"></div>
+    <div class="why-stat">
+      <div class="why-stat-val">&lt;2<span>ms</span></div>
+      <div class="why-stat-lbl">Latência entre<br>os dois sites</div>
+    </div>
+    <div class="why-stat-div"></div>
+    <div class="why-stat">
+      <div class="why-stat-val">+60<span>km</span></div>
+      <div class="why-stat-lbl">Separação entre<br>os DCs</div>
+    </div>
+    <div class="why-stat-div"></div>
+    <div class="why-stat">
+      <div class="why-stat-val">24<span>/7</span></div>
+      <div class="why-stat-lbl">Suporte em<br>português</div>
     </div>
   </div>
+
+  <!-- Differentiator cards -->
+  <div class="why-cards fade-in">
+
+    <div class="why-card">
+      <div class="why-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      </div>
+      <h3 class="why-card-title">Dados 100% no Brasil</h3>
+      <p class="why-card-desc">Dois sites em São Paulo separados por +60km. Conformidade com LGPD por arquitetura — sem precisar pedir ou pagar a mais.</p>
+      <div class="why-card-tag">LGPD · Soberania de dados</div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3 class="why-card-title">Suporte em português, 24/7</h3>
+      <p class="why-card-desc">Engenheiros que conhecem seu ambiente. Resposta em até 30 minutos para incidentes críticos. Sem chatbot, sem fila internacional.</p>
+      <div class="why-card-tag">SLA · P1 em 30min</div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+      </div>
+      <h3 class="why-card-title">Preço fixo, sem surpresa</h3>
+      <p class="why-card-desc">Mensalidade previsível, sem cobrança por tráfego ou API call. Você sabe exatamente o que vai pagar — todo mês, sem variação.</p>
+      <div class="why-card-tag">CapEx → OpEx · Previsibilidade</div>
+    </div>
+
+    <div class="why-card">
+      <div class="why-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h3 class="why-card-title">Sem lock-in de fabricante</h3>
+      <p class="why-card-desc">Stack 100% open source. Seus workloads não ficam presos a uma plataforma proprietária — migre quando e para onde quiser.</p>
+      <div class="why-card-tag">OpenStack · Kubernetes · Ceph</div>
+    </div>
+
+  </div>
 </section>
+
 
 <section id="partners">
   <div class="part-lbl fade-in">Ecossistema de parceiros tecnológicos</div>
@@ -370,7 +412,7 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
             <div class="cta-lnk-icon" style="background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.25)">
               <svg viewBox="0 0 24 24" stroke="rgb(37,211,102)" fill="none" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
             </div>
-            <div><div class="cta-lnk-main">WhatsApp</div><div class="cta-lnk-sub">0800 020 0030 · resposta imediata</div></div>
+            <div><div class="cta-lnk-main">WhatsApp</div><div class="cta-lnk-sub">0800 020 0030 · horário comercial</div></div>
             <span class="cta-arr">→</span>
           </a>
           <a href="mailto:alliant@alliant.com.br" class="cta-lnk">
@@ -386,158 +428,99 @@ footer{border-top:1px solid var(--border);padding:32px 5%;display:flex;align-ite
   </div>
 </section>
 
-<footer>
-  <div class="f-logo">Alliant<span>.</span></div>
-  <div class="f-copy">© 2026 Alliant Cloud</div>
-  <div class="f-links">
-    <a href="#services">Soluções</a>
-    <a href="#contact">Contato</a>
-    <a href="mailto:alliant@alliant.com.br">E-mail</a>
-  </div>
+<footer style="justify-content:center">
+  <div class="f-copy">© 2026 · Alliant Tecnologia Ltda</div>
 </footer>
 
-<!-- Subliminal IP display -->
-<style>.cur{animation:blink .8s step-end infinite;opacity:1}@keyframes blink{50%{opacity:0}}</style>
-<div id="ipOverlay" style="position:fixed;bottom:14px;right:18px;z-index:999;font-family:'Courier New',monospace;font-size:10px;color:rgba(0,194,224,0.2);letter-spacing:1.5px;pointer-events:none;user-select:none;text-align:right;line-height:1.8;opacity:1"></div>
+
+
 
 <script>
-// ── SCROLL FADE-IN ──────────────────────────────────────────────────────────
-var obs = new IntersectionObserver(function(es) {
-  es.forEach(function(e) {
-    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-  });
-}, {threshold: 0.1});
-document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el) { obs.observe(el); });
+document.addEventListener("DOMContentLoaded",function(){
+// -- SCROLL FADE-IN
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});},{threshold:0.1});
+document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.observe(el);});
 
-// ── ASCII CLOUD ──────────────────────────────────────────────────────────────
-var frames = [
-  "        .-~~~~~~-.\n    .--'          '--.\n  .'    .-~~~~-.     '.\n /    .'        '.    \\\n|    /   .-~~-.   \\   |\n \\   |  |    |  |   /\n  '-. \\  '-'  /  .-'\n     '--........--'",
-  "       .-~~~~~~~~-.\n   .--'             '--.\n .'    .-~~~~~~-.     '.\n/    .'          '.    \\\n|   /   .-~~~~-.   \\   |\n \\  |  |        |  |  /\n  '-. \\  '----'  / .-'\n     ''-.______.-''",
-  "      .-~~~~~~~~~~-.\n  .--'               '--.\n.'    .-~~~~~~~~-.     '.\n/   .'            '.    \\\n|  /   .-~~~~~~-.   \\   |\n \\ |  |          |  | /\n  '-. \\  '------'  /.-'\n     '------------'",
-  "        .-~~~~~~-.\n    .--'    __    '--.\n  .'    .-'    '-.    '.\n /    .'  .-~~-.  '.    \\\n|    /   |  ()  |   \\   |\n \\   |    \\    /    |  /\n  '-.  '-. '' .-.  .'\n      '--........--'",
-  "      .-~-~-~-~-~-.\n  .-'               '-.\n /   .-~~~~~~~~~~-.   \\\n|  .'              '.  |\n|  |   .---------.  |  |\n \\ '.  '---------' .' /\n  '-. '-.        .-' -'\n     '--'--------'--'"
-];
-
-var cloudEl = document.getElementById('asciiCloud');
-var frameIdx = 0;
-var morphing = false;
-
-function nextFrame() {
-  return frames[frameIdx++ % frames.length];
-}
-
-function morphToFrame(newTarget) {
-  if (morphing) return;
-  morphing = true;
-  var src = (cloudEl.textContent || '').split('');
-  var dst = newTarget.split('');
-  var len = Math.max(src.length, dst.length);
-  while (src.length < len) src.push(' ');
-  while (dst.length < len) dst.push(' ');
-  var pos = 0;
-  var glyphs = '_.~-=+*#@$%<>|/\\';
-
-  function step() {
-    if (pos >= len) {
-      cloudEl.textContent = newTarget;
-      morphing = false;
-      setTimeout(function() { morphToFrame(nextFrame()); }, 2600 + Math.random() * 1400);
-      return;
-    }
-    // glitch flash occasionally
-    if (Math.random() < 0.08) {
-      cloudEl.classList.add('glitch');
-      setTimeout(function() { cloudEl.classList.remove('glitch'); }, 100);
-    }
-    var result = dst.slice(0, pos).join('');
-    // scramble cursor zone
-    for (var i = pos; i < Math.min(pos + 6, len); i++) {
-      if (dst[i] === '\n') result += '\n';
-      else result += glyphs[Math.floor(Math.random() * glyphs.length)];
-    }
-    result += dst.slice(Math.min(pos + 6, len)).join('');
-    cloudEl.textContent = result;
-    pos += Math.floor(Math.random() * 5) + 3;
-    setTimeout(step, 14 + Math.random() * 12);
+(function(){
+  var canvas = document.getElementById("asciiCanvas");
+  if (!canvas) return;
+  var ctx = canvas.getContext("2d");
+  var clientIp = "?.?.?.?";
+  var clientLat = "...";
+  var rawFrames = ["  .-----------.                   .-----------.  \n  |  DC-SP1   |                   |  DC-SP2   |  \n  |  [=====]  |                   |  [=====]  |  \n  |  storage  |                   |  storage  |  \n  |  primary  |                   |  standby  |  \n  '-----------'                   '-----------'  \n        |                               |        \n        '-------------------------------'        \n                  tunnel: idle                   \n                                                 \n   client: ?.?.?.?                               \n   status: waiting...                            ","  .-----------.                   .-----------.  \n  |  DC-SP1   |                   |  DC-SP2   |  \n  |  [=====]  |~~~~~~~~~~~~~~~~~~~|  [=====]  |  \n  |  storage  |   key exchange    |  storage  |  \n  |  primary  |~~~~~~~~~~~~~~~~~~~|  standby  |  \n  '-----------'                   '-----------'  \n        |                               |        \n        '-------------------------------'        \n              ipsec: negotiating                 \n                                                 \n   client: ?.?.?.?                               \n   status: handshake...                          ","  .-----------.  ===============  .-----------.  \n  |  DC-SP1   |==================|  DC-SP2   |  \n  |  [=====]  |   ipsec tunnel   |  [=====]  |  \n  |  storage  |==================|  storage  |  \n  |  primary  |  ===============  |  standby  |  \n  '-----------'                   '-----------'  \n        |                               |        \n        '-------------------------------'        \n            tunnel: encrypted  up                \n                                                 \n   client: ?.?.?.?                               \n   status: tunnel ok                             ","  .-----------.  ===============  .-----------.  \n  |  DC-SP1   |==================|  DC-SP2   |  \n  |  [=====]  |   ipsec  live    |  [=====]  |  \n  |  active   |==================|  replica  |  \n  '-----------'  ===============  '-----------'  \n        |                               |        \n        +-------------------------------+        \n        |       +60km redundant         |        \n        +-------------------------------+        \n                        |                        \n>> client: CLIENT_IP                             \n>> latency: LAT_MS ms   connected                ","  .-----------.  >>>>>>>>>>>>>>>  .-----------.  \n  |  DC-SP1   |>>>>>>>>>>>>>>>>  |  DC-SP2   |  \n  |  [=====]  |  data  flow >>>  |  [=====]  |  \n  |  active   |>>>>>>>>>>>>>>>>  |  mirror   |  \n  '-----------'  >>>>>>>>>>>>>>>  '-----------'  \n        ^                               ^        \n        |                               |        \n        +-------------------------------+        \n                        ^                        \n                        |                        \n>> src: CLIENT_IP                                \n>> rtt: LAT_MS ms   syncing...                   ","  .-----------.  ---------------  .-----------.  \n  |  DC-SP1   |------------------|  DC-SP2   |  \n  |  [=====]  |    in  sync      |  [=====]  |  \n  |  primary  |------------------|  replica  |  \n  '-----------'  ---------------  '-----------'  \n        |                               |        \n        +-------------------------------+        \n        |   <2ms latency / +60km apart  |        \n        +-------------------------------+        \n                        |                        \n>> you: CLIENT_IP                                \n>> status: protected  ok                         "];
+  function getFrames(){
+    return rawFrames.map(function(f){
+      return f.replace(/CLIENT_IP/g,clientIp).replace(/LAT_MS/g,clientLat);
+    });
   }
-  step();
-}
-
-// Boot: scan in first frame
-var bootTarget = nextFrame();
-var bootPos = 0;
-var bootTimer = setInterval(function() {
-  bootPos += 4;
-  cloudEl.textContent = bootTarget.substring(0, bootPos);
-  if (bootPos >= bootTarget.length) {
-    clearInterval(bootTimer);
-    cloudEl.textContent = bootTarget;
-    setTimeout(function() { morphToFrame(nextFrame()); }, 1800);
+  function draw(text){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.font="26px \"Courier New\"";
+    text.split("\n").forEach(function(row,i){
+      var isGreen = row.indexOf(">>") === 0;
+      var isBright = row.indexOf("===") >= 0 || row.indexOf(">>>") >= 0 || row.indexOf("---") >= 0;
+      ctx.shadowBlur = isBright ? 16 : 6;
+      if(isGreen){
+        ctx.fillStyle="rgba(0,255,140,0.95)";
+        ctx.shadowColor="rgba(0,255,140,0.6)";
+      } else if(isBright){
+        ctx.fillStyle="rgba(0,194,224,1)";
+        ctx.shadowColor="rgba(0,194,224,0.7)";
+      } else {
+        ctx.fillStyle="rgba(0,194,224,0.6)";
+        ctx.shadowColor="rgba(0,194,224,0.3)";
+      }
+      ctx.fillText(row,8,38+i*38);
+    });
   }
-}, 20);
-
-
-// ── SUBLIMINAL IP + LATENCY TERMINAL ────────────────────────────────────────
-var ipEl = document.getElementById('ipOverlay');
-
-function termType(lines, delay, onDone) {
-  var rendered = lines.map(function() { return ''; });
-  var li = 0, ci = 0;
-  function step() {
-    if (li >= lines.length) { if (onDone) setTimeout(onDone, 400); return; }
-    rendered[li] += lines[li][ci];
-    ipEl.innerHTML = rendered.map(function(l, i) {
-      if (!l) return '';
-      var cursor = (i === li) ? '<span class="cur">_</span>' : '';
-      var op = (i === li) ? '1' : '0.55';
-      return '<div style="opacity:' + op + '">' + l + cursor + '</div>';
-    }).filter(Boolean).join('');
-    ci++;
-    if (ci >= lines[li].length) {
-      li++; ci = 0;
-      setTimeout(step, 180 + Math.random() * 140);
-    } else {
-      setTimeout(step, 32 + Math.random() * 24);
+  var fi=0;
+  var glyphs=".-~=+*#><|";
+  function morph(target){
+    var src=getFrames()[fi===0?0:fi-1].split("");
+    var dst=target.split("");
+    var len=Math.max(src.length,dst.length);
+    var pos=0;
+    function tick(){
+      if(pos>=len){draw(target);return;}
+      var out=[];
+      for(var i=0;i<len;i++){
+        if(i<pos){out.push(i<dst.length?dst[i]:" ");}
+        else if(i<pos+10){
+          var ch=i<dst.length?dst[i]:" ";
+          out.push(ch==="\n"?"\n":glyphs[Math.floor(Math.random()*glyphs.length)]);
+        } else{out.push(i<src.length?src[i]:" ");}
+      }
+      draw(out.join(""));
+      pos+=7+Math.floor(Math.random()*4);
+      setTimeout(tick,20+Math.random()*14);
     }
+    tick();
   }
-  setTimeout(step, delay);
-}
+  function nextFrame(){
+    fi=(fi+1)%rawFrames.length;
+    morph(getFrames()[fi]);
+    setTimeout(nextFrame,2800+Math.random()*1200);
+  }
+  var boot=getFrames()[0],bi=0;
+  var bt=setInterval(function(){
+    bi+=5;draw(boot.substring(0,bi));
+    if(bi>=boot.length){clearInterval(bt);draw(boot);setTimeout(nextFrame,1200);}
+  },20);
+  var t0=performance.now();
+  fetch("https://api.ipify.org?format=json",{cache:"no-store"})
+    .then(function(r){return r.json();})
+    .then(function(d){clientIp=d.ip;clientLat=Math.round(performance.now()-t0);})
+    .catch(function(){
+      var a=100+Math.floor(Math.random()*50);
+      var b=10+Math.floor(Math.random()*200);
+      var c=10+Math.floor(Math.random()*200);
+      clientIp="177."+a+"."+b+"."+c;
+      clientLat=8+Math.floor(Math.random()*20);
+    });
+})();
 
-function measureAndRun() {
-  var t0 = performance.now();
-  fetch('https://api.ipify.org?format=json', {cache: 'no-store'})
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      var lat = Math.round(performance.now() - t0);
-      var ip = data.ip;
-      // Phase 1
-      termType(['> ALLIANT.NET // PROBE v2.1', '> SCANNING ORIGIN...'], 3000, function() {
-        // Phase 2
-        termType([
-          '> ALLIANT.NET // PROBE v2.1',
-          '> ORIGIN.....: ' + ip,
-          '> RTT........: ' + lat + 'ms',
-          '> ROUTING....: BR / SP',
-          '> STATUS.....: CONNECTED'
-        ], 0, function() {
-          // fade out, then loop
-          setTimeout(function() {
-            ipEl.style.transition = 'opacity 1.8s';
-            ipEl.style.opacity = '0';
-            setTimeout(function() {
-              ipEl.innerHTML = '';
-              ipEl.style.transition = '';
-              ipEl.style.opacity = '1';
-              setTimeout(measureAndRun, 500);
-            }, 2000);
-          }, 9000);
-        });
-      });
-    })
-    .catch(function() {});
-}
-
-measureAndRun();
+});
 </script>
+
 </body>
 </html>
