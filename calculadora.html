@@ -22,7 +22,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5
 .nav-logo svg{display:block}
 .nav-cta{font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;letter-spacing:.2px}
 
-.hero{padding:52px 5% 40px;max-width:1100px;margin:0 auto}
+.hero{padding:52px 5% 24px;max-width:1100px;margin:0 auto}
 .hero h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin-bottom:10px}
 .hero h1 span{color:var(--blue)}
 .hero p{font-size:14px;color:var(--ink2);max-width:520px;line-height:1.7}
@@ -101,7 +101,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5
 
 
 /* ── ARCH CANVAS ── */
-.arch-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px;margin-top:16px}
+.arch-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px}
 #archCanvas{width:100%;display:block;border-radius:8px;background:rgba(237,232,223,0.4)}
 .arch-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
 .leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink2)}
@@ -133,6 +133,21 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
 <div class="hero">
   <h1>Calcule sua<br><span>infraestrutura cloud.</span></h1>
   <p>Monte seu ambiente, configure os serviços e veja o custo estimado em tempo real. Sem surpresas na fatura.</p>
+</div>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 5% 24px">
+  <div class="arch-card">
+    <div class="card-title">Arquitetura do Ambiente</div>
+    <canvas id="archCanvas"></canvas>
+    <div class="arch-legend">
+      <span class="leg-item"><span class="leg-dot" style="background:rgba(107,95,82,0.5)"></span>Internet</span>
+      <span class="leg-item"><span class="leg-dot" style="background:rgba(29,106,255,0.6)"></span>DC-SP1</span>
+      <span class="leg-item"><span class="leg-dot" style="background:rgba(0,145,181,0.6)"></span>DC-SP2</span>
+      <span class="leg-item"><span class="leg-dot" style="background:rgba(211,84,0,0.6)"></span>Linux VM</span>
+      <span class="leg-item"><span class="leg-dot" style="background:rgba(0,120,212,0.6)"></span>Windows VM</span>
+      <span class="leg-item"><span class="leg-dot" style="background:rgba(211,84,0,0.8);border-radius:3px"></span>HA badge</span>
+    </div>
+  </div>
 </div>
 
 <div class="calc-wrap">
@@ -184,20 +199,6 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
       </div>
     </div>
 
-
-    <!-- ARQUITETURA -->
-    <div class="arch-card">
-      <div class="card-title">Arquitetura do Ambiente</div>
-      <canvas id="archCanvas"></canvas>
-      <div class="arch-legend">
-        <span class="leg-item"><span class="leg-dot" style="background:rgba(107,95,82,0.5)"></span>Internet</span>
-        <span class="leg-item"><span class="leg-dot" style="background:rgba(29,106,255,0.6)"></span>DC-SP1</span>
-        <span class="leg-item"><span class="leg-dot" style="background:rgba(0,145,181,0.6)"></span>DC-SP2</span>
-        <span class="leg-item"><span class="leg-dot" style="background:rgba(211,84,0,0.6)"></span>Linux VM</span>
-        <span class="leg-item"><span class="leg-dot" style="background:rgba(0,120,212,0.6)"></span>Windows VM</span>
-        <span class="leg-item"><span class="leg-dot" style="background:rgba(211,84,0,0.8);border-radius:3px"></span>HA badge</span>
-      </div>
-    </div>
 
   </div><!-- end .left -->
 
@@ -429,7 +430,7 @@ function abbrev(name){
   function resize(){
     var rect=canvas.parentElement.getBoundingClientRect();
     W=Math.max(rect.width||400,300);
-    H=Math.round(W*0.50);
+    H=Math.round(W*0.42);
     canvas.width=W*dpr;canvas.height=H*dpr;
     canvas.style.height=H+'px';
     ctx=canvas.getContext('2d');
