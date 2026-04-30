@@ -57,6 +57,8 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
 .lic-badge{font-size:11px;font-weight:600;font-family:"Raleway",sans-serif;padding:2px 7px;border-radius:4px;white-space:nowrap}
 .lic-win{background:rgba(0,120,212,0.1);color:#0078d4;border:1px solid rgba(0,120,212,0.2)}
 .lic-lin{background:rgba(211,84,0,0.08);color:#d35400;border:1px solid rgba(211,84,0,0.15)}
+.vm-split-canvas{width:100%;border-radius:10px;overflow:hidden}
+#archCanvas{width:100%;display:block;border-radius:8px;background:rgba(237,232,223,0.5)}
 .add-row{display:inline-flex;align-items:center;gap:6px;background:none;border:1px dashed var(--border);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;font-family:"Raleway",sans-serif;color:var(--ink2);cursor:pointer;transition:all .2s;margin-top:12px}
 .add-row:hover{border-color:var(--blue);color:var(--blue)}
 
@@ -107,12 +109,108 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
 
 <div class="page">
 
-  <h1>Solicitar<br><span class="accent">proposta personalizada.</span></h1>
-  <p class="hero-sub">Preencha os dados da sua operação. Nossa equipe retorna em até 24h com uma proposta detalhada.</p>
+  <h1>Monte sua<br><span class="accent">arquitetura cloud.</span></h1>
+  <p class="hero-sub">Configure seu ambiente primeiro. Os dados da empresa você preenche no final.</p>
+
+  <!-- ARQUITETURA -->
+  <div class="card">
+    <span class="s-label">Arquitetura do Ambiente</span>
+    <p style="font-size:13px;color:var(--ink2);margin-bottom:16px;line-height:1.6">Diagrama atualiza em tempo real conforme você configura o ambiente abaixo.</p>
+    <div class="vm-split-canvas">
+      <canvas id="archCanvas"></canvas>
+    </div>
+    <div id="archLegend" style="display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink2);font-family:'Raleway',sans-serif">
+        <span style="width:10px;height:10px;border-radius:50%;background:rgba(107,95,82,0.5);display:inline-block"></span>Internet
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink2);font-family:'Raleway',sans-serif">
+        <span style="width:10px;height:10px;border-radius:50%;background:rgba(29,106,255,0.6);display:inline-block"></span>DC-SP1
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink2);font-family:'Raleway',sans-serif">
+        <span style="width:10px;height:10px;border-radius:50%;background:rgba(0,145,181,0.6);display:inline-block"></span>DC-SP2
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink2);font-family:'Raleway',sans-serif">
+        <span style="width:10px;height:10px;border-radius:50%;background:rgba(211,84,0,0.6);display:inline-block"></span>Linux VM
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink2);font-family:'Raleway',sans-serif">
+        <span style="width:10px;height:10px;border-radius:50%;background:rgba(0,120,212,0.6);display:inline-block"></span>Windows VM
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink2);font-family:'Raleway',sans-serif">
+        <span style="width:10px;height:10px;border-radius:4px;background:rgba(211,84,0,0.8);display:inline-block"></span>HA badge
+      </div>
+    </div>
+  </div>
+
+  <!-- VMs -->
+  <div class="card">
+    <span class="s-label">Dimensionamento de VMs</span>
+    <p style="font-size:13px;color:var(--ink2);margin-bottom:20px;line-height:1.6">Adicione grupos de máquinas com as mesmas características.</p>
+    <div style="overflow-x:auto">
+      <table class="vm-row-table">
+        <thead><tr>
+          <th class="col-idx">#</th>
+          <th class="col-name">Nome / Funcao</th>
+          <th class="col-os">Sistema Operacional</th>
+          <th class="col-num">Qtd</th>
+          <th class="col-flavor" style="min-width:180px">Flavor</th>
+          <th class="col-num">Disco GB</th>
+          <th class="col-lic">Licenca</th>
+          <th class="col-del"></th>
+        </tr></thead>
+        <tbody id="vmBody"></tbody>
+      </table>
+    </div>
+    <button class="add-row" onclick="addRow()">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
+      Adicionar grupo
+    </button>
+  </div>
+
+  <!-- REDE -->
+  <div class="card">
+    <span class="s-label">Rede & Serviços</span>
+    <div class="field-row" style="margin-bottom:16px">
+      <div class="field"><label>IPs públicos dedicados</label><input type="number" id="ips" value="1" min="0" max="32"></div>
+      <div class="field"><label>Banda de saída estimada (Mbps)</label><input type="number" id="banda" value="100" min="10" step="10" oninput="schedRedraw()"></div>
+    </div>
+    <div class="toggle-row">
+      <div><div class="toggle-label">Reserva de banda garantida</div><div class="toggle-sub">Garante banda mínima contratada 24/7</div></div>
+      <div class="tog"><button id="bg-s" class="on" onclick="setTog('bg',true)">Sim</button><button id="bg-n" onclick="setTog('bg',false)">Não</button></div>
+    </div>
+    <div class="toggle-row">
+      <div><div class="toggle-label">Backup local diário</div><div class="toggle-sub">Snapshots com retenção configurável no mesmo DC</div></div>
+      <div class="tog"><button id="bk-s" class="on" onclick="setTog('bk',true)">Sim</button><button id="bk-n" onclick="setTog('bk',false)">Não</button></div>
+    </div>
+    <div class="toggle-row">
+      <div><div class="toggle-label">Backup Offsite</div><div class="toggle-sub">Replicação automática para o DC secundário (+60km)</div></div>
+      <div class="tog"><button id="bo-s" onclick="setTog('bo',true)">Sim</button><button id="bo-n" class="on" onclick="setTog('bo',false)">Não</button></div>
+    </div>
+    <div class="toggle-row">
+      <div><div class="toggle-label">Alta Disponibilidade (HA)</div><div class="toggle-sub">Failover automático entre hosts dentro do mesmo DC</div></div>
+      <div class="tog"><button id="ha-s" onclick="setTog('ha',true)">Sim</button><button id="ha-n" class="on" onclick="setTog('ha',false)">Não</button></div>
+    </div>
+    <div class="toggle-row">
+      <div><div class="toggle-label">Disaster Recovery (DR)</div><div class="toggle-sub">Failover para DC secundário com RTO/RPO definidos em contrato</div></div>
+      <div class="tog"><button id="dr-s" onclick="setTog('dr',true)">Sim</button><button id="dr-n" class="on" onclick="setTog('dr',false)">Não</button></div>
+    </div>
+  </div>
+
+  <!-- OBS -->
+  <div class="card">
+    <span class="s-label">Observações</span>
+    <div class="field"><label>Sistemas críticos / aplicações</label><textarea id="obs" placeholder="Ex: TOTVS Protheus, SQL Server 2022, ERP legado .NET, Oracle DB..."></textarea></div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="card">
+    <span class="s-label">Resumo do ambiente</span>
+    <div class="summary-grid" id="summaryGrid"></div>
+    <div class="lic-note" id="licNote"></div>
+  </div>
 
   <!-- EMPRESA -->
   <div class="card">
-    <span class="s-label">Empresa</span>
+    <span class="s-label">Dados da empresa</span>
     <div class="field-row">
       <div class="field"><label>Razão social *</label><input type="text" id="empresa" placeholder="Acme Tecnologia Ltda"></div>
       <div class="field"><label>CNPJ</label><input type="text" id="cnpj" placeholder="00.000.000/0000-00" maxlength="18" oninput="maskCNPJ(this)"><div id="cnpj-err" style="font-size:11px;color:#c0392b;margin-top:4px;display:none;font-family:Raleway,sans-serif">CNPJ invalido</div></div>
@@ -142,74 +240,6 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(30px,4vw,50px);font-
         </select>
       </div>
     </div>
-  </div>
-
-  <!-- VMs -->
-  <div class="card">
-    <span class="s-label">Dimensionamento de VMs</span>
-    <p style="font-size:13px;color:var(--ink2);margin-bottom:24px;line-height:1.6">Adicione um card por grupo de máquinas com as mesmas características. O licenciamento Windows é calculado automaticamente.</p>
-    <div style="overflow-x:auto">
-      <table class="vm-row-table">
-        <thead><tr>
-          <th class="col-idx">#</th>
-          <th class="col-name">Nome / Funcao</th>
-          <th class="col-os">Sistema Operacional</th>
-          <th class="col-num">Qtd</th>
-          <th class="col-flavor" style="min-width:200px">Flavor</th>
-          <th class="col-num">Disco GB</th>
-          <th class="col-lic">Licenca</th>
-          <th class="col-del"></th>
-        </tr></thead>
-        <tbody id="vmBody"></tbody>
-      </table>
-    </div>
-    <button class="add-row" onclick="addRow()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
-      Adicionar grupo
-    </button>
-  </div>
-
-  <!-- REDE -->
-  <div class="card">
-    <span class="s-label">Rede & Serviços</span>
-    <div class="field-row" style="margin-bottom:16px">
-      <div class="field"><label>IPs públicos dedicados</label><input type="number" id="ips" value="1" min="0" max="32"></div>
-      <div class="field"><label>Banda de saída estimada (Mbps)</label><input type="number" id="banda" value="100" min="10" step="10"></div>
-    </div>
-    <div class="toggle-row">
-      <div><div class="toggle-label">Reserva de banda garantida</div><div class="toggle-sub">Garante banda mínima contratada 24/7</div></div>
-      <div class="tog"><button id="bg-s" class="on" onclick="setTog('bg',true)">Sim</button><button id="bg-n" onclick="setTog('bg',false)">Não</button></div>
-    </div>
-    <div class="toggle-row">
-      <div><div class="toggle-label">Backup local diário</div><div class="toggle-sub">Snapshots com retenção configurável no mesmo DC</div></div>
-      <div class="tog"><button id="bk-s" class="on" onclick="setTog('bk',true)">Sim</button><button id="bk-n" onclick="setTog('bk',false)">Não</button></div>
-    </div>
-    <div class="toggle-row">
-      <div><div class="toggle-label">Backup Offsite</div><div class="toggle-sub">Replicação automática para o DC secundário (+60km)</div></div>
-      <div class="tog"><button id="bo-s" onclick="setTog('bo',true)">Sim</button><button id="bo-n" class="on" onclick="setTog('bo',false)">Não</button></div>
-    </div>
-    <div class="toggle-row">
-      <div><div class="toggle-label">Alta Disponibilidade (HA)</div><div class="toggle-sub">Failover automático entre hosts dentro do mesmo DC</div></div>
-      <div class="tog"><button id="ha-s" onclick="setTog('ha',true)">Sim</button><button id="ha-n" class="on" onclick="setTog('ha',false)">Não</button></div>
-    </div>
-    <div class="toggle-row">
-      <div><div class="toggle-label">Disaster Recovery (DR)</div><div class="toggle-sub">Failover para DC secundário com RTO/RPO definidos em contrato</div></div>
-      <div class="tog"><button id="dr-s" onclick="setTog('dr',true)">Sim</button><button id="dr-n" class="on" onclick="setTog('dr',false)">Não</button></div>
-    </div>
-
-  </div>
-
-  <!-- OBS -->
-  <div class="card">
-    <span class="s-label">Observações</span>
-    <div class="field"><label>Sistemas críticos / aplicações</label><textarea id="obs" placeholder="Ex: TOTVS Protheus, SQL Server 2022, ERP legado .NET, Oracle DB..."></textarea></div>
-  </div>
-
-  <!-- SUMMARY -->
-  <div class="card">
-    <span class="s-label">Resumo do ambiente</span>
-    <div class="summary-grid" id="summaryGrid"></div>
-    <div class="lic-note" id="licNote"></div>
   </div>
 
   <!-- SUBMIT -->
@@ -361,13 +391,30 @@ function maskPhone(el){
   el.value=r;
 }
 
+
+function exportArchSVG(){
+  var c = document.getElementById('archCanvas');
+  if(!c) return '';
+  // Convert canvas to PNG data URL then wrap as img in SVG
+  try {
+    var dataUrl = c.toDataURL('image/png');
+    var w = c.clientWidth || 600;
+    var h = c.clientHeight || 300;
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+      +'<image href="'+dataUrl+'" width="'+w+'" height="'+h+'"/>'
+      +'</svg>';
+  } catch(e){ return ''; }
+}
+
 function sendForm(){try{
   var emp=document.getElementById('empresa').value.trim();
   var eml=document.getElementById('email').value.trim();
   var nom=document.getElementById('nome').value.trim();
   if(!emp||!eml||!nom){alert('Preencha: empresa, responsavel e e-mail.');return;}
   var cnpjEl=document.getElementById('cnpj');
-  var payload={empresa:emp,cnpj:cnpjEl.value,nome:nom,cargo:document.getElementById('cargo').value,email:eml,whatsapp:document.getElementById('whatsapp').value,segmento:document.getElementById('segmento').value,prazo:document.getElementById('prazo').value,ips:document.getElementById('ips').value,banda:document.getElementById('banda').value,obs:document.getElementById('obs').value,servicos:togs,vms:rows.map(function(r){var d=r.data;var f=FLAVORS[d.flavor]||{};return {nm:d.nm,os:d.os,qty:d.qty,flavor:d.flavor||'',vcpu:f.vcpu||d.vcpu,ram:f.ram||d.ram,disco:d.disco};})};
+  var payload={empresa:emp,cnpj:cnpjEl.value,nome:nom,cargo:document.getElementById('cargo').value,email:eml,whatsapp:document.getElementById('whatsapp').value,segmento:document.getElementById('segmento').value,prazo:document.getElementById('prazo').value,ips:document.getElementById('ips').value,banda:document.getElementById('banda').value,obs:document.getElementById('obs').value,servicos:togs,
+    archSvg:exportArchSVG(),
+    vms:rows.map(function(r){var d=r.data;var f=FLAVORS[d.flavor]||{};return {nm:d.nm,os:d.os,qty:d.qty,flavor:d.flavor||'',vcpu:f.vcpu||d.vcpu,ram:f.ram||d.ram,disco:d.disco};})};
   var btn=document.getElementById('submitBtn'),status=document.getElementById('send-status');
   btn.disabled=true;btn.style.opacity='0.6';
   status.style.display='inline-block';status.style.color='var(--ink2)';status.textContent='Enviando...';
@@ -376,12 +423,297 @@ function sendForm(){try{
   .then(function(d){if(d.ok){status.style.color='#27ae60';status.textContent='Enviado! Retornaremos em ate 24h.';btn.style.display='none';}else{status.style.color='#c0392b';status.textContent='Erro: '+(d.error||'Falha');btn.disabled=false;btn.style.opacity='1';}  })
   .catch(function(){status.style.color='#c0392b';status.textContent='Erro de conexao.';btn.disabled=false;btn.style.opacity='1';});
 }catch(e2){alert('Erro JS: '+e2.message);console.error(e2);}}
-
 if(!window._vmInit){window._vmInit=true;
   addRow({nm:'Servidor de aplicacao',os:'Linux',qty:2,flavor:'gp.large',vcpu:4,ram:8,disco:100});
   addRow({nm:'Banco de dados',os:'Linux',qty:1,flavor:'mo.small',vcpu:2,ram:16,disco:500});
   addRow({nm:'ERP Windows',os:'Windows Server 2022',qty:1,flavor:'win.large',vcpu:8,ram:16,disco:200});
 }
+
+function schedRedraw(){ /* canvas reads live */ }
+
+// ARCHITECTURE CANVAS
+(function(){
+  var canvas,ctx,W,H,dpr,nodes=[],drawn=[],connections=[],tick=0;
+
+  function setup(){
+    canvas=document.getElementById('archCanvas');
+    if(!canvas)return;
+    dpr=window.devicePixelRatio||1;
+    resize();
+    window.addEventListener('resize',resize);
+    requestAnimationFrame(loop);
+  }
+
+  function resize(){
+    var rect=canvas.parentElement.getBoundingClientRect();
+    W=Math.max(rect.width||600,300);
+    H=Math.round(W*0.52);
+    canvas.width=W*dpr;canvas.height=H*dpr;
+    canvas.style.height=H+'px';
+    ctx=canvas.getContext('2d');
+    ctx.scale(dpr,dpr);
+  }
+
+  function getBanda(){
+    var el=document.getElementById('banda');
+    return el?(+el.value||100):100;
+  }
+
+  function abbrev(name){
+    if(!name) return 'VM';
+    if(name.length <= 9) return name;
+    // 1. Replace known words first
+    var subs = [
+      ['servidor de aplicacao','app-srv'],['servidor','srv'],['server','srv'],
+      ['aplicacao','app'],['application','app'],['banco de dados','db'],
+      ['banco','db'],['database','db'],['dados','db'],
+      ['gerenciamento','mgmt'],['management','mgmt'],
+      ['producao','prd'],['production','prd'],
+      ['homologacao','hlg'],['staging','stg'],
+      ['frontend','fe'],['backend','be'],
+      ['proxy','prx'],['cache','cch'],
+      ['monitoramento','mon'],['monitoring','mon'],
+    ];
+    var s = name.toLowerCase();
+    for(var i=0;i<subs.length;i++) s = s.replace(subs[i][0], subs[i][1]);
+    // 2. Split remaining words and compose
+    var parts = s.trim().split(/[\s\-\/\_]+/).filter(function(p){return p.length>0;});
+    var result = parts.slice(0,2).map(function(p){
+      return p.length > 5 ? p.substring(0,4) : p;
+    }).join('-');
+    if(result.length > 9) result = result.substring(0,9);
+    return result || name.substring(0,6);
+  }
+
+  function buildLayout(){
+    nodes=[];connections=[];
+    var items=rows,haHA=togs.ha,haDR=togs.dr,haBO=togs.bo,banda=getBanda();
+    var showDC2=haDR||haBO;
+
+    // LAYER 1 (top):    Internet(s)
+    // LAYER 2 (middle): DC(s)
+    // LAYER 3 (bottom): VMs
+
+    var inetY = H*0.10;
+    var dcY   = H*0.50;
+    var vmYt  = H*0.72;
+    var vmYb  = H*0.90;
+
+    // Internet — top
+    var inet1x = showDC2 ? W*0.30 : W*0.50;
+    var inet={x:inet1x, y:inetY, type:'inet', label:'Internet', sub:banda+'M', r:16};
+    nodes.push(inet);
+
+    var inet2=null;
+    if(showDC2){
+      inet2={x:W*0.70, y:inetY, type:'inet', label:'Internet', sub:banda+'M', r:16};
+      nodes.push(inet2);
+    }
+
+    // DCs — middle
+    var dc1x = showDC2 ? W*0.30 : W*0.50;
+    var dc1={x:dc1x, y:dcY, type:'dc', label:'DC-SP1', sub:'Vinhedo', r:21};
+    nodes.push(dc1);
+
+    var dc2=null;
+    if(showDC2){
+      dc2={x:W*0.70, y:dcY, type:'dc2', label:'DC-SP2',
+        sub:haDR?'Osasco DR':'Osasco Bkp', r:21};
+      nodes.push(dc2);
+    }
+
+    // VMs — bottom
+    var count=items.length;
+    if(count>0){
+      var cols=Math.min(count,4);
+      var rows2=Math.ceil(count/cols);
+      var zoneL=W*0.08, zoneR=W*0.92;
+      var zoneT=H*0.68,  zoneB=H*0.92;
+      items.forEach(function(r,i){
+        var d=r.data;
+        var col=i%cols, row=Math.floor(i/cols);
+        var x=cols===1?W*0.50:zoneL+(zoneR-zoneL)*col/(cols-1||1);
+        var y=rows2===1?(zoneT+zoneB)/2:zoneT+(zoneB-zoneT)*row/(rows2-1||1);
+        var isWin=d.os&&d.os.indexOf('Windows')===0;
+        var qty=+d.qty||1;
+        nodes.push({x:x,y:y,r:Math.min(19,10+qty*1.3),
+          type:isWin?'win':'lin',
+          label:abbrev(d.nm||'VM '+(i+1)),
+          sub:d.flavor||'', qty:qty, idx:i, showHA:haHA});
+      });
+    }
+
+    var vmNodes=nodes.filter(function(n){return n.type==='win'||n.type==='lin';});
+    var bw=Math.min(3,Math.max(1,banda/200));
+
+    // inet → DC1
+    connections.push({from:inet, to:dc1, style:'inet', lw:bw, dash:[4,5]});
+    // inet2 → DC2
+    if(inet2&&dc2){
+      connections.push({from:inet2, to:dc2, style:'inet', lw:bw, dash:[4,5]});
+    }
+
+    // DC1 → VMs
+    vmNodes.forEach(function(vm){
+      connections.push({from:dc1, to:vm, style:'dc', lw:1.5, dash:[]});
+    });
+
+    // DC1 ↔ DC2 interlink
+    if(dc2){
+      connections.push({from:dc1, to:dc2, style:'dclink', lw:2.5, dash:[6,3]});
+    }
+
+    // DR: DC2 → VMs too
+    if(haDR&&dc2){
+      vmNodes.forEach(function(vm){
+        connections.push({from:dc2, to:vm, style:'dr', lw:1, dash:[3,4]});
+      });
+    }
+
+    // Backup Offsite only: DC1 replicates to DC2 (no direct VM→DC2)
+    if(haBO&&!haDR&&dc2){
+      connections.push({from:dc1, to:dc2, style:'backup', lw:1.5, dash:[3,5]});
+    }
+
+    while(drawn.length<nodes.length)drawn.push(null);
+    drawn.length=nodes.length;
+    nodes.forEach(function(n,i){
+      if(!drawn[i])drawn[i]={x:n.x, y:n.y+(n.type==='inet'?-20:20), r:n.r, alpha:0};
+    });
+  }
+
+  function lerp(a,b,t){return a+(b-a)*t;}
+
+  function loop(){
+    requestAnimationFrame(loop);tick++;
+    buildLayout();
+    nodes.forEach(function(n,i){
+      var d=drawn[i];if(!d){drawn[i]={x:n.x,y:n.y+20,r:n.r,alpha:0};d=drawn[i];}
+      d.x=lerp(d.x,n.x,0.09);d.y=lerp(d.y,n.y,0.09);
+      d.r=lerp(d.r,n.r,0.1);d.alpha=lerp(d.alpha,1,0.06);
+    });
+    draw();
+  }
+
+  var SM={
+    inet:  {stroke:'rgba(29,106,255,0.5)',  shadow:'rgba(29,106,255,0.2)'},
+    dc:    {stroke:'rgba(26,22,18,0.3)',    shadow:'rgba(0,0,0,0)'},
+    dr:    {stroke:'rgba(0,145,181,0.5)',   shadow:'rgba(0,145,181,0.15)'},
+    backup:{stroke:'rgba(107,95,82,0.35)',  shadow:'rgba(107,95,82,0.1)'},
+    ha:    {stroke:'rgba(211,84,0,0.35)',   shadow:'rgba(211,84,0,0.1)'},
+    dclink:{stroke:'rgba(29,106,255,0.45)', shadow:'rgba(29,106,255,0.15)'},
+  };
+
+  var NC={lin:'rgba(211,84,0,',win:'rgba(0,120,212,',dc:'rgba(29,106,255,',
+    dc2:'rgba(0,145,181,',inet:'rgba(107,95,82,'};
+
+  function drawConn(fd,td,c,alpha){
+    if(!fd||!td)return;
+    var a=Math.min(fd.alpha,td.alpha)*alpha;if(a<0.02)return;
+    var sm=SM[c.style]||SM.dc;
+    ctx.save();ctx.globalAlpha=a;
+    ctx.strokeStyle=sm.stroke;ctx.shadowColor=sm.shadow;ctx.shadowBlur=6;
+    ctx.lineWidth=c.lw||1;ctx.setLineDash(c.dash||[]);
+    ctx.lineDashOffset=-(tick*0.35);
+    ctx.beginPath();
+    var mx=(fd.x+td.x)/2,my=(fd.y+td.y)/2-12;
+    ctx.moveTo(fd.x,fd.y);ctx.quadraticCurveTo(mx,my,td.x,td.y);ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawHAbadge(x,y,r,alpha){
+    var bx=x+r*0.72,by=y-r*0.72,br=r*0.36;
+    ctx.save();ctx.globalAlpha=alpha;
+    ctx.fillStyle='rgba(211,84,0,0.9)';
+    ctx.strokeStyle='rgba(245,240,232,0.9)';ctx.lineWidth=1.2;
+    ctx.beginPath();ctx.arc(bx,by,br,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font='bold '+(br*1.05)+'px "DM Mono",monospace';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('H',bx,by);
+    ctx.restore();
+  }
+
+  function drawDiskIcon(x,y,r,alpha){
+    var dx=x+r*0.8,dy=y+r*0.8,ds=r*0.48;
+    ctx.save();ctx.globalAlpha=alpha*0.8;
+    ctx.fillStyle='rgba(107,95,82,0.2)';
+    ctx.strokeStyle='rgba(107,95,82,0.55)';ctx.lineWidth=1;
+    ctx.fillRect(dx-ds,dy-ds,ds*2,ds*2);
+    ctx.strokeRect(dx-ds,dy-ds,ds*2,ds*2);
+    ctx.fillStyle='rgba(107,95,82,0.45)';
+    ctx.fillRect(dx-ds*0.45,dy-ds,ds*0.9,ds*0.65);
+    ctx.fillStyle='rgba(255,255,255,0.55)';
+    ctx.beginPath();ctx.arc(dx,dy+ds*0.3,ds*0.38,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+  }
+
+  function drawNode(d,n){
+    if(d.alpha<0.02)return;
+    var col=NC[n.type]||NC.inet;
+    ctx.save();ctx.globalAlpha=d.alpha;
+    var g=ctx.createRadialGradient(d.x,d.y,d.r*0.2,d.x,d.y,d.r*2.2);
+    g.addColorStop(0,col+'0.1)');g.addColorStop(1,col+'0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(d.x,d.y,d.r*2.2,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=col+'0.07)';ctx.strokeStyle=col+'0.55)';
+    ctx.lineWidth=n.type==='dc'||n.type==='dc2'?2:1.5;
+    ctx.shadowColor=col+'0.3)';ctx.shadowBlur=8;
+    ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.shadowBlur=0;
+    ctx.fillStyle=col+'0.85)';
+    ctx.font='bold '+(d.r*0.65)+'px "DM Mono",monospace';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    var icon=n.type==='dc'||n.type==='dc2'?'DC':
+      n.type==='inet'?'--':n.qty>1?'x'+n.qty:n.type==='win'?'W':'L';
+    ctx.fillText(icon,d.x,d.y);
+    ctx.font='600 9px "Raleway",sans-serif';ctx.fillStyle='rgba(26,22,18,0.72)';
+    ctx.fillText(n.label,d.x,d.y+d.r+10);
+    if(n.sub){ctx.font='8px "DM Mono",monospace';ctx.fillStyle='rgba(107,95,82,0.55)';
+      ctx.fillText(n.sub.substring(0,13),d.x,d.y+d.r+20);}
+    ctx.restore();
+    if(n.showHA&&(n.type==='win'||n.type==='lin')) drawHAbadge(d.x,d.y,d.r,d.alpha);
+    if(n.type==='dc2'&&togs.bo&&!togs.dr) drawDiskIcon(d.x,d.y,d.r,d.alpha);
+  }
+
+  function isFullyProtected(){
+    return togs.ha&&togs.dr&&togs.bo&&togs.bk;
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.save();ctx.strokeStyle='rgba(107,95,82,0.04)';ctx.lineWidth=1;
+    for(var x=0;x<W;x+=28){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(var y=0;y<H;y+=28){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+    ctx.restore();
+    connections.forEach(function(c){
+      var fi=nodes.indexOf(c.from),ti=nodes.indexOf(c.to);
+      if(fi<0||ti<0)return;
+      drawConn(drawn[fi],drawn[ti],c,0.85);
+    });
+    nodes.forEach(function(n,i){if(drawn[i])drawNode(drawn[i],n);});
+    if(isFullyProtected()){
+      var minA=1;
+      drawn.forEach(function(d){if(d&&d.alpha<minA)minA=d.alpha;});
+      ctx.save();ctx.globalAlpha=minA*0.92;
+      var txt='✦ FULLY PROTECTED';
+      ctx.font='bold 11px "Raleway",sans-serif';
+      var tw=ctx.measureText(txt).width;
+      var px=W/2,py=14,pw=tw+26,ph=20;
+      ctx.fillStyle='rgba(39,174,96,0.12)';
+      ctx.strokeStyle='rgba(39,174,96,0.5)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.roundRect(px-pw/2,py-ph/2,pw,ph,10);
+      ctx.fill();ctx.stroke();
+      ctx.fillStyle='rgba(39,174,96,0.95)';
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.shadowColor='rgba(39,174,96,0.4)';ctx.shadowBlur=10;
+      ctx.fillText(txt,px,py);
+      ctx.restore();
+    }
+
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(setup,120);});
+})();
+
 </script>
 </body>
 </html>
