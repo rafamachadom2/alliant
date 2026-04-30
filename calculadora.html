@@ -599,7 +599,15 @@ function renderTable(){
       selOS.appendChild(op);
     });
     colorOsSel(selOS);
-    selOS.addEventListener('change',(function(i){return function(){ upd(i,'os',this.value); colorOsSel(this); };})(id));
+    selOS.addEventListener('change',(function(i){return function(){
+      var row=rows.find(function(r){return r.id===i;});
+      var isWinFlavor=row&&(row.data.flavor||'').indexOf('win.')===0;
+      if(isWinFlavor&&this.value==='Linux'){
+        this.value=row.data.os||'Windows Server 2025'; // revert
+        return;
+      }
+      upd(i,'os',this.value); colorOsSel(this);
+    };})(id));
     tdO.appendChild(selOS); tr.appendChild(tdO);
 
     // Qty
