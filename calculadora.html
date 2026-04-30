@@ -100,6 +100,13 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5
 @keyframes spin{to{transform:rotate(360deg)}}
 
 
+
+.net-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+.net-field label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:5px}
+.net-field input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);outline:none;transition:border-color .15s;-moz-appearance:textfield}
+.net-field input:focus{border-color:var(--blue);background:#fff}
+.net-field input::-webkit-inner-spin-button{opacity:.4}
+
 /* ── ARCH CANVAS ── */
 .arch-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px}
 #archCanvas{width:100%;display:block;border-radius:8px;background:rgba(237,232,223,0.4)}
@@ -247,7 +254,10 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
       </div>
 
       <div class="divider"></div>
-
+      <div id="netLine" style="display:none;justify-content:space-between;margin-bottom:10px;font-size:12px">
+        <span style="color:var(--ink2)" id="netLineLabel"></span>
+        <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="netLineVal"></span>
+      </div>
       <div class="total-row">
         <div class="total-label">Total / mês</div>
         <div class="total-value" id="totalVal">R$ —</div>
@@ -378,8 +388,10 @@ function doCalc(){
     return;
   }
 
+  var ips=+(document.getElementById('ips')||{value:1}).value||0;
+  var banda=+(document.getElementById('banda')||{value:0}).value||0;
   var vms=rows.map(function(r){return{flavor:r.data.flavor||'gp.large',qty:+r.data.qty||1};});
-  var payload={vms:vms, dr:togs.dr, servicos:togs};
+  var payload={vms:vms, dr:togs.dr, servicos:togs, ips:ips, banda:banda};
 
   fetch('https://io.alliant.com.br/form/calcular.php',{
     method:'POST',
@@ -407,22 +419,26 @@ function doCalc(){
     });
 
     _lastCalcData=data;
-    document.getElementById('totalVal').textContent=fmtBRL(data.total);
-    document.getElementById('drBadge').classList.toggle('show', togs.dr);
-
-    // Show active service modifiers
-    var mods=[];
-    if(togs.ha) mods.push('HA +20%');
-    if(togs.bo) mods.push('Offsite +10%');
-    if(togs.dr) mods.push('DR +50%');
-    var savEl=document.getElementById('savings');
-    if(mods.length>0){
-      savEl.style.color='var(--ink3)';
-      savEl.textContent='Inclui: '+mods.join(' · ');
-      savEl.classList.add('show');
+    // Add IPs + Banda costs (client-side display only, also computed in backend)
+    var _ips=+(document.getElementById('ips')||{value:1}).value||0;
+    var _banda=+(document.getElementById('banda')||{value:0}).value||0;
+    var _netCost=(_ips*45)+(_banda*3);
+    var _grandTotal=data.total+_netCost;
+    document.getElementById('totalVal').textContent=fmtBRL(_grandTotal);
+    // Net line
+    var netLine=document.getElementById('netLine');
+    var netParts=[];
+    if(_ips>0) netParts.push(_ips+' IP'+(+_ips>1?'s':''));
+    if(_banda>0) netParts.push(_banda+'Mbps');
+    if(_netCost>0){
+      netLine.style.display='flex';
+      document.getElementById('netLineLabel').textContent=netParts.join(' + ');
+      document.getElementById('netLineVal').textContent=fmtBRL(_netCost);
     } else {
-      savEl.classList.remove('show');
+      netLine.style.display='none';
     }
+    document.getElementById('drBadge').classList.toggle('show', togs.dr);
+    document.getElementById('savings').classList.remove('show');
   })
   .catch(function(){
     document.getElementById('breakdown').innerHTML='<div class="vm-empty" style="color:#c0392b">Erro ao calcular. Tente novamente.</div>';
@@ -473,7 +489,7 @@ function abbrev(name){
     ctx=canvas.getContext('2d');
     ctx.scale(dpr,dpr);
   }
-  function getBanda(){return 100;}
+  function getBanda(){var el=document.getElementById('banda');return el?(+el.value||100):100;}
   function buildLayout(){
     nodes=[];connections=[];
     var items=rows,haHA=togs.ha,haDR=togs.dr,haBO=togs.bo;
@@ -690,7 +706,9 @@ function sendProposta(){
     whatsapp:document.getElementById('m-whatsapp').value,
     segmento:document.getElementById('m-segmento').value,
     prazo:document.getElementById('m-prazo').value,
-    ips:'1', banda:'100', obs:'',
+    ips:String(+(document.getElementById('ips')||{value:1}).value||1),
+    banda:String(+(document.getElementById('banda')||{value:100}).value||100),
+    obs:'',
     servicos:togs,
     vms:vmsPayload,
     estimativa:_lastCalcData?_lastCalcData.total:0
