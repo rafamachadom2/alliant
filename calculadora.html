@@ -11,51 +11,60 @@
   --bg:#f5f0e8;--surface:#ede8df;--surface2:#e5dfd6;
   --ink:#1a1612;--ink2:#6b5f52;--ink3:#9a8e83;
   --border:rgba(107,95,82,0.15);--border2:rgba(107,95,82,0.25);
-  --blue:#1d6aff;--cyan:#0091b5;
-  --green:#27ae60;--green-bg:rgba(39,174,96,0.08);
-  --win:#0078d4;--lin:#d35400;
+  --blue:#1d6aff;--cyan:#0091b5;--green:#27ae60;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Raleway',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
 
+/* NAV */
 nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5%;border-bottom:1px solid var(--border)}
-.nav-logo svg{display:block}
-.nav-cta{font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;letter-spacing:.2px}
+.nav-cta{font-size:13px;font-weight:600;color:var(--blue);text-decoration:none}
 
+/* HERO */
 .hero{padding:52px 5% 24px;max-width:1100px;margin:0 auto}
 .hero h1{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.05;margin-bottom:10px}
 .hero h1 span{color:var(--blue)}
 .hero p{font-size:14px;color:var(--ink2);max-width:520px;line-height:1.7}
 
-.calc-wrap{max-width:1100px;margin:0 auto;padding:0 5% 80px}
-@media(max-width:780px){.calc-wrap{flex-direction:column}.sidebar{width:360px;flex-shrink:0;position:sticky;top:20px}}
+/* ARCH */
+.arch-wrap{max-width:1100px;margin:0 auto;padding:0 5% 24px}
+.arch-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px}
+#archCanvas{width:100%;display:block;border-radius:8px;background:rgba(237,232,223,0.4)}
+.arch-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink2)}
+.leg-dot{width:9px;height:9px;border-radius:50%;display:inline-block}
 
-/* ── LEFT: config ── */
+/* LAYOUT */
+.page-wrap{max-width:1100px;margin:0 auto;padding:0 5% 80px;display:flex;flex-direction:column;gap:16px}
+
+/* CARDS */
 .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px}
-.card+.card{margin-top:16px}
 .card-title{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:18px;font-family:'Raleway',sans-serif}
 
-/* VM rows */
+/* VM TABLE */
 .vm-table{width:100%;border-collapse:collapse;font-size:13px}
 .vm-table th{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);padding:0 6px 10px;text-align:left;white-space:nowrap}
 .vm-table td{padding:5px 4px;vertical-align:middle;border-bottom:1px solid var(--border)}
 .vm-table tr:last-child td{border-bottom:none}
-.vm-table input,.vm-table select,.vm-row-table input,.vm-row-table select{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);outline:none;width:100%;transition:border-color .15s}
-.vm-table input:focus,.vm-table select:focus,.vm-row-table input:focus,.vm-row-table select:focus{border-color:var(--blue);background:#fff}
+.vm-table input,.vm-table select{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 8px;font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);outline:none;width:100%;transition:border-color .15s}
+.vm-table input:focus,.vm-table select:focus{border-color:var(--blue);background:#fff}
 .vm-table input[type=number]{-moz-appearance:textfield}
-.vm-table input[type=number]::-webkit-inner-spin-button,.vm-row-table input[type=number]::-webkit-inner-spin-button{opacity:.4}
+.vm-table input[type=number]::-webkit-inner-spin-button{opacity:.4}
 .col-idx{width:24px;text-align:center;font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3)}
-.col-name{min-width:140px}
-.col-os{width:160px}
-.col-num{width:60px}
+.col-name{min-width:130px}
+.col-os{width:150px}
+.col-num{width:56px}
 .col-del{width:28px;text-align:center}
 .del-btn{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:16px;padding:3px 5px;border-radius:4px;transition:all .15s}
 .del-btn:hover{background:rgba(192,57,43,0.1);color:#c0392b}
-
 .add-btn{display:inline-flex;align-items:center;gap:6px;background:none;border:1px dashed var(--border2);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;font-family:'Raleway',sans-serif;color:var(--ink2);cursor:pointer;transition:all .2s;margin-top:12px}
 .add-btn:hover{border-color:var(--blue);color:var(--blue)}
 
-/* toggles */
+/* MIDDLE ROW: services + sidebar */
+.middle-row{display:flex;flex-direction:row;gap:24px;align-items:flex-start}
+.middle-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:16px}
+
+/* TOGGLES */
 .togs{display:flex;flex-direction:column;gap:0}
 .tog-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)}
 .tog-row:last-child{border-bottom:none}
@@ -65,14 +74,36 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5
 .tog button{border:none;background:var(--surface);color:var(--ink3);font-size:11px;font-weight:600;font-family:'Raleway',sans-serif;padding:5px 12px;cursor:pointer;transition:all .15s}
 .tog button.on{background:var(--blue);color:#fff}
 
-/* ── RIGHT: sidebar ── */
-.sidebar{}
+/* SUP CONFIG */
+.sup-config{display:none;padding:10px 0 4px;flex-direction:column;gap:10px}
+.sup-config.open{display:flex}
+.sup-field-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:5px}
+.sup-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);outline:none;-moz-appearance:textfield}
+.sup-input::-webkit-inner-spin-button{opacity:.4}
+.sup-hint{font-size:10px;color:var(--ink3);margin-top:3px}
+
+/* REDE */
+.rede-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.rede-field label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:6px}
+.rede-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);outline:none;-moz-appearance:textfield}
+.rede-input:focus{border-color:var(--blue);background:#fff}
+.rede-input::-webkit-inner-spin-button{opacity:.4}
+
+/* PROJETO ESPECIAL */
+.special-card{border:1.5px dashed var(--border2)!important;background:var(--surface)!important;animation:specialPulse 2.8s ease-in-out infinite}
+@keyframes specialPulse{0%,100%{border-color:rgba(107,95,82,0.25)}50%{border-color:rgba(29,106,255,0.55);background:rgba(29,106,255,0.04)!important}}
+.special-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;animation:titleBlink 2.8s ease-in-out infinite}
+@keyframes titleBlink{0%,100%{color:var(--ink)}50%{color:var(--blue)}}
+.special-btn{white-space:nowrap;background:none;border:1px solid var(--border2);border-radius:8px;padding:9px 16px;font-size:12px;font-weight:700;font-family:'Raleway',sans-serif;color:var(--ink2);cursor:pointer;transition:all .2s;flex-shrink:0}
+.special-btn:hover{border-color:var(--blue);color:var(--blue);background:rgba(29,106,255,0.05)}
+
+/* SIDEBAR */
+.sidebar{width:360px;flex-shrink:0}
 .result-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px;position:sticky;top:20px}
 .result-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
 .result-title{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3)}
 .dr-badge{font-size:10px;font-weight:700;letter-spacing:.5px;background:rgba(29,106,255,0.1);color:var(--blue);border:1px solid rgba(29,106,255,0.2);padding:3px 8px;border-radius:4px;display:none}
 .dr-badge.show{display:inline-block}
-
 .vm-breakdown{margin-bottom:16px}
 .vm-line{display:flex;justify-content:space-between;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--border)}
 .vm-line:last-child{border-bottom:none}
@@ -80,69 +111,26 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5
 .vm-line-name span{font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);display:block;margin-top:1px}
 .vm-line-price{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--ink)}
 .vm-empty{font-size:13px;color:var(--ink3);text-align:center;padding:24px 0}
-
 .divider{height:1px;background:var(--border);margin:16px 0}
-
+.sub-line{display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden}
+.sub-line.show{visibility:visible;height:auto;margin-bottom:6px}
+.sub-line span{color:var(--ink2)}
+.sub-line b{font-family:'DM Mono',monospace;color:var(--ink)}
 .total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
 .total-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--ink3)}
 .total-value{font-family:'Cabinet Grotesk',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--ink)}
-
-.savings{font-size:11px;color:var(--green);font-weight:600;margin-bottom:16px;display:none}
-.savings.show{display:block}
-
-.cta-btn{display:block;width:100%;background:var(--ink);color:var(--bg);border:none;border-radius:9px;padding:14px;font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:15px;letter-spacing:-.3px;cursor:pointer;transition:all .2s;text-align:center;text-decoration:none}
+.cta-btn{display:block;width:100%;background:var(--ink);color:var(--bg);border:none;border-radius:9px;padding:14px;font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:15px;letter-spacing:-.3px;cursor:pointer;transition:all .2s;text-align:center;margin-top:16px}
 .cta-btn:hover{background:var(--blue)}
-
 .disclaimer{font-size:10px;color:var(--ink3);margin-top:10px;text-align:center;line-height:1.5}
 
-/* loading spinner */
-.spin{display:inline-block;width:12px;height:12px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .6s linear infinite;margin-left:6px;vertical-align:middle}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-
-
-.net-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
-.net-field label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:5px}
-.net-field input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);outline:none;transition:border-color .15s;-moz-appearance:textfield}
-.net-field input:focus{border-color:var(--blue);background:#fff}
-.net-field input::-webkit-inner-spin-button{opacity:.4}
-
-/* ── ARCH CANVAS ── */
-.arch-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px}
-#archCanvas{width:100%;display:block;border-radius:8px;background:rgba(237,232,223,0.4)}
-.arch-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
-.leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink2)}
-.leg-dot{width:9px;height:9px;border-radius:50%;display:inline-block}
-
-/* flavor select colors */
-select.os-win{color:var(--win)!important;font-weight:600}
-select.os-lin{color:var(--lin)!important;font-weight:600}
-
-
-
-#sup-hrs-85::-webkit-inner-spin-button,#sup-hrs-247::-webkit-inner-spin-button{opacity:.5}
-.special-card{border:1.5px dashed var(--border2)!important;background:var(--surface)!important;animation:specialPulse 2.8s ease-in-out infinite}
-@keyframes specialPulse{
-  0%,100%{border-color:rgba(107,95,82,0.25)}
-  50%{border-color:rgba(29,106,255,0.55);background:rgba(29,106,255,0.04)!important}
-}
-.special-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;animation:titleBlink 2.8s ease-in-out infinite}
-@keyframes titleBlink{0%,100%{color:var(--ink)}50%{color:var(--blue)}}
-.special-btn{white-space:nowrap;background:none;border:1px solid var(--border2);border-radius:8px;padding:9px 16px;font-size:12px;font-weight:700;font-family:'Raleway',sans-serif;color:var(--ink2);cursor:pointer;transition:all .2s;flex-shrink:0}
-.special-btn:hover{border-color:var(--blue);color:var(--blue);background:rgba(29,106,255,0.05)}
-
-.cta-btn-special{display:block;width:100%;background:none;color:var(--ink2);border:1px dashed var(--border2);border-radius:9px;padding:11px;font-family:'Raleway',sans-serif;font-weight:600;font-size:13px;cursor:pointer;transition:all .2s;text-align:center;margin-top:8px}
-.cta-btn-special:hover{border-color:var(--blue);color:var(--blue)}
-.special-sub{font-size:11px;color:var(--ink3);margin-top:2px;font-weight:400}
-
-/* ── MODAL ── */
+/* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(26,22,18,0.5);z-index:100;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.open{display:flex}
 .modal{background:#f5f0e8;border-radius:16px;padding:32px;width:100%;max-width:520px;position:relative;max-height:90vh;overflow-y:auto}
-.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:var(--ink3);font-size:22px;line-height:1;padding:4px 8px;border-radius:6px;transition:all .15s}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:var(--ink3);font-size:22px;line-height:1;padding:4px 8px;border-radius:6px}
 .modal-close:hover{background:var(--surface2);color:var(--ink)}
 .modal h2{font-family:'Cabinet Grotesk',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:4px}
-.modal .modal-sub{font-size:13px;color:var(--ink2);margin-bottom:24px;line-height:1.5}
+.modal-sub{font-size:13px;color:var(--ink2);margin-bottom:24px;line-height:1.5}
 .modal-summary{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:20px}
 .modal-summary-title{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
 .modal-summary-rows{display:flex;flex-direction:column;gap:4px}
@@ -154,7 +142,7 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
 .modal-total b{font-family:'Cabinet Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--ink)}
 .mfield{margin-bottom:14px}
 .mfield label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:5px}
-.mfield input,.mfield select{width:100%;background:#fff;border:1px solid var(--border2);border-radius:8px;padding:10px 12px;font-size:14px;font-family:'Raleway',sans-serif;color:var(--ink);outline:none;transition:border-color .15s}
+.mfield input,.mfield select,.mfield textarea{width:100%;background:#fff;border:1px solid var(--border2);border-radius:8px;padding:10px 12px;font-size:14px;font-family:'Raleway',sans-serif;color:var(--ink);outline:none;transition:border-color .15s}
 .mfield input:focus,.mfield select:focus{border-color:var(--blue)}
 .mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .modal-send{width:100%;background:var(--ink);color:var(--bg);border:none;border-radius:10px;padding:14px;font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:16px;letter-spacing:-.3px;cursor:pointer;transition:all .2s;margin-top:4px}
@@ -166,6 +154,7 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
 .modal-success h3{font-family:'Cabinet Grotesk',sans-serif;font-size:20px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
 .modal-success p{font-size:13px;color:var(--ink2);line-height:1.6}
 
+@media(max-width:780px){.middle-row{flex-direction:column}.sidebar{width:100%}}
 </style>
 </head>
 <body>
@@ -183,15 +172,16 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
       <path d="M7176.08 63.46c-108.03,-67.26 -578.72,-97.84 -702.18,-6.11 -100.31,79.5 -69.45,452.53 -15.43,599.28 208.34,55.03 571,61.16 733.03,-12.23 69.45,-67.27 69.45,-354.68 30.86,-483.09 -23.15,-85.61 -7.71,-55.03 -46.29,-97.85z"/>
     </svg>
   </a>
-  <a href="proposta.html" class="nav-cta">Solicitar proposta →</a>
+
 </nav>
 
 <div class="hero">
-  <h1>Calcule sua<br><span>infraestrutura cloud.</span></h1>
+  <h1>Crie sua<br><span>infraestrutura cloud.</span></h1>
   <p>Monte seu ambiente, configure os serviços e veja o custo estimado em tempo real. Sem surpresas na fatura.</p>
 </div>
 
-<div style="max-width:1100px;margin:0 auto;padding:0 5% 24px">
+<!-- ARQUITETURA -->
+<div class="arch-wrap">
   <div class="arch-card">
     <div class="card-title">Arquitetura do Ambiente</div>
     <canvas id="archCanvas"></canvas>
@@ -201,809 +191,151 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
       <span class="leg-item"><span class="leg-dot" style="background:rgba(0,145,181,0.6)"></span>DC-SP2</span>
       <span class="leg-item"><span class="leg-dot" style="background:rgba(211,84,0,0.6)"></span>Linux VM</span>
       <span class="leg-item"><span class="leg-dot" style="background:rgba(0,120,212,0.6)"></span>Windows VM</span>
-      <span class="leg-item"><span class="leg-dot" style="background:rgba(211,84,0,0.8);border-radius:3px"></span>HA badge</span>
+      <span class="leg-item"><span class="leg-dot" style="background:rgba(211,84,0,0.9);border-radius:2px;width:12px;height:9px;font-size:8px;color:#fff;display:flex;align-items:center;justify-content:center">H</span>HA ativo</span>
     </div>
   </div>
 </div>
 
-<div class="calc-wrap">
+<div class="page-wrap">
 
-    <!-- VMs -->
-    <!-- VMs -->
-    <div class="card">
-      <div class="card-title">Dimensionamento de VMs</div>
-      <div style="overflow-x:auto">
-        <table class="vm-table">
-          <thead><tr>
-            <th class="col-idx">#</th>
-            <th class="col-name">Nome / Função</th>
-            <th class="col-os">Sistema Operacional</th>
-            <th class="col-num">Qtd</th>
-            <th class="col-num" style="min-width:165px">Flavor</th>
-            <th class="col-del"></th>
-          </tr></thead>
-          <tbody id="vmBody"></tbody>
-        </table>
-      </div>
-      <button class="add-btn" onclick="addRow()">
-        <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
-        Adicionar grupo
-      </button>
+  <!-- VMs (largura total) -->
+  <div class="card">
+    <div class="card-title">Dimensionamento de VMs</div>
+    <div style="overflow-x:auto">
+      <table class="vm-table">
+        <thead><tr>
+          <th class="col-idx">#</th>
+          <th class="col-name">Nome / Função</th>
+          <th class="col-os">Sistema Operacional</th>
+          <th class="col-num">Qtd</th>
+          <th style="min-width:180px">Flavor</th>
+          <th class="col-del"></th>
+        </tr></thead>
+        <tbody id="vmBody"></tbody>
+      </table>
     </div>
+    <button class="add-btn" onclick="addRow()">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="1" x2="7" y2="13"/><line x1="1" y1="7" x2="13" y2="7"/></svg>
+      Adicionar grupo
+    </button>
+  </div>
 
-    <div style="display:flex;flex-direction:row;gap:24px;align-items:flex-start;margin-top:0">
-      <div style="flex:1;min-width:0">
-        <!-- Serviços -->
-            <div class="card">
-              <div class="card-title">Serviços adicionais</div>
-              <div class="togs">
-                <div class="tog-row">
-                  <div><div class="tog-label">Disaster Recovery</div><div class="tog-sub">Failover para DC secundário — Osasco +60km</div></div>
-                  <div class="tog"><button id="dr-s" onclick="setTog('dr',true)">Sim</button><button id="dr-n" class="on" onclick="setTog('dr',false)">Não</button></div>
-                </div>
-                <div class="tog-row">
-                  <div><div class="tog-label">Alta Disponibilidade (HA)</div><div class="tog-sub">Failover automático entre hosts no mesmo DC</div></div>
-                  <div class="tog"><button id="ha-s" onclick="setTog('ha',true)">Sim</button><button id="ha-n" class="on" onclick="setTog('ha',false)">Não</button></div>
-                </div>
-                <div class="tog-row">
-                  <div><div class="tog-label">Backup local diário</div><div class="tog-sub">Snapshots com retenção configurável</div></div>
-                  <div class="tog"><button id="bk-s" class="on" onclick="setTog('bk',true)">Sim</button><button id="bk-n" onclick="setTog('bk',false)">Não</button></div>
-                </div>
-                <div class="tog-row">
-                  <div><div class="tog-label">Backup Offsite</div><div class="tog-sub">Replicação automática para o DC secundário</div></div>
-                  <div class="tog"><button id="bo-s" onclick="setTog('bo',true)">Sim</button><button id="bo-n" class="on" onclick="setTog('bo',false)">Não</button></div>
-                </div>
-                <div class="tog-row">
-                  <div><div class="tog-label">Suporte técnico</div><div class="tog-sub">Atendimento em português por engenheiros Alliant</div></div>
-                  <div class="tog"><button id="sup-s" onclick="setSupAtivo(true)">Sim</button><button id="sup-n" class="on" onclick="setSupAtivo(false)">Não</button></div>
-                </div>
-                <div id="sup-config" style="display:none;padding:10px 0 4px;flex-direction:column;gap:10px">
-                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-                    <div>
-                      <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:5px">Horas 8×5 / mês</div>
-                      <input type="number" id="sup-hrs-85" value="0" min="0" max="500" placeholder="0" oninput="schedCalc()"
-                        style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);outline:none;-moz-appearance:textfield">
-                      <div style="font-size:10px;color:var(--ink3);margin-top:3px">R$ 180,00 / hora</div>
-                    </div>
-                    <div>
-                      <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:5px">Horas 24×7 / mês</div>
-                      <input type="number" id="sup-hrs-247" value="0" min="0" max="500" placeholder="0" oninput="schedCalc()"
-                        style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);outline:none;-moz-appearance:textfield">
-                      <div style="font-size:10px;color:var(--ink3);margin-top:3px">R$ 240,00 / hora</div>
-                    </div>
-                  </div>
-                        </div>
-            <!-- REDE -->
-            <div class="card">
-              <div class="card-title">Rede</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-                <div>
-                  <label style="display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:6px">IPs públicos dedicados</label>
-                  <input type="number" id="ips" value="1" min="0" max="32" oninput="schedCalc()"
-                    style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);outline:none;-moz-appearance:textfield">
-                </div>
-                <div>
-                  <label style="display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:6px">Banda garantida (Mbps)</label>
-                  <input type="number" id="banda" value="100" min="0" step="10" oninput="schedCalc()"
-                    style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);outline:none;-moz-appearance:textfield">
-                </div>
+  <!-- MIDDLE ROW: Serviços + Rede + Especial | Sidebar -->
+  <div class="middle-row">
+
+    <!-- LEFT: Serviços + Rede + Especial -->
+    <div class="middle-left">
+
+      <!-- Serviços -->
+      <div class="card">
+        <div class="card-title">Serviços adicionais</div>
+        <div class="togs">
+          <div class="tog-row">
+            <div><div class="tog-label">Disaster Recovery</div><div class="tog-sub">Replicação Ceph RBD cross-site · RPO ≤15min · DC-SP2 Osasco</div></div>
+            <div class="tog"><button id="dr-s" onclick="setTog('dr',true)">Sim</button><button id="dr-n" class="on" onclick="setTog('dr',false)">Não</button></div>
+          </div>
+          <div class="tog-row">
+            <div><div class="tog-label">Backup local diário</div><div class="tog-sub">Snapshots Cinder com retenção configurável</div></div>
+            <div class="tog"><button id="bk-s" class="on" onclick="setTog('bk',true)">Sim</button><button id="bk-n" onclick="setTog('bk',false)">Não</button></div>
+          </div>
+          <div class="tog-row">
+            <div><div class="tog-label">Backup Offsite</div><div class="tog-sub">Replicação cross-site · retenção 30 dias · Cinder Backup</div></div>
+            <div class="tog"><button id="bo-s" onclick="setTog('bo',true)">Sim</button><button id="bo-n" class="on" onclick="setTog('bo',false)">Não</button></div>
+          </div>
+          <div class="tog-row">
+            <div><div class="tog-label">Suporte técnico</div><div class="tog-sub">Atendimento em português por engenheiros Alliant</div></div>
+            <div class="tog"><button id="sup-s" onclick="setSupAtivo(true)">Sim</button><button id="sup-n" class="on" onclick="setSupAtivo(false)">Não</button></div>
+          </div>
+          <div id="sup-config" class="sup-config">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div>
+                <div class="sup-field-label">Horas 8×5 / mês</div>
+                <input type="number" id="sup-hrs-85" class="sup-input" value="0" min="0" max="500" placeholder="0" oninput="schedCalc()">
+                <div class="sup-hint">R$ 180,00 / hora</div>
+              </div>
+              <div>
+                <div class="sup-field-label">Horas 24×7 / mês</div>
+                <input type="number" id="sup-hrs-247" class="sup-input" value="0" min="0" max="500" placeholder="0" oninput="schedCalc()">
+                <div class="sup-hint">R$ 240,00 / hora</div>
               </div>
             </div>
-
-            <!-- PROJETO ESPECIAL -->
-            <div class="card special-card">
-              <div style="display:flex;align-items:flex-start;gap:14px">
-                <div style="flex:1">
-                  <div class="special-title">Meu projeto não se encaixa aqui</div>
-                  <div style="font-size:12px;color:var(--ink2);line-height:1.6">Requisitos específicos, volumes fora do padrão ou integrações especiais? Nossa equipe monta uma proposta sob medida.</div>
-                </div>
-                <button onclick="openSpecial()" class="special-btn">Projeto especial →</button>
-              </div>
+          </div>
+          <div style="padding:9px 0 2px">
+            <div style="background:rgba(39,174,96,0.08);border:1px solid rgba(39,174,96,0.2);border-radius:8px;padding:9px 12px;font-size:11px;color:#27ae60;display:flex;align-items:center;gap:6px">
+              <span>✓</span><span><strong>Alta Disponibilidade incluída</strong> em todas as VMs por padrão — failover automático em &lt;5min em caso de falha do host físico. Sem custo adicional.</span>
             </div>
+          </div>
+        </div>
       </div>
-      <div class="sidebar">
-        <div class="result-card">
-                        <div class="result-header">
-                          <div class="result-title">Estimativa mensal</div>
-                          <div class="dr-badge" id="drBadge">Com DR</div>
-                            </div>
-                
-                        <div class="vm-breakdown" id="breakdown">
-                          <div class="vm-empty">Adicione VMs para calcular.</div>
-                            </div>
-                
-                        <div id="supLine" style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden">
-                          <span style="color:var(--ink2)" id="supLineLabel"></span>
-                          <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="supLineVal"></span>
-                            </div>
-                        <div class="divider"></div>
-                        <div id="vmLine" style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden">
-                          <span style="color:var(--ink2)">VMs + serviços</span>
-                          <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="vmLineVal"></span>
-                            </div>
-                        <div id="netLine"  style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden;transition:all .2s">
-                          <span style="color:var(--ink2)" id="netLineLabel"></span>
-                          <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="netLineVal"></span>
-                            </div>
-                        <div class="total-row">
-                          <div class="total-label">Total / mês</div>
-                          <div class="total-value" id="totalVal">R$ —</div>
-                            </div>
-                        <div class="savings" id="savings"></div>
-                
-                        <button class="cta-btn" id="ctaBtn" onclick="goToProposta()">Solicitar proposta →</button>
-                        <div class="disclaimer">Preços em reais · Sem variação cambial · Faturamento mensal</div>
-                          </div>
-                        </div>
-              </div>
+
+      <!-- Rede -->
+      <div class="card">
+        <div class="card-title">Rede</div>
+        <div class="rede-grid">
+          <div class="rede-field">
+            <label>IPs públicos dedicados</label>
+            <input type="number" id="ips" class="rede-input" value="1" min="0" max="32" oninput="schedCalc()">
+          </div>
+          <div class="rede-field">
+            <label>Banda garantida (Mbps)</label>
+            <input type="number" id="banda" class="rede-input" value="100" min="0" step="10" oninput="schedCalc()">
+          </div>
+        </div>
       </div>
-    </div>
 
-</div>
+      <!-- Projeto Especial -->
+      <div class="card special-card">
+        <div style="display:flex;align-items:flex-start;gap:14px">
+          <div style="flex:1">
+            <div class="special-title">Meu projeto não se encaixa aqui</div>
+            <div style="font-size:12px;color:var(--ink2);line-height:1.6">Requisitos específicos, volumes fora do padrão ou integrações especiais? Nossa equipe monta uma proposta sob medida.</div>
+          </div>
+          <button onclick="openSpecial()" class="special-btn">Projeto especial →</button>
+        </div>
+      </div>
 
-<script>
-var rows=[], rid=0;
-var togs={dr:false, ha:false, bk:true, bo:false};
-var suporte='none'; // 'none' | '8x5' | '24x7'
-var SUPORTE_PRECO={'none':0,'8x5':180,'24x7':240,'current':0};
-var debounceTimer=null;
+    </div><!-- end middle-left -->
 
-var FLAVORS_LIST = [
-  ['General Purpose', ['gp.nano','gp.micro','gp.small','gp.medium','gp.large','gp.xlarge','gp.2xlarge']],
-  ['Memory Optimized',['mo.small','mo.medium','mo.large','mo.xlarge','mo.2xlarge']],
-  ['Compute Optimized',['cp.small','cp.medium','cp.large','cp.xlarge','cp.2xlarge']],
-  ['Windows Server',  ['win.gp.small','win.gp.medium','win.gp.large','win.gp.xlarge','win.gp.2xlarge']]
-];
-var FLAVOR_SPECS = {
-  'gp.nano'       :{v:1, r:1  },'gp.micro'      :{v:1, r:2  },
-  'gp.small'      :{v:2, r:4  },'gp.medium'     :{v:4, r:8  },
-  'gp.large'      :{v:8, r:16 },'gp.xlarge'     :{v:16,r:32 },'gp.2xlarge'    :{v:32,r:64 },
-  'mo.small'      :{v:2, r:16 },'mo.medium'     :{v:4, r:32 },
-  'mo.large'      :{v:8, r:64 },'mo.xlarge'     :{v:16,r:128},'mo.2xlarge'    :{v:32,r:256},
-  'cp.small'      :{v:2, r:2  },'cp.medium'     :{v:4, r:4  },
-  'cp.large'      :{v:8, r:8  },'cp.xlarge'     :{v:16,r:16 },'cp.2xlarge'    :{v:32,r:32 },
-  'win.gp.small'  :{v:2, r:4  },'win.gp.medium' :{v:4, r:8  },
-  'win.gp.large'  :{v:8, r:16 },'win.gp.xlarge' :{v:16,r:32 },'win.gp.2xlarge':{v:32,r:64 }
-};
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="result-card">
+        <div class="result-header">
+          <div class="result-title">Estimativa mensal</div>
+          <div class="dr-badge" id="drBadge">Com DR</div>
+        </div>
 
-function setTog(k,v){
-  togs[k]=v;
-  document.getElementById(k+'-s').className=v?'on':'';
-  document.getElementById(k+'-n').className=v?'':'on';
-  schedCalc();
-}
+        <div class="vm-breakdown" id="breakdown">
+          <div class="vm-empty">Adicione VMs para calcular.</div>
+        </div>
 
-function makeFlavorSelect(val){
-  var sel=document.createElement('select');
-  FLAVORS_LIST.forEach(function(g){
-    var og=document.createElement('optgroup'); og.label=g[0];
-    g[1].forEach(function(f){
-      var s=FLAVOR_SPECS[f]||{};
-      var o=document.createElement('option'); o.value=f;
-      o.textContent=f+' — '+s.v+'v/'+s.r+'G';
-      if(f===val)o.selected=true;
-      og.appendChild(o);
-    });
-    sel.appendChild(og);
-  });
-  sel.style.width='100%';
-  updateSelColor(sel);
-  sel.addEventListener('change',function(){
-    updateSelColor(this);
-    var flavor=this.value;
-    var id=this._id;
-    var isWinFlavor=flavor.indexOf('win.')===0;
-    // Lock OS select to match flavor family
-    var row=rows.find(function(r){return r.id===id;});
-    if(row){
-      var osSel=document.querySelector('select[data-os-id="'+id+'"]');
-      if(isWinFlavor){
-        // Force Windows OS
-        if(osSel){
-          // Set to first Windows option
-          for(var i=0;i<osSel.options.length;i++){
-            if(osSel.options[i].value.indexOf('Windows')===0){
-              osSel.value=osSel.options[i].value;
-              break;
-            }
-          }
-        }
-        upd(id,'os','Windows Server 2025');
-      } else {
-        // If OS was Windows and flavor is now Linux, reset to Linux
-        if(row.data.os&&row.data.os.indexOf('Windows')===0){
-          if(osSel) osSel.value='Linux';
-          upd(id,'os','Linux');
-        }
-      }
-    }
-    upd(id,'flavor',flavor);
-  });
-  return sel;
-}
+        <div class="divider"></div>
 
-function updateSelColor(sel){
-  var isWin=sel.value.indexOf('win.')===0;
-  sel.style.color=isWin?'#0078d4':'#d35400';
-  sel.style.fontWeight='600';
-}
+        <div class="sub-line" id="vmLine">
+          <span>VMs + serviços</span>
+          <b id="vmLineVal"></b>
+        </div>
+        <div class="sub-line" id="netLine">
+          <span id="netLineLabel"></span>
+          <b id="netLineVal"></b>
+        </div>
+        <div class="sub-line" id="supLine">
+          <span id="supLineLabel"></span>
+          <b id="supLineVal"></b>
+        </div>
 
-function renderRow(r,idx){
-  var d=r.data, id=r.id;
-  var tr=document.createElement('tr');
-  var tdI=document.createElement('td'); tdI.className='col-idx'; tdI.textContent=idx+1; tr.appendChild(tdI);
-  var tdN=document.createElement('td'); tdN.className='col-name';
-  var iN=document.createElement('input'); iN.type='text'; iN.placeholder='App server, DB...'; iN.value=d.nm||'';
-  iN.addEventListener('change',(function(i){return function(){upd(i,'nm',this.value);};})(id));
-  tdN.appendChild(iN); tr.appendChild(tdN);
-  var tdO=document.createElement('td'); tdO.className='col-os';
-  var selOS=document.createElement('select');
-  selOS.setAttribute('data-os-id', id);
-  var isWinFlavor=(d.flavor||'').indexOf('win.')===0;
-  if(isWinFlavor&&(!d.os||d.os==='Linux')) d.os='Windows Server 2025';
-  ['Linux','Windows Server 2025','Windows Server 2022','Windows Server 2019'].forEach(function(o){
-    var op=document.createElement('option'); op.value=o; op.textContent=o;
-    if(isWinFlavor&&o==='Linux'){ op.disabled=true; op.style.color='#bbb'; }
-    if((d.os||'Linux')===o) op.selected=true;
-    selOS.appendChild(op);
-  });
-  selOS.style.color=d.os&&d.os.indexOf('Windows')===0?'#0078d4':'#d35400';
-  selOS.style.fontWeight='600';
-  selOS.addEventListener('change',(function(i){return function(){
-    upd(i,'os',this.value);
-    this.style.color=this.value.indexOf('Windows')===0?'#0078d4':'#d35400';
-  };})(id));
-  tdO.appendChild(selOS); tr.appendChild(tdO);
-  var tdQ=document.createElement('td'); tdQ.className='col-num';
-  var iQ=document.createElement('input'); iQ.type='number'; iQ.min=1; iQ.max=999; iQ.value=d.qty||1; iQ.style.width='100%'; iQ.style.minWidth='44px';
-  iQ.addEventListener('change',(function(i){return function(){upd(i,'qty',+this.value);};})(id));
-  tdQ.appendChild(iQ); tr.appendChild(tdQ);
-  var tdF=document.createElement('td');
-  var sf=makeFlavorSelect(d.flavor||'gp.large'); sf._id=id;
-  sf.addEventListener('change',(function(i){return function(){upd(i,'flavor',this.value);};})(id));
-  tdF.appendChild(sf); tr.appendChild(tdF);
-  var tdD=document.createElement('td'); tdD.className='col-del';
-  var db=document.createElement('button'); db.className='del-btn'; db.innerHTML='&times;';
-  db.addEventListener('click',(function(i){return function(){removeRow(i);};})(id));
-  tdD.appendChild(db); tr.appendChild(tdD);
-  return tr;
-}
+        <div class="total-row">
+          <div class="total-label">Total / mês</div>
+          <div class="total-value" id="totalVal">R$ —</div>
+        </div>
 
-function renderTable(){
-  var tb=document.getElementById('vmBody'); tb.innerHTML='';
-  rows.forEach(function(r,i){ tb.appendChild(renderRow(r,i)); });
-  schedCalc();
-}
+        <button class="cta-btn" onclick="openModal()">Solicitar proposta →</button>
+        <div class="disclaimer">Preços em reais · Sem variação cambial · Faturamento mensal</div>
+      </div>
+    </div><!-- end sidebar -->
 
-function addRow(d){
-  var id=++rid;
-  rows.push({id:id,data:d||{nm:'',os:'Linux',qty:1,flavor:'gp.medium'}});
-  renderTable();
-}
-function removeRow(id){ rows=rows.filter(function(r){return r.id!==id;}); renderTable(); }
-function upd(id,key,val){ var r=rows.find(function(r){return r.id===id;}); if(r){r.data[key]=val; schedCalc();} }
+  </div><!-- end middle-row -->
 
-var supAtivo=false;
-
-function setSupAtivo(v){
-  supAtivo=v;
-  document.getElementById('sup-s').className=v?'on':'';
-  document.getElementById('sup-n').className=v?'':'on';
-  document.getElementById('sup-config').style.display=v?'flex':'none';
-  schedCalc();
-}
-
-function getSupCost(){
-  if(!supAtivo) return 0;
-  var hrs85=+(document.getElementById('sup-hrs-85')||{value:0}).value||0;
-  var hrs247=+(document.getElementById('sup-hrs-247')||{value:0}).value||0;
-  return hrs85*180 + hrs247*240;
-}
-
-function schedCalc(){
-  clearTimeout(debounceTimer);
-  debounceTimer=setTimeout(doCalc, 350);
-}
-
-function fmtBRL(v){
-  return 'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-}
-
-function doCalc(){
-  if(rows.length===0){
-    document.getElementById('breakdown').innerHTML='<div class="vm-empty">Adicione VMs para calcular.</div>';
-    document.getElementById('totalVal').textContent='R$ —';
-    document.getElementById('drBadge').classList.remove('show');
-    document.getElementById('savings').classList.remove('show');
-    return;
-  }
-
-  var ips=+(document.getElementById('ips')||{value:1}).value||0;
-  var banda=+(document.getElementById('banda')||{value:0}).value||0;
-  var vms=rows.map(function(r){return{flavor:r.data.flavor||'gp.large',qty:+r.data.qty||1};});
-  var payload={vms:vms, dr:togs.dr, servicos:togs, ips:ips, banda:banda};
-
-  fetch('https://io.alliant.com.br/form/calcular.php',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify(payload)
-  })
-  .then(function(r){return r.json();})
-  .then(function(data){
-    if(!data.ok) return;
-    var bd=document.getElementById('breakdown');
-    bd.innerHTML='';
-    data.items.forEach(function(item,i){
-      var row=rows[i];
-      var nm=row&&row.data.nm?row.data.nm:item.flavor;
-      var div=document.createElement('div'); div.className='vm-line';
-      var left=document.createElement('div'); left.className='vm-line-name';
-      left.textContent=nm;
-      var sub=document.createElement('span');
-      sub.textContent=item.flavor+' × '+item.qty+(item.os==='win'?' · Win':'· Linux');
-      left.appendChild(sub);
-      var right=document.createElement('div'); right.className='vm-line-price';
-      right.textContent=fmtBRL(item.total);
-      div.appendChild(left); div.appendChild(right);
-      bd.appendChild(div);
-    });
-
-    _lastCalcData=data;
-    // Add IPs + Banda costs (client-side display only, also computed in backend)
-    var _ips=+(document.getElementById('ips')||{value:1}).value||0;
-    var _banda=+(document.getElementById('banda')||{value:0}).value||0;
-    var _netCost=(_ips*45)+(_banda*3);
-    var _supCost=getSupCost();
-    var _grandTotal=data.total+_netCost+_supCost;
-    document.getElementById('totalVal').textContent=fmtBRL(_grandTotal);
-    // Net line
-    var netLine=document.getElementById('netLine');
-    var netParts=[];
-    if(_ips>0) netParts.push(_ips+' IP'+(+_ips>1?'s':''));
-    if(_banda>0) netParts.push(_banda+'Mbps');
-    if(_netCost>0){
-      netLine.style.visibility='visible';
-      netLine.style.height='auto';
-      netLine.style.marginBottom='6px';
-      document.getElementById('netLineLabel').textContent=netParts.join(' + ');
-      document.getElementById('netLineVal').textContent=fmtBRL(_netCost);
-    } else {
-      netLine.style.visibility='hidden';
-      netLine.style.height='0';
-      netLine.style.marginBottom='0';
-    }
-    // Also show VMs subtotal line if network cost exists
-    var vmLine=document.getElementById('vmLine');
-    if(vmLine){
-      if(_netCost>0){
-        vmLine.style.visibility='visible';
-        vmLine.style.height='auto';
-        vmLine.style.marginBottom='6px';
-        document.getElementById('vmLineVal').textContent=fmtBRL(data.total);
-      } else {
-        vmLine.style.visibility='hidden';
-        vmLine.style.height='0';
-        vmLine.style.marginBottom='0';
-      }
-    }
-    document.getElementById('drBadge').classList.toggle('show', togs.dr);
-    document.getElementById('savings').classList.remove('show');
-    // Suporte line
-    var supLine=document.getElementById('supLine');
-    if(supLine){
-      if(_supCost>0){
-        supLine.style.visibility='visible'; supLine.style.height='auto'; supLine.style.marginBottom='6px';
-        var _hrs85=+(document.getElementById('sup-hrs-85')||{value:0}).value||0;
-        var _hrs247=+(document.getElementById('sup-hrs-247')||{value:0}).value||0;
-        var _supParts=[];
-        if(_hrs85>0) _supParts.push(_hrs85+'h 8×5');
-        if(_hrs247>0) _supParts.push(_hrs247+'h 24×7');
-        document.getElementById('supLineLabel').textContent='Suporte '+(_supParts.join(' + ')||'');
-        document.getElementById('supLineVal').textContent=fmtBRL(_supCost);
-      } else {
-        supLine.style.visibility='hidden'; supLine.style.height='0'; supLine.style.marginBottom='0';
-      }
-    }
-  })
-  .catch(function(){
-    document.getElementById('breakdown').innerHTML='<div class="vm-empty" style="color:#c0392b">Erro ao calcular. Tente novamente.</div>';
-  });
-}
-
-// Init
-addRow({nm:'Servidor de aplicação',os:'Linux',qty:2,flavor:'gp.medium'});
-addRow({nm:'Banco de dados',os:'Linux',qty:1,flavor:'mo.medium'});
-addRow({nm:'ERP Windows',os:'Windows Server 2022',qty:1,flavor:'win.gp.large'});
-
-
-function goToProposta(){ openModal(); }
-
-// ── ABBREVIATION
-function abbrev(name){
-  if(!name)return'VM';
-  if(name.length<=9)return name;
-  var subs=[['servidor de aplicacao','app-srv'],['servidor','srv'],['server','srv'],
-    ['aplicacao','app'],['application','app'],['banco de dados','db'],['banco','db'],
-    ['database','db'],['dados','db'],['gerenciamento','mgmt'],['management','mgmt'],
-    ['producao','prd'],['production','prd'],['homologacao','hlg'],['staging','stg'],
-    ['frontend','fe'],['backend','be'],['proxy','prx'],['monitoramento','mon'],['monitoring','mon']];
-  var s=name.toLowerCase();
-  for(var i=0;i<subs.length;i++)s=s.replace(subs[i][0],subs[i][1]);
-  var parts=s.trim().split(/[\s\-\/\_]+/).filter(function(p){return p.length>0;});
-  var r=parts.slice(0,2).map(function(p){return p.length>5?p.substring(0,4):p;}).join('-');
-  return r.substring(0,9)||name.substring(0,6);
-}
-
-// ── CANVAS ENGINE
-(function(){
-  var canvas,ctx,W,H,dpr,nodes=[],drawn=[],connections=[],tick=0;
-  function setup(){
-    canvas=document.getElementById('archCanvas');
-    if(!canvas)return;
-    dpr=window.devicePixelRatio||1;
-    resize();
-    window.addEventListener('resize',resize);
-    requestAnimationFrame(loop);
-  }
-  function resize(){
-    var rect=canvas.parentElement.getBoundingClientRect();
-    W=Math.max(rect.width||400,300);
-    H=Math.round(W*0.42);
-    canvas.width=W*dpr;canvas.height=H*dpr;
-    canvas.style.height=H+'px';
-    ctx=canvas.getContext('2d');
-    ctx.scale(dpr,dpr);
-  }
-  function getBanda(){var el=document.getElementById('banda');return el?(+el.value||100):100;}
-  function buildLayout(){
-    nodes=[];connections=[];
-    var items=rows,haHA=togs.ha,haDR=togs.dr,haBO=togs.bo;
-    var showDC2=haDR||haBO;
-    var inetY=H*0.10,dcY=H*0.50,vmYt=H*0.72,vmYb=H*0.90;
-    var inet1x=showDC2?W*0.30:W*0.50;
-    var inet={x:inet1x,y:inetY,type:'inet',label:'Internet',sub:'',r:15};
-    nodes.push(inet);
-    var inet2=null;
-    if(showDC2){inet2={x:W*0.70,y:inetY,type:'inet',label:'Internet',sub:'',r:15};nodes.push(inet2);}
-    var dc1x=showDC2?W*0.30:W*0.50;
-    var dc1={x:dc1x,y:dcY,type:'dc',label:'DC-SP1',sub:'Vinhedo',r:20};
-    nodes.push(dc1);
-    var dc2=null;
-    if(showDC2){dc2={x:W*0.70,y:dcY,type:'dc2',label:'DC-SP2',sub:haDR?'Osasco DR':'Osasco Bkp',r:20};nodes.push(dc2);}
-    var count=items.length;
-    if(count>0){
-      var cols=Math.min(count,4),rws=Math.ceil(count/cols);
-      var zoneL=W*0.08,zoneR=W*0.92,zoneT=H*0.68,zoneB=H*0.92;
-      items.forEach(function(r,i){
-        var d=r.data,col=i%cols,row=Math.floor(i/cols);
-        var x=cols===1?W*0.50:zoneL+(zoneR-zoneL)*col/(cols-1||1);
-        var y=rws===1?(zoneT+zoneB)/2:zoneT+(zoneB-zoneT)*row/(rws-1||1);
-        var isWin=(d.os&&d.os.indexOf('Windows')===0)||(d.flavor&&d.flavor.indexOf('win.')===0),qty=+d.qty||1;
-        nodes.push({x:x,y:y,r:Math.min(18,10+qty*1.2),type:isWin?'win':'lin',
-          label:abbrev(d.nm||'VM '+(i+1)),sub:d.flavor||'',qty:qty,showHA:haHA});
-      });
-    }
-    var vmNodes=nodes.filter(function(n){return n.type==='win'||n.type==='lin';});
-    var bw=1.5;
-    connections.push({from:inet,to:dc1,style:'inet',lw:bw,dash:[4,5]});
-    if(inet2&&dc2)connections.push({from:inet2,to:dc2,style:'inet',lw:bw,dash:[4,5]});
-    vmNodes.forEach(function(vm){connections.push({from:dc1,to:vm,style:'dc',lw:1.5,dash:[]});});
-    if(dc2){
-      connections.push({from:dc1,to:dc2,style:'dclink',lw:2,dash:[6,3]});
-      if(haDR)vmNodes.forEach(function(vm){connections.push({from:dc2,to:vm,style:'dr',lw:1,dash:[3,4]});});
-      else if(haBO)connections.push({from:dc1,to:dc2,style:'backup',lw:1.5,dash:[3,5]});
-    }
-    while(drawn.length<nodes.length)drawn.push(null);
-    drawn.length=nodes.length;
-    nodes.forEach(function(n,i){if(!drawn[i])drawn[i]={x:n.x,y:n.y+20,r:n.r,alpha:0};});
-  }
-  function lerp(a,b,t){return a+(b-a)*t;}
-  function loop(){
-    requestAnimationFrame(loop);tick++;
-    buildLayout();
-    nodes.forEach(function(n,i){
-      var d=drawn[i];if(!d){drawn[i]={x:n.x,y:n.y+20,r:n.r,alpha:0};d=drawn[i];}
-      d.x=lerp(d.x,n.x,0.09);d.y=lerp(d.y,n.y,0.09);
-      d.r=lerp(d.r,n.r,0.1);d.alpha=lerp(d.alpha,1,0.06);
-    });
-    draw();
-  }
-  var SM={inet:{stroke:'rgba(29,106,255,0.5)'},dc:{stroke:'rgba(26,22,18,0.3)'},
-    dr:{stroke:'rgba(0,145,181,0.5)'},backup:{stroke:'rgba(107,95,82,0.35)'},
-    dclink:{stroke:'rgba(29,106,255,0.45)'}};
-  var NC={lin:'rgba(211,84,0,',win:'rgba(0,120,212,',dc:'rgba(29,106,255,',
-    dc2:'rgba(0,145,181,',inet:'rgba(107,95,82,'};
-  function drawConn(fd,td,c,alpha){
-    if(!fd||!td)return;
-    var a=Math.min(fd.alpha,td.alpha)*alpha;if(a<0.02)return;
-    var sm=SM[c.style]||SM.dc;
-    ctx.save();ctx.globalAlpha=a;ctx.strokeStyle=sm.stroke;ctx.lineWidth=c.lw||1;
-    ctx.setLineDash(c.dash||[]);ctx.lineDashOffset=-(tick*0.35);
-    ctx.beginPath();var mx=(fd.x+td.x)/2,my=(fd.y+td.y)/2-10;
-    ctx.moveTo(fd.x,fd.y);ctx.quadraticCurveTo(mx,my,td.x,td.y);ctx.stroke();
-    ctx.restore();
-  }
-  function drawHAbadge(x,y,r,alpha){
-    var bx=x+r*0.72,by=y-r*0.72,br=r*0.36;
-    ctx.save();ctx.globalAlpha=alpha;
-    ctx.fillStyle='rgba(211,84,0,0.9)';ctx.strokeStyle='rgba(245,240,232,0.9)';ctx.lineWidth=1.2;
-    ctx.beginPath();ctx.arc(bx,by,br,0,Math.PI*2);ctx.fill();ctx.stroke();
-    ctx.fillStyle='#fff';ctx.font='bold '+(br*1.05)+'px "DM Mono",monospace';
-    ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('H',bx,by);
-    ctx.restore();
-  }
-  function drawDiskIcon(x,y,r,alpha){
-    var dx=x+r*0.8,dy=y+r*0.8,ds=r*0.45;
-    ctx.save();ctx.globalAlpha=alpha*0.8;
-    ctx.fillStyle='rgba(107,95,82,0.2)';ctx.strokeStyle='rgba(107,95,82,0.55)';ctx.lineWidth=1;
-    ctx.fillRect(dx-ds,dy-ds,ds*2,ds*2);ctx.strokeRect(dx-ds,dy-ds,ds*2,ds*2);
-    ctx.fillStyle='rgba(107,95,82,0.45)';ctx.fillRect(dx-ds*0.45,dy-ds,ds*0.9,ds*0.65);
-    ctx.restore();
-  }
-  function drawNode(d,n){
-    if(d.alpha<0.02)return;
-    var col=NC[n.type]||NC.inet;
-    ctx.save();ctx.globalAlpha=d.alpha;
-    var g=ctx.createRadialGradient(d.x,d.y,d.r*0.2,d.x,d.y,d.r*2.2);
-    g.addColorStop(0,col+'0.1)');g.addColorStop(1,col+'0)');
-    ctx.fillStyle=g;ctx.beginPath();ctx.arc(d.x,d.y,d.r*2.2,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle=col+'0.07)';ctx.strokeStyle=col+'0.55)';
-    ctx.lineWidth=n.type==='dc'||n.type==='dc2'?2:1.5;
-    ctx.shadowColor=col+'0.3)';ctx.shadowBlur=8;
-    ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fill();ctx.stroke();
-    ctx.shadowBlur=0;
-    ctx.fillStyle=col+'0.85)';
-    ctx.font='bold '+(d.r*0.65)+'px "DM Mono",monospace';
-    ctx.textAlign='center';ctx.textBaseline='middle';
-    var icon=n.type==='dc'||n.type==='dc2'?'DC':n.type==='inet'?'--':n.qty>1?'x'+n.qty:n.type==='win'?'W':'L';
-    ctx.fillText(icon,d.x,d.y);
-    ctx.font='600 9px "Raleway",sans-serif';ctx.fillStyle='rgba(26,22,18,0.72)';
-    ctx.fillText((n.label||'').substring(0,13),d.x,d.y+d.r+10);
-    if(n.sub){ctx.font='8px "DM Mono",monospace';ctx.fillStyle='rgba(107,95,82,0.55)';
-      ctx.fillText(n.sub.substring(0,13),d.x,d.y+d.r+20);}
-    ctx.restore();
-    if(n.showHA&&(n.type==='win'||n.type==='lin'))drawHAbadge(d.x,d.y,d.r,d.alpha);
-    if(n.type==='dc2'&&togs.bo&&!togs.dr)drawDiskIcon(d.x,d.y,d.r,d.alpha);
-  }
-  function isFullyProtected(){return togs.ha&&togs.dr&&togs.bo&&togs.bk;}
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    ctx.save();ctx.strokeStyle='rgba(107,95,82,0.04)';ctx.lineWidth=1;
-    for(var x=0;x<W;x+=28){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
-    for(var y=0;y<H;y+=28){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
-    ctx.restore();
-    connections.forEach(function(c){
-      var fi=nodes.indexOf(c.from),ti=nodes.indexOf(c.to);
-      if(fi<0||ti<0)return;
-      drawConn(drawn[fi],drawn[ti],c,0.85);
-    });
-    nodes.forEach(function(n,i){if(drawn[i])drawNode(drawn[i],n);});
-    if(isFullyProtected()){
-      ctx.save();
-      var txt='\u2726 FULLY PROTECTED';
-      ctx.font='bold 11px "Raleway",sans-serif';
-      var tw=ctx.measureText(txt).width,px=W/2,py=14,pw=tw+26,ph=20;
-      ctx.fillStyle='rgba(39,174,96,0.12)';ctx.strokeStyle='rgba(39,174,96,0.5)';ctx.lineWidth=1;
-      ctx.beginPath();ctx.roundRect(px-pw/2,py-ph/2,pw,ph,10);ctx.fill();ctx.stroke();
-      ctx.fillStyle='rgba(39,174,96,0.95)';ctx.textAlign='center';ctx.textBaseline='middle';
-      ctx.fillText(txt,px,py);ctx.restore();
-    }
-  }
-  document.addEventListener('DOMContentLoaded',function(){setTimeout(setup,120);});
-})();
-
-
-var _lastCalcData = null;
-
-// Override doCalc to also save data for modal
-var _origDoCalc = doCalc;
-doCalc = function(){
-  _origDoCalc();
-};
-
-function openModal(){
-  // Update modal summary from last calc
-  var bd = document.getElementById('modalSummaryRows');
-  var tot = document.getElementById('modalTotal');
-  bd.innerHTML='';
-  if(_lastCalcData && _lastCalcData.items){
-    _lastCalcData.items.forEach(function(item,i){
-      var r=rows[i];
-      var nm=r&&r.data.nm?r.data.nm:item.flavor;
-      var div=document.createElement('div'); div.className='modal-summary-row';
-      div.innerHTML='<span>'+nm+' ('+item.flavor+' ×'+item.qty+')</span><b>'+fmtBRL(item.total)+'</b>';
-      bd.appendChild(div);
-    });
-    tot.textContent=fmtBRL(_lastCalcData.total);
-  } else {
-    bd.innerHTML='<div style="font-size:12px;color:var(--ink3)">Configure as VMs para ver o resumo.</div>';
-  }
-  document.getElementById('modalForm').style.display='block';
-  document.getElementById('modalSuccess').style.display='none';
-  document.getElementById('m-status').textContent='';
-  document.getElementById('m-sendBtn').disabled=false;
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-function closeModal(){
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow='';
-}
-
-function maskCNPJ2(el){
-  var d=el.value.replace(/[^0-9]/g,'').substring(0,14),r='';
-  if(d.length>0)r=d.substring(0,2);if(d.length>2)r+='.'+d.substring(2,5);
-  if(d.length>5)r+='.'+d.substring(5,8);if(d.length>8)r+='/'+d.substring(8,12);
-  if(d.length>12)r+='-'+d.substring(12,14);el.value=r;
-}
-
-function maskPhone2(el){
-  var v=el.value.replace(/[^0-9]/g,'').substring(0,11),r='';
-  if(v.length>0)r='('+v.substring(0,2);if(v.length>2)r+=') ';
-  if(v.length>2&&v.length<=10)r+=v.substring(2,6)+(v.length>6?'-'+v.substring(6,10):'');
-  else if(v.length>2)r+=v.substring(2,7)+(v.length>7?'-'+v.substring(7,11):'');
-  el.value=r;
-}
-
-function sendProposta(){
-  var emp=document.getElementById('m-empresa').value.trim();
-  var eml=document.getElementById('m-email').value.trim();
-  var nom=document.getElementById('m-nome').value.trim();
-  if(!emp||!eml||!nom){
-    document.getElementById('m-status').style.color='#c0392b';
-    document.getElementById('m-status').textContent='Preencha razão social, responsável e e-mail.';
-    return;
-  }
-  var btn=document.getElementById('m-sendBtn');
-  var status=document.getElementById('m-status');
-  btn.disabled=true;
-  status.style.color='var(--ink2)';
-  status.textContent='Enviando...';
-
-  var vmsPayload=rows.map(function(r){return r.data;});
-  var payload={
-    empresa:emp,
-    cnpj:document.getElementById('m-cnpj').value,
-    nome:nom,
-    cargo:document.getElementById('m-cargo').value,
-    email:eml,
-    whatsapp:document.getElementById('m-whatsapp').value,
-    segmento:document.getElementById('m-segmento').value,
-    prazo:document.getElementById('m-prazo').value,
-    ips:String(+(document.getElementById('ips')||{value:1}).value||1),
-    banda:String(+(document.getElementById('banda')||{value:100}).value||100),
-    obs:'',
-    servicos:togs,
-    vms:vmsPayload,
-    estimativa:_lastCalcData?_lastCalcData.total:0,
-    suporte:supAtivo?((+(document.getElementById('sup-hrs-85')||{value:0}).value||0)+'h 8x5 + '+(+(document.getElementById('sup-hrs-247')||{value:0}).value||0)+'h 24x7'):'Sem suporte'
-  };
-
-  fetch('https://io.alliant.com.br/form/enviar.php',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify(payload)
-  })
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(d.ok){
-      document.getElementById('modalForm').style.display='none';
-      document.getElementById('modalSuccess').style.display='block';
-    } else {
-      status.style.color='#c0392b';
-      status.textContent='Erro: '+(d.error||'Falha no envio');
-      btn.disabled=false;
-    }
-  })
-  .catch(function(){
-    status.style.color='#c0392b';
-    status.textContent='Erro de conexão. Tente novamente.';
-    btn.disabled=false;
-  });
-}
-
-
-var _specialFile = null;
-
-function openSpecial(){
-  document.getElementById('specialForm').style.display='block';
-  document.getElementById('specialSuccess').style.display='none';
-  document.getElementById('sp-status').textContent='';
-  document.getElementById('sp-sendBtn').disabled=false;
-  document.getElementById('sp-filename').textContent='';
-  _specialFile=null;
-  document.getElementById('specialOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-function closeSpecial(){
-  document.getElementById('specialOverlay').classList.remove('open');
-  document.body.style.overflow='';
-}
-
-function handleFile(file){
-  if(!file) return;
-  if(file.size > 5*1024*1024){
-    document.getElementById('sp-filename').style.color='#c0392b';
-    document.getElementById('sp-filename').textContent='Arquivo muito grande (máx. 5MB)';
-    _specialFile=null; return;
-  }
-  _specialFile=file;
-  document.getElementById('sp-filename').style.color='var(--blue)';
-  document.getElementById('sp-filename').textContent=file.name+' ('+Math.round(file.size/1024)+'KB)';
-  document.getElementById('sp-dropzone').style.borderColor='var(--blue)';
-}
-
-function handleDrop(e){
-  e.preventDefault();
-  document.getElementById('sp-dropzone').style.borderColor='var(--border2)';
-  var f=e.dataTransfer.files[0];
-  if(f) handleFile(f);
-}
-
-function sendSpecial(){
-  var emp=document.getElementById('sp-empresa').value.trim();
-  var eml=document.getElementById('sp-email').value.trim();
-  var nom=document.getElementById('sp-nome').value.trim();
-  var obs=document.getElementById('sp-obs').value.trim();
-  if(!emp||!eml||!nom||!obs){
-    document.getElementById('sp-status').style.color='#c0392b';
-    document.getElementById('sp-status').textContent='Preencha empresa, responsável, e-mail e descrição.';
-    return;
-  }
-  var btn=document.getElementById('sp-sendBtn');
-  var status=document.getElementById('sp-status');
-  btn.disabled=true;
-  status.style.color='var(--ink2)';
-  status.textContent='Enviando...';
-
-  function doSend(fileB64, fileName){
-    var payload={
-      empresa:emp, cnpj:document.getElementById('sp-cnpj').value,
-      nome:nom, email:eml,
-      whatsapp:document.getElementById('sp-whatsapp').value,
-      segmento:document.getElementById('sp-segmento').value,
-      obs:obs, tipo:'projeto_especial',
-      arquivo_nome: fileName||'', arquivo_b64: fileB64||'',
-      ips:'0', banda:'0', vms:[], servicos:{}, prazo:'', cargo:''
-    };
-    fetch('https://io.alliant.com.br/form/enviar.php',{
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(payload)
-    })
-    .then(function(r){return r.json();})
-    .then(function(d){
-      if(d.ok){
-        document.getElementById('specialForm').style.display='none';
-        document.getElementById('specialSuccess').style.display='block';
-      } else {
-        status.style.color='#c0392b';
-        status.textContent='Erro: '+(d.error||'Falha no envio');
-        btn.disabled=false;
-      }
-    })
-    .catch(function(){
-      status.style.color='#c0392b';
-      status.textContent='Erro de conexão. Tente novamente.';
-      btn.disabled=false;
-    });
-  }
-
-  if(_specialFile){
-    var reader=new FileReader();
-    reader.onload=function(e){
-      var b64=e.target.result.split(',')[1];
-      doSend(b64, _specialFile.name);
-    };
-    reader.readAsDataURL(_specialFile);
-  } else {
-    doSend('','');
-  }
-}
-
-</script>
-
+</div><!-- end page-wrap -->
 
 <!-- MODAL PROPOSTA -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
@@ -1012,16 +344,11 @@ function sendSpecial(){
     <div id="modalForm">
       <h2>Solicitar proposta.</h2>
       <p class="modal-sub">Nossa equipe retorna em até 24h com uma proposta detalhada para o seu ambiente.</p>
-
-      <div class="modal-summary" id="modalSummary">
+      <div class="modal-summary">
         <div class="modal-summary-title">Resumo do ambiente</div>
         <div class="modal-summary-rows" id="modalSummaryRows"></div>
-        <div class="modal-total">
-          <span>Estimativa mensal</span>
-          <b id="modalTotal">R$ —</b>
-        </div>
+        <div class="modal-total"><span>Estimativa mensal</span><b id="modalTotal">R$ —</b></div>
       </div>
-
       <div class="mrow">
         <div class="mfield"><label>Razão social *</label><input type="text" id="m-empresa" placeholder="Acme Tecnologia Ltda"></div>
         <div class="mfield"><label>CNPJ</label><input type="text" id="m-cnpj" placeholder="00.000.000/0000-00" maxlength="18" oninput="maskCNPJ2(this)"></div>
@@ -1063,12 +390,10 @@ function sendSpecial(){
     <div class="modal-success" id="modalSuccess" style="display:none">
       <div class="check">✓</div>
       <h3>Proposta recebida!</h3>
-      <p>Nossa equipe vai analisar seu ambiente e<br>entrar em contato em até <strong>24 horas</strong>.<br><br>
-      Verifique seu e-mail — enviamos uma cópia<br>do ambiente solicitado.</p>
+      <p>Nossa equipe vai analisar seu ambiente e<br>entrar em contato em até <strong>24 horas</strong>.<br><br>Verifique seu e-mail — enviamos uma cópia<br>do ambiente solicitado.</p>
     </div>
   </div>
 </div>
-
 
 <!-- MODAL PROJETO ESPECIAL -->
 <div class="modal-overlay" id="specialOverlay" onclick="if(event.target===this)closeSpecial()">
@@ -1098,7 +423,7 @@ function sendSpecial(){
       </div>
       <div class="mfield">
         <label>Descreva seu ambiente / necessidade *</label>
-        <textarea id="sp-obs" placeholder="Descreva suas aplicações, volumes de dados, requisitos de performance, integrações, restrições de compliance, ou qualquer detalhe relevante para sua infraestrutura..." style="width:100%;background:#fff;border:1px solid var(--border2);border-radius:8px;padding:10px 12px;font-size:13px;font-family:'Raleway',sans-serif;color:var(--ink);outline:none;resize:vertical;min-height:100px;line-height:1.6"></textarea>
+        <textarea id="sp-obs" placeholder="Descreva suas aplicações, volumes de dados, requisitos de performance, integrações, restrições de compliance..." style="resize:vertical;min-height:100px;line-height:1.6"></textarea>
       </div>
       <div class="mfield">
         <label>Anexar planilha ou documento (opcional)</label>
@@ -1124,5 +449,474 @@ function sendSpecial(){
   </div>
 </div>
 
+<script>
+// ── FLAVORS ────────────────────────────────────────────────────────────────
+var FLAVORS_LIST = [
+  ['General Purpose', ['gp.nano','gp.micro','gp.small','gp.medium','gp.large','gp.xlarge','gp.2xlarge']],
+  ['Memory Optimized',['mo.small','mo.medium','mo.large','mo.xlarge','mo.2xlarge']],
+  ['Compute Optimized',['cp.small','cp.medium','cp.large','cp.xlarge','cp.2xlarge']],
+  ['Windows Server',  ['win.gp.small','win.gp.medium','win.gp.large','win.gp.xlarge','win.gp.2xlarge']]
+];
+var FLAVOR_SPECS = {
+  'gp.nano'       :{v:1, r:1  },'gp.micro'      :{v:1, r:2  },
+  'gp.small'      :{v:2, r:4  },'gp.medium'     :{v:4, r:8  },
+  'gp.large'      :{v:8, r:16 },'gp.xlarge'     :{v:16,r:32 },'gp.2xlarge'    :{v:32,r:64 },
+  'mo.small'      :{v:2, r:16 },'mo.medium'     :{v:4, r:32 },
+  'mo.large'      :{v:8, r:64 },'mo.xlarge'     :{v:16,r:128},'mo.2xlarge'    :{v:32,r:256},
+  'cp.small'      :{v:2, r:2  },'cp.medium'     :{v:4, r:4  },
+  'cp.large'      :{v:8, r:8  },'cp.xlarge'     :{v:16,r:16 },'cp.2xlarge'    :{v:32,r:32 },
+  'win.gp.small'  :{v:2, r:4  },'win.gp.medium' :{v:4, r:8  },
+  'win.gp.large'  :{v:8, r:16 },'win.gp.xlarge' :{v:16,r:32 },'win.gp.2xlarge':{v:32,r:64 }
+};
+
+// ── STATE ─────────────────────────────────────────────────────────────────
+var rows = [], rid = 0;
+var togs = {dr:false, bk:true, bo:false};
+var supAtivo = false;
+var _lastCalcData = null;
+var _calcTimer = null;
+
+// ── UTILS ─────────────────────────────────────────────────────────────────
+function fmtBRL(v){
+  return 'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function showSubLine(id, labelId, valId, show, label, val){
+  var el = document.getElementById(id);
+  if(!el) return;
+  if(show){ el.classList.add('show'); document.getElementById(labelId).textContent=label; document.getElementById(valId).textContent=val; }
+  else el.classList.remove('show');
+}
+
+// ── TOGGLES ───────────────────────────────────────────────────────────────
+function setTog(k,v){
+  togs[k]=v;
+  document.getElementById(k+'-s').className=v?'on':'';
+  document.getElementById(k+'-n').className=v?'':'on';
+  schedCalc();
+}
+function setSupAtivo(v){
+  supAtivo=v;
+  document.getElementById('sup-s').className=v?'on':'';
+  document.getElementById('sup-n').className=v?'':'on';
+  var cfg=document.getElementById('sup-config');
+  if(v) cfg.classList.add('open'); else cfg.classList.remove('open');
+  schedCalc();
+}
+function getSupCost(){
+  if(!supAtivo) return 0;
+  var h85=+(document.getElementById('sup-hrs-85').value)||0;
+  var h247=+(document.getElementById('sup-hrs-247').value)||0;
+  return h85*180 + h247*240;
+}
+
+// ── FLAVOR SELECT ─────────────────────────────────────────────────────────
+function makeFlavorSelect(data, rowId){
+  var sel = document.createElement('select');
+  sel.style.width='100%';
+  sel.style.background='var(--surface)';
+  sel.style.border='1px solid var(--border)';
+  sel.style.borderRadius='6px';
+  sel.style.padding='6px 8px';
+  sel.style.fontFamily="'DM Mono',monospace";
+  sel.style.fontSize='12px';
+  sel.style.outline='none';
+  FLAVORS_LIST.forEach(function(grp){
+    var og=document.createElement('optgroup'); og.label=grp[0];
+    grp[1].forEach(function(f){
+      var s=FLAVOR_SPECS[f]||{};
+      var op=document.createElement('option'); op.value=f;
+      op.textContent=f+' — '+s.v+'v/'+s.r+'G';
+      if(f===data.flavor) op.selected=true;
+      og.appendChild(op);
+    });
+    sel.appendChild(og);
+  });
+  colorFlavorSel(sel);
+  sel.addEventListener('change', function(){
+    colorFlavorSel(this);
+    var flavor=this.value, isWin=flavor.indexOf('win.')===0;
+    var row=rows.find(function(r){return r.id===rowId;});
+    if(row && isWin && row.data.os==='Linux'){
+      row.data.os='Windows Server 2025';
+      var osSel=document.querySelector('[data-osid="'+rowId+'"]');
+      if(osSel) osSel.value='Windows Server 2025';
+      colorOsSel(osSel);
+    } else if(row && !isWin && row.data.os && row.data.os.indexOf('Windows')===0){
+      row.data.os='Linux';
+      var osSel=document.querySelector('[data-osid="'+rowId+'"]');
+      if(osSel) osSel.value='Linux';
+      colorOsSel(osSel);
+    }
+    upd(rowId,'flavor',flavor);
+  });
+  return sel;
+}
+function colorFlavorSel(sel){
+  sel.style.color=sel.value.indexOf('win.')===0?'#0078d4':'#d35400';
+  sel.style.fontWeight='600';
+}
+function colorOsSel(sel){
+  if(!sel) return;
+  sel.style.color=sel.value.indexOf('Windows')===0?'#0078d4':'#d35400';
+  sel.style.fontWeight='600';
+}
+
+// ── ROW MANAGEMENT ────────────────────────────────────────────────────────
+function upd(id,k,v){ var r=rows.find(function(x){return x.id===id;}); if(r){r.data[k]=v; schedCalc();} }
+function addRow(data){
+  var d=Object.assign({nm:'',os:'Linux',qty:1,flavor:'gp.medium'}, data||{});
+  rows.push({id:++rid, data:d});
+  renderTable(); schedCalc();
+}
+function delRow(id){ rows=rows.filter(function(r){return r.id!==id;}); renderTable(); schedCalc(); }
+
+function renderTable(){
+  var tb=document.getElementById('vmBody'); if(!tb) return;
+  tb.innerHTML='';
+  rows.forEach(function(r,idx){
+    var d=r.data, id=r.id;
+    var tr=document.createElement('tr');
+
+    // Index
+    var tdI=document.createElement('td'); tdI.className='col-idx'; tdI.textContent=idx+1; tr.appendChild(tdI);
+
+    // Name
+    var tdN=document.createElement('td'); tdN.className='col-name';
+    var iN=document.createElement('input'); iN.type='text'; iN.placeholder='App server, DB...'; iN.value=d.nm||'';
+    iN.addEventListener('change',(function(i){return function(){upd(i,'nm',this.value);};})(id));
+    tdN.appendChild(iN); tr.appendChild(tdN);
+
+    // OS
+    var tdO=document.createElement('td'); tdO.className='col-os';
+    var selOS=document.createElement('select');
+    selOS.setAttribute('data-osid', id);
+    var isWinFlavor=(d.flavor||'').indexOf('win.')===0;
+    if(isWinFlavor && d.os==='Linux') d.os='Windows Server 2025';
+    ['Linux','Windows Server 2025','Windows Server 2022','Windows Server 2019'].forEach(function(o){
+      var op=document.createElement('option'); op.value=o; op.textContent=o;
+      if(isWinFlavor && o==='Linux'){ op.disabled=true; op.style.color='#ccc'; }
+      if((d.os||'Linux')===o) op.selected=true;
+      selOS.appendChild(op);
+    });
+    colorOsSel(selOS);
+    selOS.addEventListener('change',(function(i){return function(){ upd(i,'os',this.value); colorOsSel(this); };})(id));
+    tdO.appendChild(selOS); tr.appendChild(tdO);
+
+    // Qty
+    var tdQ=document.createElement('td'); tdQ.className='col-num';
+    var iQ=document.createElement('input'); iQ.type='number'; iQ.min=1; iQ.max=999; iQ.value=d.qty||1;
+    iQ.style.width='100%'; iQ.style.minWidth='44px';
+    iQ.addEventListener('change',(function(i){return function(){upd(i,'qty',+this.value);};})(id));
+    tdQ.appendChild(iQ); tr.appendChild(tdQ);
+
+    // Flavor
+    var tdF=document.createElement('td');
+    var sel=makeFlavorSelect(d, id);
+    tdF.appendChild(sel); tr.appendChild(tdF);
+
+    // Delete
+    var tdD=document.createElement('td'); tdD.className='col-del';
+    var db=document.createElement('button'); db.className='del-btn'; db.innerHTML='&times;';
+    db.addEventListener('click',(function(i){return function(){delRow(i);};})(id));
+    tdD.appendChild(db); tr.appendChild(tdD);
+
+    tb.appendChild(tr);
+  });
+}
+
+// ── CALCULATE ────────────────────────────────────────────────────────────
+function schedCalc(){ clearTimeout(_calcTimer); _calcTimer=setTimeout(doCalc,350); }
+
+function doCalc(){
+  if(!rows.length){
+    document.getElementById('breakdown').innerHTML='<div class="vm-empty">Adicione VMs para calcular.</div>';
+    document.getElementById('totalVal').textContent='R$ —';
+    document.getElementById('drBadge').classList.remove('show');
+    ['vmLine','netLine','supLine'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.classList.remove('show');
+    });
+    return;
+  }
+
+  var ips=+(document.getElementById('ips').value)||0;
+  var banda=+(document.getElementById('banda').value)||0;
+  var vms=rows.map(function(r){return{flavor:r.data.flavor||'gp.medium',qty:+r.data.qty||1};});
+  var payload={vms:vms, dr:togs.dr, servicos:{dr:togs.dr,bk:togs.bk,bo:togs.bo}, ips:ips, banda:banda};
+
+  fetch('https://io.alliant.com.br/form/calcular.php',{
+    method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(!data.ok) throw new Error(data.error||'err');
+    _lastCalcData=data;
+
+    // Breakdown
+    var bd=document.getElementById('breakdown'); bd.innerHTML='';
+    if(data.items) data.items.forEach(function(item,i){
+      var row=rows[i]; var nm=row&&row.data.nm?row.data.nm:item.flavor;
+      var haOn=row&&row.data.ha;
+      var div=document.createElement('div'); div.className='vm-line';
+      var left=document.createElement('div'); left.className='vm-line-name';
+      left.textContent=nm+(haOn?' ⬡':'');
+      var sub=document.createElement('span');
+      sub.textContent=item.flavor+' ×'+item.qty+(haOn?' · HA':'')+(item.os==='win'?' · Win':' · Linux');
+      left.appendChild(sub);
+      var right=document.createElement('div'); right.className='vm-line-price';
+      right.textContent=fmtBRL(item.total);
+      div.appendChild(left); div.appendChild(right);
+      bd.appendChild(div);
+    });
+
+    // Costs
+    var netCost=(ips*45)+(banda*3);
+    var supCost=getSupCost();
+    var grandTotal=data.total+netCost+supCost;
+
+    document.getElementById('totalVal').textContent=fmtBRL(grandTotal);
+    document.getElementById('drBadge').classList.toggle('show', togs.dr);
+
+    // Sub lines
+    var hasExtra = netCost>0 || supCost>0;
+    var vmLine=document.getElementById('vmLine');
+    if(hasExtra){ vmLine.classList.add('show'); document.getElementById('vmLineVal').textContent=fmtBRL(data.total); }
+    else vmLine.classList.remove('show');
+
+    var netLine=document.getElementById('netLine');
+    if(netCost>0){
+      netLine.classList.add('show');
+      var parts=[];
+      if(ips>0) parts.push(ips+' IP'+(ips>1?'s':''));
+      if(banda>0) parts.push(banda+' Mbps');
+      document.getElementById('netLineLabel').textContent=parts.join(' + ');
+      document.getElementById('netLineVal').textContent=fmtBRL(netCost);
+    } else netLine.classList.remove('show');
+
+    var supLine=document.getElementById('supLine');
+    if(supCost>0){
+      supLine.classList.add('show');
+      var h85=+(document.getElementById('sup-hrs-85').value)||0;
+      var h247=+(document.getElementById('sup-hrs-247').value)||0;
+      var sp=[]; if(h85>0) sp.push(h85+'h 8×5'); if(h247>0) sp.push(h247+'h 24×7');
+      document.getElementById('supLineLabel').textContent='Suporte '+sp.join(' + ');
+      document.getElementById('supLineVal').textContent=fmtBRL(supCost);
+    } else supLine.classList.remove('show');
+  })
+  .catch(function(){
+    document.getElementById('breakdown').innerHTML='<div class="vm-empty" style="color:#c0392b">Erro ao calcular. Tente novamente.</div>';
+  });
+}
+
+// ── MODALS ────────────────────────────────────────────────────────────────
+function openModal(){
+  var bd=document.getElementById('modalSummaryRows');
+  bd.innerHTML='';
+  if(_lastCalcData&&_lastCalcData.items){
+    var ips=+(document.getElementById('ips').value)||0;
+    var banda=+(document.getElementById('banda').value)||0;
+    var netCost=(ips*45)+(banda*3);
+    var supCost=getSupCost();
+    _lastCalcData.items.forEach(function(item,i){
+      var nm=rows[i]&&rows[i].data.nm?rows[i].data.nm:item.flavor;
+      var div=document.createElement('div'); div.className='modal-summary-row';
+      div.innerHTML='<span>'+nm+' ('+item.flavor+' ×'+item.qty+')</span><b>'+fmtBRL(item.total)+'</b>';
+      bd.appendChild(div);
+    });
+    document.getElementById('modalTotal').textContent=fmtBRL(_lastCalcData.total+netCost+supCost);
+  } else {
+    bd.innerHTML='<div style="font-size:12px;color:var(--ink3)">Configure as VMs para ver o resumo.</div>';
+  }
+  document.getElementById('modalForm').style.display='block';
+  document.getElementById('modalSuccess').style.display='none';
+  document.getElementById('m-status').textContent='';
+  document.getElementById('m-sendBtn').disabled=false;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }
+function openSpecial(){
+  document.getElementById('specialForm').style.display='block';
+  document.getElementById('specialSuccess').style.display='none';
+  document.getElementById('sp-status').textContent='';
+  document.getElementById('sp-sendBtn').disabled=false;
+  document.getElementById('sp-filename').textContent='';
+  _specialFile=null;
+  document.getElementById('specialOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSpecial(){ document.getElementById('specialOverlay').classList.remove('open'); document.body.style.overflow=''; }
+
+// ── MASKS ─────────────────────────────────────────────────────────────────
+function maskCNPJ2(el){
+  var d=el.value.replace(/\D/g,'').substring(0,14),r='';
+  if(d.length>0)r=d.substring(0,2);if(d.length>2)r+='.'+d.substring(2,5);
+  if(d.length>5)r+='.'+d.substring(5,8);if(d.length>8)r+='/'+d.substring(8,12);
+  if(d.length>12)r+='-'+d.substring(12,14);el.value=r;
+}
+function maskPhone2(el){
+  var v=el.value.replace(/\D/g,'').substring(0,11),r='';
+  if(v.length>0)r='('+v.substring(0,2);if(v.length>2)r+=') ';
+  if(v.length>2&&v.length<=10)r+=v.substring(2,6)+(v.length>6?'-'+v.substring(6,10):'');
+  else if(v.length>2)r+=v.substring(2,7)+(v.length>7?'-'+v.substring(7,11):'');
+  el.value=r;
+}
+
+// ── SEND PROPOSTA ─────────────────────────────────────────────────────────
+function sendProposta(){
+  var emp=document.getElementById('m-empresa').value.trim();
+  var eml=document.getElementById('m-email').value.trim();
+  var nom=document.getElementById('m-nome').value.trim();
+  if(!emp||!eml||!nom){
+    document.getElementById('m-status').style.color='#c0392b';
+    document.getElementById('m-status').textContent='Preencha razão social, responsável e e-mail.';
+    return;
+  }
+  var btn=document.getElementById('m-sendBtn'); btn.disabled=true;
+  document.getElementById('m-status').style.color='var(--ink2)';
+  document.getElementById('m-status').textContent='Enviando...';
+  var h85=+(document.getElementById('sup-hrs-85').value)||0;
+  var h247=+(document.getElementById('sup-hrs-247').value)||0;
+  var payload={
+    empresa:emp, cnpj:document.getElementById('m-cnpj').value,
+    nome:nom, cargo:document.getElementById('m-cargo').value,
+    email:eml, whatsapp:document.getElementById('m-whatsapp').value,
+    segmento:document.getElementById('m-segmento').value,
+    prazo:document.getElementById('m-prazo').value,
+    ips:String(+(document.getElementById('ips').value)||1),
+    banda:String(+(document.getElementById('banda').value)||100),
+    obs:'', servicos:togs, vms:rows.map(function(r){return r.data;}),
+    estimativa:_lastCalcData?_lastCalcData.total:0,
+    suporte:supAtivo?(h85+'h 8x5 + '+h247+'h 24x7'):'Sem suporte'
+  };
+  fetch('https://io.alliant.com.br/form/enviar.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d.ok){document.getElementById('modalForm').style.display='none';document.getElementById('modalSuccess').style.display='block';}
+    else{document.getElementById('m-status').style.color='#c0392b';document.getElementById('m-status').textContent='Erro: '+(d.error||'Falha');btn.disabled=false;}
+  })
+  .catch(function(){document.getElementById('m-status').style.color='#c0392b';document.getElementById('m-status').textContent='Erro de conexão.';btn.disabled=false;});
+}
+
+// ── SEND ESPECIAL ─────────────────────────────────────────────────────────
+var _specialFile=null;
+function handleFile(file){
+  if(!file)return;
+  if(file.size>5*1024*1024){document.getElementById('sp-filename').style.color='#c0392b';document.getElementById('sp-filename').textContent='Arquivo muito grande (máx. 5MB)';_specialFile=null;return;}
+  _specialFile=file;
+  document.getElementById('sp-filename').style.color='var(--blue)';
+  document.getElementById('sp-filename').textContent=file.name+' ('+Math.round(file.size/1024)+'KB)';
+  document.getElementById('sp-dropzone').style.borderColor='var(--blue)';
+}
+function handleDrop(e){e.preventDefault();document.getElementById('sp-dropzone').style.borderColor='var(--border2)';var f=e.dataTransfer.files[0];if(f)handleFile(f);}
+function sendSpecial(){
+  var emp=document.getElementById('sp-empresa').value.trim();
+  var eml=document.getElementById('sp-email').value.trim();
+  var nom=document.getElementById('sp-nome').value.trim();
+  var obs=document.getElementById('sp-obs').value.trim();
+  if(!emp||!eml||!nom||!obs){document.getElementById('sp-status').style.color='#c0392b';document.getElementById('sp-status').textContent='Preencha empresa, responsável, e-mail e descrição.';return;}
+  var btn=document.getElementById('sp-sendBtn'); btn.disabled=true;
+  document.getElementById('sp-status').style.color='var(--ink2)'; document.getElementById('sp-status').textContent='Enviando...';
+  function doSend(b64,fname){
+    var p={empresa:emp,cnpj:document.getElementById('sp-cnpj').value,nome:nom,email:eml,whatsapp:document.getElementById('sp-whatsapp').value,segmento:document.getElementById('sp-segmento').value,obs:obs,tipo:'projeto_especial',arquivo_nome:fname||'',arquivo_b64:b64||'',ips:'0',banda:'0',vms:[],servicos:{},prazo:'',cargo:''};
+    fetch('https://io.alliant.com.br/form/enviar.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
+    .then(function(r){return r.json();})
+    .then(function(d){if(d.ok){document.getElementById('specialForm').style.display='none';document.getElementById('specialSuccess').style.display='block';}else{document.getElementById('sp-status').style.color='#c0392b';document.getElementById('sp-status').textContent='Erro: '+(d.error||'Falha');btn.disabled=false;}})
+    .catch(function(){document.getElementById('sp-status').style.color='#c0392b';document.getElementById('sp-status').textContent='Erro de conexão.';btn.disabled=false;});
+  }
+  if(_specialFile){var reader=new FileReader();reader.onload=function(e){doSend(e.target.result.split(',')[1],_specialFile.name);};reader.readAsDataURL(_specialFile);}
+  else doSend('','');
+}
+
+// ── CANVAS ────────────────────────────────────────────────────────────────
+function abbrev(n){
+  if(!n)return'VM';if(n.length<=9)return n;
+  var s=[['servidor de aplicacao','app-srv'],['servidor','srv'],['banco de dados','db'],['banco','db'],['database','db'],['application','app'],['aplicacao','app'],['gerenciamento','mgmt'],['producao','prd'],['production','prd'],['homologacao','hlg'],['staging','stg'],['frontend','fe'],['backend','be'],['monitoring','mon'],['monitoramento','mon']];
+  var x=n.toLowerCase();
+  for(var i=0;i<s.length;i++) x=x.replace(s[i][0],s[i][1]);
+  var p=x.trim().split(/[\s\-\/\_]+/).filter(Boolean);
+  return p.slice(0,2).map(function(w){return w.length>5?w.slice(0,4):w;}).join('-').slice(0,9)||n.slice(0,6);
+}
+(function(){
+  var cv,ctx,W,H,dpr,nodes=[],drawn=[],conns=[],tick=0;
+  function setup(){cv=document.getElementById('archCanvas');if(!cv)return;dpr=window.devicePixelRatio||1;resize();window.addEventListener('resize',resize);requestAnimationFrame(loop);}
+  function resize(){var r=cv.parentElement.getBoundingClientRect();W=Math.max(r.width||400,300);H=Math.round(W*0.42);cv.width=W*dpr;cv.height=H*dpr;cv.style.height=H+'px';ctx=cv.getContext('2d');ctx.scale(dpr,dpr);}
+  function buildLayout(){
+    nodes=[];conns=[];
+    var hasDR=togs.dr,hasBO=togs.bo,show2=hasDR||hasBO;
+    var inet={x:show2?W*.3:W*.5,y:H*.10,type:'inet',label:'Internet',r:15}; nodes.push(inet);
+    var inet2=null; if(show2){inet2={x:W*.7,y:H*.10,type:'inet',label:'Internet',r:15};nodes.push(inet2);}
+    var dc1={x:show2?W*.3:W*.5,y:H*.50,type:'dc',label:'DC-SP1',sub:'Vinhedo',r:20}; nodes.push(dc1);
+    var dc2=null; if(show2){dc2={x:W*.7,y:H*.50,type:'dc2',label:'DC-SP2',sub:hasDR?'Osasco DR':'Osasco Bkp',r:20};nodes.push(dc2);}
+    var cnt=rows.length;
+    if(cnt>0){
+      var cols=Math.min(cnt,4),rws=Math.ceil(cnt/cols);
+      var zL=W*.08,zR=show2?W*.52:W*.92,zT=H*.68,zB=H*.92;
+      rows.forEach(function(r,i){
+        var d=r.data,col=i%cols,row=Math.floor(i/cols);
+        var x=cols===1?(zL+zR)/2:zL+(zR-zL)*col/(cols-1||1);
+        var y=rws===1?(zT+zB)/2:zT+(zB-zT)*row/(rws-1||1);
+        var win=(d.os&&d.os.indexOf('Windows')===0)||(d.flavor&&d.flavor.indexOf('win.')===0);
+        nodes.push({x:x,y:y,r:Math.min(18,10+(+d.qty||1)*1.2),type:win?'win':'lin',label:abbrev(d.nm||'VM '+(i+1)),sub:d.flavor||'',qty:+d.qty||1,ha:!!d.ha});
+      });
+    }
+    var vms=nodes.filter(function(n){return n.type==='win'||n.type==='lin';});
+    conns.push({a:inet,b:dc1,s:'inet',lw:1.5,dash:[4,5]});
+    if(inet2&&dc2)conns.push({a:inet2,b:dc2,s:'inet',lw:1.5,dash:[4,5]});
+    vms.forEach(function(v){conns.push({a:dc1,b:v,s:'dc',lw:1.5,dash:[]});});
+    if(dc2){
+      conns.push({a:dc1,b:dc2,s:'link',lw:2,dash:[6,3]});
+      if(hasDR) vms.forEach(function(v){conns.push({a:dc2,b:v,s:'dr',lw:1,dash:[3,4]});});
+      else if(hasBO) conns.push({a:dc1,b:dc2,s:'bkp',lw:1.5,dash:[3,5]});
+    }
+    while(drawn.length<nodes.length)drawn.push(null);
+    drawn.length=nodes.length;
+    nodes.forEach(function(n,i){if(!drawn[i])drawn[i]={x:n.x,y:n.y+20,r:n.r,alpha:0};});
+  }
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function loop(){requestAnimationFrame(loop);tick++;buildLayout();
+    nodes.forEach(function(n,i){var d=drawn[i];if(!d){drawn[i]={x:n.x,y:n.y+20,r:n.r,alpha:0};d=drawn[i];}d.x=lerp(d.x,n.x,.09);d.y=lerp(d.y,n.y,.09);d.r=lerp(d.r,n.r,.1);d.alpha=lerp(d.alpha,1,.06);});
+    draw();
+  }
+  var ST={inet:'rgba(29,106,255,0.5)',dc:'rgba(26,22,18,0.3)',dr:'rgba(0,145,181,0.5)',bkp:'rgba(107,95,82,0.35)',link:'rgba(29,106,255,0.45)'};
+  var NC={lin:'rgba(211,84,0,',win:'rgba(0,120,212,',dc:'rgba(29,106,255,',dc2:'rgba(0,145,181,',inet:'rgba(107,95,82,'};
+  function drawConn(fd,td,c){if(!fd||!td)return;var a=Math.min(fd.alpha,td.alpha)*.85;if(a<.02)return;ctx.save();ctx.globalAlpha=a;ctx.strokeStyle=ST[c.s]||ST.dc;ctx.lineWidth=c.lw;ctx.setLineDash(c.dash);ctx.lineDashOffset=-(tick*.35);ctx.beginPath();ctx.moveTo(fd.x,fd.y);ctx.quadraticCurveTo((fd.x+td.x)/2,(fd.y+td.y)/2-10,td.x,td.y);ctx.stroke();ctx.restore();}
+  function drawHAbadge(x,y,r,alpha){var bx=x+r*.72,by=y-r*.72,br=r*.36;ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle='rgba(211,84,0,0.9)';ctx.strokeStyle='rgba(245,240,232,0.9)';ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(bx,by,br,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#fff';ctx.font='bold '+(br*1.05)+'px "DM Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('H',bx,by);ctx.restore();}
+  function drawNode(d,n){
+    if(d.alpha<.02)return;var col=NC[n.type]||NC.inet;ctx.save();ctx.globalAlpha=d.alpha;
+    var g=ctx.createRadialGradient(d.x,d.y,d.r*.2,d.x,d.y,d.r*2.2);g.addColorStop(0,col+'0.1)');g.addColorStop(1,col+'0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(d.x,d.y,d.r*2.2,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=col+'0.07)';ctx.strokeStyle=col+'0.55)';ctx.lineWidth=n.type==='dc'||n.type==='dc2'?2:1.5;ctx.shadowColor=col+'0.3)';ctx.shadowBlur=8;ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;
+    ctx.fillStyle=col+'0.85)';ctx.font='bold '+(d.r*.65)+'px "DM Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+    var icon=n.type==='dc'||n.type==='dc2'?'DC':n.type==='inet'?'--':n.qty>1?'x'+n.qty:n.type==='win'?'W':'L';
+    ctx.fillText(icon,d.x,d.y);ctx.font='600 9px "Raleway",sans-serif';ctx.fillStyle='rgba(26,22,18,0.72)';ctx.fillText((n.label||'').substring(0,13),d.x,d.y+d.r+10);
+    if(n.sub){ctx.font='8px "DM Mono",monospace';ctx.fillStyle='rgba(107,95,82,0.55)';ctx.fillText(n.sub.substring(0,13),d.x,d.y+d.r+20);}
+    ctx.restore();
+
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.save();ctx.strokeStyle='rgba(107,95,82,0.04)';ctx.lineWidth=1;
+    for(var x=0;x<W;x+=28){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(var y=0;y<H;y+=28){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+    ctx.restore();
+    conns.forEach(function(c){var fi=nodes.indexOf(c.a),ti=nodes.indexOf(c.b);if(fi>=0&&ti>=0)drawConn(drawn[fi],drawn[ti],c);});
+    nodes.forEach(function(n,i){if(drawn[i])drawNode(drawn[i],n);});
+    if(togs.dr&&togs.bo&&togs.bk){
+      ctx.save();var txt='\u2726 FULLY PROTECTED';ctx.font='bold 11px "Raleway",sans-serif';
+      var tw=ctx.measureText(txt).width,px=W/2,py=14,pw=tw+26,ph=20;
+      ctx.fillStyle='rgba(39,174,96,0.12)';ctx.strokeStyle='rgba(39,174,96,0.5)';ctx.lineWidth=1;
+      ctx.beginPath();ctx.roundRect(px-pw/2,py-ph/2,pw,ph,10);ctx.fill();ctx.stroke();
+      ctx.fillStyle='rgba(39,174,96,0.95)';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(txt,px,py);ctx.restore();
+    }
+  }
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(setup,120);});
+})();
+
+// ── INIT ─────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',function(){
+  addRow({nm:'Servidor de aplicação',os:'Linux',qty:2,flavor:'gp.medium'});
+  addRow({nm:'Banco de dados',os:'Linux',qty:1,flavor:'mo.medium'});
+  addRow({nm:'ERP Windows',os:'Windows Server 2025',qty:1,flavor:'win.gp.large'});
+});
+</script>
 </body>
 </html>
