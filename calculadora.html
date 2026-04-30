@@ -379,7 +379,7 @@ function doCalc(){
   }
 
   var vms=rows.map(function(r){return{flavor:r.data.flavor||'gp.large',qty:+r.data.qty||1};});
-  var payload={vms:vms, dr:togs.dr};
+  var payload={vms:vms, dr:togs.dr, servicos:togs};
 
   fetch('https://io.alliant.com.br/form/calcular.php',{
     method:'POST',
@@ -410,8 +410,19 @@ function doCalc(){
     document.getElementById('totalVal').textContent=fmtBRL(data.total);
     document.getElementById('drBadge').classList.toggle('show', togs.dr);
 
-    // Show savings vs DR price
-    document.getElementById('savings').classList.remove('show');
+    // Show active service modifiers
+    var mods=[];
+    if(togs.ha) mods.push('HA +20%');
+    if(togs.bo) mods.push('Offsite +10%');
+    if(togs.dr) mods.push('DR +50%');
+    var savEl=document.getElementById('savings');
+    if(mods.length>0){
+      savEl.style.color='var(--ink3)';
+      savEl.textContent='Inclui: '+mods.join(' · ');
+      savEl.classList.add('show');
+    } else {
+      savEl.classList.remove('show');
+    }
   })
   .catch(function(){
     document.getElementById('breakdown').innerHTML='<div class="vm-empty" style="color:#c0392b">Erro ao calcular. Tente novamente.</div>';
