@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidade — Alliant Cloud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@400;700;800&family=Raleway:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f0e8;--surface:#ede8df;--surface2:#e5dfd6;
+  --ink:#1a1612;--ink2:#6b5f52;--ink3:#9a8e83;
+  --border:rgba(107,95,82,0.15);--border2:rgba(107,95,82,0.25);
+  --blue:#1d6aff;--green:#27ae60;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Raleway',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5%;border-bottom:1px solid var(--border)}
+.nav-back{font-size:13px;font-weight:600;color:var(--ink2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .15s}
+.nav-back:hover{color:var(--blue)}
+
+/* LAYOUT */
+.wrap{max-width:760px;margin:0 auto;padding:64px 5% 100px}
+
+/* HEADER */
+.page-header{margin-bottom:56px}
+.page-tag{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:12px}
+.page-title{font-family:'Cabinet Grotesk',sans-serif;font-size:clamp(32px,5vw,52px);font-weight:800;letter-spacing:-2px;line-height:1.02;margin-bottom:16px}
+.page-title span{color:var(--blue)}
+.page-meta{font-size:13px;color:var(--ink3);display:flex;gap:24px;flex-wrap:wrap}
+.page-meta span{display:flex;align-items:center;gap:5px}
+.page-meta span::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--ink3);display:inline-block}
+
+/* SUMMARY BOX */
+.summary-box{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px 32px;margin-bottom:48px}
+.summary-box h3{font-family:'Cabinet Grotesk',sans-serif;font-size:15px;font-weight:700;letter-spacing:-.3px;margin-bottom:16px;color:var(--ink)}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sum-item{display:flex;align-items:flex-start;gap:10px;padding:12px;background:var(--surface);border-radius:8px}
+.sum-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.sum-text{font-size:12px;color:var(--ink2);line-height:1.5}
+.sum-text strong{color:var(--ink);display:block;margin-bottom:2px;font-size:12px}
+
+/* SECTIONS */
+.section{margin-bottom:48px}
+.section-num{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);font-family:'DM Mono',monospace;margin-bottom:8px}
+.section h2{font-family:'Cabinet Grotesk',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:16px;color:var(--ink)}
+.section p{font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:12px}
+.section p:last-child{margin-bottom:0}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.data-table th{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);padding:8px 12px;text-align:left;border-bottom:2px solid var(--border2);font-family:'Raleway',sans-serif}
+.data-table td{padding:12px;color:var(--ink2);border-bottom:1px solid var(--border);line-height:1.5;vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:nth-child(even) td{background:var(--surface)}
+.data-table td:first-child{color:var(--ink);font-weight:600;font-size:12px;white-space:nowrap}
+
+/* RIGHTS LIST */
+.rights-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.rights-list li{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:#fff;border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--ink2);line-height:1.5}
+.rights-list li strong{color:var(--ink);display:block;margin-bottom:2px;font-size:13px}
+.right-icon{font-size:18px;flex-shrink:0}
+
+/* LEGAL BASIS */
+.basis-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:16px 0}
+.basis-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink2);padding:10px 14px;background:var(--surface);border-radius:8px;border-left:3px solid var(--blue)}
+.basis-item strong{color:var(--ink);margin-right:4px}
+
+/* CONSENT CONTROL */
+.consent-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px;margin:20px 0}
+.consent-card h3{font-size:15px;font-weight:700;font-family:'Cabinet Grotesk',sans-serif;letter-spacing:-.3px;margin-bottom:6px}
+.consent-card p{font-size:13px;color:var(--ink2);margin-bottom:20px;line-height:1.6}
+.consent-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}
+.consent-row:last-of-type{border-bottom:none;padding-bottom:0}
+.consent-info strong{font-size:13px;color:var(--ink);display:block;margin-bottom:2px}
+.consent-info span{font-size:12px;color:var(--ink3)}
+.consent-badge{font-size:10px;font-weight:700;letter-spacing:.5px;padding:3px 8px;border-radius:4px;flex-shrink:0}
+.badge-always{background:rgba(39,174,96,0.12);color:#27ae60;border:1px solid rgba(39,174,96,0.25)}
+.badge-optional{background:rgba(29,106,255,0.08);color:var(--blue);border:1px solid rgba(29,106,255,0.2)}
+.consent-btns{display:flex;gap:8px;margin-top:20px}
+.btn-accept{background:var(--ink);color:var(--bg);border:none;padding:10px 22px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Raleway',sans-serif;transition:background .2s}
+.btn-accept:hover{background:var(--blue)}
+.btn-reject{background:none;color:var(--ink2);border:1px solid var(--border2);padding:10px 22px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Raleway',sans-serif;transition:all .2s}
+.btn-reject:hover{border-color:var(--ink);color:var(--ink)}
+.consent-status{font-size:12px;margin-top:12px;padding:8px 12px;border-radius:6px;display:none}
+.consent-status.show{display:block}
+.status-ok{background:rgba(39,174,96,0.1);color:#27ae60;border:1px solid rgba(39,174,96,0.2)}
+.status-no{background:rgba(107,95,82,0.08);color:var(--ink2);border:1px solid var(--border2)}
+
+/* CONTACT */
+.contact-card{background:var(--ink);color:var(--bg);border-radius:14px;padding:28px 32px;margin-top:20px}
+.contact-card h3{font-family:'Cabinet Grotesk',sans-serif;font-size:18px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
+.contact-card p{font-size:13px;color:rgba(245,240,232,0.6);margin-bottom:16px;line-height:1.6}
+.contact-detail{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(245,240,232,0.85);margin-bottom:8px}
+.contact-detail strong{color:#f5f0e8}
+
+/* DIVIDER */
+.section-divider{height:1px;background:var(--border);margin:48px 0}
+
+/* TOC */
+.toc{background:var(--surface);border-radius:12px;padding:20px 24px;margin-bottom:48px}
+.toc-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;font-family:'Raleway',sans-serif}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.toc-list a{font-size:13px;color:var(--ink2);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color .15s}
+.toc-list a:hover{color:var(--blue)}
+.toc-list a span{font-size:10px;font-family:'DM Mono',monospace;color:var(--ink3);min-width:20px}
+
+@media(max-width:600px){
+  .summary-grid{grid-template-columns:1fr}
+  .data-table{font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" height="28" viewBox="0 0 15463.28 3759.31" style="fill:#1a1612;display:block">
+      <path d="M2569.5 754.47c54.02,-73.38 -69.45,-36.69 84.88,-73.38l7.72 3026.97 802.49 0 0 -3656.83c-1543.25,0 -1396.64,-177.33 -1921.34,801.08l-1543.25 2880.21 2268.57 -12.23 -15.44 -819.43 -841.07 -6.11 1157.43 -2140.28z"/>
+      <path d="M8464.68 2148.71c0,-305.76 23.15,-336.33 324.08,-336.33 887.36,0 740.76,-12.24 740.76,813.31 0,360.79 0,727.7 0,1088.49l825.63 6.11 0 -1962.95c0,-587.04 -208.35,-776.62 -787.06,-776.62 -1412.06,0 -1952.19,-189.57 -1952.19,776.62 0,1326.98 -185.19,1956.84 779.33,1962.95l763.91 -18.35 0 -801.08 -663.6 -42.81 -30.86 -709.35z"/>
+      <path d="M11620.62 2148.71c0,-317.99 15.43,-336.33 331.79,-336.33 655.88,0 733.04,-61.16 733.04,336.33l0 1571.58c270.07,0 547.85,18.34 817.91,-24.46 0,-587.04 0,-1174.1 0,-1767.26 0,-660.44 -61.73,-947.85 -763.9,-947.85 -1682.14,0 -1952.2,-171.22 -1944.48,996.76 0,574.82 0,1155.75 0,1730.57l825.63 12.24 0 -1571.58z"/>
+      <path d="M15447.86 2906.99c-748.48,-122.3 -725.32,366.91 -709.9,-1143.53l725.32 -18.34 0 -727.7 -725.32 -6.11 -7.71 -898.92 -817.92 0c-30.86,856.11 -7.72,1742.8 -7.72,2598.92 0,464.74 -23.15,807.19 354.95,953.95 208.34,79.5 964.52,79.5 1196,30.58l-7.71 -788.84z"/>
+      <polygon points="3904.4,3720.3 4575.72,3726.41 4730.04,3695.83 4730.04,75.7 4575.72,57.35 3904.4,57.35"/>
+      <polygon points="5162.15,3720.3 5833.46,3726.41 5987.79,3695.83 5987.79,75.7 5833.46,57.35 5162.15,57.35"/>
+      <polygon points="6412.17,3714.18 7245.53,3720.3 7245.53,925.7 6574.21,919.58 6412.17,944.04"/>
+      <path d="M7176.08 63.46c-108.03,-67.26 -578.72,-97.84 -702.18,-6.11 -100.31,79.5 -69.45,452.53 -15.43,599.28 208.34,55.03 571,61.16 733.03,-12.23 69.45,-67.27 69.45,-354.68 30.86,-483.09 -23.15,-85.61 -7.71,-55.03 -46.29,-97.85z"/>
+    </svg>
+  </a>
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2L4 7l5 5"/></svg>
+    Voltar ao site
+  </a>
+</nav>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-tag">Legal</div>
+    <h1 class="page-title">Política de<br><span>Privacidade.</span></h1>
+    <div class="page-meta">
+      <span>Versão 1.0</span>
+      <span>Vigência: Q2 2027</span>
+      <span>LGPD Lei 13.709/2018</span>
+    </div>
+  </div>
+
+  <!-- RESUMO EXECUTIVO -->
+  <div class="summary-box">
+    <h3>Resumo — o que você precisa saber</h3>
+    <div class="summary-grid">
+      <div class="sum-item">
+        <span class="sum-icon">🔒</span>
+        <div class="sum-text"><strong>Não vendemos dados</strong>Nenhuma informação sua é comercializada ou compartilhada com terceiros para fins publicitários.</div>
+      </div>
+      <div class="sum-item">
+        <span class="sum-icon">📍</span>
+        <div class="sum-text"><strong>Dados no Brasil</strong>Toda infraestrutura da Alliant está em nossos data centers em território nacional.</div>
+      </div>
+      <div class="sum-item">
+        <span class="sum-icon">⚙️</span>
+        <div class="sum-text"><strong>Coleta mínima</strong>Coletamos apenas o necessário para demonstrar a infraestrutura e responder solicitações de proposta.</div>
+      </div>
+      <div class="sum-item">
+        <span class="sum-icon">✋</span>
+        <div class="sum-text"><strong>Você tem controle</strong>Pode acessar, corrigir, excluir ou revogar consentimento a qualquer momento.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÍNDICE -->
+  <div class="toc">
+    <div class="toc-title">Índice</div>
+    <ul class="toc-list">
+      <li><a href="#s1"><span>01</span> Quem somos — Controlador dos Dados</a></li>
+      <li><a href="#s2"><span>02</span> Quais dados coletamos</a></li>
+      <li><a href="#s3"><span>03</span> Como e por que usamos seus dados</a></li>
+      <li><a href="#s4"><span>04</span> Base legal do tratamento</a></li>
+      <li><a href="#s5"><span>05</span> Compartilhamento de dados</a></li>
+      <li><a href="#s6"><span>06</span> Retenção e exclusão</a></li>
+      <li><a href="#s7"><span>07</span> Seus direitos pela LGPD</a></li>
+      <li><a href="#s8"><span>08</span> Cookies e preferências</a></li>
+      <li><a href="#s9"><span>09</span> Segurança da informação</a></li>
+      <li><a href="#s10"><span>10</span> Contato e Encarregado (DPO)</a></li>
+    </ul>
+  </div>
+
+  <!-- 1. CONTROLADOR -->
+  <div class="section" id="s1">
+    <div class="section-num">01</div>
+    <h2>Quem somos — Controlador dos Dados</h2>
+    <p>A <strong>Alliant Tecnologia Ltda</strong> ("Alliant", "nós") é a controladora dos dados pessoais tratados por meio deste site e das interações relacionadas aos nossos serviços de infraestrutura cloud privada.</p>
+    <p>Operamos dois nossos data centers no estado de São Paulo: DC-SP1 em Vinhedo e DC-SP2 em Osasco. Toda a infraestrutura está localizada em território brasileiro, em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- 2. DADOS COLETADOS -->
+  <div class="section" id="s2">
+    <div class="section-num">02</div>
+    <h2>Quais dados coletamos</h2>
+    <p>Coletamos apenas os dados estritamente necessários para cada finalidade. A tabela abaixo detalha o que é coletado, quando e por quê:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Dado</th>
+          <th>Contexto</th>
+          <th>Finalidade</th>
+          <th>Opcional?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Endereço IP</td>
+          <td>Visita ao site (speedtest)</td>
+          <td>Calcular latência geográfica até nossos DCs para demonstração técnica</td>
+          <td>Sim — requer consentimento</td>
+        </tr>
+        <tr>
+          <td>Latência de rede (RTT)</td>
+          <td>Medição automática no canvas</td>
+          <td>Exibir tempo de resposta real do servidor no painel animado</td>
+          <td>Sim — requer consentimento</td>
+        </tr>
+        <tr>
+          <td>Velocidade de download</td>
+          <td>Medição automática no canvas</td>
+          <td>Demonstrar capacidade de banda do data center primário</td>
+          <td>Sim — requer consentimento</td>
+        </tr>
+        <tr>
+          <td>Nome e e-mail</td>
+          <td>Formulário de proposta</td>
+          <td>Enviar proposta comercial e manter contato sobre o projeto</td>
+          <td>Necessário para proposta</td>
+        </tr>
+        <tr>
+          <td>Razão social e CNPJ</td>
+          <td>Formulário de proposta</td>
+          <td>Elaborar proposta técnica e comercial personalizada</td>
+          <td>Necessário para proposta</td>
+        </tr>
+        <tr>
+          <td>WhatsApp / telefone</td>
+          <td>Formulário de proposta</td>
+          <td>Contato ágil para esclarecimentos sobre a proposta</td>
+          <td>Opcional</td>
+        </tr>
+        <tr>
+          <td>Segmento de atuação</td>
+          <td>Formulário de proposta</td>
+          <td>Personalizar a proposta com referências do setor</td>
+          <td>Opcional</td>
+        </tr>
+        <tr>
+          <td>Descrição do projeto</td>
+          <td>Formulário de projeto especial</td>
+          <td>Elaborar solução técnica personalizada fora do catálogo padrão</td>
+          <td>Necessário para proposta especial</td>
+        </tr>
+        <tr>
+          <td>Arquivos anexados</td>
+          <td>Formulário de projeto especial</td>
+          <td>Análise técnica de requisitos do ambiente do cliente</td>
+          <td>Opcional</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Dados de medição técnica (IP, latência, velocidade) <strong>não são armazenados em banco de dados</strong>. São processados em memória apenas para exibição no painel e descartados imediatamente após.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- 3. COMO USAMOS -->
+  <div class="section" id="s3">
+    <div class="section-num">03</div>
+    <h2>Como e por que usamos seus dados</h2>
+    <p>Utilizamos os dados coletados exclusivamente para:</p>
+    <ul class="basis-list">
+      <li class="basis-item"><strong>Demonstração técnica:</strong> exibir métricas reais de latência e banda no painel animado do site, sem armazenamento</li>
+      <li class="basis-item"><strong>Proposta comercial:</strong> elaborar e enviar uma proposta de infraestrutura cloud personalizada para o seu ambiente</li>
+      <li class="basis-item"><strong>Atendimento:</strong> responder dúvidas e dar continuidade ao processo comercial quando você demonstrar interesse</li>
+      <li class="basis-item"><strong>Melhoria do serviço:</strong> analisar, de forma agregada e anônima, o interesse por diferentes configurações de ambiente</li>
+    </ul>
+    <p>Não utilizamos seus dados para marketing não solicitado, publicidade segmentada, ou para qualquer finalidade além das listadas acima.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- 4. BASE LEGAL -->
+  <div class="section" id="s4">
+    <div class="section-num">04</div>
+    <h2>Base legal do tratamento</h2>
+    <p>Todo tratamento de dados pessoais realizado pela Alliant possui base legal conforme o art. 7º da LGPD:</p>
+    <ul class="basis-list">
+      <li class="basis-item"><strong>Consentimento (art. 7º, I):</strong> dados técnicos de medição (IP, latência, velocidade) — coletados apenas com sua autorização expressa via banner de cookies</li>
+      <li class="basis-item"><strong>Execução de contrato (art. 7º, V):</strong> dados do formulário de proposta — necessários para elaborar e entregar a proposta solicitada por você</li>
+      <li class="basis-item"><strong>Legítimo interesse (art. 7º, IX):</strong> comunicações de acompanhamento relacionadas à proposta enviada, sempre com opção de descadastramento</li>
+    </ul>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- 5. COMPARTILHAMENTO -->
+  <div class="section" id="s5">
+    <div class="section-num">05</div>
+    <h2>Compartilhamento de dados</h2>
+    <p><strong>Não vendemos, alugamos ou comercializamos seus dados pessoais.</strong> O compartilhamento é restrito às situações abaixo:</p>
+    <table class="data-table">
+      <thead>
+        <tr><th>Destinatário</th><th>Dado compartilhado</th><th>Finalidade</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Microsoft (Office 365)</td>
+          <td>E-mail com dados da proposta</td>
+          <td>Envio do formulário de proposta via SMTP</td>
+        </tr>
+        <tr>
+          <td>Cloudflare</td>
+          <td>IP de origem, headers HTTP</td>
+          <td>CDN, proteção DDoS e entrega do site</td>
+        </tr>
+        <tr>
+          <td>ipinfo.io</td>
+          <td>Endereço IP</td>
+          <td>Geolocalização para cálculo de latência (apenas com consentimento)</td>
+        </tr>
+        <tr>
+          <td>Autoridades públicas</td>
+          <td>Conforme determinação legal</td>
+          <td>Cumprimento de obrigação legal ou regulatória</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Todos os prestadores de serviço acima atuam como operadores de dados e estão sujeitos a obrigações contratuais de confidencialidade.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- 6. RETENÇÃO -->
+  <div class="section" id="s6">
+    <div class="section-num">06</div>
+    <h2>Retenção e exclusão</h2>
+    <table class="data-table">
+      <thead>
+        <tr><th>Tipo de dado</th><th>Período de retenção</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dados técnicos (IP, latência, velocidade)</td>
+          <td>Não armazenados — processados em memória e descartados</td>
+        </tr>
+        <tr>
+          <td>Dados de proposta (e-mail, empresa, CNPJ)</td>
+          <td>Até 5 anos após o último contato, conforme obrigação fiscal</td>
+        </tr>
+        <tr>
+          <td>Preferências de cookies (localStorage)</td>
+          <td>Até você limpar o armazenamento do navegador ou revogar</td>
+        </tr>
+        <tr>
+          <td>E-mails trocados sobre proposta</td>
+          <td>Até 5 anos, conforme política de retenção de e-mail corporativo</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Após o período de retenção, os dados são excluídos de forma segura ou anonimizados de modo que não seja possível identificar o titular.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- 7. DIREITOS -->
+  <div class="section" id="s7">
+    <div class="section-num">07</div>
+    <h2>Seus direitos pela LGPD</h2>
+    <p>Como titular dos dados, você tem os seguintes direitos garantidos pelo art. 18 da LGPD. Para exercê-los, entre em contato pelo e-mail indicado na seção 10:</p>
+    <ul class="rights-list">
+      <li>
+        <span class="right-icon">📋</span>
+        <div><strong>Confirmação e acesso</strong>Confirmar se tratamos seus dados e obter uma cópia completa das informações que temos sobre você.</div>
+      </li>
+      <li>
+        <span class="right-icon">✏️</span>
+        <div><strong>Correção</strong>Solicitar a atualização ou correção de dados incompletos, inexatos ou desatualizados.</div>
+      </li>
+      <li>
+        <span class="right-icon">🗑️</span>
+        <div><strong>Eliminação</strong>Pedir a exclusão dos seus dados tratados com base em consentimento, salvo obrigações legais de guarda.</div>
+      </li>
+      <li>
+        <span class="right-icon">📤</span>
+        <div><strong>Portabilidade</strong>Receber seus dados em formato estruturado e interoperável para transferência a outro fornecedor.</div>
+      </li>
+      <li>
+        <span class="right-icon">🚫</span>
+        <div><strong>Oposição e revogação</strong>Se opor ao tratamento ou revogar consentimento previamente dado, sem prejuízo da licitude dos tratamentos já realizados.</div>
+      </li>
+      <li>
+        <span class="right-icon">ℹ️</span>
+        <div><strong>Informação sobre compartilhamento</strong>Saber com quais entidades públicas ou privadas compartilhamos seus dados.</div>
+      </li>
+      <li>
+        <span class="right-icon">⚖️</span>
+        <div><strong>Revisão de decisões automatizadas</strong>Solicitar revisão de decisões tomadas exclusivamente com base em tratamento automatizado que afetem seus interesses.</div>
+      </li>
+    </ul>
+    <p>Respondemos a todas as solicitações em até <strong>15 dias úteis</strong>, conforme prazo estabelecido pela LGPD. Em caso de insatisfação, você pode registrar reclamação perante a <strong>Autoridade Nacional de Proteção de Dados (ANPD)</strong> em <a href="https://www.gov.br/anpd" target="_blank" rel="noopener" style="color:var(--blue)">gov.br/anpd</a>.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- 8. COOKIES -->
+  <div class="section" id="s8">
+    <div class="section-num">08</div>
+    <h2>Cookies e preferências</h2>
+    <p>Utilizamos duas categorias de cookies e armazenamento local no navegador:</p>
+
+    <div class="consent-card">
+      <h3>Gerenciar suas preferências</h3>
+      <p>Você pode ajustar suas preferências de cookies a qualquer momento. A alteração entra em vigor imediatamente.</p>
+
+      <div class="consent-row">
+        <div class="consent-info">
+          <strong>Cookies essenciais</strong>
+          <span>Armazenam suas preferências de privacidade (lgpd_choice) e são necessários para o funcionamento do site</span>
+        </div>
+        <span class="consent-badge badge-always">SEMPRE ATIVOS</span>
+      </div>
+
+      <div class="consent-row">
+        <div class="consent-info">
+          <strong>Medição técnica de conexão</strong>
+          <span>Coleta IP, latência e velocidade de download para demonstração da infraestrutura no painel animado</span>
+        </div>
+        <span class="consent-badge badge-optional" id="analytics-status">—</span>
+      </div>
+
+      <div class="consent-btns">
+        <button class="btn-accept" onclick="privAceitar()">Aceitar medição</button>
+        <button class="btn-reject" onclick="privRecusar()">Recusar medição</button>
+      </div>
+      <div class="consent-status" id="pref-status"></div>
+    </div>
+
+    <p>As preferências são salvas no <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--surface);padding:2px 6px;border-radius:4px">localStorage</code> do seu navegador com a chave <code style="font-family:'DM Mono',monospace;font-size:12px;background:var(--surface);padding:2px 6px;border-radius:4px">lgpd_choice</code> e permanecem válidas até você limpá-las ou alterá-las aqui.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- 9. SEGURANÇA -->
+  <div class="section" id="s9">
+    <div class="section-num">09</div>
+    <h2>Segurança da informação</h2>
+    <p>Adotamos medidas técnicas e organizacionais adequadas para proteger seus dados contra acesso não autorizado, perda, alteração ou divulgação indevida:</p>
+    <ul class="basis-list">
+      <li class="basis-item"><strong>Tráfego criptografado:</strong> todo o site opera exclusivamente via HTTPS/TLS 1.3</li>
+      <li class="basis-item"><strong>Proteção de infraestrutura:</strong> servidor backend protegido por whitelist de IPs Cloudflare no nginx</li>
+      <li class="basis-item"><strong>Acesso restrito:</strong> dados de propostas acessíveis apenas pela equipe comercial da Alliant</li>
+      <li class="basis-item"><strong>Dados técnicos em memória:</strong> IP, latência e velocidade nunca são gravados em disco ou banco de dados</li>
+      <li class="basis-item"><strong>Data centers certificados:</strong> Data centers Tier III certificados, localizados no estado de São Paulo</li>
+    </ul>
+    <p>Em caso de incidente de segurança que possa gerar risco relevante aos titulares, notificaremos a ANPD e os afetados nos prazos previstos pela LGPD.</p>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- 10. CONTATO / DPO -->
+  <div class="section" id="s10">
+    <div class="section-num">10</div>
+    <h2>Contato e Encarregado (DPO)</h2>
+    <p>Para exercer seus direitos, tirar dúvidas sobre esta política ou reportar alguma questão relacionada à privacidade, entre em contato com nosso Encarregado de Proteção de Dados:</p>
+
+    <div class="contact-card">
+      <h3>Encarregado de Dados — Alliant</h3>
+      <p>Respondemos em até 15 dias úteis. Todas as solicitações são tratadas com sigilo.</p>
+      <div class="contact-detail">
+        <span>📧</span>
+        <span><strong>E-mail:</strong> privacidade@alliant.com.br</span>
+      </div>
+      <div class="contact-detail">
+        <span>🏢</span>
+        <span><strong>Empresa:</strong> Alliant Tecnologia Ltda</span>
+      </div>
+      <div class="contact-detail">
+        <span>📍</span>
+        <span><strong>Localização:</strong> Brasil — Remote-first</span>
+      </div>
+      <div class="contact-detail">
+        <span>🔗</span>
+        <span><strong>ANPD:</strong> <a href="https://www.gov.br/anpd" target="_blank" rel="noopener" style="color:rgba(245,240,232,0.7)">gov.br/anpd</a></span>
+      </div>
+    </div>
+
+    <p style="margin-top:20px;font-size:13px;color:var(--ink3)">Esta política pode ser atualizada periodicamente. A data de vigência indica a versão em vigor. Alterações significativas serão comunicadas por e-mail aos titulares cadastrados.</p>
+  </div>
+
+</div>
+
+<script>
+// Show current consent status
+(function(){
+  var choice = localStorage.getItem('lgpd_analytics');
+  var el = document.getElementById('analytics-status');
+  if(!el) return;
+  if(choice === '1'){ el.textContent='ATIVO'; el.className='consent-badge badge-always'; }
+  else if(choice === '0'){ el.textContent='RECUSADO'; el.style.background='rgba(107,95,82,0.08)'; el.style.color='var(--ink3)'; el.style.border='1px solid var(--border2)'; el.textContent='RECUSADO'; }
+  else { el.textContent='NÃO DEFINIDO'; }
+})();
+
+function privAceitar(){
+  localStorage.setItem('lgpd_choice','all');
+  localStorage.setItem('lgpd_analytics','1');
+  var el=document.getElementById('analytics-status');
+  if(el){ el.textContent='ATIVO'; el.className='consent-badge badge-always'; }
+  var st=document.getElementById('pref-status');
+  st.textContent='✓ Preferência salva — medição técnica ativada. Ao voltar ao site, o painel animado estará disponível.';
+  st.className='consent-status show status-ok';
+}
+
+function privRecusar(){
+  localStorage.setItem('lgpd_choice','essential');
+  localStorage.setItem('lgpd_analytics','0');
+  var el=document.getElementById('analytics-status');
+  if(el){ el.textContent='RECUSADO'; el.style.background='rgba(107,95,82,0.08)'; el.style.color='var(--ink3)'; el.style.border='1px solid var(--border2)'; }
+  var st=document.getElementById('pref-status');
+  st.textContent='Preferência salva — medição técnica desativada. O painel animado não coletará dados na próxima visita.';
+  st.className='consent-status show status-no';
+}
+</script>
+
+</body>
+</html>
