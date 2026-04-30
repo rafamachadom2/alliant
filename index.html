@@ -302,11 +302,11 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
 
   // RTT: empty.php no-cors (funciona cross-origin, mede tempo de ida e volta)
   setTimeout(function(){
-    var ep="https://io.alliant.com.br/backend/empty.php";
+    var ep="https://io.alliant.com.br/backend/empty.php?cors";
     var res=[],n=0;
     function ping(cb){
       var t0=performance.now();
-      fetch(ep+"?_="+Date.now(),{cache:"no-store",mode:"no-cors"})
+      fetch(ep+"&_="+Date.now(),{cache:"no-store"})
         .then(function(){cb(Math.round(performance.now()-t0));})
         .catch(function(){cb(null);});
     }
@@ -323,17 +323,21 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
     run();
   },1500);
 
-  // Speed: garbage.php no-cors, calcula pelo tempo
+  // Speed: garbage.php com CORS — le bytes reais do download
   setTimeout(function(){
+    var ep="https://io.alliant.com.br/backend/garbage.php?cors&ckSize=8&_="+Date.now();
     var t0=performance.now();
-    fetch("https://io.alliant.com.br/backend/garbage.php?ckSize=4&_="+Date.now(),{cache:"no-store",mode:"no-cors"})
-      .then(function(){
+    fetch(ep,{cache:"no-store"})
+      .then(function(r){ return r.arrayBuffer(); })
+      .then(function(buf){
         var dt=(performance.now()-t0)/1000;
-        // 4MB * 8 bits / tempo = Mbps
-        if(dt>0) dlSpeed=((4*8)/dt).toFixed(1);
+        var bytes=buf.byteLength;
+        if(dt>0.1&&bytes>0) dlSpeed=((bytes*8)/(dt*1000000)).toFixed(1);
+        measureReady.speed=true; checkReady();
       })
-      .then(function(){ measureReady.speed=true; checkReady(); })
-      .catch(function(){ dlSpeed="N/A"; measureReady.speed=true; checkReady(); });
+      .catch(function(){
+        dlSpeed="N/A"; measureReady.speed=true; checkReady();
+      });
   },3000);
 
 })();
