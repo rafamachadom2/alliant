@@ -221,7 +221,7 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
       </div>
       <div class="savings" id="savings"></div>
 
-      <a href="proposta.html" class="cta-btn">Solicitar proposta →</a>
+      <button class="cta-btn" id="ctaBtn" onclick="goToProposta()">Solicitar proposta →</button>
       <div class="disclaimer">Preços em reais · Sem variação cambial · Faturamento mensal</div>
     </div>
   </div>
@@ -377,14 +377,7 @@ function doCalc(){
     document.getElementById('drBadge').classList.toggle('show', togs.dr);
 
     // Show savings vs DR price
-    if(!togs.dr && data.items.length>0){
-      var totalDR=data.items.reduce(function(s,i){return s+i.total_dr;},0);
-      var sEl=document.getElementById('savings');
-      sEl.textContent='Com DR: '+fmtBRL(totalDR)+'/mês (+50%)';
-      sEl.classList.add('show');
-    } else {
-      document.getElementById('savings').classList.remove('show');
-    }
+    document.getElementById('savings').classList.remove('show');
   })
   .catch(function(){
     document.getElementById('breakdown').innerHTML='<div class="vm-empty" style="color:#c0392b">Erro ao calcular. Tente novamente.</div>';
@@ -395,6 +388,16 @@ function doCalc(){
 addRow({nm:'Servidor de aplicação',os:'Linux',qty:2,flavor:'gp.large'});
 addRow({nm:'Banco de dados',os:'Linux',qty:1,flavor:'mo.medium'});
 addRow({nm:'ERP Windows',os:'Windows Server 2022',qty:1,flavor:'win.large'});
+
+
+function goToProposta(){
+  var state={
+    vms: rows.map(function(r){return r.data;}),
+    togs: togs
+  };
+  try{ sessionStorage.setItem('alliant_calc', JSON.stringify(state)); }catch(e){}
+  window.location.href='proposta.html';
+}
 
 // ── ABBREVIATION
 function abbrev(name){
