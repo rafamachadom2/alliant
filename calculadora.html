@@ -27,8 +27,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5
 .hero h1 span{color:var(--blue)}
 .hero p{font-size:14px;color:var(--ink2);max-width:520px;line-height:1.7}
 
-.calc-wrap{max-width:1100px;margin:0 auto;padding:0 5% 80px;display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start}
-@media(max-width:780px){.calc-wrap{grid-template-columns:1fr}.sidebar{order:-1}}
+.calc-wrap{max-width:1100px;margin:0 auto;padding:0 5% 80px}
+@media(max-width:780px){.calc-wrap{flex-direction:column}.sidebar{width:360px;flex-shrink:0;position:sticky;top:20px}}
 
 /* ── LEFT: config ── */
 .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px}
@@ -208,8 +208,7 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
 
 <div class="calc-wrap">
 
-  <div class="left">
-
+    <!-- VMs -->
     <!-- VMs -->
     <div class="card">
       <div class="card-title">Dimensionamento de VMs</div>
@@ -232,94 +231,113 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
       </button>
     </div>
 
-    <!-- Serviços -->
-    <div class="card">
-      <div class="card-title">Serviços adicionais</div>
-      <div class="togs">
-        <div class="tog-row">
-          <div><div class="tog-label">Disaster Recovery</div><div class="tog-sub">Failover para DC secundário — Osasco +60km</div></div>
-          <div class="tog"><button id="dr-s" onclick="setTog('dr',true)">Sim</button><button id="dr-n" class="on" onclick="setTog('dr',false)">Não</button></div>
-        </div>
-        <div class="tog-row">
-          <div><div class="tog-label">Alta Disponibilidade (HA)</div><div class="tog-sub">Failover automático entre hosts no mesmo DC</div></div>
-          <div class="tog"><button id="ha-s" onclick="setTog('ha',true)">Sim</button><button id="ha-n" class="on" onclick="setTog('ha',false)">Não</button></div>
-        </div>
-        <div class="tog-row">
-          <div><div class="tog-label">Backup local diário</div><div class="tog-sub">Snapshots com retenção configurável</div></div>
-          <div class="tog"><button id="bk-s" class="on" onclick="setTog('bk',true)">Sim</button><button id="bk-n" onclick="setTog('bk',false)">Não</button></div>
-        </div>
-        <div class="tog-row">
-          <div><div class="tog-label">Backup Offsite</div><div class="tog-sub">Replicação automática para o DC secundário</div></div>
-          <div class="tog"><button id="bo-s" onclick="setTog('bo',true)">Sim</button><button id="bo-n" class="on" onclick="setTog('bo',false)">Não</button></div>
-        </div>
-        <div class="tog-row">
-          <div><div class="tog-label">Suporte técnico</div><div class="tog-sub">Atendimento em português por engenheiros Alliant</div></div>
-          <div class="tog"><button id="sup-s" onclick="setSupAtivo(true)">Sim</button><button id="sup-n" class="on" onclick="setSupAtivo(false)">Não</button></div>
-        </div>
-        <div id="sup-config" style="display:none;padding:10px 0 4px;flex-direction:column;gap:10px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <div>
-              <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:5px">Horas 8×5 / mês</div>
-              <input type="number" id="sup-hrs-85" value="0" min="0" max="500" placeholder="0" oninput="schedCalc()"
-                style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);outline:none;-moz-appearance:textfield">
-              <div style="font-size:10px;color:var(--ink3);margin-top:3px">R$ 180,00 / hora</div>
-            </div>
-            <div>
-              <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:5px">Horas 24×7 / mês</div>
-              <input type="number" id="sup-hrs-247" value="0" min="0" max="500" placeholder="0" oninput="schedCalc()"
-                style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);outline:none;-moz-appearance:textfield">
-              <div style="font-size:10px;color:var(--ink3);margin-top:3px">R$ 240,00 / hora</div>
-            </div>
-          </div>
+    <div style="display:flex;flex-direction:row;gap:24px;align-items:flex-start;margin-top:0">
+      <div style="flex:1;min-width:0">
+        <!-- Serviços -->
+            <div class="card">
+              <div class="card-title">Serviços adicionais</div>
+              <div class="togs">
+                <div class="tog-row">
+                  <div><div class="tog-label">Disaster Recovery</div><div class="tog-sub">Failover para DC secundário — Osasco +60km</div></div>
+                  <div class="tog"><button id="dr-s" onclick="setTog('dr',true)">Sim</button><button id="dr-n" class="on" onclick="setTog('dr',false)">Não</button></div>
                 </div>
-    <!-- PROJETO ESPECIAL -->
-    <div class="card special-card">
-      <div style="display:flex;align-items:flex-start;gap:14px">
-        <div style="flex:1">
-          <div class="special-title">Meu projeto não se encaixa aqui</div>
-          <div style="font-size:12px;color:var(--ink2);line-height:1.6">Requisitos específicos, volumes fora do padrão ou integrações especiais? Nossa equipe monta uma proposta sob medida.</div>
-        </div>
-        <button onclick="openSpecial()" class="special-btn">Projeto especial →</button>
+                <div class="tog-row">
+                  <div><div class="tog-label">Alta Disponibilidade (HA)</div><div class="tog-sub">Failover automático entre hosts no mesmo DC</div></div>
+                  <div class="tog"><button id="ha-s" onclick="setTog('ha',true)">Sim</button><button id="ha-n" class="on" onclick="setTog('ha',false)">Não</button></div>
+                </div>
+                <div class="tog-row">
+                  <div><div class="tog-label">Backup local diário</div><div class="tog-sub">Snapshots com retenção configurável</div></div>
+                  <div class="tog"><button id="bk-s" class="on" onclick="setTog('bk',true)">Sim</button><button id="bk-n" onclick="setTog('bk',false)">Não</button></div>
+                </div>
+                <div class="tog-row">
+                  <div><div class="tog-label">Backup Offsite</div><div class="tog-sub">Replicação automática para o DC secundário</div></div>
+                  <div class="tog"><button id="bo-s" onclick="setTog('bo',true)">Sim</button><button id="bo-n" class="on" onclick="setTog('bo',false)">Não</button></div>
+                </div>
+                <div class="tog-row">
+                  <div><div class="tog-label">Suporte técnico</div><div class="tog-sub">Atendimento em português por engenheiros Alliant</div></div>
+                  <div class="tog"><button id="sup-s" onclick="setSupAtivo(true)">Sim</button><button id="sup-n" class="on" onclick="setSupAtivo(false)">Não</button></div>
+                </div>
+                <div id="sup-config" style="display:none;padding:10px 0 4px;flex-direction:column;gap:10px">
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                    <div>
+                      <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:5px">Horas 8×5 / mês</div>
+                      <input type="number" id="sup-hrs-85" value="0" min="0" max="500" placeholder="0" oninput="schedCalc()"
+                        style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);outline:none;-moz-appearance:textfield">
+                      <div style="font-size:10px;color:var(--ink3);margin-top:3px">R$ 180,00 / hora</div>
+                    </div>
+                    <div>
+                      <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:5px">Horas 24×7 / mês</div>
+                      <input type="number" id="sup-hrs-247" value="0" min="0" max="500" placeholder="0" oninput="schedCalc()"
+                        style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);outline:none;-moz-appearance:textfield">
+                      <div style="font-size:10px;color:var(--ink3);margin-top:3px">R$ 240,00 / hora</div>
+                    </div>
+                  </div>
+                        </div>
+            <!-- REDE -->
+            <div class="card">
+              <div class="card-title">Rede</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div>
+                  <label style="display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:6px">IPs públicos dedicados</label>
+                  <input type="number" id="ips" value="1" min="0" max="32" oninput="schedCalc()"
+                    style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);outline:none;-moz-appearance:textfield">
+                </div>
+                <div>
+                  <label style="display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:6px">Banda garantida (Mbps)</label>
+                  <input type="number" id="banda" value="100" min="0" step="10" oninput="schedCalc()"
+                    style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);outline:none;-moz-appearance:textfield">
+                </div>
+              </div>
+            </div>
+
+            <!-- PROJETO ESPECIAL -->
+            <div class="card special-card">
+              <div style="display:flex;align-items:flex-start;gap:14px">
+                <div style="flex:1">
+                  <div class="special-title">Meu projeto não se encaixa aqui</div>
+                  <div style="font-size:12px;color:var(--ink2);line-height:1.6">Requisitos específicos, volumes fora do padrão ou integrações especiais? Nossa equipe monta uma proposta sob medida.</div>
+                </div>
+                <button onclick="openSpecial()" class="special-btn">Projeto especial →</button>
+              </div>
+            </div>
+      </div>
+      <div class="sidebar">
+        <div class="result-card">
+                        <div class="result-header">
+                          <div class="result-title">Estimativa mensal</div>
+                          <div class="dr-badge" id="drBadge">Com DR</div>
+                            </div>
+                
+                        <div class="vm-breakdown" id="breakdown">
+                          <div class="vm-empty">Adicione VMs para calcular.</div>
+                            </div>
+                
+                        <div id="supLine" style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden">
+                          <span style="color:var(--ink2)" id="supLineLabel"></span>
+                          <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="supLineVal"></span>
+                            </div>
+                        <div class="divider"></div>
+                        <div id="vmLine" style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden">
+                          <span style="color:var(--ink2)">VMs + serviços</span>
+                          <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="vmLineVal"></span>
+                            </div>
+                        <div id="netLine"  style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden;transition:all .2s">
+                          <span style="color:var(--ink2)" id="netLineLabel"></span>
+                          <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="netLineVal"></span>
+                            </div>
+                        <div class="total-row">
+                          <div class="total-label">Total / mês</div>
+                          <div class="total-value" id="totalVal">R$ —</div>
+                            </div>
+                        <div class="savings" id="savings"></div>
+                
+                        <button class="cta-btn" id="ctaBtn" onclick="goToProposta()">Solicitar proposta →</button>
+                        <div class="disclaimer">Preços em reais · Sem variação cambial · Faturamento mensal</div>
+                          </div>
+                        </div>
+              </div>
       </div>
     </div>
-
-  </div><!-- end .left -->
-
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <div class="result-card">
-      <div class="result-header">
-        <div class="result-title">Estimativa mensal</div>
-        <div class="dr-badge" id="drBadge">Com DR</div>
-      </div>
-
-      <div class="vm-breakdown" id="breakdown">
-        <div class="vm-empty">Adicione VMs para calcular.</div>
-      </div>
-
-      <div id="supLine" style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden">
-        <span style="color:var(--ink2)" id="supLineLabel"></span>
-        <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="supLineVal"></span>
-      </div>
-      <div class="divider"></div>
-      <div id="vmLine" style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden">
-        <span style="color:var(--ink2)">VMs + serviços</span>
-        <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="vmLineVal"></span>
-      </div>
-      <div id="netLine"  style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden;transition:all .2s">
-        <span style="color:var(--ink2)" id="netLineLabel"></span>
-        <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="netLineVal"></span>
-      </div>
-      <div class="total-row">
-        <div class="total-label">Total / mês</div>
-        <div class="total-value" id="totalVal">R$ —</div>
-      </div>
-      <div class="savings" id="savings"></div>
-
-      <button class="cta-btn" id="ctaBtn" onclick="goToProposta()">Solicitar proposta →</button>
-      <div class="disclaimer">Preços em reais · Sem variação cambial · Faturamento mensal</div>
-    </div>
-  </div>
 
 </div>
 
