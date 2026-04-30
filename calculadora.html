@@ -252,32 +252,24 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
           <div><div class="tog-label">Backup Offsite</div><div class="tog-sub">Replicação automática para o DC secundário</div></div>
           <div class="tog"><button id="bo-s" onclick="setTog('bo',true)">Sim</button><button id="bo-n" class="on" onclick="setTog('bo',false)">Não</button></div>
         </div>
-        <div class="tog-row" style="flex-direction:column;align-items:flex-start;gap:10px">
+        <div class="tog-row">
           <div><div class="tog-label">Suporte técnico</div><div class="tog-sub">Atendimento em português por engenheiros Alliant</div></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;width:100%">
-            <div class="sup-option" id="sup-opt-none" onclick="setSupporte('none',0)" style="border:1px solid var(--border2);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s">
-              <div style="font-size:11px;font-weight:700;color:var(--ink3);margin-bottom:2px">Sem suporte</div>
-              <div style="font-size:12px;color:var(--ink3)">—</div>
-            </div>
-            <div class="sup-option" id="sup-opt-85" onclick="setSupporte('8x5', document.getElementById('sup-hrs-85').value)" style="border:1px solid var(--border2);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s">
-              <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:4px">8×5</div>
-              <div style="display:flex;align-items:center;gap:4px">
-                <input type="number" id="sup-hrs-85" value="10" min="1" max="200" onclick="event.stopPropagation();setSupporte('8x5',this.value)"
-                  oninput="event.stopPropagation();setSupporte('8x5',this.value)"
-                  style="width:52px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px 6px;font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);outline:none;-moz-appearance:textfield">
-                <span style="font-size:11px;color:var(--ink3)">horas/mês</span>
-              </div>
-            </div>
-            <div class="sup-option" id="sup-opt-247" onclick="setSupporte('24x7', document.getElementById('sup-hrs-247').value)" style="border:1px solid var(--border2);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s">
-              <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:4px">24×7</div>
-              <div style="display:flex;align-items:center;gap:4px">
-                <input type="number" id="sup-hrs-247" value="10" min="1" max="200" onclick="event.stopPropagation();setSupporte('24x7',this.value)"
-                  oninput="event.stopPropagation();setSupporte('24x7',this.value)"
-                  style="width:52px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px 6px;font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);outline:none;-moz-appearance:textfield">
-                <span style="font-size:11px;color:var(--ink3)">horas/mês</span>
-              </div>
-            </div>
+          <div class="tog"><button id="sup-s" onclick="setSupAtivo(true)">Sim</button><button id="sup-n" class="on" onclick="setSupAtivo(false)">Não</button></div>
+        </div>
+        <div id="sup-config" style="display:none;padding:10px 0 4px;display:none;flex-direction:column;gap:8px">
+          <div style="display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:10px">
+            <div style="font-size:12px;font-weight:600;color:var(--ink)">8×5</div>
+            <input type="number" id="sup-hrs-85" value="0" min="0" max="500" placeholder="0 horas" oninput="schedCalc()"
+              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);outline:none;-moz-appearance:textfield;width:100%">
+            <div style="font-size:11px;color:var(--ink3);white-space:nowrap">h × R$180</div>
           </div>
+          <div style="display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:10px">
+            <div style="font-size:12px;font-weight:600;color:var(--ink)">24×7</div>
+            <input type="number" id="sup-hrs-247" value="0" min="0" max="500" placeholder="0 horas" oninput="schedCalc()"
+              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);outline:none;-moz-appearance:textfield;width:100%">
+            <div style="font-size:11px;color:var(--ink3);white-space:nowrap">h × R$240</div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -454,27 +446,21 @@ function addRow(d){
 function removeRow(id){ rows=rows.filter(function(r){return r.id!==id;}); renderTable(); }
 function upd(id,key,val){ var r=rows.find(function(r){return r.id===id;}); if(r){r.data[key]=val; schedCalc();} }
 
-function setSupporte(v, hrs){
-  suporte=v;
-  var horas=+(hrs||0);
-  // Update visual selection
-  ['none','85','247'].forEach(function(k){
-    var el=document.getElementById('sup-opt-'+k);
-    if(el){
-      el.style.borderColor='var(--border2)';
-      el.style.background='';
-    }
-  });
-  var selMap={'none':'none','8x5':'85','24x7':'247'};
-  var selEl=document.getElementById('sup-opt-'+selMap[v]);
-  if(selEl){
-    selEl.style.borderColor='var(--blue)';
-    selEl.style.background='rgba(29,106,255,0.05)';
-  }
-  // Compute cost
-  var rate = v==='8x5' ? 180 : v==='24x7' ? 240 : 0;
-  SUPORTE_PRECO['current'] = rate * horas;
+var supAtivo=false;
+
+function setSupAtivo(v){
+  supAtivo=v;
+  document.getElementById('sup-s').className=v?'on':'';
+  document.getElementById('sup-n').className=v?'':'on';
+  document.getElementById('sup-config').style.display=v?'flex':'none';
   schedCalc();
+}
+
+function getSupCost(){
+  if(!supAtivo) return 0;
+  var hrs85=+(document.getElementById('sup-hrs-85')||{value:0}).value||0;
+  var hrs247=+(document.getElementById('sup-hrs-247')||{value:0}).value||0;
+  return hrs85*180 + hrs247*240;
 }
 
 function schedCalc(){
@@ -530,7 +516,7 @@ function doCalc(){
     var _ips=+(document.getElementById('ips')||{value:1}).value||0;
     var _banda=+(document.getElementById('banda')||{value:0}).value||0;
     var _netCost=(_ips*45)+(_banda*3);
-    var _supCost=SUPORTE_PRECO['current']||0;
+    var _supCost=getSupCost();
     var _grandTotal=data.total+_netCost+_supCost;
     document.getElementById('totalVal').textContent=fmtBRL(_grandTotal);
     // Net line
@@ -570,8 +556,12 @@ function doCalc(){
     if(supLine){
       if(_supCost>0){
         supLine.style.visibility='visible'; supLine.style.height='auto'; supLine.style.marginBottom='6px';
-        var _supHrs=suporte==='8x5'?(document.getElementById('sup-hrs-85')||{value:0}).value:suporte==='24x7'?(document.getElementById('sup-hrs-247')||{value:0}).value:0;
-        document.getElementById('supLineLabel').textContent='Suporte '+suporte+' ('+_supHrs+'h)';
+        var _hrs85=+(document.getElementById('sup-hrs-85')||{value:0}).value||0;
+        var _hrs247=+(document.getElementById('sup-hrs-247')||{value:0}).value||0;
+        var _supParts=[];
+        if(_hrs85>0) _supParts.push(_hrs85+'h 8×5');
+        if(_hrs247>0) _supParts.push(_hrs247+'h 24×7');
+        document.getElementById('supLineLabel').textContent='Suporte '+(_supParts.join(' + ')||'');
         document.getElementById('supLineVal').textContent=fmtBRL(_supCost);
       } else {
         supLine.style.visibility='hidden'; supLine.style.height='0'; supLine.style.marginBottom='0';
@@ -850,7 +840,7 @@ function sendProposta(){
     servicos:togs,
     vms:vmsPayload,
     estimativa:_lastCalcData?_lastCalcData.total:0,
-    suporte:suporte
+    suporte:supAtivo?((+(document.getElementById('sup-hrs-85')||{value:0}).value||0)+'h 8x5 + '+(+(document.getElementById('sup-hrs-247')||{value:0}).value||0)+'h 24x7'):'Sem suporte'
   };
 
   fetch('https://io.alliant.com.br/form/enviar.php',{
