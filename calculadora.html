@@ -118,6 +118,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5
 select.os-win{color:var(--win)!important;font-weight:600}
 select.os-lin{color:var(--lin)!important;font-weight:600}
 
+
+.cta-btn-special{display:block;width:100%;background:none;color:var(--ink2);border:1px dashed var(--border2);border-radius:9px;padding:11px;font-family:'Raleway',sans-serif;font-weight:600;font-size:13px;cursor:pointer;transition:all .2s;text-align:center;margin-top:8px}
+.cta-btn-special:hover{border-color:var(--blue);color:var(--blue)}
+.special-sub{font-size:11px;color:var(--ink3);margin-top:2px;font-weight:400}
+
 /* ── MODAL ── */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(26,22,18,0.5);z-index:100;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.open{display:flex}
@@ -254,6 +259,18 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
             style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);outline:none">
 
         </div>
+      </div>
+    </div>
+
+
+    <!-- PROJETO ESPECIAL -->
+    <div class="card" style="border:1px dashed var(--border2);background:var(--surface)">
+      <div style="display:flex;align-items:flex-start;gap:14px">
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px">Meu projeto não se encaixa aqui</div>
+          <div style="font-size:12px;color:var(--ink2);line-height:1.6">Requisitos específicos, volumes fora do padrão ou integrações especiais? Nossa equipe monta uma proposta sob medida.</div>
+        </div>
+        <button onclick="openSpecial()" style="white-space:nowrap;background:none;border:1px solid var(--border2);border-radius:8px;padding:9px 16px;font-size:12px;font-weight:700;font-family:'Raleway',sans-serif;color:var(--ink2);cursor:pointer;transition:all .2s;flex-shrink:0" onmouseover="this.style.borderColor='var(--blue)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--ink2)'">Projeto especial →</button>
       </div>
     </div>
 
@@ -777,6 +794,105 @@ function sendProposta(){
   });
 }
 
+
+var _specialFile = null;
+
+function openSpecial(){
+  document.getElementById('specialForm').style.display='block';
+  document.getElementById('specialSuccess').style.display='none';
+  document.getElementById('sp-status').textContent='';
+  document.getElementById('sp-sendBtn').disabled=false;
+  document.getElementById('sp-filename').textContent='';
+  _specialFile=null;
+  document.getElementById('specialOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeSpecial(){
+  document.getElementById('specialOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function handleFile(file){
+  if(!file) return;
+  if(file.size > 5*1024*1024){
+    document.getElementById('sp-filename').style.color='#c0392b';
+    document.getElementById('sp-filename').textContent='Arquivo muito grande (máx. 5MB)';
+    _specialFile=null; return;
+  }
+  _specialFile=file;
+  document.getElementById('sp-filename').style.color='var(--blue)';
+  document.getElementById('sp-filename').textContent=file.name+' ('+Math.round(file.size/1024)+'KB)';
+  document.getElementById('sp-dropzone').style.borderColor='var(--blue)';
+}
+
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('sp-dropzone').style.borderColor='var(--border2)';
+  var f=e.dataTransfer.files[0];
+  if(f) handleFile(f);
+}
+
+function sendSpecial(){
+  var emp=document.getElementById('sp-empresa').value.trim();
+  var eml=document.getElementById('sp-email').value.trim();
+  var nom=document.getElementById('sp-nome').value.trim();
+  var obs=document.getElementById('sp-obs').value.trim();
+  if(!emp||!eml||!nom||!obs){
+    document.getElementById('sp-status').style.color='#c0392b';
+    document.getElementById('sp-status').textContent='Preencha empresa, responsável, e-mail e descrição.';
+    return;
+  }
+  var btn=document.getElementById('sp-sendBtn');
+  var status=document.getElementById('sp-status');
+  btn.disabled=true;
+  status.style.color='var(--ink2)';
+  status.textContent='Enviando...';
+
+  function doSend(fileB64, fileName){
+    var payload={
+      empresa:emp, cnpj:document.getElementById('sp-cnpj').value,
+      nome:nom, email:eml,
+      whatsapp:document.getElementById('sp-whatsapp').value,
+      segmento:document.getElementById('sp-segmento').value,
+      obs:obs, tipo:'projeto_especial',
+      arquivo_nome: fileName||'', arquivo_b64: fileB64||'',
+      ips:'0', banda:'0', vms:[], servicos:{}, prazo:'', cargo:''
+    };
+    fetch('https://io.alliant.com.br/form/enviar.php',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    })
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.ok){
+        document.getElementById('specialForm').style.display='none';
+        document.getElementById('specialSuccess').style.display='block';
+      } else {
+        status.style.color='#c0392b';
+        status.textContent='Erro: '+(d.error||'Falha no envio');
+        btn.disabled=false;
+      }
+    })
+    .catch(function(){
+      status.style.color='#c0392b';
+      status.textContent='Erro de conexão. Tente novamente.';
+      btn.disabled=false;
+    });
+  }
+
+  if(_specialFile){
+    var reader=new FileReader();
+    reader.onload=function(e){
+      var b64=e.target.result.split(',')[1];
+      doSend(b64, _specialFile.name);
+    };
+    reader.readAsDataURL(_specialFile);
+  } else {
+    doSend('','');
+  }
+}
+
 </script>
 
 
@@ -834,6 +950,61 @@ function sendProposta(){
       <h3>Proposta recebida!</h3>
       <p>Nossa equipe vai analisar seu ambiente e<br>entrar em contato em até <strong>24 horas</strong>.<br><br>
       Verifique seu e-mail — enviamos uma cópia<br>do ambiente solicitado.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL PROJETO ESPECIAL -->
+<div class="modal-overlay" id="specialOverlay" onclick="if(event.target===this)closeSpecial()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeSpecial()">&times;</button>
+    <div id="specialForm">
+      <h2>Projeto especial.</h2>
+      <p class="modal-sub">Seu ambiente não se encaixa nos flavors padrão? Descreva sua necessidade e nossa equipe monta uma proposta sob medida.</p>
+      <div class="mrow">
+        <div class="mfield"><label>Razão social *</label><input type="text" id="sp-empresa" placeholder="Acme Tecnologia Ltda"></div>
+        <div class="mfield"><label>CNPJ</label><input type="text" id="sp-cnpj" placeholder="00.000.000/0000-00" maxlength="18" oninput="maskCNPJ2(this)"></div>
+      </div>
+      <div class="mrow">
+        <div class="mfield"><label>Responsável *</label><input type="text" id="sp-nome" placeholder="João Silva"></div>
+        <div class="mfield"><label>E-mail *</label><input type="email" id="sp-email" placeholder="joao@empresa.com.br"></div>
+      </div>
+      <div class="mrow">
+        <div class="mfield"><label>WhatsApp</label><input type="tel" id="sp-whatsapp" placeholder="(11) 99999-9999" maxlength="15" oninput="maskPhone2(this)"></div>
+        <div class="mfield"><label>Segmento</label>
+          <select id="sp-segmento">
+            <option value="">Selecione...</option>
+            <option>Financeiro / Fintech</option><option>Saúde</option><option>Indústria</option>
+            <option>Varejo / E-commerce</option><option>Tecnologia / SaaS</option>
+            <option>Logística</option><option>Educação</option><option>Governo / Público</option><option>Outro</option>
+          </select>
+        </div>
+      </div>
+      <div class="mfield">
+        <label>Descreva seu ambiente / necessidade *</label>
+        <textarea id="sp-obs" placeholder="Descreva suas aplicações, volumes de dados, requisitos de performance, integrações, restrições de compliance, ou qualquer detalhe relevante para sua infraestrutura..." style="width:100%;background:#fff;border:1px solid var(--border2);border-radius:8px;padding:10px 12px;font-size:13px;font-family:'Raleway',sans-serif;color:var(--ink);outline:none;resize:vertical;min-height:100px;line-height:1.6"></textarea>
+      </div>
+      <div class="mfield">
+        <label>Anexar planilha ou documento (opcional)</label>
+        <div id="sp-dropzone" style="border:1.5px dashed var(--border2);border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--surface)"
+          onclick="document.getElementById('sp-file').click()"
+          ondragover="event.preventDefault();this.style.borderColor='var(--blue)'"
+          ondragleave="this.style.borderColor='var(--border2)'"
+          ondrop="handleDrop(event)">
+          <div style="font-size:13px;color:var(--ink2)">Clique ou arraste o arquivo aqui</div>
+          <div style="font-size:11px;color:var(--ink3);margin-top:4px">.xlsx · .csv · .pdf · .docx · máx. 5MB</div>
+          <div id="sp-filename" style="font-size:12px;color:var(--blue);margin-top:6px;font-weight:600"></div>
+        </div>
+        <input type="file" id="sp-file" accept=".xlsx,.csv,.pdf,.docx,.xls,.txt" style="display:none" onchange="handleFile(this.files[0])">
+      </div>
+      <button class="modal-send" id="sp-sendBtn" onclick="sendSpecial()">Enviar solicitação →</button>
+      <div class="modal-status" id="sp-status"></div>
+    </div>
+    <div class="modal-success" id="specialSuccess" style="display:none">
+      <div class="check">✓</div>
+      <h3>Solicitação recebida!</h3>
+      <p>Nossa equipe vai analisar seu projeto e<br>entrar em contato em até <strong>48 horas</strong><br>com uma proposta personalizada.</p>
     </div>
   </div>
 </div>
