@@ -716,6 +716,13 @@ function doCalc(){
 }
 
 // ── MODALS ────────────────────────────────────────────────────────────────
+function getArchBase64(){
+  try{
+    var cv=document.getElementById('archCanvas');
+    return cv?cv.toDataURL('image/png'):'';
+  }catch(e){return '';}
+}
+
 function openModal(){
   var bd=document.getElementById('modalSummaryRows');
   bd.innerHTML='';
@@ -794,7 +801,8 @@ function sendProposta(){
     banda:String(+(document.getElementById('banda').value)||100),
     obs:'', servicos:togs, vms:rows.map(function(r){return r.data;}),
     estimativa:_lastCalcData?_lastCalcData.total:0,
-    suporte:supAtivo?(h85+'h 8x5 + '+h247+'h 24x7'):'Sem suporte'
+    suporte:supAtivo?(h85+'h 8x5 + '+h247+'h 24x7'):'Sem suporte',
+    arch_diagram:getArchBase64()
   };
   fetch('https://io.alliant.com.br/form/enviar.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
   .then(function(r){return r.json();})
@@ -825,7 +833,7 @@ function sendSpecial(){
   var btn=document.getElementById('sp-sendBtn'); btn.disabled=true;
   document.getElementById('sp-status').style.color='var(--ink2)'; document.getElementById('sp-status').textContent='Enviando...';
   function doSend(b64,fname){
-    var p={empresa:emp,cnpj:document.getElementById('sp-cnpj').value,nome:nom,email:eml,whatsapp:document.getElementById('sp-whatsapp').value,segmento:document.getElementById('sp-segmento').value,obs:obs,tipo:'projeto_especial',arquivo_nome:fname||'',arquivo_b64:b64||'',ips:'0',banda:'0',vms:[],servicos:{},prazo:'',cargo:''};
+    var p={empresa:emp,cnpj:document.getElementById('sp-cnpj').value,nome:nom,email:eml,whatsapp:document.getElementById('sp-whatsapp').value,segmento:document.getElementById('sp-segmento').value,obs:obs,tipo:'projeto_especial',arquivo_nome:fname||'',arquivo_b64:b64||'',ips:'0',banda:'0',vms:[],servicos:{},prazo:'',cargo:'',arch_diagram:getArchBase64()};
     fetch('https://io.alliant.com.br/form/enviar.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
     .then(function(r){return r.json();})
     .then(function(d){if(d.ok){document.getElementById('specialForm').style.display='none';document.getElementById('specialSuccess').style.display='block';}else{document.getElementById('sp-status').style.color='#c0392b';document.getElementById('sp-status').textContent='Erro: '+(d.error||'Falha');btn.disabled=false;}})
