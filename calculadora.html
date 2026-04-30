@@ -349,17 +349,21 @@ var SUPORTE_PRECO={'none':0,'8x5':180,'24x7':240,'current':0};
 var debounceTimer=null;
 
 var FLAVORS_LIST = [
-  ['General Purpose',  ['gp.micro','gp.small','gp.medium','gp.large','gp.xlarge','gp.2xlarge']],
-  ['Memory Optimized', ['mo.small','mo.medium','mo.large','mo.xlarge']],
-  ['Compute Optimized',['co.medium','co.large','co.xlarge','co.2xlarge']],
-  ['Windows',          ['win.small','win.medium','win.large','win.xlarge']]
+  ['General Purpose', ['gp.nano','gp.micro','gp.small','gp.medium','gp.large','gp.xlarge','gp.2xlarge']],
+  ['Memory Optimized',['mo.small','mo.medium','mo.large','mo.xlarge','mo.2xlarge']],
+  ['Compute Optimized',['cp.small','cp.medium','cp.large','cp.xlarge','cp.2xlarge']],
+  ['Windows Server',  ['win.gp.small','win.gp.medium','win.gp.large','win.gp.xlarge','win.gp.2xlarge']]
 ];
 var FLAVOR_SPECS = {
-  'gp.micro':{v:1,r:1},'gp.small':{v:2,r:2},'gp.medium':{v:2,r:4},'gp.large':{v:4,r:8},
-  'gp.xlarge':{v:8,r:16},'gp.2xlarge':{v:16,r:32},
-  'mo.small':{v:2,r:16},'mo.medium':{v:4,r:32},'mo.large':{v:8,r:64},'mo.xlarge':{v:16,r:128},
-  'co.medium':{v:4,r:4},'co.large':{v:8,r:8},'co.xlarge':{v:16,r:16},'co.2xlarge':{v:32,r:32},
-  'win.small':{v:2,r:4},'win.medium':{v:4,r:8},'win.large':{v:8,r:16},'win.xlarge':{v:16,r:32}
+  'gp.nano'       :{v:1, r:1  },'gp.micro'      :{v:1, r:2  },
+  'gp.small'      :{v:2, r:4  },'gp.medium'     :{v:4, r:8  },
+  'gp.large'      :{v:8, r:16 },'gp.xlarge'     :{v:16,r:32 },'gp.2xlarge'    :{v:32,r:64 },
+  'mo.small'      :{v:2, r:16 },'mo.medium'     :{v:4, r:32 },
+  'mo.large'      :{v:8, r:64 },'mo.xlarge'     :{v:16,r:128},'mo.2xlarge'    :{v:32,r:256},
+  'cp.small'      :{v:2, r:2  },'cp.medium'     :{v:4, r:4  },
+  'cp.large'      :{v:8, r:8  },'cp.xlarge'     :{v:16,r:16 },'cp.2xlarge'    :{v:32,r:32 },
+  'win.gp.small'  :{v:2, r:4  },'win.gp.medium' :{v:4, r:8  },
+  'win.gp.large'  :{v:8, r:16 },'win.gp.xlarge' :{v:16,r:32 },'win.gp.2xlarge':{v:32,r:64 }
 };
 
 function setTog(k,v){
@@ -389,7 +393,7 @@ function makeFlavorSelect(val){
 }
 
 function updateSelColor(sel){
-  var isWin=sel.value.indexOf('win')===0;
+  var isWin=sel.value.indexOf('win.')===0;
   sel.style.color=isWin?'#0078d4':'#d35400';
   sel.style.fontWeight='600';
 }
@@ -436,7 +440,7 @@ function renderTable(){
 
 function addRow(d){
   var id=++rid;
-  rows.push({id:id,data:d||{nm:'',os:'Linux',qty:1,flavor:'gp.large'}});
+  rows.push({id:id,data:d||{nm:'',os:'Linux',qty:1,flavor:'gp.medium'}});
   renderTable();
 }
 function removeRow(id){ rows=rows.filter(function(r){return r.id!==id;}); renderTable(); }
@@ -570,9 +574,9 @@ function doCalc(){
 }
 
 // Init
-addRow({nm:'Servidor de aplicação',os:'Linux',qty:2,flavor:'gp.large'});
+addRow({nm:'Servidor de aplicação',os:'Linux',qty:2,flavor:'gp.medium'});
 addRow({nm:'Banco de dados',os:'Linux',qty:1,flavor:'mo.medium'});
-addRow({nm:'ERP Windows',os:'Windows Server 2022',qty:1,flavor:'win.large'});
+addRow({nm:'ERP Windows',os:'Windows Server 2022',qty:1,flavor:'win.gp.large'});
 
 
 function goToProposta(){ openModal(); }
@@ -637,7 +641,7 @@ function abbrev(name){
         var d=r.data,col=i%cols,row=Math.floor(i/cols);
         var x=cols===1?W*0.50:zoneL+(zoneR-zoneL)*col/(cols-1||1);
         var y=rws===1?(zoneT+zoneB)/2:zoneT+(zoneB-zoneT)*row/(rws-1||1);
-        var isWin=d.os&&d.os.indexOf('Windows')===0,qty=+d.qty||1;
+        var isWin=(d.os&&d.os.indexOf('Windows')===0)||(d.flavor&&d.flavor.indexOf('win.')===0),qty=+d.qty||1;
         nodes.push({x:x,y:y,r:Math.min(18,10+qty*1.2),type:isWin?'win':'lin',
           label:abbrev(d.nm||'VM '+(i+1)),sub:d.flavor||'',qty:qty,showHA:haHA});
       });
