@@ -120,6 +120,7 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
 
 
 
+#sup-hrs-85::-webkit-inner-spin-button,#sup-hrs-247::-webkit-inner-spin-button{opacity:.5}
 .special-card{border:1.5px dashed var(--border2)!important;background:var(--surface)!important;animation:specialPulse 2.8s ease-in-out infinite}
 @keyframes specialPulse{
   0%,100%{border-color:rgba(107,95,82,0.25)}
@@ -251,6 +252,33 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
           <div><div class="tog-label">Backup Offsite</div><div class="tog-sub">Replicação automática para o DC secundário</div></div>
           <div class="tog"><button id="bo-s" onclick="setTog('bo',true)">Sim</button><button id="bo-n" class="on" onclick="setTog('bo',false)">Não</button></div>
         </div>
+        <div class="tog-row" style="flex-direction:column;align-items:flex-start;gap:10px">
+          <div><div class="tog-label">Suporte técnico</div><div class="tog-sub">Atendimento em português por engenheiros Alliant</div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;width:100%">
+            <div class="sup-option" id="sup-opt-none" onclick="setSupporte('none',0)" style="border:1px solid var(--border2);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s">
+              <div style="font-size:11px;font-weight:700;color:var(--ink3);margin-bottom:2px">Sem suporte</div>
+              <div style="font-size:12px;color:var(--ink3)">—</div>
+            </div>
+            <div class="sup-option" id="sup-opt-85" onclick="setSupporte('8x5', document.getElementById('sup-hrs-85').value)" style="border:1px solid var(--border2);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s">
+              <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:4px">8×5</div>
+              <div style="display:flex;align-items:center;gap:4px">
+                <input type="number" id="sup-hrs-85" value="10" min="1" max="200" onclick="event.stopPropagation();setSupporte('8x5',this.value)"
+                  oninput="event.stopPropagation();setSupporte('8x5',this.value)"
+                  style="width:52px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px 6px;font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);outline:none;-moz-appearance:textfield">
+                <span style="font-size:11px;color:var(--ink3)">horas/mês</span>
+              </div>
+            </div>
+            <div class="sup-option" id="sup-opt-247" onclick="setSupporte('24x7', document.getElementById('sup-hrs-247').value)" style="border:1px solid var(--border2);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s">
+              <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:4px">24×7</div>
+              <div style="display:flex;align-items:center;gap:4px">
+                <input type="number" id="sup-hrs-247" value="10" min="1" max="200" onclick="event.stopPropagation();setSupporte('24x7',this.value)"
+                  oninput="event.stopPropagation();setSupporte('24x7',this.value)"
+                  style="width:52px;background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:3px 6px;font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);outline:none;-moz-appearance:textfield">
+                <span style="font-size:11px;color:var(--ink3)">horas/mês</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -299,6 +327,10 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
         <div class="vm-empty">Adicione VMs para calcular.</div>
       </div>
 
+      <div id="supLine" style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden">
+        <span style="color:var(--ink2)" id="supLineLabel"></span>
+        <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="supLineVal"></span>
+      </div>
       <div class="divider"></div>
       <div id="vmLine" style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden">
         <span style="color:var(--ink2)">VMs + serviços</span>
@@ -324,6 +356,8 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
 <script>
 var rows=[], rid=0;
 var togs={dr:false, ha:false, bk:true, bo:false};
+var suporte='none'; // 'none' | '8x5' | '24x7'
+var SUPORTE_PRECO={'none':0,'8x5':180,'24x7':240,'current':0};
 var debounceTimer=null;
 
 var FLAVORS_LIST = [
@@ -420,6 +454,29 @@ function addRow(d){
 function removeRow(id){ rows=rows.filter(function(r){return r.id!==id;}); renderTable(); }
 function upd(id,key,val){ var r=rows.find(function(r){return r.id===id;}); if(r){r.data[key]=val; schedCalc();} }
 
+function setSupporte(v, hrs){
+  suporte=v;
+  var horas=+(hrs||0);
+  // Update visual selection
+  ['none','85','247'].forEach(function(k){
+    var el=document.getElementById('sup-opt-'+k);
+    if(el){
+      el.style.borderColor='var(--border2)';
+      el.style.background='';
+    }
+  });
+  var selMap={'none':'none','8x5':'85','24x7':'247'};
+  var selEl=document.getElementById('sup-opt-'+selMap[v]);
+  if(selEl){
+    selEl.style.borderColor='var(--blue)';
+    selEl.style.background='rgba(29,106,255,0.05)';
+  }
+  // Compute cost
+  var rate = v==='8x5' ? 180 : v==='24x7' ? 240 : 0;
+  SUPORTE_PRECO['current'] = rate * horas;
+  schedCalc();
+}
+
 function schedCalc(){
   clearTimeout(debounceTimer);
   debounceTimer=setTimeout(doCalc, 350);
@@ -473,7 +530,8 @@ function doCalc(){
     var _ips=+(document.getElementById('ips')||{value:1}).value||0;
     var _banda=+(document.getElementById('banda')||{value:0}).value||0;
     var _netCost=(_ips*45)+(_banda*3);
-    var _grandTotal=data.total+_netCost;
+    var _supCost=SUPORTE_PRECO['current']||0;
+    var _grandTotal=data.total+_netCost+_supCost;
     document.getElementById('totalVal').textContent=fmtBRL(_grandTotal);
     // Net line
     var netLine=document.getElementById('netLine');
@@ -507,6 +565,18 @@ function doCalc(){
     }
     document.getElementById('drBadge').classList.toggle('show', togs.dr);
     document.getElementById('savings').classList.remove('show');
+    // Suporte line
+    var supLine=document.getElementById('supLine');
+    if(supLine){
+      if(_supCost>0){
+        supLine.style.visibility='visible'; supLine.style.height='auto'; supLine.style.marginBottom='6px';
+        var _supHrs=suporte==='8x5'?(document.getElementById('sup-hrs-85')||{value:0}).value:suporte==='24x7'?(document.getElementById('sup-hrs-247')||{value:0}).value:0;
+        document.getElementById('supLineLabel').textContent='Suporte '+suporte+' ('+_supHrs+'h)';
+        document.getElementById('supLineVal').textContent=fmtBRL(_supCost);
+      } else {
+        supLine.style.visibility='hidden'; supLine.style.height='0'; supLine.style.marginBottom='0';
+      }
+    }
   })
   .catch(function(){
     document.getElementById('breakdown').innerHTML='<div class="vm-empty" style="color:#c0392b">Erro ao calcular. Tente novamente.</div>';
@@ -779,7 +849,8 @@ function sendProposta(){
     obs:'',
     servicos:togs,
     vms:vmsPayload,
-    estimativa:_lastCalcData?_lastCalcData.total:0
+    estimativa:_lastCalcData?_lastCalcData.total:0,
+    suporte:suporte
   };
 
   fetch('https://io.alliant.com.br/form/enviar.php',{
