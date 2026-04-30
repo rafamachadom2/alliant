@@ -110,6 +110,38 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5
 /* flavor select colors */
 select.os-win{color:var(--win)!important;font-weight:600}
 select.os-lin{color:var(--lin)!important;font-weight:600}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(26,22,18,0.5);z-index:100;align-items:center;justify-content:center;padding:16px}
+.modal-overlay.open{display:flex}
+.modal{background:#f5f0e8;border-radius:16px;padding:32px;width:100%;max-width:520px;position:relative;max-height:90vh;overflow-y:auto}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:var(--ink3);font-size:22px;line-height:1;padding:4px 8px;border-radius:6px;transition:all .15s}
+.modal-close:hover{background:var(--surface2);color:var(--ink)}
+.modal h2{font-family:'Cabinet Grotesk',sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:4px}
+.modal .modal-sub{font-size:13px;color:var(--ink2);margin-bottom:24px;line-height:1.5}
+.modal-summary{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:20px}
+.modal-summary-title{font-size:9px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.modal-summary-rows{display:flex;flex-direction:column;gap:4px}
+.modal-summary-row{display:flex;justify-content:space-between;font-size:12px}
+.modal-summary-row span{color:var(--ink2)}
+.modal-summary-row b{color:var(--ink);font-family:'DM Mono',monospace}
+.modal-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:8px;margin-top:8px;border-top:1px solid var(--border)}
+.modal-total span{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3)}
+.modal-total b{font-family:'Cabinet Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--ink)}
+.mfield{margin-bottom:14px}
+.mfield label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:5px}
+.mfield input,.mfield select{width:100%;background:#fff;border:1px solid var(--border2);border-radius:8px;padding:10px 12px;font-size:14px;font-family:'Raleway',sans-serif;color:var(--ink);outline:none;transition:border-color .15s}
+.mfield input:focus,.mfield select:focus{border-color:var(--blue)}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-send{width:100%;background:var(--ink);color:var(--bg);border:none;border-radius:10px;padding:14px;font-family:'Cabinet Grotesk',sans-serif;font-weight:800;font-size:16px;letter-spacing:-.3px;cursor:pointer;transition:all .2s;margin-top:4px}
+.modal-send:hover{background:var(--blue)}
+.modal-send:disabled{opacity:.5;cursor:not-allowed}
+.modal-status{font-size:13px;font-family:'Raleway',sans-serif;font-weight:600;text-align:center;margin-top:12px;min-height:20px}
+.modal-success{text-align:center;padding:20px 0}
+.modal-success .check{width:56px;height:56px;background:rgba(39,174,96,0.12);border:2px solid rgba(39,174,96,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:24px}
+.modal-success h3{font-family:'Cabinet Grotesk',sans-serif;font-size:20px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
+.modal-success p{font-size:13px;color:var(--ink2);line-height:1.6}
+
 </style>
 </head>
 <body>
@@ -374,6 +406,7 @@ function doCalc(){
       bd.appendChild(div);
     });
 
+    _lastCalcData=data;
     document.getElementById('totalVal').textContent=fmtBRL(data.total);
     document.getElementById('drBadge').classList.toggle('show', togs.dr);
 
@@ -391,14 +424,7 @@ addRow({nm:'Banco de dados',os:'Linux',qty:1,flavor:'mo.medium'});
 addRow({nm:'ERP Windows',os:'Windows Server 2022',qty:1,flavor:'win.large'});
 
 
-function goToProposta(){
-  var state={
-    vms: rows.map(function(r){return r.data;}),
-    togs: togs
-  };
-  try{ sessionStorage.setItem('alliant_calc', JSON.stringify(state)); }catch(e){}
-  window.location.href='proposta.html';
-}
+function goToProposta(){ openModal(); }
 
 // ── ABBREVIATION
 function abbrev(name){
@@ -574,7 +600,174 @@ function abbrev(name){
   document.addEventListener('DOMContentLoaded',function(){setTimeout(setup,120);});
 })();
 
+
+var _lastCalcData = null;
+
+// Override doCalc to also save data for modal
+var _origDoCalc = doCalc;
+doCalc = function(){
+  _origDoCalc();
+};
+
+function openModal(){
+  // Update modal summary from last calc
+  var bd = document.getElementById('modalSummaryRows');
+  var tot = document.getElementById('modalTotal');
+  bd.innerHTML='';
+  if(_lastCalcData && _lastCalcData.items){
+    _lastCalcData.items.forEach(function(item,i){
+      var r=rows[i];
+      var nm=r&&r.data.nm?r.data.nm:item.flavor;
+      var div=document.createElement('div'); div.className='modal-summary-row';
+      div.innerHTML='<span>'+nm+' ('+item.flavor+' ×'+item.qty+')</span><b>'+fmtBRL(item.total)+'</b>';
+      bd.appendChild(div);
+    });
+    tot.textContent=fmtBRL(_lastCalcData.total);
+  } else {
+    bd.innerHTML='<div style="font-size:12px;color:var(--ink3)">Configure as VMs para ver o resumo.</div>';
+  }
+  document.getElementById('modalForm').style.display='block';
+  document.getElementById('modalSuccess').style.display='none';
+  document.getElementById('m-status').textContent='';
+  document.getElementById('m-sendBtn').disabled=false;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function maskCNPJ2(el){
+  var d=el.value.replace(/[^0-9]/g,'').substring(0,14),r='';
+  if(d.length>0)r=d.substring(0,2);if(d.length>2)r+='.'+d.substring(2,5);
+  if(d.length>5)r+='.'+d.substring(5,8);if(d.length>8)r+='/'+d.substring(8,12);
+  if(d.length>12)r+='-'+d.substring(12,14);el.value=r;
+}
+
+function maskPhone2(el){
+  var v=el.value.replace(/[^0-9]/g,'').substring(0,11),r='';
+  if(v.length>0)r='('+v.substring(0,2);if(v.length>2)r+=') ';
+  if(v.length>2&&v.length<=10)r+=v.substring(2,6)+(v.length>6?'-'+v.substring(6,10):'');
+  else if(v.length>2)r+=v.substring(2,7)+(v.length>7?'-'+v.substring(7,11):'');
+  el.value=r;
+}
+
+function sendProposta(){
+  var emp=document.getElementById('m-empresa').value.trim();
+  var eml=document.getElementById('m-email').value.trim();
+  var nom=document.getElementById('m-nome').value.trim();
+  if(!emp||!eml||!nom){
+    document.getElementById('m-status').style.color='#c0392b';
+    document.getElementById('m-status').textContent='Preencha razão social, responsável e e-mail.';
+    return;
+  }
+  var btn=document.getElementById('m-sendBtn');
+  var status=document.getElementById('m-status');
+  btn.disabled=true;
+  status.style.color='var(--ink2)';
+  status.textContent='Enviando...';
+
+  var vmsPayload=rows.map(function(r){return r.data;});
+  var payload={
+    empresa:emp,
+    cnpj:document.getElementById('m-cnpj').value,
+    nome:nom,
+    cargo:document.getElementById('m-cargo').value,
+    email:eml,
+    whatsapp:document.getElementById('m-whatsapp').value,
+    segmento:document.getElementById('m-segmento').value,
+    prazo:document.getElementById('m-prazo').value,
+    ips:'1', banda:'100', obs:'',
+    servicos:togs,
+    vms:vmsPayload,
+    estimativa:_lastCalcData?_lastCalcData.total:0
+  };
+
+  fetch('https://io.alliant.com.br/form/enviar.php',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d.ok){
+      document.getElementById('modalForm').style.display='none';
+      document.getElementById('modalSuccess').style.display='block';
+    } else {
+      status.style.color='#c0392b';
+      status.textContent='Erro: '+(d.error||'Falha no envio');
+      btn.disabled=false;
+    }
+  })
+  .catch(function(){
+    status.style.color='#c0392b';
+    status.textContent='Erro de conexão. Tente novamente.';
+    btn.disabled=false;
+  });
+}
+
 </script>
+
+
+<!-- MODAL PROPOSTA -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div id="modalForm">
+      <h2>Solicitar proposta.</h2>
+      <p class="modal-sub">Nossa equipe retorna em até 24h com uma proposta detalhada para o seu ambiente.</p>
+
+      <div class="modal-summary" id="modalSummary">
+        <div class="modal-summary-title">Resumo do ambiente</div>
+        <div class="modal-summary-rows" id="modalSummaryRows"></div>
+        <div class="modal-total">
+          <span>Estimativa mensal</span>
+          <b id="modalTotal">R$ —</b>
+        </div>
+      </div>
+
+      <div class="mrow">
+        <div class="mfield"><label>Razão social *</label><input type="text" id="m-empresa" placeholder="Acme Tecnologia Ltda"></div>
+        <div class="mfield"><label>CNPJ</label><input type="text" id="m-cnpj" placeholder="00.000.000/0000-00" maxlength="18" oninput="maskCNPJ2(this)"></div>
+      </div>
+      <div class="mrow">
+        <div class="mfield"><label>Responsável *</label><input type="text" id="m-nome" placeholder="João Silva"></div>
+        <div class="mfield"><label>Cargo</label><input type="text" id="m-cargo" placeholder="CTO, Gerente de TI..."></div>
+      </div>
+      <div class="mrow">
+        <div class="mfield"><label>E-mail *</label><input type="email" id="m-email" placeholder="joao@empresa.com.br"></div>
+        <div class="mfield"><label>WhatsApp</label><input type="tel" id="m-whatsapp" placeholder="(11) 99999-9999" maxlength="15" oninput="maskPhone2(this)"></div>
+      </div>
+      <div class="mrow">
+        <div class="mfield"><label>Segmento</label>
+          <select id="m-segmento">
+            <option value="">Selecione...</option>
+            <option>Financeiro / Fintech</option><option>Saúde</option><option>Indústria</option>
+            <option>Varejo / E-commerce</option><option>Tecnologia / SaaS</option>
+            <option>Logística</option><option>Educação</option><option>Governo / Público</option><option>Outro</option>
+          </select>
+        </div>
+        <div class="mfield"><label>Prazo desejado</label>
+          <select id="m-prazo">
+            <option value="">Selecione...</option>
+            <option>Imediato (Q2 2027)</option><option>30 dias após lançamento</option>
+            <option>60 dias após lançamento</option><option>Apenas cotação</option>
+          </select>
+        </div>
+      </div>
+      <button class="modal-send" id="m-sendBtn" onclick="sendProposta()">Enviar solicitação →</button>
+      <div class="modal-status" id="m-status"></div>
+    </div>
+    <div class="modal-success" id="modalSuccess" style="display:none">
+      <div class="check">✓</div>
+      <h3>Proposta recebida!</h3>
+      <p>Nossa equipe vai analisar seu ambiente e<br>entrar em contato em até <strong>24 horas</strong>.<br><br>
+      Verifique seu e-mail — enviamos uma cópia<br>do ambiente solicitado.</p>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
