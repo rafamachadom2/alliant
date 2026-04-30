@@ -388,7 +388,37 @@ function makeFlavorSelect(val){
   });
   sel.style.width='100%';
   updateSelColor(sel);
-  sel.addEventListener('change',function(){ updateSelColor(this); upd(this._id,'flavor',this.value); });
+  sel.addEventListener('change',function(){
+    updateSelColor(this);
+    var flavor=this.value;
+    var id=this._id;
+    var isWinFlavor=flavor.indexOf('win.')===0;
+    // Lock OS select to match flavor family
+    var row=rows.find(function(r){return r.id===id;});
+    if(row){
+      var osSel=document.querySelector('select[data-os-id="'+id+'"]');
+      if(isWinFlavor){
+        // Force Windows OS
+        if(osSel){
+          // Set to first Windows option
+          for(var i=0;i<osSel.options.length;i++){
+            if(osSel.options[i].value.indexOf('Windows')===0){
+              osSel.value=osSel.options[i].value;
+              break;
+            }
+          }
+        }
+        upd(id,'os','Windows Server 2025');
+      } else {
+        // If OS was Windows and flavor is now Linux, reset to Linux
+        if(row.data.os&&row.data.os.indexOf('Windows')===0){
+          if(osSel) osSel.value='Linux';
+          upd(id,'os','Linux');
+        }
+      }
+    }
+    upd(id,'flavor',flavor);
+  });
   return sel;
 }
 
@@ -408,14 +438,21 @@ function renderRow(r,idx){
   tdN.appendChild(iN); tr.appendChild(tdN);
   var tdO=document.createElement('td'); tdO.className='col-os';
   var selOS=document.createElement('select');
+  selOS.setAttribute('data-os-id', id);
+  var isWinFlavor=(d.flavor||'').indexOf('win.')===0;
+  if(isWinFlavor&&(!d.os||d.os==='Linux')) d.os='Windows Server 2025';
   ['Linux','Windows Server 2025','Windows Server 2022','Windows Server 2019'].forEach(function(o){
     var op=document.createElement('option'); op.value=o; op.textContent=o;
-    if((d.os||'Linux')===o)op.selected=true;
+    if(isWinFlavor&&o==='Linux'){ op.disabled=true; op.style.color='#bbb'; }
+    if((d.os||'Linux')===o) op.selected=true;
     selOS.appendChild(op);
   });
   selOS.style.color=d.os&&d.os.indexOf('Windows')===0?'#0078d4':'#d35400';
   selOS.style.fontWeight='600';
-  selOS.addEventListener('change',(function(i){return function(){upd(i,'os',this.value);};})(id));
+  selOS.addEventListener('change',(function(i){return function(){
+    upd(i,'os',this.value);
+    this.style.color=this.value.indexOf('Windows')===0?'#0078d4':'#d35400';
+  };})(id));
   tdO.appendChild(selOS); tr.appendChild(tdO);
   var tdQ=document.createElement('td'); tdQ.className='col-num';
   var iQ=document.createElement('input'); iQ.type='number'; iQ.min=1; iQ.max=999; iQ.value=d.qty||1; iQ.style.width='100%'; iQ.style.minWidth='44px';
@@ -1009,10 +1046,16 @@ function sendSpecial(){
         <div class="mfield"><label>Prazo desejado</label>
           <select id="m-prazo">
             <option value="">Selecione...</option>
-            <option>Imediato (Q2 2027)</option><option>30 dias após lançamento</option>
-            <option>60 dias após lançamento</option><option>Apenas cotação</option>
+            <option value="Q2 2027">Imediato — Q2 2027</option>
+            <option value="30d">30 dias após lançamento</option>
+            <option value="60d">60 dias após lançamento</option>
+            <option value="cotacao">Apenas cotação</option>
           </select>
         </div>
+      </div>
+      <div class="mfield" style="background:rgba(29,106,255,0.05);border:1px solid rgba(29,106,255,0.15);border-radius:8px;padding:10px 14px">
+        <div style="font-size:12px;color:#1d6aff;font-weight:600">🚀 Lançamento previsto para Q2 2027</div>
+        <div style="font-size:11px;color:var(--ink2);margin-top:2px">Clientes que solicitarem proposta agora terão prioridade na fila de onboarding e condições especiais de contrato.</div>
       </div>
       <button class="modal-send" id="m-sendBtn" onclick="sendProposta()">Enviar solicitação →</button>
       <div class="modal-status" id="m-status"></div>
