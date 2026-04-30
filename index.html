@@ -106,7 +106,11 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
       <span class="cta-note">Sem big tech. Sem lock-in. Sem desculpas. &mdash; Lançamento Q2 2027</span>
     </div>
   </div>
-  <div class="hero-right">
+  <div class="hero-right" style="position:relative">
+    <div id="lgpd-overlay" style="display:none;position:absolute;inset:0;background:rgba(245,240,232,0.92);backdrop-filter:blur(4px);border-radius:12px;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:2;text-align:center;padding:24px">
+      <div style="font-size:13px;color:#6b5f52;font-family:'DM Mono',monospace;line-height:1.6">[ medição desativada ]<br><span style="font-size:11px">cookies opcionais recusados</span></div>
+      <button onclick="lgpdReativar()" style="background:#1a1612;color:#f5f0e8;border:none;padding:8px 18px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Raleway',sans-serif;transition:background .2s" onmouseover="this.style.background='#1d6aff'" onmouseout="this.style.background='#1a1612'">Reativar medição</button>
+    </div>
     <canvas id="asciiCanvas" width="2400" height="1100" aria-hidden="true"></canvas>
   </div>
 </section>
@@ -158,6 +162,13 @@ var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInte
 document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.observe(el);});
 
 (function(){
+  // LGPD: só inicia speedtest se analytics aceito
+  if(localStorage.getItem('lgpd_analytics')=='0'){
+    window._lgpdStop=true;
+    var ol=document.getElementById('lgpd-overlay');
+    if(ol) ol.style.display='flex';
+    return;
+  }
   var canvas=document.getElementById("asciiCanvas");
   if(!canvas)return;
   var ctx=canvas.getContext("2d");
@@ -346,10 +357,61 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
 </script>
 
 <!-- LGPD Banner -->
-<div id="lgpd" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(245,240,232,0.97);border-top:1px solid rgba(107,95,82,0.25);padding:18px 5%;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;backdrop-filter:blur(12px)">
-  <p style="margin:0;font-size:13px;color:rgba(26,22,18,0.75);font-family:'DM Sans',sans-serif;max-width:700px;line-height:1.6">Este site coleta dados técnicos de conexão (IP, latência, velocidade) exclusivamente para fins de demonstração da infraestrutura Alliant. Nenhum dado é armazenado ou compartilhado com terceiros. Em conformidade com a <strong style="color:rgba(26,22,18,0.95)">LGPD (Lei 13.709/2018)</strong>.</p>
-  <button onclick="document.getElementById('lgpd').style.display='none';localStorage.setItem('lgpd_ok','1')" style="flex-shrink:0;background:#1d6aff;color:#fff;border:none;padding:10px 22px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s" onmouseover="this.style.background='#3d8bff'" onmouseout="this.style.background='#1d6aff'">Entendi</button>
+<div id="lgpd" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(245,240,232,0.98);border-top:1px solid rgba(107,95,82,0.2);backdrop-filter:blur(16px);box-shadow:0 -4px 24px rgba(26,22,18,0.08)">
+  <div style="max-width:1100px;margin:0 auto;padding:20px 5%">
+    <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+      <div style="flex:1;min-width:280px">
+        <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:#1a1612;font-family:'Raleway',sans-serif">Privacidade e Cookies</p>
+        <p style="margin:0;font-size:12px;color:#6b5f52;font-family:'Raleway',sans-serif;line-height:1.65">
+          Utilizamos cookies técnicos essenciais para o funcionamento do site e, com seu consentimento, coletamos dados de conexão (IP, latência, velocidade) para demonstração da infraestrutura Alliant. Nenhum dado é vendido ou compartilhado com terceiros. Conforme a <strong style="color:#1a1612">LGPD (Lei 13.709/2018)</strong>, você tem direito de acessar, corrigir ou excluir seus dados a qualquer momento.
+          <a href="privacidade.html" style="color:#1d6aff;text-decoration:none;font-weight:600"> Política de Privacidade →</a>
+        </p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;min-width:200px">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#6b5f52;font-family:'Raleway',sans-serif">
+          <span style="width:16px;height:16px;border-radius:3px;background:rgba(39,174,96,0.15);border:1px solid rgba(39,174,96,0.4);display:flex;align-items:center;justify-content:center;font-size:10px;color:#27ae60;flex-shrink:0">✓</span>
+          Cookies essenciais (sempre ativos)
+        </div>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#6b5f52;font-family:'Raleway',sans-serif;cursor:pointer">
+          <input type="checkbox" id="lgpd-analytics" checked style="width:16px;height:16px;accent-color:#1d6aff;cursor:pointer">
+          Dados técnicos de conexão (speedtest)
+        </label>
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <button onclick="lgpdRecusar()" style="flex:1;background:none;color:#6b5f52;border:1px solid rgba(107,95,82,0.3);padding:9px 16px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Raleway',sans-serif;transition:all .2s" onmouseover="this.style.borderColor='#1a1612';this.style.color='#1a1612'" onmouseout="this.style.borderColor='rgba(107,95,82,0.3)';this.style.color='#6b5f52'">Recusar opcionais</button>
+          <button onclick="lgpdAceitar()" style="flex:1;background:#1a1612;color:#f5f0e8;border:none;padding:9px 16px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Raleway',sans-serif;transition:background .2s" onmouseover="this.style.background='#1d6aff'" onmouseout="this.style.background='#1a1612'">Aceitar todos</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<script>
+(function(){
+  var c=localStorage.getItem('lgpd_choice');
+  if(c) document.getElementById('lgpd').style.display='none';
+})();
+function lgpdAceitar(){
+  localStorage.setItem('lgpd_choice','all');
+  localStorage.setItem('lgpd_analytics','1');
+  document.getElementById('lgpd').style.display='none';
+}
+function lgpdRecusar(){
+  localStorage.setItem('lgpd_choice','essential');
+  localStorage.setItem('lgpd_analytics','0');
+  document.getElementById('lgpd').style.display='none';
+  window._lgpdStop=true;
+  var ol=document.getElementById('lgpd-overlay');
+  if(ol) ol.style.display='flex';
+}
+function lgpdReativar(){
+  localStorage.setItem('lgpd_choice','all');
+  localStorage.setItem('lgpd_analytics','1');
+  var ol=document.getElementById('lgpd-overlay');
+  if(ol) ol.style.display='none';
+  window._lgpdStop=false;
+  // Reload para reiniciar o canvas limpo
+  location.reload();
+}
+</script>
 <script>if(localStorage.getItem("lgpd_ok"))document.getElementById("lgpd").style.display="none";</script>
 </body>
 </html>
