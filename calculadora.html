@@ -119,6 +119,17 @@ select.os-win{color:var(--win)!important;font-weight:600}
 select.os-lin{color:var(--lin)!important;font-weight:600}
 
 
+
+.special-card{border:1.5px dashed var(--border2)!important;background:var(--surface)!important;animation:specialPulse 2.8s ease-in-out infinite}
+@keyframes specialPulse{
+  0%,100%{border-color:rgba(107,95,82,0.25)}
+  50%{border-color:rgba(29,106,255,0.55);background:rgba(29,106,255,0.04)!important}
+}
+.special-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;animation:titleBlink 2.8s ease-in-out infinite}
+@keyframes titleBlink{0%,100%{color:var(--ink)}50%{color:var(--blue)}}
+.special-btn{white-space:nowrap;background:none;border:1px solid var(--border2);border-radius:8px;padding:9px 16px;font-size:12px;font-weight:700;font-family:'Raleway',sans-serif;color:var(--ink2);cursor:pointer;transition:all .2s;flex-shrink:0}
+.special-btn:hover{border-color:var(--blue);color:var(--blue);background:rgba(29,106,255,0.05)}
+
 .cta-btn-special{display:block;width:100%;background:none;color:var(--ink2);border:1px dashed var(--border2);border-radius:9px;padding:11px;font-family:'Raleway',sans-serif;font-weight:600;font-size:13px;cursor:pointer;transition:all .2s;text-align:center;margin-top:8px}
 .cta-btn-special:hover{border-color:var(--blue);color:var(--blue)}
 .special-sub{font-size:11px;color:var(--ink3);margin-top:2px;font-weight:400}
@@ -264,13 +275,13 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
 
 
     <!-- PROJETO ESPECIAL -->
-    <div class="card" style="border:1px dashed var(--border2);background:var(--surface)">
+    <div class="card special-card">
       <div style="display:flex;align-items:flex-start;gap:14px">
         <div style="flex:1">
-          <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px">Meu projeto não se encaixa aqui</div>
+          <div class="special-title">Meu projeto não se encaixa aqui</div>
           <div style="font-size:12px;color:var(--ink2);line-height:1.6">Requisitos específicos, volumes fora do padrão ou integrações especiais? Nossa equipe monta uma proposta sob medida.</div>
         </div>
-        <button onclick="openSpecial()" style="white-space:nowrap;background:none;border:1px solid var(--border2);border-radius:8px;padding:9px 16px;font-size:12px;font-weight:700;font-family:'Raleway',sans-serif;color:var(--ink2);cursor:pointer;transition:all .2s;flex-shrink:0" onmouseover="this.style.borderColor='var(--blue)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--ink2)'">Projeto especial →</button>
+        <button onclick="openSpecial()" class="special-btn">Projeto especial →</button>
       </div>
     </div>
 
@@ -381,7 +392,7 @@ function renderRow(r,idx){
   selOS.addEventListener('change',(function(i){return function(){upd(i,'os',this.value);};})(id));
   tdO.appendChild(selOS); tr.appendChild(tdO);
   var tdQ=document.createElement('td'); tdQ.className='col-num';
-  var iQ=document.createElement('input'); iQ.type='number'; iQ.min=1; iQ.max=999; iQ.value=d.qty||1;
+  var iQ=document.createElement('input'); iQ.type='number'; iQ.min=1; iQ.max=999; iQ.value=d.qty||1; iQ.style.width='100%'; iQ.style.minWidth='44px';
   iQ.addEventListener('change',(function(i){return function(){upd(i,'qty',+this.value);};})(id));
   tdQ.appendChild(iQ); tr.appendChild(tdQ);
   var tdF=document.createElement('td');
