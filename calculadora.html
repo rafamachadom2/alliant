@@ -238,6 +238,24 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
       </div>
     </div>
 
+    <!-- REDE -->
+    <div class="card">
+      <div class="card-title">Rede</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div>
+          <label style="display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:6px">IPs públicos dedicados</label>
+          <input type="number" id="ips" value="1" min="0" max="32" oninput="schedCalc()"
+            style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);outline:none">
+          <div style="font-size:11px;color:var(--ink3);margin-top:4px">R$ 45,00 por IP / mês</div>
+        </div>
+        <div>
+          <label style="display:block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif;margin-bottom:6px">Banda garantida (Mbps)</label>
+          <input type="number" id="banda" value="100" min="0" step="10" oninput="schedCalc()"
+            style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:'DM Mono',monospace;font-size:14px;color:var(--ink);outline:none">
+          <div style="font-size:11px;color:var(--ink3);margin-top:4px">R$ 3,00 por Mbps / mês</div>
+        </div>
+      </div>
+    </div>
 
   </div><!-- end .left -->
 
@@ -254,7 +272,11 @@ select.os-lin{color:var(--lin)!important;font-weight:600}
       </div>
 
       <div class="divider"></div>
-      <div id="netLine" style="display:none;justify-content:space-between;margin-bottom:10px;font-size:12px">
+      <div id="vmLine" style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden">
+        <span style="color:var(--ink2)">VMs + serviços</span>
+        <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="vmLineVal"></span>
+      </div>
+      <div id="netLine"  style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;visibility:hidden;height:0;overflow:hidden;transition:all .2s">
         <span style="color:var(--ink2)" id="netLineLabel"></span>
         <span style="font-family:'DM Mono',monospace;color:var(--ink)" id="netLineVal"></span>
       </div>
@@ -431,11 +453,29 @@ function doCalc(){
     if(_ips>0) netParts.push(_ips+' IP'+(+_ips>1?'s':''));
     if(_banda>0) netParts.push(_banda+'Mbps');
     if(_netCost>0){
-      netLine.style.display='flex';
+      netLine.style.visibility='visible';
+      netLine.style.height='auto';
+      netLine.style.marginBottom='6px';
       document.getElementById('netLineLabel').textContent=netParts.join(' + ');
       document.getElementById('netLineVal').textContent=fmtBRL(_netCost);
     } else {
-      netLine.style.display='none';
+      netLine.style.visibility='hidden';
+      netLine.style.height='0';
+      netLine.style.marginBottom='0';
+    }
+    // Also show VMs subtotal line if network cost exists
+    var vmLine=document.getElementById('vmLine');
+    if(vmLine){
+      if(_netCost>0){
+        vmLine.style.visibility='visible';
+        vmLine.style.height='auto';
+        vmLine.style.marginBottom='6px';
+        document.getElementById('vmLineVal').textContent=fmtBRL(data.total);
+      } else {
+        vmLine.style.visibility='hidden';
+        vmLine.style.height='0';
+        vmLine.style.marginBottom='0';
+      }
     }
     document.getElementById('drBadge').classList.toggle('show', togs.dr);
     document.getElementById('savings').classList.remove('show');
