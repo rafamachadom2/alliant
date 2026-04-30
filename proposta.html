@@ -424,9 +424,37 @@ function sendForm(){try{
   .catch(function(){status.style.color='#c0392b';status.textContent='Erro de conexao.';btn.disabled=false;btn.style.opacity='1';});
 }catch(e2){alert('Erro JS: '+e2.message);console.error(e2);}}
 if(!window._vmInit){window._vmInit=true;
-  addRow({nm:'Servidor de aplicacao',os:'Linux',qty:2,flavor:'gp.large',vcpu:4,ram:8,disco:100});
-  addRow({nm:'Banco de dados',os:'Linux',qty:1,flavor:'mo.small',vcpu:2,ram:16,disco:500});
-  addRow({nm:'ERP Windows',os:'Windows Server 2022',qty:1,flavor:'win.large',vcpu:8,ram:16,disco:200});
+  // Try to restore from calculadora
+  var _restored=false;
+  try{
+    var _saved=sessionStorage.getItem('alliant_calc');
+    if(_saved){
+      var _state=JSON.parse(_saved);
+      sessionStorage.removeItem('alliant_calc');
+      // Restore togs
+      if(_state.togs){
+        Object.keys(_state.togs).forEach(function(k){
+          if(typeof togs[k]!=='undefined') setTog(k,_state.togs[k]);
+        });
+      }
+      // Restore VMs
+      if(_state.vms&&_state.vms.length>0){
+        _state.vms.forEach(function(d){ addRow(d); });
+        _restored=true;
+        // Show a subtle notice
+        var notice=document.createElement('div');
+        notice.style.cssText='background:rgba(29,106,255,0.08);border:1px solid rgba(29,106,255,0.2);border-radius:8px;padding:10px 16px;font-size:12px;color:#1d6aff;font-family:Raleway,sans-serif;margin-bottom:16px;display:flex;align-items:center;gap:8px';
+        notice.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Ambiente importado da calculadora. Complete seus dados abaixo.';
+        var firstCard=document.querySelector('.card');
+        if(firstCard) firstCard.parentNode.insertBefore(notice, firstCard);
+      }
+    }
+  }catch(e){}
+  if(!_restored){
+    addRow({nm:'Servidor de aplicacao',os:'Linux',qty:2,flavor:'gp.large',vcpu:4,ram:8,disco:100});
+    addRow({nm:'Banco de dados',os:'Linux',qty:1,flavor:'mo.small',vcpu:2,ram:16,disco:500});
+    addRow({nm:'ERP Windows',os:'Windows Server 2022',qty:1,flavor:'win.large',vcpu:8,ram:16,disco:200});
+  }
 }
 
 function schedRedraw(){ /* canvas reads live */ }
