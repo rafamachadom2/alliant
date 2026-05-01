@@ -271,14 +271,26 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5
       <!-- Rede -->
       <div class="card">
         <div class="card-title">Rede</div>
-        <div class="rede-grid">
-          <div class="rede-field">
-            <label>IPs públicos dedicados</label>
-            <input type="number" id="ips" class="rede-input" value="1" min="0" max="32" oninput="schedCalc()">
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+              <label style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif">IPs públicos dedicados</label>
+              <span style="font-family:'DM Mono',monospace;font-size:14px;font-weight:600;color:var(--ink)" id="ips-val">0</span>
+            </div>
+            <input type="range" id="ips" min="0" max="16" step="1" value="0"
+              oninput="document.getElementById('ips-val').textContent=this.value;schedCalc()"
+              style="width:100%;accent-color:var(--blue);cursor:pointer">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace;margin-top:4px"><span>0</span><span>16</span></div>
           </div>
-          <div class="rede-field">
-            <label>Banda garantida (Mbps)</label>
-            <input type="number" id="banda" class="rede-input" value="100" min="0" step="10" oninput="schedCalc()">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+              <label style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif">Banda garantida (Mbps)</label>
+              <span style="font-family:'DM Mono',monospace;font-size:14px;font-weight:600;color:var(--ink)" id="banda-val">0</span>
+            </div>
+            <input type="range" id="banda" min="0" max="1000" step="50" value="0"
+              oninput="document.getElementById('banda-val').textContent=this.value;schedCalc()"
+              style="width:100%;accent-color:var(--blue);cursor:pointer">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace;margin-top:4px"><span>0</span><span>1000 Mbps</span></div>
           </div>
         </div>
       </div>
@@ -310,10 +322,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5
 
         <div class="divider"></div>
 
-        <div class="sub-line" id="vmLine">
-          <span>VMs + serviços</span>
-          <b id="vmLineVal"></b>
-        </div>
         <div class="sub-line" id="netLine">
           <span id="netLineLabel"></span>
           <b id="netLineVal"></b>
@@ -321,6 +329,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 5
         <div class="sub-line" id="supLine">
           <span id="supLineLabel"></span>
           <b id="supLineVal"></b>
+        </div>
+        <div class="sub-line" id="vmLine">
+          <span style="color:var(--ink3);font-style:italic">subtotal VMs</span>
+          <b id="vmLineVal"></b>
         </div>
 
         <div class="total-row">
