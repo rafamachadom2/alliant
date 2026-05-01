@@ -676,10 +676,10 @@ function doCalc(){
       bd.appendChild(div);
     });
 
-    // Costs
-    var netCost=(ips*45)+(banda*3);
+    // Costs — data.total already includes IPs+banda from calcular.php
+    var netCost=data.net_cost||0;
     var supCost=getSupCost();
-    var grandTotal=data.total+netCost+supCost;
+    var grandTotal=data.total+supCost;
 
     document.getElementById('totalVal').textContent=fmtBRL(grandTotal);
     document.getElementById('drBadge').classList.toggle('show', togs.dr);
@@ -729,7 +729,7 @@ function openModal(){
   if(_lastCalcData&&_lastCalcData.items){
     var ips=+(document.getElementById('ips').value)||0;
     var banda=+(document.getElementById('banda').value)||0;
-    var netCost=(ips*45)+(banda*3);
+    var netCost=_lastCalcData.net_cost||0;
     var supCost=getSupCost();
     _lastCalcData.items.forEach(function(item,i){
       var nm=rows[i]&&rows[i].data.nm?rows[i].data.nm:item.flavor;
@@ -737,7 +737,7 @@ function openModal(){
       div.innerHTML='<span>'+nm+' ('+item.flavor+' ×'+item.qty+')</span><b>'+fmtBRL(item.total)+'</b>';
       bd.appendChild(div);
     });
-    document.getElementById('modalTotal').textContent=fmtBRL(_lastCalcData.total+netCost+supCost);
+    document.getElementById('modalTotal').textContent=fmtBRL(_lastCalcData.total+supCost);
   } else {
     bd.innerHTML='<div style="font-size:12px;color:var(--ink3)">Configure as VMs para ver o resumo.</div>';
   }
