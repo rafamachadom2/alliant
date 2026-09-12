@@ -20,6 +20,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 .nav-contact{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--steel);font-size:14px;transition:color .2s}
 .nav-contact:hover{color:var(--white)}
 .nav-contact svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
+.nav-links{display:flex;gap:26px;align-items:center;flex-wrap:wrap}.nav-links a{font-size:14px;color:var(--steel);text-decoration:none;transition:color .2s}.nav-links a:hover{color:var(--white)}.nav-links a.cta{background:#1a1612;color:#f5f0e8;padding:9px 18px;border-radius:8px;font-weight:600}.nav-links a.cta:hover{background:var(--blue);color:#fff}
 .hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:60px 6% 80px;}
 .hero-left{}
 .hero-badge{display:inline-block;border-left:2px solid var(--cyan);padding-left:12px;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:500;color:var(--cyan);letter-spacing:1px;text-transform:uppercase;margin-bottom:28px}
@@ -83,10 +84,12 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
  <path d="M7176.08 63.46c-108.03,-67.26 -578.72,-97.84 -702.18,-6.11 -100.31,79.5 -69.45,452.53 -15.43,599.28 208.34,55.03 571,61.16 733.03,-12.23 69.45,-67.27 69.45,-354.68 30.86,-483.09 -23.15,-85.61 -7.71,-55.03 -46.29,-97.85z"/>
 </svg>
   </a>
-  <a href="mailto:alliant@alliant.com.br" class="nav-contact">
-    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-    alliant@alliant.com.br
-  </a>
+  <div class="nav-links">
+    <a href="planos.html">Planos</a>
+    <a href="calculadora.html">Sob medida</a>
+    <a href="mailto:alliant@alliant.com.br">Contato</a>
+    <a href="planos.html" class="cta">Contratar</a>
+  </div>
 </nav>
 <section class="hero">
   <div class="hero-left">
@@ -95,8 +98,8 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
     <p class="hero-tagline">Nuvem privada dedicada. Sem dividir com ninguém.</p>
     <p class="hero-sub">Estamos construindo a primeira nuvem privada de verdade do Brasil. Dados que nunca saem do país. Suporte humano real. Performance sem desculpas. Chega de depender de big tech estrangeira.</p>
     <div class="hero-actions">
-      <a href="calculadora.html" class="btn-p">
-        Quero minha nuvem exclusiva
+      <a href="planos.html" class="btn-p">
+        Ver planos e contratar online
         <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
       </a>
       <a href="https://wa.me/5508000200030" class="btn-w">

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contratar — Alliant Cloud</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+<style>
+:root{--bg:#f5f0e8;--bg2:#ede8df;--card:#fbf9f5;--blue:#1d6aff;--blue-bright:#3d8bff;--steel:#6b5f52;--ink:#1a1612;--border:rgba(107,95,82,0.16);--border-bright:rgba(26,106,255,0.25);--green:rgb(20,140,70)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(107,95,82,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(107,95,82,0.07) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%);pointer-events:none;z-index:0}
+.page{position:relative;z-index:1;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto}
+nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6%;gap:20px;flex-wrap:wrap}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-links{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+.nav-links a{font-size:14px;color:var(--steel);text-decoration:none}
+.nav-links a:hover,.nav-links a.on{color:var(--ink)}
+main{padding:10px 6% 80px}
+.head{max-width:700px;margin-bottom:30px}
+.badge{display:inline-block;border-left:2px solid var(--blue);padding-left:12px;font-size:12px;font-weight:500;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}
+h1{font-family:"Raleway",sans-serif;font-size:clamp(32px,4vw,52px);font-weight:800;line-height:1.05;letter-spacing:-1.2px;margin-bottom:12px}
+h1 span{background:linear-gradient(135deg,#1d6aff,#6637e8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{font-size:15px;color:var(--steel);line-height:1.7;font-weight:300;max-width:560px}
+.steps{display:flex;gap:6px;margin:22px 0 26px;flex-wrap:wrap}
+.step{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--steel);padding:7px 12px;border:1px solid var(--border);border-radius:999px;background:var(--bg2)}
+.step.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.step.done{color:var(--green);border-color:rgba(37,180,90,.4)}
+.layout{display:grid;grid-template-columns:1fr 320px;gap:32px;align-items:start}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px}
+h2{font-family:"Raleway",sans-serif;font-size:17px;font-weight:700;margin:0 0 16px;display:flex;align-items:center;gap:10px}
+h2 .n{width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--bg);font-size:12px;display:inline-flex;align-items:center;justify-content:center;font-family:"DM Mono",monospace}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row-3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}
+.f{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.f label{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--steel)}
+.f input,.f select{border:1px solid var(--border);border-radius:8px;padding:11px 12px;font:400 14px "DM Sans",sans-serif;background:#fff;color:var(--ink);outline:none;transition:border-color .2s;width:100%}
+.f input:focus,.f select:focus{border-color:var(--blue)}
+.f input[readonly]{background:var(--bg2);color:var(--steel)}
+.f small{font-size:11px;color:var(--steel);line-height:1.5}
+.f .bad{color:#a52a2a}
+.f .ok{color:var(--green)}
+.empresa{background:var(--bg2);border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:13px;line-height:1.6;display:none}
+.empresa b{font-family:"Raleway",sans-serif;font-size:15px;display:block}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--steel);line-height:1.55;margin:6px 0 18px}
+.chk input{width:18px;height:18px;accent-color:var(--blue);margin-top:1px;flex-shrink:0}
+.chk a{color:var(--blue);text-decoration:none;font-weight:600}
+.btn-p{display:inline-flex;justify-content:center;align-items:center;gap:8px;background:var(--blue);color:#fff;padding:14px 26px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;border:none;cursor:pointer;font-family:"DM Sans",sans-serif}
+.btn-p:hover{background:var(--blue-bright);transform:translateY(-1px)}
+.btn-p[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.btn-l{background:none;border:1px solid var(--border);color:var(--steel);padding:12px 18px;border-radius:8px;font:500 13px "DM Sans",sans-serif;cursor:pointer}
+.btn-l:hover{border-color:var(--ink);color:var(--ink)}
+.msg{padding:12px 14px;border-radius:8px;font-size:13px;line-height:1.55;margin:14px 0;display:none}
+.msg.err{display:block;background:rgba(220,60,60,.08);border:1px solid rgba(220,60,60,.3);color:#a52a2a}
+.msg.ok{display:block;background:rgba(37,180,90,.08);border:1px solid rgba(37,180,90,.3);color:var(--green)}
+.msg.info{display:block;background:rgba(29,106,255,.07);border:1px solid var(--border-bright);color:var(--ink)}
+.code{font-family:"DM Mono",monospace;font-size:30px;letter-spacing:12px;text-align:center;padding:16px!important}
+.summary{position:sticky;top:20px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px}
+.summary h3{font-family:"Raleway",sans-serif;font-size:16px;font-weight:700;margin-bottom:14px}
+.ci{display:flex;justify-content:space-between;gap:10px;font-size:13px;line-height:1.4;margin-bottom:8px}
+.ci small{display:block;color:var(--steel);font-size:11px}
+.ci b{font-family:"DM Mono",monospace;font-weight:500;white-space:nowrap}
+.kv{display:flex;justify-content:space-between;font-size:12px;color:var(--steel);margin-top:6px}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--border);padding-top:14px;margin-top:12px}
+.total span{font-size:12px;color:var(--steel)}
+.total b{font-family:"Raleway",sans-serif;font-size:24px;font-weight:800;letter-spacing:-.5px}
+.total b small{font-size:12px;font-weight:400;color:var(--steel);font-family:"DM Sans",sans-serif;letter-spacing:0}
+.summary a{color:var(--blue);text-decoration:none;font-weight:600;font-size:12px}
+.done-box{text-align:center;padding:30px 10px}
+.done-box .ico{width:64px;height:64px;border-radius:50%;background:rgba(37,180,90,.12);display:inline-flex;align-items:center;justify-content:center;margin-bottom:18px}
+.done-box .ico svg{width:30px;height:30px;stroke:var(--green);fill:none;stroke-width:2.2}
+.done-box h2{justify-content:center;font-size:22px}
+.done-box p{font-size:14px;color:var(--steel);line-height:1.7;max-width:480px;margin:0 auto 10px}
+.done-box .num{font-family:"DM Mono",monospace;color:var(--ink)}
+footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:12px;color:var(--steel)}
+.f-links{display:flex;gap:24px}
+.f-links a{font-size:12px;color:var(--steel);text-decoration:none}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.summary{position:static;order:-1}.row,.row-3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+<nav>
+  <a href="index.html" class="nav-logo" aria-label="Alliant">
+    <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 0 15463.28 3759.31" style="fill:#1a1612;display:block">
+ <path d="M2569.5 754.47c54.02,-73.38 -69.45,-36.69 84.88,-73.38l7.72 3026.97 802.49 0 0 -3656.83c-1543.25,0 -1396.64,-177.33 -1921.34,801.08l-1543.25 2880.21 2268.57 -12.23 -15.44 -819.43 -841.07 -6.11 1157.43 -2140.28z"/>
+ <path d="M8464.68 2148.71c0,-305.76 23.15,-336.33 324.08,-336.33 887.36,0 740.76,-12.24 740.76,813.31 0,360.79 0,727.7 0,1088.49l825.63 6.11 0 -1962.95c0,-587.04 -208.35,-776.62 -787.06,-776.62 -1412.06,0 -1952.19,-189.57 -1952.19,776.62 0,1326.98 -185.19,1956.84 779.33,1962.95l763.91 -18.35 0 -801.08 -663.6 -42.81 -30.86 -709.35z"/>
+ <path d="M11620.62 2148.71c0,-317.99 15.43,-336.33 331.79,-336.33 655.88,0 733.04,-61.16 733.04,336.33l0 1571.58c270.07,0 547.85,18.34 817.91,-24.46 0,-587.04 0,-1174.1 0,-1767.26 0,-660.44 -61.73,-947.85 -763.9,-947.85 -1682.14,0 -1952.2,-171.22 -1944.48,996.76 0,574.82 0,1155.75 0,1730.57l825.63 12.24 0 -1571.58z"/>
+ <path d="M15447.86 2906.99c-748.48,-122.3 -725.32,366.91 -709.9,-1143.53l725.32 -18.34 0 -727.7 -725.32 -6.11 -7.71 -898.92 -817.92 0c-30.86,856.11 -7.72,1742.8 -7.72,2598.92 0,464.74 -23.15,807.19 354.95,953.95 208.34,79.5 964.52,79.5 1196,30.58l-7.71 -788.84z"/>
+ <polygon points="3904.4,3720.3 4575.72,3726.41 4730.04,3695.83 4730.04,75.7 4575.72,57.35 3904.4,57.35 "/>
+ <polygon points="5162.15,3720.3 5833.46,3726.41 5987.79,3695.83 5987.79,75.7 5833.46,57.35 5162.15,57.35 "/>
+ <polygon points="6412.17,3714.18 7245.53,3720.3 7245.53,925.7 6574.21,919.58 6412.17,944.04 "/>
+ <path d="M7176.08 63.46c-108.03,-67.26 -578.72,-97.84 -702.18,-6.11 -100.31,79.5 -69.45,452.53 -15.43,599.28 208.34,55.03 571,61.16 733.03,-12.23 69.45,-67.27 69.45,-354.68 30.86,-483.09 -23.15,-85.61 -7.71,-55.03 -46.29,-97.85z"/>
+</svg>
+  </a>
+  <div class="nav-links">
+    <a href="planos.html">Planos</a>
+    <a href="calculadora.html">Sob medida</a>
+    <a href="mailto:alliant@alliant.com.br">Contato</a>
+  </div>
+</nav>
+
+<main>
+  <div class="head">
+    <div class="badge">Contratação online</div>
+    <h1>Sua nuvem,<br><span>em três minutos.</span></h1>
+    <p class="sub">Informe o CNPJ e o representante legal. Confirmamos seu e-mail com um código e enviamos o contrato para assinatura eletrônica.</p>
+    <div class="steps"><span class="step on" id="st1">1 · Empresa e representante</span><span class="step" id="st2">2 · Código por e-mail</span><span class="step" id="st3">3 · Assinatura</span></div>
+  </div>
+
+  <div class="layout">
+    <div>
+      <!-- PASSO 1 -->
+      <div class="card" id="p1">
+        <h2><span class="n">1</span>Empresa</h2>
+        <div class="row">
+          <div class="f"><label>CNPJ</label><input id="cnpj" inputmode="numeric" placeholder="00.000.000/0000-00" maxlength="18" autocomplete="off"><small id="cnpjMsg">Digite o CNPJ; buscamos os dados na Receita Federal.</small></div>
+        </div>
+        <div class="empresa" id="empresa"></div>
+        <div id="endBox" style="display:none">
+          <div class="row-3">
+            <div class="f"><label>Logradouro</label><input id="logradouro"></div>
+            <div class="f"><label>Número</label><input id="numero"></div>
+            <div class="f"><label>Complemento</label><input id="complemento"></div>
+          </div>
+          <div class="row-3">
+            <div class="f"><label>Bairro</label><input id="bairro"></div>
+            <div class="f"><label>Cidade</label><input id="cidade" readonly></div>
+            <div class="f"><label>UF / CEP</label><input id="ufcep" readonly></div>
+          </div>
+        </div>
+
+        <h2 style="margin-top:10px"><span class="n">2</span>Representante legal</h2>
+        <div class="row">
+          <div class="f"><label>Nome completo</label><input id="representante" autocomplete="name" placeholder="Como consta no contrato social"></div>
+          <div class="f"><label>CPF</label><input id="cpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14"><small id="cpfMsg"></small></div>
+        </div>
+        <div class="row">
+          <div class="f"><label>Cargo</label>
+            <select id="cargo"><option>Sócio-administrador</option><option>Administrador</option><option>Diretor</option><option>Presidente</option><option>Titular (EI/MEI)</option><option>Procurador</option></select>
+            <small>Se o representante constar como administrador no QSA da Receita, o contrato sai na hora. Caso contrário, nossa equipe valida antes.</small></div>
+          <div></div>
+        </div>
+        <div class="row">
+          <div class="f"><label>E-mail corporativo</label><input id="email" type="email" autocomplete="email" placeholder="voce@suaempresa.com.br"><small>Recebe o código de confirmação e o contrato para assinatura.</small></div>
+          <div class="f"><label>WhatsApp / telefone</label><input id="telefone" type="tel" inputmode="tel" placeholder="(11) 99999-9999" maxlength="15"></div>
+        </div>
+        <label class="chk"><input type="checkbox" id="aceite"><span>Declaro que tenho poderes para contratar em nome da empresa e concordo com a <a href="privacidade.html" target="_blank">Política de Privacidade</a>. O contrato completo será enviado ao meu e-mail para leitura e assinatura eletrônica antes de qualquer cobrança.</span></label>
+        <div id="ts"></div>
+        <div class="msg" id="m1"></div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap">
+          <button class="btn-p" id="b1" onclick="iniciar()">Enviar código de confirmação →</button>
+          <a class="btn-l" href="planos.html" style="text-decoration:none">Alterar seleção</a>
+        </div>
+      </div>
+
+      <!-- PASSO 2 -->
+      <div class="card" id="p2" style="display:none">
+        <h2><span class="n">2</span>Confirme seu e-mail</h2>
+        <p class="sub" style="margin-bottom:18px">Enviamos um código de 6 dígitos para <b id="emailDest"></b>. Ele vale por 15 minutos.</p>
+        <div class="f" style="max-width:320px;margin:0 auto 10px"><input id="codigo" class="code" inputmode="numeric" maxlength="6" placeholder="······" autocomplete="one-time-code"></div>
+        <div class="msg" id="m2"></div>
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap">
+          <button class="btn-p" id="b2" onclick="confirmar()">Confirmar e gerar contrato →</button>
+          <button class="btn-l" onclick="voltar()">Corrigir dados</button>
+        </div>
+      </div>
+
+      <!-- PASSO 3 -->
+      <div class="card" id="p3" style="display:none">
+        <div class="done-box">
+          <div class="ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h2 id="doneTitle">Tudo certo!</h2>
+          <p id="doneMsg"></p>
+          <p>Proposta <span class="num" id="doneNum"></span> · <span id="doneEmpresa"></span></p>
+          <p style="margin-top:18px"><a class="btn-p" href="index.html">Voltar ao início</a></p>
+        </div>
+      </div>
+    </div>
+
+    <aside class="summary">
+      <h3>Resumo</h3>
+      <div id="cart"></div>
+      <div class="kv"><span>Vigência</span><b id="sVig"></b></div>
+      <div class="kv"><span>Pagamento</span><b id="sPg"></b></div>
+      <div class="kv"><span>Suporte</span><b id="sSup"></b></div>
+      <div class="total"><span>Total mensal</span><b id="total">R$ 0<small>/mês</small></b></div>
+      <p style="margin-top:12px"><a href="planos.html">← Alterar planos</a></p>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="f-copy">© 2026 · Alliant Tecnologia Ltda · Remote-first · Brasil</div>
+  <div class="f-links"><a href="privacidade.html">Privacidade</a><a href="mailto:alliant@alliant.com.br">E-mail</a><a href="https://wa.me/5508000200030">WhatsApp</a></div>
+</footer>
+</div>
+
+<script>
+var LOCAL=(location.hostname==='localhost'||location.hostname==='127.0.0.1');
+var API=(new URLSearchParams(location.search).get('api'))||(LOCAL?'http://localhost:8000':'https://backoffice.alliant.com.br');
+var TS_KEY=LOCAL?'1x00000000000000000000AA':'0x4AAAAAAExq6_kU3LpNgS2m';
+var sel=null,tsToken='',tsWidget=null,pendId='',cnpjOk=false,endereco={};
+var $=function(id){return document.getElementById(id);};
+function brl(v){return 'R$ '+Number(v||0).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function dig(s){return (s||'').replace(/\D/g,'');}
+function maskCnpj(v){v=dig(v).slice(0,14);return v.replace(/^(\d{2})(\d)/,'$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1/$2').replace(/(\d{4})(\d)/,'$1-$2');}
+function maskCpf(v){v=dig(v).slice(0,11);return v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');}
+function maskTel(v){v=dig(v).slice(0,11);if(v.length>10)return v.replace(/(\d{2})(\d{5})(\d{4})/,'($1) $2-$3');return v.replace(/(\d{2})(\d{4})(\d{0,4})/,'($1) $2-$3').replace(/-$/,'');}
+function cpfValido(c){c=dig(c);if(c.length!==11||/^(\d)\1+$/.test(c))return false;for(var t=9;t<11;t++){var s=0;for(var i=0;i<t;i++)s+=c[i]*(t+1-i);var d=(s*10)%11%10;if(d!=c[t])return false;}return true;}
+function cnpjValido(c){c=dig(c);if(c.length!==14||/^(\d)\1+$/.test(c))return false;var w=[6,5,4,3,2,9,8,7,6,5,4,3,2];for(var t=12;t<14;t++){var s=0,ww=w.slice(13-t);for(var i=0;i<t;i++)s+=c[i]*ww[i];var d=s%11<2?0:11-s%11;if(d!=c[t])return false;}return true;}
+function msg(id,t,cls){var e=$(id);e.className='msg'+(t?' '+cls:'');e.textContent=t||'';}
+
+// resumo (carrinho salvo em planos.html)
+try{sel=JSON.parse(localStorage.getItem('alliant_carrinho')||'null');}catch(e){}
+if(!sel||!sel.cart||!Object.keys(sel.cart).length){
+  $('cart').innerHTML='<p style="font-size:13px;color:var(--steel);line-height:1.6">Nenhum plano selecionado. <a href="planos.html">Escolha na página de planos →</a></p>';
+  $('b1').disabled=true;
+}else{
+  var tot=0;$('cart').innerHTML=Object.keys(sel.cart).map(function(k){var it=sel.cart[k];tot+=it.preco*it.qtd;
+    return '<div class="ci"><div>'+it.qtd+'× '+esc(it.sku)+'<small>'+(it.tipo==='vm'?esc(it.familia)+' · '+(it.so==='windows'?'Windows Server':'Linux'):'Kubernetes gerenciado')+'</small></div><b>'+brl(it.preco*it.qtd)+'</b></div>';}).join('');
+  $('total').innerHTML=brl(tot)+'<small>/mês</small>';
+  $('sVig').textContent=(sel.vigencia_meses||12)+' meses';
+  $('sPg').textContent={boleto:'Boleto',pix:'Pix',cartao:'Cartão'}[sel.forma_pagamento]||'Boleto';
+  $('sSup').textContent=sel.janela_suporte==='24x7'?'Plantão 24x7':'Comercial 8x5';
+}
+
+// máscaras + consulta CNPJ
+$('cnpj').addEventListener('input',function(){this.value=maskCnpj(this.value);cnpjOk=false;$('empresa').style.display='none';$('endBox').style.display='none';
+  var d=dig(this.value);if(d.length===14){if(cnpjValido(d))consultaCnpj(d);else{$('cnpjMsg').textContent='CNPJ inválido — confira os dígitos.';$('cnpjMsg').className='bad';}}
+  else{$('cnpjMsg').textContent='Digite o CNPJ; buscamos os dados na Receita Federal.';$('cnpjMsg').className='';}});
+$('cpf').addEventListener('input',function(){this.value=maskCpf(this.value);var d=dig(this.value);
+  if(d.length===11){var ok=cpfValido(d);$('cpfMsg').textContent=ok?'':'CPF inválido — confira os dígitos.';$('cpfMsg').className=ok?'ok':'bad';}else{$('cpfMsg').textContent='';}});
+$('telefone').addEventListener('input',function(){this.value=maskTel(this.value);});
+$('codigo').addEventListener('input',function(){this.value=dig(this.value).slice(0,6);if(this.value.length===6)confirmar();});
+
+function consultaCnpj(d){
+  $('cnpjMsg').textContent='Consultando a Receita Federal…';$('cnpjMsg').className='';
+  fetch(API+'/api/public/cnpj/'+d).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.detail||('HTTP '+r.status));return j;});}).then(function(e){
+    endereco={logradouro:e.logradouro||'',numero:e.numero||'',complemento:e.complemento||'',bairro:e.bairro||'',cidade:e.cidade||'',uf:e.uf||'',cep:e.cep||''};
+    var ativa=!e.situacao||/ativa/i.test(e.situacao);
+    $('empresa').innerHTML='<b>'+esc(e.razao_social||'')+'</b>'+(e.nome_fantasia?esc(e.nome_fantasia)+' · ':'')+esc(e.cidade||'')+'/'+esc(e.uf||'')+(e.simples_nacional?' · Simples Nacional':'')+(ativa?'':' · <span style="color:#a52a2a;font-weight:600">Situação: '+esc(e.situacao)+'</span>');
+    $('empresa').style.display='block';
+    ['logradouro','numero','complemento','bairro','cidade'].forEach(function(k){$(k).value=endereco[k];});
+    $('ufcep').value=endereco.uf+' · '+endereco.cep;
+    $('endBox').style.display='block';
+    cnpjOk=ativa;
+    $('cnpjMsg').textContent=ativa?'Dados encontrados. Confira o endereço (o número costuma faltar).':'Só é possível contratar com CNPJ em situação ativa.';
+    $('cnpjMsg').className=ativa?'ok':'bad';
+    if(ativa&&!endereco.numero)$('numero').focus();
+  }).catch(function(err){$('cnpjMsg').textContent='Não conseguimos consultar agora ('+err.message+'). Tente de novo em instantes.';$('cnpjMsg').className='bad';});
+}
+
+// Turnstile
+window.onloadTurnstile=function(){};
+function montarTs(){
+  if(!window.turnstile){setTimeout(montarTs,300);return;}
+  if(tsWidget!==null)return;
+  tsWidget=turnstile.render('#ts',{sitekey:TS_KEY,theme:'light',language:'pt-BR',callback:function(t){tsToken=t;},'expired-callback':function(){tsToken='';},'error-callback':function(){tsToken='';}});
+}
+montarTs();
+
+function payload(){
+  var itens={vms:[],caas:[]};
+  Object.keys(sel.cart).forEach(function(k){var it=sel.cart[k];
+    if(it.tipo==='vm')itens.vms.push({familia:it.familia,sku:it.sku,qtd:it.qtd,so:it.so==='windows'?'Windows Server':'Linux'});
+    else itens.caas.push({sku:it.sku,qtd:it.qtd});});
+  ['logradouro','numero','complemento','bairro'].forEach(function(k){endereco[k]=$(k).value.trim();});
+  return {cnpj:dig($('cnpj').value),representante:$('representante').value.trim(),cpf:dig($('cpf').value),cargo:$('cargo').value,
+    email:$('email').value.trim(),telefone:dig($('telefone').value),aceite:$('aceite').checked,turnstile:tsToken,
+    endereco:endereco,forma_pagamento:sel.forma_pagamento||'boleto',vigencia_meses:sel.vigencia_meses||12,janela_suporte:sel.janela_suporte||'8x5',itens:itens};
+}
+function valida(p){
+  if(!cnpjValido(p.cnpj))return 'Informe um CNPJ válido.';
+  if(!cnpjOk)return 'Aguarde a consulta do CNPJ (a empresa precisa estar ativa).';
+  if(!endereco.numero)return 'Informe o número do endereço (a Receita não retorna).';
+  if(p.representante.split(' ').length<2)return 'Informe o nome completo do representante.';
+  if(!cpfValido(p.cpf))return 'Informe um CPF válido.';
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(p.email))return 'Informe um e-mail válido.';
+  if(p.telefone.length<10)return 'Informe o telefone com DDD.';
+  if(!p.aceite)return 'É necessário aceitar a declaração.';
+  if(!p.turnstile)return 'Conclua a verificação anti-robô.';
+  return '';
+}
+function post(path,body){
+  return fetch(API+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+    .then(function(r){return r.json().catch(function(){return {};}).then(function(j){if(!r.ok)throw new Error(j.detail||('Erro '+r.status));return j;});});
+}
+function iniciar(){
+  var p=payload(),e=valida(p);if(e){msg('m1',e,'err');return;}
+  msg('m1','','');$('b1').disabled=true;$('b1').textContent='Enviando…';
+  post('/api/public/cadastro/iniciar',p).then(function(j){
+    pendId=j.pendente_id;$('emailDest').textContent=j.email||p.email;
+    $('p1').style.display='none';$('p2').style.display='block';$('st1').className='step done';$('st2').className='step on';
+    $('codigo').value='';$('codigo').focus();window.scrollTo({top:0,behavior:'smooth'});
+  }).catch(function(err){msg('m1',err.message,'err');if(window.turnstile&&tsWidget!==null){turnstile.reset(tsWidget);tsToken='';}})
+  .finally(function(){$('b1').disabled=false;$('b1').textContent='Enviar código de confirmação →';});
+}
+function confirmar(){
+  var c=dig($('codigo').value);if(c.length!==6){msg('m2','Digite os 6 dígitos do código.','err');return;}
+  msg('m2','Confirmando… isso pode levar alguns segundos (estamos gerando seu contrato).','info');$('b2').disabled=true;
+  post('/api/public/cadastro/confirmar',{pendente_id:pendId,codigo:c}).then(function(j){
+    $('p2').style.display='none';$('p3').style.display='block';$('st2').className='step done';$('st3').className='step on';
+    $('doneTitle').textContent=j.modo==='assinatura'?'Contrato enviado para assinatura!':'Cadastro recebido!';
+    $('doneMsg').textContent=j.mensagem||'';$('doneNum').textContent=j.proposta||'';$('doneEmpresa').textContent=j.razao_social||'';
+    try{localStorage.removeItem('alliant_carrinho');}catch(e){}
+    window.scrollTo({top:0,behavior:'smooth'});
+  }).catch(function(err){msg('m2',err.message,'err');$('b2').disabled=false;
+    if(/expirado|tentativas|não encontrado/i.test(err.message))setTimeout(voltar,2500);});
+}
+function voltar(){$('p2').style.display='none';$('p1').style.display='block';$('st1').className='step on';$('st2').className='step';msg('m2','','');$('b2').disabled=false;if(window.turnstile&&tsWidget!==null){turnstile.reset(tsWidget);tsToken='';}}
+</script>
+</body>
+</html>

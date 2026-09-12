@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planos e preços — Alliant Cloud</title>
+<meta name="description" content="Máquinas virtuais e Kubernetes gerenciado com preço fixo mensal, dados 100% no Brasil e suporte em português. Contrate online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f0e8;--bg2:#ede8df;--card:#fbf9f5;--blue:#1d6aff;--blue-bright:#3d8bff;--steel:#6b5f52;--ink:#1a1612;--border:rgba(107,95,82,0.16);--border-bright:rgba(26,106,255,0.25);--green:rgb(20,140,70)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(107,95,82,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(107,95,82,0.07) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%);pointer-events:none;z-index:0}
+.page{position:relative;z-index:1;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto}
+nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6%;gap:20px;flex-wrap:wrap}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-links{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+.nav-links a{font-size:14px;color:var(--steel);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.on{color:var(--ink)}
+.nav-links a.cta{background:var(--ink);color:var(--bg);padding:9px 18px;border-radius:8px;font-weight:600}
+.nav-links a.cta:hover{background:var(--blue);color:#fff}
+main{padding:20px 6% 80px}
+.head{max-width:760px;margin-bottom:40px}
+.badge{display:inline-block;border-left:2px solid var(--blue);padding-left:12px;font-size:12px;font-weight:500;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:22px}
+h1{font-family:"Raleway",sans-serif;font-size:clamp(36px,4.6vw,62px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;margin-bottom:14px}
+h1 span{background:linear-gradient(135deg,#1d6aff,#6637e8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sub{font-size:16px;color:var(--steel);line-height:1.7;font-weight:300;max-width:560px}
+.layout{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start}
+h2{font-family:"Raleway",sans-serif;font-size:22px;font-weight:700;letter-spacing:.2px;margin:34px 0 6px}
+h2:first-child{margin-top:0}
+.h2-sub{font-size:13px;color:var(--steel);margin-bottom:16px;line-height:1.6}
+.fam-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.fam-tabs button{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:9px 16px;font:500 13px "DM Sans",sans-serif;color:var(--steel);cursor:pointer;transition:all .2s}
+.fam-tabs button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fam-desc{font-size:12px;color:var(--steel);margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.sku{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 18px 14px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s}
+.sku:hover{border-color:var(--border-bright)}
+.sku.sel{border-color:var(--blue);box-shadow:0 0 0 2px rgba(29,106,255,.12)}
+.sku-name{font-family:"DM Mono",monospace;font-size:13px;color:var(--blue);font-weight:500}
+.sku-spec{font-size:13px;color:var(--ink);line-height:1.6}
+.sku-spec small{color:var(--steel)}
+.sku-price{font-family:"Raleway",sans-serif;font-size:22px;font-weight:800;letter-spacing:-.5px}
+.sku-price small{font-family:"DM Sans",sans-serif;font-size:12px;font-weight:400;color:var(--steel);letter-spacing:0}
+.sku-ctl{display:flex;align-items:center;gap:8px;margin-top:auto}
+.qty{display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#fff}
+.qty button{width:30px;height:30px;border:none;background:none;font-size:16px;cursor:pointer;color:var(--ink)}
+.qty button:hover{background:var(--bg2)}
+.qty span{width:30px;text-align:center;line-height:30px;font-family:"DM Mono",monospace;font-size:13px}
+.sku select{flex:1;min-width:0;border:1px solid var(--border);border-radius:8px;padding:6px 8px;font:400 12px "DM Sans",sans-serif;background:#fff;color:var(--ink)}
+.caas .sku-spec{min-height:38px}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:36px}
+.note{background:var(--bg2);padding:20px 22px}
+.note b{display:block;font-family:"Raleway",sans-serif;font-size:14px;margin-bottom:6px}
+.note span{font-size:12px;color:var(--steel);line-height:1.6;font-weight:300}
+.summary{position:sticky;top:20px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px}
+.summary h3{font-family:"Raleway",sans-serif;font-size:16px;font-weight:700;margin-bottom:14px}
+.cart{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;min-height:34px}
+.cart-empty{font-size:12px;color:var(--steel);line-height:1.6}
+.ci{display:flex;justify-content:space-between;gap:10px;font-size:13px;line-height:1.4}
+.ci small{display:block;color:var(--steel);font-size:11px}
+.ci b{font-family:"DM Mono",monospace;font-weight:500;white-space:nowrap}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field label{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--steel)}
+.field select{border:1px solid var(--border);border-radius:8px;padding:9px 10px;font:400 13px "DM Sans",sans-serif;background:#fff;color:var(--ink)}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--border);padding-top:14px;margin-top:6px}
+.total span{font-size:12px;color:var(--steel)}
+.total b{font-family:"Raleway",sans-serif;font-size:26px;font-weight:800;letter-spacing:-.5px}
+.total b small{font-size:12px;font-weight:400;color:var(--steel);font-family:"DM Sans",sans-serif;letter-spacing:0}
+.btn-p{display:flex;justify-content:center;align-items:center;gap:8px;background:var(--blue);color:#fff;padding:14px 22px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;border:none;cursor:pointer;width:100%;margin-top:14px;font-family:"DM Sans",sans-serif}
+.btn-p:hover{background:var(--blue-bright);transform:translateY(-1px)}
+.btn-p[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.btn-p svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.fine{font-size:11px;color:var(--steel);line-height:1.6;margin-top:12px;opacity:.8}
+.alt{font-size:12px;color:var(--steel);margin-top:14px;line-height:1.6;text-align:center}
+.alt a{color:var(--blue);text-decoration:none;font-weight:600}
+.err{background:rgba(220,60,60,.08);border:1px solid rgba(220,60,60,.3);color:#a52a2a;padding:12px 14px;border-radius:8px;font-size:13px;margin-bottom:16px}
+footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-copy{font-size:12px;color:var(--steel)}
+.f-links{display:flex;gap:24px}
+.f-links a{font-size:12px;color:var(--steel);text-decoration:none}
+.f-links a:hover{color:var(--ink)}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.summary{position:static}}
+</style>
+</head>
+<body>
+<div class="page">
+<nav>
+  <a href="index.html" class="nav-logo" aria-label="Alliant">
+    <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 0 15463.28 3759.31" style="fill:#1a1612;display:block">
+ <path d="M2569.5 754.47c54.02,-73.38 -69.45,-36.69 84.88,-73.38l7.72 3026.97 802.49 0 0 -3656.83c-1543.25,0 -1396.64,-177.33 -1921.34,801.08l-1543.25 2880.21 2268.57 -12.23 -15.44 -819.43 -841.07 -6.11 1157.43 -2140.28z"/>
+ <path d="M8464.68 2148.71c0,-305.76 23.15,-336.33 324.08,-336.33 887.36,0 740.76,-12.24 740.76,813.31 0,360.79 0,727.7 0,1088.49l825.63 6.11 0 -1962.95c0,-587.04 -208.35,-776.62 -787.06,-776.62 -1412.06,0 -1952.19,-189.57 -1952.19,776.62 0,1326.98 -185.19,1956.84 779.33,1962.95l763.91 -18.35 0 -801.08 -663.6 -42.81 -30.86 -709.35z"/>
+ <path d="M11620.62 2148.71c0,-317.99 15.43,-336.33 331.79,-336.33 655.88,0 733.04,-61.16 733.04,336.33l0 1571.58c270.07,0 547.85,18.34 817.91,-24.46 0,-587.04 0,-1174.1 0,-1767.26 0,-660.44 -61.73,-947.85 -763.9,-947.85 -1682.14,0 -1952.2,-171.22 -1944.48,996.76 0,574.82 0,1155.75 0,1730.57l825.63 12.24 0 -1571.58z"/>
+ <path d="M15447.86 2906.99c-748.48,-122.3 -725.32,366.91 -709.9,-1143.53l725.32 -18.34 0 -727.7 -725.32 -6.11 -7.71 -898.92 -817.92 0c-30.86,856.11 -7.72,1742.8 -7.72,2598.92 0,464.74 -23.15,807.19 354.95,953.95 208.34,79.5 964.52,79.5 1196,30.58l-7.71 -788.84z"/>
+ <polygon points="3904.4,3720.3 4575.72,3726.41 4730.04,3695.83 4730.04,75.7 4575.72,57.35 3904.4,57.35 "/>
+ <polygon points="5162.15,3720.3 5833.46,3726.41 5987.79,3695.83 5987.79,75.7 5833.46,57.35 5162.15,57.35 "/>
+ <polygon points="6412.17,3714.18 7245.53,3720.3 7245.53,925.7 6574.21,919.58 6412.17,944.04 "/>
+ <path d="M7176.08 63.46c-108.03,-67.26 -578.72,-97.84 -702.18,-6.11 -100.31,79.5 -69.45,452.53 -15.43,599.28 208.34,55.03 571,61.16 733.03,-12.23 69.45,-67.27 69.45,-354.68 30.86,-483.09 -23.15,-85.61 -7.71,-55.03 -46.29,-97.85z"/>
+</svg>
+  </a>
+  <div class="nav-links">
+    <a href="planos.html" class="on">Planos</a>
+    <a href="calculadora.html">Sob medida</a>
+    <a href="mailto:alliant@alliant.com.br">Contato</a>
+    <a href="cadastro.html" class="cta">Contratar</a>
+  </div>
+</nav>
+
+<main>
+  <div class="head">
+    <div class="badge">Planos e preços</div>
+    <h1>Preço fixo.<br><span>Sem surpresas.</span></h1>
+    <p class="sub">Escolha as máquinas, confirme seu CNPJ e assine o contrato online. Sem cobrança de tráfego, IOPS ou chamadas de API — o valor do mês é o valor do mês.</p>
+  </div>
+
+  <div id="erro" class="err" style="display:none"></div>
+
+  <div class="layout">
+    <div>
+      <h2>Máquinas virtuais</h2>
+      <p class="h2-sub">Todas as famílias rodam em dois sites no Brasil, com backup diário incluso (14 dias) e suporte 8x5 em português.</p>
+      <div class="fam-tabs" id="famTabs"></div>
+      <div class="fam-desc" id="famDesc"></div>
+      <div class="grid" id="vmGrid"></div>
+
+      <h2>Kubernetes gerenciado</h2>
+      <p class="h2-sub">Clusters com control plane em alta disponibilidade, operados pela Alliant. Você só se preocupa com os seus workloads.</p>
+      <div class="grid caas" id="caasGrid"></div>
+
+      <div class="notes">
+        <div class="note"><b>Tráfego ilimitado</b><span>Sem cobrança por GB transferido, IOPS ou requisições. Endereço IPv4 público incluso por VM.</span></div>
+        <div class="note"><b>Backup incluso</b><span>Snapshots diários com <span id="bkDias">14</span> dias de retenção. Retenção estendida sob consulta.</span></div>
+        <div class="note"><b>Suporte humano</b><span>Janela comercial inclusa (<span id="supJanela">segunda a sexta, 08h–18h</span>). Plantão 24x7 opcional na contratação.</span></div>
+        <div class="note"><b>Reajuste transparente</b><span>Valores em R$ por mês, reajustados anualmente pelo <span id="idx">IPCA</span>. Vigência mínima de 12 meses.</span></div>
+      </div>
+    </div>
+
+    <aside class="summary">
+      <h3>Sua seleção</h3>
+      <div class="cart" id="cart"><div class="cart-empty">Nenhum item ainda. Escolha ao menos uma máquina ou um cluster.</div></div>
+      <div class="field"><label>Vigência</label>
+        <select id="vig"><option value="12">12 meses</option><option value="24">24 meses</option><option value="36">36 meses</option><option value="48">48 meses</option><option value="60">60 meses</option></select></div>
+      <div class="field"><label>Pagamento</label>
+        <select id="pg"><option value="boleto">Boleto (30 dias após emissão)</option><option value="pix">Pix</option><option value="cartao">Cartão de crédito</option></select></div>
+      <div class="field"><label>Suporte</label>
+        <select id="sup"><option value="8x5">Comercial 8x5 (incluso)</option><option value="24x7">Plantão 24x7</option></select></div>
+      <div class="total"><span>Total mensal</span><b id="total">R$ 0<small>/mês</small></b></div>
+      <button class="btn-p" id="btnGo" disabled onclick="irParaCadastro()">Contratar online <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+      <p class="fine">Cadastro em 3 minutos: CNPJ, representante legal e assinatura eletrônica. Nada é cobrado antes do contrato assinado.</p>
+      <p class="alt">Precisa de DR, bare metal ou algo fora do padrão? <a href="calculadora.html">Monte sob medida →</a></p>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="f-copy">© 2026 · Alliant Tecnologia Ltda · Remote-first · Brasil</div>
+  <div class="f-links">
+    <a href="privacidade.html">Privacidade</a>
+    <a href="mailto:alliant@alliant.com.br">E-mail</a>
+    <a href="https://wa.me/5508000200030">WhatsApp</a>
+  </div>
+</footer>
+</div>
+
+<script>
+var API=(new URLSearchParams(location.search).get('api'))||(location.hostname==='localhost'||location.hostname==='127.0.0.1'?'http://localhost:8000':'https://backoffice.alliant.com.br');
+var P=null,fam='performance',cart={};   // cart[key]={tipo:'vm'|'caas',familia,sku,qtd,so,preco,label}
+var FAM_DESC={performance:'vCPU dedicada 1:1 e NVMe. Para bancos de dados, ERPs e cargas sensíveis a latência.',
+              efficient:'vCPU em thread 1:1, sem contenção, SSD. O melhor custo para aplicações web e serviços internos.',
+              capacity:'RAID local, sem HA. Para arquivos, backup secundário e ambientes de teste.'};
+function brl(v){return 'R$ '+Number(v||0).toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+fetch(API+'/api/public/precos').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(function(p){
+  P=p;
+  try{var s=JSON.parse(localStorage.getItem('alliant_carrinho')||'null');if(s&&s.cart){cart=s.cart;document.getElementById('vig').value=s.vigencia_meses||12;document.getElementById('pg').value=s.forma_pagamento||'boleto';document.getElementById('sup').value=s.janela_suporte||'8x5';}}catch(e){}
+  if(p.backup&&p.backup.incluso_dias)document.getElementById('bkDias').textContent=p.backup.incluso_dias;
+  if(p.suporte&&p.suporte.janela_comercial)document.getElementById('supJanela').textContent=p.suporte.janela_comercial.toLowerCase();
+  if(p.reajuste_indice)document.getElementById('idx').textContent=p.reajuste_indice;
+  renderTabs();renderVms();renderCaas();renderCart();
+}).catch(function(e){var el=document.getElementById('erro');el.style.display='block';el.textContent='Não foi possível carregar a tabela de preços agora ('+e.message+'). Tente novamente em instantes ou fale com a gente pelo WhatsApp.';});
+
+function renderTabs(){
+  var t=document.getElementById('famTabs');t.innerHTML='';
+  Object.keys(P.skus_vm).forEach(function(f){
+    if(f.charAt(0)==='_'||!Array.isArray(P.skus_vm[f]))return;
+    var b=document.createElement('button');b.textContent=(P.componentes[f]&&P.componentes[f].label||f).split(' (')[0];b.className=f===fam?'on':'';
+    b.onclick=function(){fam=f;renderTabs();renderVms();};t.appendChild(b);
+  });
+  document.getElementById('famDesc').textContent=FAM_DESC[fam]||(P.componentes[fam]&&P.componentes[fam].label)||'';
+}
+function renderVms(){
+  var g=document.getElementById('vmGrid');g.innerHTML='';
+  (P.skus_vm[fam]||[]).forEach(function(s){
+    var k='vm:'+s.sku,it=cart[k];
+    var d=document.createElement('div');d.className='sku'+(it?' sel':'');d.id='card-'+k.replace(':','-');
+    d.innerHTML='<div class="sku-name">'+esc(s.sku)+'</div>'+
+      '<div class="sku-spec">'+s.vcpu+' vCPU · '+s.ram_gb+' GB RAM<br>'+s.disco_gb+' GB <small>'+esc(s.tier_disco)+'</small></div>'+
+      '<div class="sku-price">'+brl(s.preco)+'<small>/mês</small></div>'+
+      '<div class="sku-ctl"><div class="qty"><button onclick="add(\''+k+'\',-1)">−</button><span>'+(it?it.qtd:0)+'</span><button onclick="add(\''+k+'\',1)">+</button></div>'+
+      '<select onchange="setSo(\''+k+'\',this.value)"><option value="linux"'+(!it||it.so==='linux'?' selected':'')+'>Linux</option><option value="windows"'+(it&&it.so==='windows'?' selected':'')+'>Windows Server*</option></select></div>';
+    g.appendChild(d);
+  });
+  var f=document.createElement('div');f.className='fam-desc';f.style.gridColumn='1/-1';f.textContent='* Licenciamento Windows Server (SPLA) cobrado à parte conforme vCPUs; informado na proposta antes da assinatura.';g.appendChild(f);
+}
+function renderCaas(){
+  var g=document.getElementById('caasGrid');g.innerHTML='';
+  ((P.skus_caas&&P.skus_caas.tiers)||[]).forEach(function(s){
+    var k='caas:'+s.sku,it=cart[k];
+    var d=document.createElement('div');d.className='sku'+(it?' sel':'');d.id='card-'+k.replace(':','-');
+    d.innerHTML='<div class="sku-name">'+esc(s.sku)+'</div><div class="sku-spec">'+esc(s.descricao)+'</div>'+
+      '<div class="sku-price">'+brl(s.preco)+'<small>/mês</small></div>'+
+      '<div class="sku-ctl"><div class="qty"><button onclick="add(\''+k+'\',-1)">−</button><span>'+(it?it.qtd:0)+'</span><button onclick="add(\''+k+'\',1)">+</button></div></div>';
+    g.appendChild(d);
+  });
+}
+function findSku(k){
+  var t=k.split(':')[0],sku=k.split(':')[1];
+  if(t==='vm'){for(var f in P.skus_vm){if(!Array.isArray(P.skus_vm[f]))continue;var s=P.skus_vm[f].find(function(x){return x.sku===sku;});if(s)return {familia:f,s:s};}}
+  else{var c=(P.skus_caas.tiers||[]).find(function(x){return x.sku===sku;});if(c)return {familia:'caas',s:c};}
+  return null;
+}
+function add(k,d){
+  var r=findSku(k);if(!r)return;
+  var it=cart[k]||{tipo:k.split(':')[0],familia:r.familia,sku:r.s.sku,qtd:0,so:'linux',preco:r.s.preco,label:r.s.sku};
+  var card=document.getElementById('card-'+k.replace(':','-'));
+  if(card){var sel=card.querySelector('select');if(sel)it.so=sel.value;}
+  it.qtd=Math.max(0,Math.min(50,it.qtd+d));
+  if(it.qtd===0)delete cart[k];else cart[k]=it;
+  if(it.tipo==='vm')renderVms();else renderCaas();
+  renderCart();
+}
+function setSo(k,v){if(cart[k]){cart[k].so=v;renderCart();}}
+function renderCart(){
+  var c=document.getElementById('cart'),keys=Object.keys(cart),tot=0;
+  if(!keys.length){c.innerHTML='<div class="cart-empty">Nenhum item ainda. Escolha ao menos uma máquina ou um cluster.</div>';}
+  else{c.innerHTML=keys.map(function(k){var it=cart[k];tot+=it.preco*it.qtd;
+    return '<div class="ci"><div>'+it.qtd+'× '+esc(it.sku)+'<small>'+(it.tipo==='vm'?esc(it.familia)+' · '+(it.so==='windows'?'Windows Server':'Linux'):'Kubernetes gerenciado')+'</small></div><b>'+brl(it.preco*it.qtd)+'</b></div>';}).join('');}
+  document.getElementById('total').innerHTML=brl(tot)+'<small>/mês</small>';
+  document.getElementById('btnGo').disabled=!keys.length;
+  salvar();
+}
+function salvar(){
+  try{localStorage.setItem('alliant_carrinho',JSON.stringify({cart:cart,vigencia_meses:+document.getElementById('vig').value,forma_pagamento:document.getElementById('pg').value,janela_suporte:document.getElementById('sup').value,ts:Date.now()}));}catch(e){}
+}
+['vig','pg','sup'].forEach(function(id){document.getElementById(id).addEventListener('change',salvar);});
+function irParaCadastro(){salvar();location.href='cadastro.html'+(location.search||'');}
+</script>
+</body>
+</html>
