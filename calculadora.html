@@ -244,21 +244,14 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
         <div class="card-title">Serviços adicionais</div>
         <div class="togs">
           <div class="tog-row">
-            <div><div class="tog-label">Disaster Recovery</div><div class="tog-sub">Replicação cross-site · RPO ≤15min · <b>sob consulta</b> — marque para receber cotação junto</div></div>
-            <div class="tog"><button id="dr-s" onclick="setTog('dr',true)">Sim</button><button id="dr-n" class="on" onclick="setTog('dr',false)">Não</button></div>
-          </div>
-          <div class="tog-row">
             <div><div class="tog-label">Backup diário</div><div class="tog-sub">Snapshots com <span id="bkDias">14</span> dias de retenção — <b>incluso</b> em todas as VMs</div></div>
             <div class="tog"><button id="bk-s" class="on" style="cursor:default">Incluso</button></div>
           </div>
           <div class="tog-row">
-            <div><div class="tog-label">Backup Offsite</div><div class="tog-sub">Cópia cross-site · retenção estendida · <b>sob consulta</b> — marque para receber cotação junto</div></div>
-            <div class="tog"><button id="bo-s" onclick="setTog('bo',true)">Sim</button><button id="bo-n" class="on" onclick="setTog('bo',false)">Não</button></div>
+            <div><div class="tog-label">Suporte técnico</div><div class="tog-sub">Janela comercial (<span id="supJanela">seg–sex 08h–18h</span>) <b>inclusa</b>. Horas adicionais: <span id="hint85">R$ 180</span>/h 8×5 · <span id="hint247">R$ 240</span>/h 24×7.</div></div>
+            <div class="tog" style="visibility:hidden"><button id="sup-n" class="on"></button><button id="sup-s"></button></div>
           </div>
-          <div class="tog-row">
-            <div><div class="tog-label">Suporte técnico</div><div class="tog-sub">Janela comercial (<span id="supJanela">seg–sex 08h–18h</span>) <b>inclusa</b>. Horas adicionais: <span id="hint85">R$ 180</span>/h 8×5 · <span id="hint247">R$ 240</span>/h 24×7. Plantão 24×7 sob consulta.</div></div>
-            <div class="tog"><button id="sup-n" class="on" onclick="setSup('8x5')">8×5</button><button id="sup-s" onclick="setSup('24x7')">24×7</button></div>
-          </div>
+          <div id="svBody"></div>
           <input type="hidden" id="sup-hrs-85" value="0"><input type="hidden" id="sup-hrs-247" value="0">
           <div style="padding:9px 0 2px">
             <div style="background:rgba(39,174,96,0.08);border:1px solid rgba(39,174,96,0.2);border-radius:8px;padding:9px 12px;font-size:11px;color:#27ae60;display:flex;align-items:center;gap:6px">
@@ -326,7 +319,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 
         <button class="cta-btn" onclick="openModal()">Solicitar proposta →</button>
         <button class="cta-btn" id="btnOnline" onclick="contratarOnline()" style="display:none;background:#1a1612;margin-top:8px">Contratar online →</button>
-        <div id="onlineHint" style="display:none;font-size:11px;color:var(--ink3);margin-top:6px;line-height:1.5">DR / backup offsite não entram na contratação online — peça a proposta ou contrate agora e adicionamos depois.</div>
+        <div id="onlineHint" style="display:none;font-size:11px;color:var(--ink3);margin-top:6px;line-height:1.5">Itens marcados como "Cotar" não entram na contratação online — peça a proposta, ou contrate agora e adicionamos depois.</div>
         <div class="disclaimer">Preços em reais · Sem variação cambial · Faturamento mensal</div>
       </div>
     </div><!-- end sidebar -->
@@ -470,6 +463,28 @@ var rows = [], rid = 0;
 var togs = {dr:false, bk:true, bo:false};
 var supAtivo = false;
 var caas = {};   // sku -> qtd
+var sv = {};     // serviço.sku -> qtd (ativos no catálogo)
+var cotar = {};  // serviço.sku -> true (inativos: pedir cotação)
+var SV_PADRAO=[{sku:'dr.replicacao',label:'Disaster Recovery',sub:'Replicação cross-site · RPO ≤15min'},{sku:'backup.offsite',label:'Backup offsite',sub:'Cópia cross-site com retenção estendida'},
+               {sku:'ip.publico',label:'IPs públicos adicionais',sub:'1 IPv4 por VM já incluso'},{sku:'banda.garantida',label:'Banda garantida',sub:'Mbps dedicados (tráfego padrão é ilimitado, sem garantia)'},{sku:'suporte.24x7',label:'Plantão 24×7',sub:'Atendimento fora da janela comercial'}];
+function svCat(k){ return ((P&&P.servicos_adicionais)||[]).find(function(x){return x.sku===k;}); }
+function totalVms(){ return rows.reduce(function(a,r){return a+(+r.data.qty||1);},0); }
+function setSv(k,v){ sv[k]=Math.max(0,parseInt(v)||0); syncTogs(); schedCalc(); }
+function setCotar(k,v){ cotar[k]=!!v; syncTogs(); schedCalc(); renderServicos(); }
+function syncTogs(){ togs.dr=(sv['dr.replicacao']>0)||!!cotar['dr.replicacao']; togs.bo=(sv['backup.offsite']>0)||!!cotar['backup.offsite']; janela=(sv['suporte.24x7']>0||cotar['suporte.24x7'])?'24x7':'8x5'; }
+function renderServicos(){
+  var el=document.getElementById('svBody'); if(!el||!P) return;
+  var lista=((P.servicos_adicionais)||[]).slice(); var vistos={}; lista.forEach(function(x){vistos[x.sku]=1;});
+  SV_PADRAO.forEach(function(d){ if(!vistos[d.sku]) lista.push({sku:d.sku,descricao:d.label,unidade:'',preco:null,inativo:true}); });
+  el.innerHTML=lista.map(function(x){
+    var pad=SV_PADRAO.find(function(d){return d.sku===x.sku;})||{}; var label=pad.label||x.descricao, sub=pad.sub||'';
+    if(x.inativo){ return '<div class="tog-row"><div><div class="tog-label">'+label+'</div><div class="tog-sub">'+sub+(sub?' · ':'')+'<b>sob consulta</b> — marque para receber cotação junto</div></div><div class="tog"><button class="'+(cotar[x.sku]?'on':'')+'" onclick="setCotar(\''+x.sku+'\',true)">Cotar</button><button class="'+(cotar[x.sku]?'':'on')+'" onclick="setCotar(\''+x.sku+'\',false)">Não</button></div></div>'; }
+    var q=sv[x.sku]||0, u=x.unidade, uni={ip:'IPs',mbps:'Mbps',gb:'GB',vm:'VMs',hora:'horas'}[u];
+    var ctl = u==='mes' ? '<div class="tog"><button class="'+(q?'on':'')+'" onclick="setSv(\''+x.sku+'\',1)">Sim</button><button class="'+(q?'':'on')+'" onclick="setSv(\''+x.sku+'\',0)">Não</button></div>'
+      : '<div style="display:flex;align-items:center;gap:6px"><input type="number" min="0" value="'+(q||'')+'" placeholder="0" style="width:74px;padding:6px 8px;font-size:12px" onchange="setSv(\''+x.sku+'\',this.value)"><span style="font-size:11px;color:var(--ink3)">'+(uni||'')+'</span>'+(u==='vm'?' <button onclick="setSv(\''+x.sku+'\','+totalVms()+');renderServicos()" style="font-size:10px;padding:4px 8px;border:1px solid var(--border);background:var(--surface);border-radius:6px;cursor:pointer">todas ('+totalVms()+')</button>':'')+'</div>';
+    return '<div class="tog-row"><div><div class="tog-label">'+label+'</div><div class="tog-sub">'+(sub?sub+' · ':'')+(x.descricao!==label?x.descricao+' · ':'')+'<b>'+fmtBRL(x.preco)+'</b> '+(x.unidade_label||'')+'</div></div>'+ctl+'</div>';
+  }).join('');
+}
 function setCaas(k,d){ caas[k]=Math.max(0,Math.min(50,(caas[k]||0)+d)); renderCaas(); schedCalc(); }
 function renderCaas(){ var el=document.getElementById('caasBody'); if(!el||!P) return; var tiers=((P.skus_caas||{}).tiers||[]); if(!tiers.length){el.innerHTML='<div class="vm-empty">Sem tiers cadastrados.</div>';return;}
   el.innerHTML=tiers.map(function(t){var q=caas[t.sku]||0;return '<div class="tog-row" style="gap:12px"><div><div class="tog-label" style="font-family:\'DM Mono\',monospace">'+t.sku+'</div><div class="tog-sub">'+(t.descricao||'')+' · <b>'+fmtBRL(t.preco)+'</b>/mês</div></div><div class="tog"><button onclick="setCaas(\''+t.sku+'\',-1)">−</button><button class="'+(q?'on':'')+'" style="cursor:default;min-width:34px">'+q+'</button><button onclick="setCaas(\''+t.sku+'\',1)">+</button></div></div>';}).join(''); }
@@ -555,7 +570,7 @@ function addRow(data){
 function delRow(id){ rows=rows.filter(function(r){return r.id!==id;}); renderTable(); schedCalc(); }
 
 function renderTable(){
-  var tb=document.getElementById('vmBody'); if(!tb) return;
+  var tb=document.getElementById('vmBody'); if(!tb) return; if(P) renderServicos();
   tb.innerHTML='';
   rows.forEach(function(r,idx){
     var d=r.data, id=r.id;
@@ -627,7 +642,7 @@ function renderTable(){
 function schedCalc(){ clearTimeout(_calcTimer); _calcTimer=setTimeout(doCalc,350); }
 
 function doCalc(){
-  var temCaas=Object.keys(caas).some(function(k){return caas[k]>0;});
+  var temCaas=Object.keys(caas).some(function(k){return caas[k]>0;})||Object.keys(sv).some(function(k){return sv[k]>0;});
   if((!rows.length&&!temCaas)||!P){
     document.getElementById('breakdown').innerHTML='<div class="vm-empty">'+(P?'Adicione VMs para calcular.':'Carregando tabela de preços…')+'</div>';
     document.getElementById('totalVal').textContent='R$ —';
@@ -638,6 +653,7 @@ function doCalc(){
   }
   var items=rows.map(function(r){var d=r.data,q=+d.qty||1,u=precoRow(d);return {nome:d.nm,qtd:q,spec:specRow(d),so:d.os||'Linux',unit:u,subtotal:u*q,win:(d.os||'').indexOf('Windows')===0};});
   Object.keys(caas).forEach(function(k){var q=caas[k]; if(q>0){var t=((P.skus_caas||{}).tiers||[]).find(function(x){return x.sku===k;}); if(t) items.push({nome:'Kubernetes '+k,qtd:q,spec:t.descricao||k,so:'',unit:t.preco,subtotal:t.preco*q,win:false,caas:k});}});
+  Object.keys(sv).forEach(function(k){var q=sv[k],x=svCat(k); if(q>0&&x) items.push({nome:(SV_PADRAO.find(function(d){return d.sku===k;})||{}).label||x.descricao,qtd:q,spec:x.descricao+' ('+(x.unidade_label||'')+')',so:'',unit:x.preco,subtotal:x.preco*q,win:false,servico:k});});
   var vmTotal=items.reduce(function(a,i){return a+i.subtotal;},0);
   var supCost=getSupCost(), grandTotal=vmTotal+supCost, anyWin=items.some(function(i){return i.win;});
   _lastCalcData={items:items,total:vmTotal,net_cost:0,sup:supCost,grand:grandTotal};
@@ -645,7 +661,7 @@ function doCalc(){
   items.forEach(function(item){
     var div=document.createElement('div'); div.className='vm-line';
     var left=document.createElement('div'); left.className='vm-line-name'; left.textContent=item.nome||item.spec.split(' ')[0];
-    var sub=document.createElement('span'); sub.textContent=item.spec+' ×'+item.qtd+(item.caas?'':(item.win?' · Win*':' · Linux')); left.appendChild(sub);
+    var sub=document.createElement('span'); sub.textContent=item.spec+' ×'+item.qtd+((item.caas||item.servico)?'':(item.win?' · Win*':' · Linux')); left.appendChild(sub);
     var right=document.createElement('div'); right.className='vm-line-price'; right.textContent=fmtBRL(item.subtotal);
     div.appendChild(left); div.appendChild(right); bd.appendChild(div);
   });
@@ -666,7 +682,8 @@ function doCalc(){
   var convite=false; try{convite=localStorage.getItem('alliant_convite')==='alliant-preview-2026';}catch(e){}
   var okRows=rows.every(function(r){var d=r.data; if(skuInfo(d.flavor)) return true; if((d.flavor||'').indexOf('custom:')===0) return (+d.vcpu>0&&+d.ram>0&&+d.disco>=10); return false;});
   document.getElementById('btnOnline').style.display=(convite&&okRows&&(rows.length||temCaas))?'block':'none';
-  document.getElementById('onlineHint').style.display=(convite&&okRows&&(togs.dr||togs.bo))?'block':'none';
+  var temCotacao=Object.keys(cotar).some(function(k){return cotar[k];});
+  document.getElementById('onlineHint').style.display=(convite&&okRows&&temCotacao)?'block':'none';
 }
 function contratarOnline(){
   var cart={}; rows.forEach(function(r,idx){var d=r.data,i=skuInfo(d.flavor); var so=(d.os||'').indexOf('Windows')===0?'windows':'linux';
@@ -674,6 +691,7 @@ function contratarOnline(){
       if(cart[k]){cart[k].qtd+=+d.qty||1;} else cart[k]={tipo:'vm',modo:'sku',familia:i.familia,sku:d.flavor,qtd:+d.qty||1,so:so,preco:i.s.preco,label:d.flavor,nome:d.nm||'',extra_gb:+d.extra_gb||0,extra_tier:d.extra_tier||'',extra_valor:extraRow(d)}; }
     else if((d.flavor||'').indexOf('custom:')===0){ var fam=d.flavor.slice(7); cart['custom:'+idx]={tipo:'vm',modo:'custom',familia:fam,sku:famLabel(fam)+' sob medida',qtd:+d.qty||1,so:so,preco:precoCustom(fam,d.vcpu,d.ram,d.disco,d.tier),label:(d.vcpu||0)+' vCPU · '+(d.ram||0)+' GB · '+(d.disco||0)+' GB '+(d.tier||''),nome:d.nm||'',vcpu:+d.vcpu||0,ram_gb:+d.ram||0,disco_gb:+d.disco||0,tier_disco:d.tier||'',extra_gb:+d.extra_gb||0,extra_tier:d.extra_tier||'',extra_valor:extraRow(d)}; }});
   Object.keys(caas).forEach(function(k){var q=caas[k]; if(q>0){var t=((P.skus_caas||{}).tiers||[]).find(function(x){return x.sku===k;}); if(t) cart['caas:'+k]={tipo:'caas',familia:'caas',sku:k,qtd:q,so:'',preco:t.preco,label:k};}});
+  Object.keys(sv).forEach(function(k){var q=sv[k],x=svCat(k); if(q>0&&x) cart['sv:'+k]={tipo:'servico',familia:'servico',sku:k,qtd:q,so:'',preco:x.preco,label:x.descricao+' ('+(x.unidade_label||'')+')'};});
   try{localStorage.setItem('alliant_carrinho',JSON.stringify({cart:cart,vigencia_meses:+document.getElementById('vig').value||12,forma_pagamento:document.getElementById('pg').value||'boleto',janela_suporte:janela,ts:Date.now()}));}catch(e){}
   location.href='cadastro.html';
 }
@@ -686,7 +704,7 @@ fetch(API+'/api/public/precos').then(function(r){if(!r.ok)throw new Error('HTTP 
   P=p;
   if(p.backup&&p.backup.incluso_dias) document.getElementById('bkDias').textContent=p.backup.incluso_dias;
   if(p.suporte){ document.getElementById('hint85').textContent='R$ '+Math.round(+p.suporte.hora_excedente_comercial||180); document.getElementById('hint247').textContent='R$ '+Math.round(+p.suporte.hora_excedente_fora_comercial||240); if(p.suporte.janela_comercial) document.getElementById('supJanela').textContent=p.suporte.janela_comercial.toLowerCase(); }
-  renderCaas();
+  renderCaas(); renderServicos();
   if(!rows.length) addRow(); else { rows.forEach(function(r){ if(!skuInfo(r.data.flavor)&&(r.data.flavor||'').indexOf('custom:')!==0) r.data.flavor=primeiroSku(); }); renderTable(); }
   schedCalc();
 }).catch(function(e){ document.getElementById('breakdown').innerHTML='<div class="vm-empty" style="color:#c0392b">Não foi possível carregar a tabela de preços ('+e.message+'). Recarregue a página.</div>'; });
@@ -766,7 +784,7 @@ function sendProposta(){
   if(!tsTok.m){ st.style.color='#c0392b'; st.textContent='Conclua a verificação anti-robô.'; return; }
   var btn=document.getElementById('m-sendBtn'); btn.disabled=true; st.style.color='var(--ink2)'; st.textContent='Enviando...';
   var h85=+(document.getElementById('sup-hrs-85').value)||0, h247=+(document.getElementById('sup-hrs-247').value)||0;
-  var opc=[]; if(togs.dr) opc.push('Disaster Recovery'); if(togs.bo) opc.push('Backup offsite');
+  var opc=[]; Object.keys(cotar).forEach(function(k){ if(cotar[k]) opc.push('COTAR: '+((SV_PADRAO.find(function(d){return d.sku===k;})||{}).label||k)); });
   postLead({
     empresa:emp, cnpj:document.getElementById('m-cnpj').value, nome:nom, cargo:document.getElementById('m-cargo').value, email:eml, telefone:wa,
     segmento:document.getElementById('m-segmento').value, prazo:document.getElementById('m-prazo').value,

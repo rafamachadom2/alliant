@@ -231,7 +231,7 @@ if(!sel||!sel.cart||!Object.keys(sel.cart).length){
   $('b1').disabled=true;
 }else{
   var tot=0;$('cart').innerHTML=Object.keys(sel.cart).map(function(k){var it=sel.cart[k],sub=(it.preco+(it.extra_valor||0))*it.qtd;tot+=sub;
-    return '<div class="ci"><div>'+it.qtd+'× '+esc(it.nome||it.sku)+'<small>'+(it.tipo==='vm'?(it.modo==='custom'?esc(it.sku)+' · '+esc(it.label):esc(it.familia))+' · '+(it.so==='windows'?'Windows Server':'Linux')+(it.extra_gb?' · +'+it.extra_gb+' GB '+esc(it.extra_tier):''):'Kubernetes gerenciado')+'</small></div><b>'+brl(sub)+'</b></div>';}).join('');
+    return '<div class="ci"><div>'+it.qtd+'× '+esc(it.nome||it.sku)+'<small>'+(it.tipo==='vm'?(it.modo==='custom'?esc(it.sku)+' · '+esc(it.label):esc(it.familia))+' · '+(it.so==='windows'?'Windows Server':'Linux')+(it.extra_gb?' · +'+it.extra_gb+' GB '+esc(it.extra_tier):''):it.tipo==='servico'?esc(it.label):'Kubernetes gerenciado')+'</small></div><b>'+brl(sub)+'</b></div>';}).join('');
   $('total').innerHTML=brl(tot)+'<small>/mês</small>';
   $('sVig').textContent=(sel.vigencia_meses||12)+' meses';
   $('sPg').textContent={boleto:'Boleto',pix:'Pix',cartao:'Cartão'}[sel.forma_pagamento]||'Boleto';
@@ -274,10 +274,11 @@ function montarTs(){
 montarTs();
 
 function payload(){
-  var itens={vms:[],caas:[]};
+  var itens={vms:[],caas:[],servicos:[]};
   Object.keys(sel.cart).forEach(function(k){var it=sel.cart[k];
     if(it.tipo==='vm'){var base={modo:it.modo||'sku',familia:it.familia,qtd:it.qtd,so:it.so==='windows'?'Windows Server':'Linux',nome:it.nome||'',disco_extra_gb:it.extra_gb||0,tier_disco_extra:it.extra_tier||''};
       if(it.modo==='custom'){base.vcpu=it.vcpu;base.ram_gb=it.ram_gb;base.disco_gb=it.disco_gb;base.tier_disco=it.tier_disco;} else base.sku=it.sku; itens.vms.push(base);}
+    else if(it.tipo==='servico') itens.servicos.push({sku:it.sku,qtd:it.qtd});
     else itens.caas.push({sku:it.sku,qtd:it.qtd});});
   ['logradouro','numero','complemento','bairro'].forEach(function(k){endereco[k]=$(k).value.trim();});
   return {cnpj:dig($('cnpj').value),representante:$('representante').value.trim(),cpf:dig($('cpf').value),cargo:$('cargo').value,
