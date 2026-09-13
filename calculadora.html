@@ -157,6 +157,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 
 @media(max-width:780px){.middle-row{flex-direction:column}.sidebar{width:100%}}
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </head>
 <body>
 
@@ -173,12 +174,16 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
       <path d="M7176.08 63.46c-108.03,-67.26 -578.72,-97.84 -702.18,-6.11 -100.31,79.5 -69.45,452.53 -15.43,599.28 208.34,55.03 571,61.16 733.03,-12.23 69.45,-67.27 69.45,-354.68 30.86,-483.09 -23.15,-85.61 -7.71,-55.03 -46.29,-97.85z"/>
     </svg>
   </a>
-
+  <div class="nav-links" style="display:flex;gap:26px;align-items:center;flex-wrap:wrap">
+    <a href="calculadora.html" style="font-size:14px;color:#1a1612;text-decoration:none">Planos e preços</a>
+    <a href="mailto:alliant@alliant.com.br" style="font-size:14px;color:#6b5f52;text-decoration:none">Contato</a>
+    <a href="https://portal.alliant.com.br/" style="font-size:14px;color:#f5f0e8;background:#1a1612;padding:9px 18px;border-radius:8px;font-weight:600;text-decoration:none">Entrar</a>
+  </div>
 </nav>
 
 <div class="hero">
-  <h1>Crie sua<br><span>infraestrutura cloud.</span></h1>
-  <p>Monte seu ambiente, configure os serviços e veja o custo estimado em tempo real. Sem surpresas na fatura.</p>
+  <h1>Planos e preços.<br><span>Monte e contrate.</span></h1>
+  <p>Monte seu ambiente com os planos do catálogo ou sob medida, veja o valor em tempo real e contrate online — ou peça uma proposta para DR, offsite e projetos especiais. Sem surpresas na fatura.</p>
 </div>
 
 <!-- ARQUITETURA -->
@@ -209,7 +214,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
           <th class="col-name">Nome / Função</th>
           <th class="col-os">Sistema Operacional</th>
           <th class="col-num">Qtd</th>
-          <th style="min-width:180px">Flavor</th>
+          <th style="min-width:260px">Família / tamanho</th>
+          <th style="min-width:150px">Disco adicional</th>
           <th class="col-del"></th>
         </tr></thead>
         <tbody id="vmBody"></tbody>
@@ -227,40 +233,33 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
     <!-- LEFT: Serviços + Rede + Especial -->
     <div class="middle-left">
 
+      <!-- Kubernetes gerenciado -->
+      <div class="card">
+        <div class="card-title">Kubernetes gerenciado</div>
+        <div id="caasBody" style="display:flex;flex-direction:column;gap:8px"><div class="vm-empty">Carregando…</div></div>
+      </div>
+
       <!-- Serviços -->
       <div class="card">
         <div class="card-title">Serviços adicionais</div>
         <div class="togs">
           <div class="tog-row">
-            <div><div class="tog-label">Disaster Recovery</div><div class="tog-sub">Replicação Ceph RBD cross-site · RPO ≤15min · DC-SP2 Osasco</div></div>
+            <div><div class="tog-label">Disaster Recovery</div><div class="tog-sub">Replicação cross-site · RPO ≤15min · <b>sob consulta</b> — marque para receber cotação junto</div></div>
             <div class="tog"><button id="dr-s" onclick="setTog('dr',true)">Sim</button><button id="dr-n" class="on" onclick="setTog('dr',false)">Não</button></div>
           </div>
           <div class="tog-row">
-            <div><div class="tog-label">Backup local diário</div><div class="tog-sub">Snapshots Cinder com retenção configurável</div></div>
-            <div class="tog"><button id="bk-s" class="on" onclick="setTog('bk',true)">Sim</button><button id="bk-n" onclick="setTog('bk',false)">Não</button></div>
+            <div><div class="tog-label">Backup diário</div><div class="tog-sub">Snapshots com <span id="bkDias">14</span> dias de retenção — <b>incluso</b> em todas as VMs</div></div>
+            <div class="tog"><button id="bk-s" class="on" style="cursor:default">Incluso</button></div>
           </div>
           <div class="tog-row">
-            <div><div class="tog-label">Backup Offsite</div><div class="tog-sub">Replicação cross-site · retenção 30 dias · Cinder Backup</div></div>
+            <div><div class="tog-label">Backup Offsite</div><div class="tog-sub">Cópia cross-site · retenção estendida · <b>sob consulta</b> — marque para receber cotação junto</div></div>
             <div class="tog"><button id="bo-s" onclick="setTog('bo',true)">Sim</button><button id="bo-n" class="on" onclick="setTog('bo',false)">Não</button></div>
           </div>
           <div class="tog-row">
-            <div><div class="tog-label">Suporte técnico</div><div class="tog-sub">Atendimento em português por engenheiros Alliant</div></div>
-            <div class="tog"><button id="sup-s" onclick="setSupAtivo(true)">Sim</button><button id="sup-n" class="on" onclick="setSupAtivo(false)">Não</button></div>
+            <div><div class="tog-label">Suporte técnico</div><div class="tog-sub">Janela comercial (<span id="supJanela">seg–sex 08h–18h</span>) <b>inclusa</b>. Horas adicionais: <span id="hint85">R$ 180</span>/h 8×5 · <span id="hint247">R$ 240</span>/h 24×7. Plantão 24×7 sob consulta.</div></div>
+            <div class="tog"><button id="sup-n" class="on" onclick="setSup('8x5')">8×5</button><button id="sup-s" onclick="setSup('24x7')">24×7</button></div>
           </div>
-          <div id="sup-config" class="sup-config">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div>
-                <div class="sup-field-label">Horas 8×5 / mês</div>
-                <input type="number" id="sup-hrs-85" class="sup-input" value="0" min="0" max="500" placeholder="0" oninput="schedCalc()">
-                <div class="sup-hint">R$ 180,00 / hora</div>
-              </div>
-              <div>
-                <div class="sup-field-label">Horas 24×7 / mês</div>
-                <input type="number" id="sup-hrs-247" class="sup-input" value="0" min="0" max="500" placeholder="0" oninput="schedCalc()">
-                <div class="sup-hint">R$ 240,00 / hora</div>
-              </div>
-            </div>
-          </div>
+          <input type="hidden" id="sup-hrs-85" value="0"><input type="hidden" id="sup-hrs-247" value="0">
           <div style="padding:9px 0 2px">
             <div style="background:rgba(39,174,96,0.08);border:1px solid rgba(39,174,96,0.2);border-radius:8px;padding:9px 12px;font-size:11px;color:#27ae60;display:flex;align-items:center;gap:6px">
               <span>✓</span><span><strong>Alta Disponibilidade incluída</strong> em todas as VMs por padrão — failover automático em &lt;5min em caso de falha do host físico. Sem custo adicional.</span>
@@ -272,28 +271,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
       <!-- Rede -->
       <div class="card">
         <div class="card-title">Rede</div>
-        <div style="display:flex;flex-direction:column;gap:20px">
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
-              <label style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif">IPs públicos dedicados</label>
-              <span style="font-family:'DM Mono',monospace;font-size:14px;font-weight:600;color:var(--ink)" id="ips-val">0</span>
-            </div>
-            <input type="range" id="ips" min="0" max="16" step="1" value="0"
-              oninput="document.getElementById('ips-val').textContent=this.value;schedCalc()"
-              style="width:100%;accent-color:var(--blue);cursor:pointer">
-            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace;margin-top:4px"><span>0</span><span>16</span></div>
-          </div>
-          <div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
-              <label style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-family:'Raleway',sans-serif">Banda garantida (Mbps)</label>
-              <span style="font-family:'DM Mono',monospace;font-size:14px;font-weight:600;color:var(--ink)" id="banda-val">0</span>
-            </div>
-            <input type="range" id="banda" min="0" max="1000" step="50" value="0"
-              oninput="document.getElementById('banda-val').textContent=this.value;schedCalc()"
-              style="width:100%;accent-color:var(--blue);cursor:pointer">
-            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--ink3);font-family:'DM Mono',monospace;margin-top:4px"><span>0</span><span>1000 Mbps</span></div>
-          </div>
-        </div>
+        <div style="font-size:12px;color:var(--ink2);line-height:1.7">Um endereço IPv4 público por VM e tráfego <b>ilimitado</b>, sem cobrança por GB, IOPS ou requisições. Precisa de bloco de IPs, banda garantida ou link dedicado? Marque no pedido de proposta ou use <b>Projeto especial</b>.</div>
+        <input type="hidden" id="ips" value="0"><input type="hidden" id="banda" value="0">
       </div>
 
       <!-- Projeto Especial -->
@@ -336,12 +315,18 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
           <b id="vmLineVal"></b>
         </div>
 
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 4px">
+          <div><div class="sup-field-label">Vigência</div><select id="vig" class="sup-input" onchange="schedCalc()"><option value="12">12 meses</option><option value="24">24 meses</option><option value="36">36 meses</option><option value="48">48 meses</option><option value="60">60 meses</option></select></div>
+          <div><div class="sup-field-label">Pagamento</div><select id="pg" class="sup-input" onchange="schedCalc()"><option value="boleto">Boleto (30 dias)</option><option value="pix">Pix</option><option value="cartao">Cartão</option></select></div>
+        </div>
         <div class="total-row">
           <div class="total-label">Total / mês</div>
           <div class="total-value" id="totalVal">R$ —</div>
         </div>
 
         <button class="cta-btn" onclick="openModal()">Solicitar proposta →</button>
+        <button class="cta-btn" id="btnOnline" onclick="contratarOnline()" style="display:none;background:#1a1612;margin-top:8px">Contratar online →</button>
+        <div id="onlineHint" style="display:none;font-size:11px;color:var(--ink3);margin-top:6px;line-height:1.5">DR / backup offsite não entram na contratação online — peça a proposta ou contrate agora e adicionamos depois.</div>
         <div class="disclaimer">Preços em reais · Sem variação cambial · Faturamento mensal</div>
       </div>
     </div><!-- end sidebar -->
@@ -397,6 +382,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
         <div style="font-size:12px;color:#1d6aff;font-weight:600">🚀 Lançamento previsto para Q2 2027</div>
         <div style="font-size:11px;color:var(--ink2);margin-top:2px">Clientes que solicitarem proposta agora terão prioridade na fila de onboarding e condições especiais de contrato.</div>
       </div>
+      <div class="mfield"><label>WhatsApp é obrigatório para retorno</label><input type="text" id="m-website" name="website" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px" aria-hidden="true"></div>
+      <div id="ts-m"></div>
       <button class="modal-send" id="m-sendBtn" onclick="sendProposta()">Enviar solicitação →</button>
       <div class="modal-status" id="m-status"></div>
     </div>
@@ -451,6 +438,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
         </div>
         <input type="file" id="sp-file" accept=".xlsx,.csv,.pdf,.docx,.xls,.txt" style="display:none" onchange="handleFile(this.files[0])">
       </div>
+      <div id="ts-sp"></div>
       <button class="modal-send" id="sp-sendBtn" onclick="sendSpecial()">Enviar solicitação →</button>
       <div class="modal-status" id="sp-status"></div>
     </div>
@@ -463,29 +451,28 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 </div>
 
 <script>
-// ── FLAVORS ────────────────────────────────────────────────────────────────
-var FLAVORS_LIST = [
-  ['General Purpose', ['gp.nano','gp.micro','gp.small','gp.medium','gp.large','gp.xlarge','gp.2xlarge']],
-  ['Memory Optimized',['mo.small','mo.medium','mo.large','mo.xlarge','mo.2xlarge']],
-  ['Compute Optimized',['cp.small','cp.medium','cp.large','cp.xlarge','cp.2xlarge']],
-  ['Windows Server',  ['win.gp.small','win.gp.medium','win.gp.large','win.gp.xlarge','win.gp.2xlarge']]
-];
-var FLAVOR_SPECS = {
-  'gp.nano'       :{v:1, r:1  },'gp.micro'      :{v:1, r:2  },
-  'gp.small'      :{v:2, r:4  },'gp.medium'     :{v:4, r:8  },
-  'gp.large'      :{v:8, r:16 },'gp.xlarge'     :{v:16,r:32 },'gp.2xlarge'    :{v:32,r:64 },
-  'mo.small'      :{v:2, r:16 },'mo.medium'     :{v:4, r:32 },
-  'mo.large'      :{v:8, r:64 },'mo.xlarge'     :{v:16,r:128},'mo.2xlarge'    :{v:32,r:256},
-  'cp.small'      :{v:2, r:2  },'cp.medium'     :{v:4, r:4  },
-  'cp.large'      :{v:8, r:8  },'cp.xlarge'     :{v:16,r:16 },'cp.2xlarge'    :{v:32,r:32 },
-  'win.gp.small'  :{v:2, r:4  },'win.gp.medium' :{v:4, r:8  },
-  'win.gp.large'  :{v:8, r:16 },'win.gp.xlarge' :{v:16,r:32 },'win.gp.2xlarge':{v:32,r:64 }
-};
+// ── CATÁLOGO (backoffice /api/public/precos) ──────────────────────────────
+var LOCAL=(location.hostname==='localhost'||location.hostname==='127.0.0.1');
+var API=(new URLSearchParams(location.search).get('api'))||(LOCAL?'http://localhost:8000':'https://backoffice.alliant.com.br');
+var TS_KEY=LOCAL?'1x00000000000000000000AA':'0x4AAAAAAExq6_kU3LpNgS2m';
+var P=null;               // preços
+var FAM_LABEL={performance:'Performance',efficient:'Efficient',capacity:'Capacity'};
+function famLabel(f){return FAM_LABEL[f]||((P&&P.componentes[f]&&P.componentes[f].label)||f).split(' (')[0];}
+function skuInfo(sku){ if(!P) return null; for(var f in P.skus_vm){ if(!Array.isArray(P.skus_vm[f])) continue; var s=P.skus_vm[f].find(function(x){return x.sku===sku;}); if(s) return {familia:f,s:s}; } return null; }
+function precoCustom(fam,vcpu,ram,disco,tier){ var c=P&&P.componentes[fam]; if(!c) return 0; var pd=(c.disco_gb||{})[tier]; if(pd==null){var ks=Object.keys(c.disco_gb||{}); pd=ks.length?c.disco_gb[ks[0]]:0;} return (+vcpu||0)*c.vcpu+(+ram||0)*c.ram_gb+(+disco||0)*pd; }
+function extraRow(d){ if(!P||!d.extra_gb) return 0; var fam=(d.flavor||'').indexOf('custom:')===0?d.flavor.slice(7):((skuInfo(d.flavor)||{}).familia); var c=P.componentes[fam]; if(!c) return 0; var pu=(c.disco_gb||{})[d.extra_tier]; if(pu==null){var ks=Object.keys(c.disco_gb||{}); pu=ks.length?c.disco_gb[ks[0]]:0;} return (+d.extra_gb||0)*pu; }
+function precoRow(d){ if(!P) return 0; var base=0; if(d.flavor&&d.flavor.indexOf('custom:')===0){ base=precoCustom(d.flavor.slice(7),d.vcpu,d.ram,d.disco,d.tier); } else { var i=skuInfo(d.flavor); base=i?i.s.preco:0; } return base+extraRow(d); }
+function specRow(d){ if(d.flavor&&d.flavor.indexOf('custom:')===0) return famLabel(d.flavor.slice(7))+' sob medida '+(d.vcpu||0)+'v/'+(d.ram||0)+'G/'+(d.disco||0)+'GB '+(d.tier||'')+(d.extra_gb?' +'+d.extra_gb+'GB '+(d.extra_tier||''):''); var i=skuInfo(d.flavor); return (i?(d.flavor+' '+i.s.vcpu+'v/'+i.s.ram_gb+'G/'+i.s.disco_gb+'GB '+i.s.tier_disco):d.flavor)+(d.extra_gb?' +'+d.extra_gb+'GB '+(d.extra_tier||''):''); }
+function primeiroSku(){ for(var f in P.skus_vm){ if(Array.isArray(P.skus_vm[f])&&P.skus_vm[f].length) return P.skus_vm[f][Math.min(1,P.skus_vm[f].length-1)].sku; } return ''; }
 
 // ── STATE ─────────────────────────────────────────────────────────────────
 var rows = [], rid = 0;
 var togs = {dr:false, bk:true, bo:false};
 var supAtivo = false;
+var caas = {};   // sku -> qtd
+function setCaas(k,d){ caas[k]=Math.max(0,Math.min(50,(caas[k]||0)+d)); renderCaas(); schedCalc(); }
+function renderCaas(){ var el=document.getElementById('caasBody'); if(!el||!P) return; var tiers=((P.skus_caas||{}).tiers||[]); if(!tiers.length){el.innerHTML='<div class="vm-empty">Sem tiers cadastrados.</div>';return;}
+  el.innerHTML=tiers.map(function(t){var q=caas[t.sku]||0;return '<div class="tog-row" style="gap:12px"><div><div class="tog-label" style="font-family:\'DM Mono\',monospace">'+t.sku+'</div><div class="tog-sub">'+(t.descricao||'')+' · <b>'+fmtBRL(t.preco)+'</b>/mês</div></div><div class="tog"><button onclick="setCaas(\''+t.sku+'\',-1)">−</button><button class="'+(q?'on':'')+'" style="cursor:default;min-width:34px">'+q+'</button><button onclick="setCaas(\''+t.sku+'\',1)">+</button></div></div>';}).join(''); }
 var _lastCalcData = null;
 var _calcTimer = null;
 
@@ -507,65 +494,49 @@ function setTog(k,v){
   document.getElementById(k+'-n').className=v?'':'on';
   schedCalc();
 }
-function setSupAtivo(v){
-  supAtivo=v;
-  document.getElementById('sup-s').className=v?'on':'';
-  document.getElementById('sup-n').className=v?'':'on';
-  var cfg=document.getElementById('sup-config');
-  if(v) cfg.classList.add('open'); else cfg.classList.remove('open');
-  schedCalc();
-}
+var janela='8x5';
+function setSup(v){ janela=v; supAtivo=(v==='24x7'); document.getElementById('sup-s').className=v==='24x7'?'on':''; document.getElementById('sup-n').className=v==='24x7'?'':'on'; schedCalc(); }
 function getSupCost(){
   if(!supAtivo) return 0;
   var h85=+(document.getElementById('sup-hrs-85').value)||0;
   var h247=+(document.getElementById('sup-hrs-247').value)||0;
-  return h85*180 + h247*240;
+  return 0;
 }
 
 // ── FLAVOR SELECT ─────────────────────────────────────────────────────────
 function makeFlavorSelect(data, rowId){
   var sel = document.createElement('select');
-  sel.style.width='100%';
-  sel.style.background='var(--surface)';
-  sel.style.border='1px solid var(--border)';
-  sel.style.borderRadius='6px';
-  sel.style.padding='6px 8px';
-  sel.style.fontFamily="'DM Mono',monospace";
-  sel.style.fontSize='12px';
-  sel.style.outline='none';
-  FLAVORS_LIST.forEach(function(grp){
-    var og=document.createElement('optgroup'); og.label=grp[0];
-    grp[1].forEach(function(f){
-      var s=FLAVOR_SPECS[f]||{};
-      var op=document.createElement('option'); op.value=f;
-      op.textContent=f+' — '+s.v+'v/'+s.r+'G';
-      if(f===data.flavor) op.selected=true;
-      og.appendChild(op);
+  sel.style.width='100%'; sel.style.background='var(--surface)'; sel.style.border='1px solid var(--border)'; sel.style.borderRadius='6px';
+  sel.style.padding='6px 8px'; sel.style.fontFamily="'DM Mono',monospace"; sel.style.fontSize='12px'; sel.style.outline='none';
+  if(P){
+    Object.keys(P.skus_vm).forEach(function(f){
+      if(!Array.isArray(P.skus_vm[f])) return;
+      var og=document.createElement('optgroup'); og.label=famLabel(f);
+      P.skus_vm[f].forEach(function(s){
+        var op=document.createElement('option'); op.value=s.sku; op.textContent=s.sku+' — '+s.vcpu+'v/'+s.ram_gb+'G/'+s.disco_gb+'GB · R$ '+Math.round(s.preco);
+        if(s.sku===data.flavor) op.selected=true; og.appendChild(op);
+      });
+      var oc=document.createElement('option'); oc.value='custom:'+f; oc.textContent='⚙ '+famLabel(f)+' sob medida…'; if(data.flavor==='custom:'+f) oc.selected=true; og.appendChild(oc);
+      sel.appendChild(og);
     });
-    sel.appendChild(og);
-  });
+  }
   colorFlavorSel(sel);
-  sel.addEventListener('change', function(){
-    colorFlavorSel(this);
-    var flavor=this.value, isWin=flavor.indexOf('win.')===0;
-    var row=rows.find(function(r){return r.id===rowId;});
-    if(row && isWin && row.data.os==='Linux'){
-      row.data.os='Windows Server 2025';
-      var osSel=document.querySelector('[data-osid="'+rowId+'"]');
-      if(osSel) osSel.value='Windows Server 2025';
-      colorOsSel(osSel);
-    } else if(row && !isWin && row.data.os && row.data.os.indexOf('Windows')===0){
-      row.data.os='Linux';
-      var osSel=document.querySelector('[data-osid="'+rowId+'"]');
-      if(osSel) osSel.value='Linux';
-      colorOsSel(osSel);
-    }
-    upd(rowId,'flavor',flavor);
-  });
+  sel.addEventListener('change', function(){ colorFlavorSel(this); upd(rowId,'flavor',this.value); renderTable(); });
   return sel;
 }
+function makeCustomBox(d,id){
+  var box=document.createElement('div'); box.style.cssText='display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px';
+  var fam=d.flavor.slice(7), tiers=Object.keys((P.componentes[fam]||{}).disco_gb||{});
+  function inp(k,ph,val){var i=document.createElement('input');i.type='number';i.min=1;i.placeholder=ph;i.value=val||'';i.title=ph;i.style.cssText='width:100%;min-width:0;padding:5px 6px;font-size:11px';i.addEventListener('change',function(){upd(id,k,+this.value);});return i;}
+  box.appendChild(inp('vcpu','vCPU',d.vcpu)); box.appendChild(inp('ram','GB RAM',d.ram)); box.appendChild(inp('disco','GB disco',d.disco));
+  var t=document.createElement('select'); t.style.cssText='width:100%;min-width:0;padding:5px 4px;font-size:11px';
+  tiers.forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=k;if(k===d.tier)o.selected=true;t.appendChild(o);});
+  if(!d.tier&&tiers.length){d.tier=tiers[0];}
+  t.addEventListener('change',function(){upd(id,'tier',this.value);}); box.appendChild(t);
+  return box;
+}
 function colorFlavorSel(sel){
-  sel.style.color=sel.value.indexOf('win.')===0?'#0078d4':'#d35400';
+  sel.style.color=sel.value.indexOf('custom:')===0?'#1d6aff':'#d35400';
   sel.style.fontWeight='600';
 }
 function colorOsSel(sel){
@@ -577,7 +548,7 @@ function colorOsSel(sel){
 // ── ROW MANAGEMENT ────────────────────────────────────────────────────────
 function upd(id,k,v){ var r=rows.find(function(x){return x.id===id;}); if(r){r.data[k]=v; schedCalc();} }
 function addRow(data){
-  var d=Object.assign({nm:'',os:'Linux',qty:1,flavor:'gp.medium'}, data||{});
+  var d=Object.assign({nm:'',os:'Linux',qty:1,flavor:P?primeiroSku():''}, data||{});
   rows.push({id:++rid, data:d});
   renderTable(); schedCalc();
 }
@@ -603,8 +574,7 @@ function renderTable(){
     var tdO=document.createElement('td'); tdO.className='col-os';
     var selOS=document.createElement('select');
     selOS.setAttribute('data-osid', id);
-    var isWinFlavor=(d.flavor||'').indexOf('win.')===0;
-    if(isWinFlavor && d.os==='Linux') d.os='Windows Server 2025';
+    var isWinFlavor=false;
     ['Linux','Windows Server 2025','Windows Server 2022','Windows Server 2019'].forEach(function(o){
       var op=document.createElement('option'); op.value=o; op.textContent=o;
       if(isWinFlavor && o==='Linux'){ op.disabled=true; op.style.color='#ccc'; }
@@ -614,12 +584,7 @@ function renderTable(){
     colorOsSel(selOS);
     selOS.addEventListener('change',(function(i){return function(){
       var row=rows.find(function(r){return r.id===i;});
-      var isWinFlavor=row&&(row.data.flavor||'').indexOf('win.')===0;
-      if(isWinFlavor&&this.value==='Linux'){
-        this.value=row.data.os||'Windows Server 2025'; // revert
-        return;
-      }
-      upd(i,'os',this.value); colorOsSel(this);
+      upd(i,'os',this.value); colorOsSel(this); schedCalc();
     };})(id));
     tdO.appendChild(selOS); tr.appendChild(tdO);
 
@@ -633,7 +598,20 @@ function renderTable(){
     // Flavor
     var tdF=document.createElement('td');
     var sel=makeFlavorSelect(d, id);
-    tdF.appendChild(sel); tr.appendChild(tdF);
+    tdF.appendChild(sel); if(P&&(d.flavor||'').indexOf('custom:')===0) tdF.appendChild(makeCustomBox(d,id)); tr.appendChild(tdF);
+
+    // Disco adicional (GB + tier da família)
+    var tdX=document.createElement('td');
+    if(P){ var famX=(d.flavor||'').indexOf('custom:')===0?d.flavor.slice(7):((skuInfo(d.flavor)||{}).familia); var tiersX=Object.keys(((P.componentes[famX]||{}).disco_gb)||{});
+      var wrap=document.createElement('div'); wrap.style.cssText='display:grid;grid-template-columns:64px 1fr;gap:6px';
+      var ix=document.createElement('input'); ix.type='number'; ix.min=0; ix.step=10; ix.placeholder='GB'; ix.value=d.extra_gb||''; ix.style.cssText='width:100%;min-width:0;padding:5px 6px;font-size:11px';
+      ix.addEventListener('change',(function(i){return function(){upd(i,'extra_gb',Math.max(0,parseInt(this.value)||0));};})(id));
+      var tx=document.createElement('select'); tx.style.cssText='width:100%;min-width:0;padding:5px 4px;font-size:11px';
+      tiersX.forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=k+' · R$ '+(P.componentes[famX].disco_gb[k]).toFixed(2)+'/GB';if(k===d.extra_tier)o.selected=true;tx.appendChild(o);});
+      if(!d.extra_tier&&tiersX.length) d.extra_tier=tiersX[0];
+      tx.addEventListener('change',(function(i){return function(){upd(i,'extra_tier',this.value);};})(id));
+      wrap.appendChild(ix); wrap.appendChild(tx); tdX.appendChild(wrap); }
+    tr.appendChild(tdX);
 
     // Delete
     var tdD=document.createElement('td'); tdD.className='col-del';
@@ -649,84 +627,69 @@ function renderTable(){
 function schedCalc(){ clearTimeout(_calcTimer); _calcTimer=setTimeout(doCalc,350); }
 
 function doCalc(){
-  if(!rows.length){
-    document.getElementById('breakdown').innerHTML='<div class="vm-empty">Adicione VMs para calcular.</div>';
+  var temCaas=Object.keys(caas).some(function(k){return caas[k]>0;});
+  if((!rows.length&&!temCaas)||!P){
+    document.getElementById('breakdown').innerHTML='<div class="vm-empty">'+(P?'Adicione VMs para calcular.':'Carregando tabela de preços…')+'</div>';
     document.getElementById('totalVal').textContent='R$ —';
     document.getElementById('drBadge').classList.remove('show');
-    ['vmLine','netLine','supLine'].forEach(function(id){
-      var el=document.getElementById(id); if(el) el.classList.remove('show');
-    });
+    ['vmLine','netLine','supLine'].forEach(function(id){var el=document.getElementById(id); if(el) el.classList.remove('show');});
+    document.getElementById('btnOnline').style.display='none';
     return;
   }
-
-  var ips=+(document.getElementById('ips').value)||0;
-  var banda=+(document.getElementById('banda').value)||0;
-  var vms=rows.map(function(r){return{flavor:r.data.flavor||'gp.medium',qty:+r.data.qty||1};});
-  var payload={vms:vms, dr:togs.dr, servicos:{dr:togs.dr,bk:togs.bk,bo:togs.bo}, ips:ips, banda:banda};
-
-  fetch('https://io.alliant.com.br/form/calcular.php',{
-    method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)
-  })
-  .then(function(r){return r.json();})
-  .then(function(data){
-    if(!data.ok) throw new Error(data.error||'err');
-    _lastCalcData=data;
-
-    // Breakdown
-    var bd=document.getElementById('breakdown'); bd.innerHTML='';
-    if(data.items) data.items.forEach(function(item,i){
-      var row=rows[i]; var nm=row&&row.data.nm?row.data.nm:item.flavor;
-      var haOn=row&&row.data.ha;
-      var div=document.createElement('div'); div.className='vm-line';
-      var left=document.createElement('div'); left.className='vm-line-name';
-      left.textContent=nm+(haOn?' ⬡':'');
-      var sub=document.createElement('span');
-      sub.textContent=item.flavor+' ×'+item.qty+(haOn?' · HA':'')+(item.os==='win'?' · Win':' · Linux');
-      left.appendChild(sub);
-      var right=document.createElement('div'); right.className='vm-line-price';
-      right.textContent=fmtBRL(item.total);
-      div.appendChild(left); div.appendChild(right);
-      bd.appendChild(div);
-    });
-
-    // Costs — data.total already includes IPs+banda from calcular.php
-    var netCost=data.net_cost||0;
-    var supCost=getSupCost();
-    var grandTotal=data.total+supCost;
-
-    document.getElementById('totalVal').textContent=fmtBRL(grandTotal);
-    document.getElementById('drBadge').classList.toggle('show', togs.dr);
-
-    // Sub lines
-    var hasExtra = netCost>0 || supCost>0;
-    var vmLine=document.getElementById('vmLine');
-    if(hasExtra){ vmLine.classList.add('show'); document.getElementById('vmLineVal').textContent=fmtBRL(data.total); }
-    else vmLine.classList.remove('show');
-
-    var netLine=document.getElementById('netLine');
-    if(netCost>0){
-      netLine.classList.add('show');
-      var parts=[];
-      if(ips>0) parts.push(ips+' IP'+(ips>1?'s':''));
-      if(banda>0) parts.push(banda+' Mbps');
-      document.getElementById('netLineLabel').textContent=parts.join(' + ');
-      document.getElementById('netLineVal').textContent=fmtBRL(netCost);
-    } else netLine.classList.remove('show');
-
-    var supLine=document.getElementById('supLine');
-    if(supCost>0){
-      supLine.classList.add('show');
-      var h85=+(document.getElementById('sup-hrs-85').value)||0;
-      var h247=+(document.getElementById('sup-hrs-247').value)||0;
-      var sp=[]; if(h85>0) sp.push(h85+'h 8×5'); if(h247>0) sp.push(h247+'h 24×7');
-      document.getElementById('supLineLabel').textContent='Suporte '+sp.join(' + ');
-      document.getElementById('supLineVal').textContent=fmtBRL(supCost);
-    } else supLine.classList.remove('show');
-  })
-  .catch(function(){
-    document.getElementById('breakdown').innerHTML='<div class="vm-empty" style="color:#c0392b">Erro ao calcular. Tente novamente.</div>';
+  var items=rows.map(function(r){var d=r.data,q=+d.qty||1,u=precoRow(d);return {nome:d.nm,qtd:q,spec:specRow(d),so:d.os||'Linux',unit:u,subtotal:u*q,win:(d.os||'').indexOf('Windows')===0};});
+  Object.keys(caas).forEach(function(k){var q=caas[k]; if(q>0){var t=((P.skus_caas||{}).tiers||[]).find(function(x){return x.sku===k;}); if(t) items.push({nome:'Kubernetes '+k,qtd:q,spec:t.descricao||k,so:'',unit:t.preco,subtotal:t.preco*q,win:false,caas:k});}});
+  var vmTotal=items.reduce(function(a,i){return a+i.subtotal;},0);
+  var supCost=getSupCost(), grandTotal=vmTotal+supCost, anyWin=items.some(function(i){return i.win;});
+  _lastCalcData={items:items,total:vmTotal,net_cost:0,sup:supCost,grand:grandTotal};
+  var bd=document.getElementById('breakdown'); bd.innerHTML='';
+  items.forEach(function(item){
+    var div=document.createElement('div'); div.className='vm-line';
+    var left=document.createElement('div'); left.className='vm-line-name'; left.textContent=item.nome||item.spec.split(' ')[0];
+    var sub=document.createElement('span'); sub.textContent=item.spec+' ×'+item.qtd+(item.caas?'':(item.win?' · Win*':' · Linux')); left.appendChild(sub);
+    var right=document.createElement('div'); right.className='vm-line-price'; right.textContent=fmtBRL(item.subtotal);
+    div.appendChild(left); div.appendChild(right); bd.appendChild(div);
   });
+  if(anyWin){var w=document.createElement('div');w.className='vm-empty';w.style.cssText='font-size:10px;text-align:left;padding:6px 0 0';w.textContent='* Licenciamento Windows Server (SPLA) informado na proposta, cobrado à parte.';bd.appendChild(w);}
+  document.getElementById('totalVal').textContent=fmtBRL(grandTotal);
+  document.getElementById('drBadge').classList.toggle('show', togs.dr);
+  var vmLine=document.getElementById('vmLine');
+  if(supCost>0){ vmLine.classList.add('show'); document.getElementById('vmLineVal').textContent=fmtBRL(vmTotal); } else vmLine.classList.remove('show');
+  document.getElementById('netLine').classList.remove('show');
+  var supLine=document.getElementById('supLine');
+  if(supCost>0){
+    supLine.classList.add('show');
+    var h85=+(document.getElementById('sup-hrs-85').value)||0, h247=+(document.getElementById('sup-hrs-247').value)||0, sp=[];
+    if(h85>0) sp.push(h85+'h 8×5'); if(h247>0) sp.push(h247+'h 24×7');
+    document.getElementById('supLineLabel').textContent='Suporte '+sp.join(' + '); document.getElementById('supLineVal').textContent=fmtBRL(supCost);
+  } else supLine.classList.remove('show');
+  // contratar online: só SKUs de catálogo, sem DR/offsite, e com convite (preview)
+  var convite=false; try{convite=localStorage.getItem('alliant_convite')==='alliant-preview-2026';}catch(e){}
+  var okRows=rows.every(function(r){var d=r.data; if(skuInfo(d.flavor)) return true; if((d.flavor||'').indexOf('custom:')===0) return (+d.vcpu>0&&+d.ram>0&&+d.disco>=10); return false;});
+  document.getElementById('btnOnline').style.display=(convite&&okRows&&(rows.length||temCaas))?'block':'none';
+  document.getElementById('onlineHint').style.display=(convite&&okRows&&(togs.dr||togs.bo))?'block':'none';
 }
+function contratarOnline(){
+  var cart={}; rows.forEach(function(r,idx){var d=r.data,i=skuInfo(d.flavor); var so=(d.os||'').indexOf('Windows')===0?'windows':'linux';
+    if(i){ var k='vm:'+d.flavor+(d.extra_gb?':'+d.extra_gb+d.extra_tier:'')+':'+so;
+      if(cart[k]){cart[k].qtd+=+d.qty||1;} else cart[k]={tipo:'vm',modo:'sku',familia:i.familia,sku:d.flavor,qtd:+d.qty||1,so:so,preco:i.s.preco,label:d.flavor,nome:d.nm||'',extra_gb:+d.extra_gb||0,extra_tier:d.extra_tier||'',extra_valor:extraRow(d)}; }
+    else if((d.flavor||'').indexOf('custom:')===0){ var fam=d.flavor.slice(7); cart['custom:'+idx]={tipo:'vm',modo:'custom',familia:fam,sku:famLabel(fam)+' sob medida',qtd:+d.qty||1,so:so,preco:precoCustom(fam,d.vcpu,d.ram,d.disco,d.tier),label:(d.vcpu||0)+' vCPU · '+(d.ram||0)+' GB · '+(d.disco||0)+' GB '+(d.tier||''),nome:d.nm||'',vcpu:+d.vcpu||0,ram_gb:+d.ram||0,disco_gb:+d.disco||0,tier_disco:d.tier||'',extra_gb:+d.extra_gb||0,extra_tier:d.extra_tier||'',extra_valor:extraRow(d)}; }});
+  Object.keys(caas).forEach(function(k){var q=caas[k]; if(q>0){var t=((P.skus_caas||{}).tiers||[]).find(function(x){return x.sku===k;}); if(t) cart['caas:'+k]={tipo:'caas',familia:'caas',sku:k,qtd:q,so:'',preco:t.preco,label:k};}});
+  try{localStorage.setItem('alliant_carrinho',JSON.stringify({cart:cart,vigencia_meses:+document.getElementById('vig').value||12,forma_pagamento:document.getElementById('pg').value||'boleto',janela_suporte:janela,ts:Date.now()}));}catch(e){}
+  location.href='cadastro.html';
+}
+// ── TURNSTILE + carga de preços ───────────────────────────────────────────
+var tsTok={m:'',sp:''}, tsW={m:null,sp:null};
+function montarTs(k){ if(!window.turnstile){setTimeout(function(){montarTs(k);},300);return;} if(tsW[k]!==null) return;
+  tsW[k]=turnstile.render('#ts-'+k,{sitekey:TS_KEY,theme:'light',language:'pt-BR',callback:function(t){tsTok[k]=t;},'expired-callback':function(){tsTok[k]='';}}); }
+function resetTs(k){ tsTok[k]=''; if(window.turnstile&&tsW[k]!==null) turnstile.reset(tsW[k]); }
+fetch(API+'/api/public/precos').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(function(p){
+  P=p;
+  if(p.backup&&p.backup.incluso_dias) document.getElementById('bkDias').textContent=p.backup.incluso_dias;
+  if(p.suporte){ document.getElementById('hint85').textContent='R$ '+Math.round(+p.suporte.hora_excedente_comercial||180); document.getElementById('hint247').textContent='R$ '+Math.round(+p.suporte.hora_excedente_fora_comercial||240); if(p.suporte.janela_comercial) document.getElementById('supJanela').textContent=p.suporte.janela_comercial.toLowerCase(); }
+  renderCaas();
+  if(!rows.length) addRow(); else { rows.forEach(function(r){ if(!skuInfo(r.data.flavor)&&(r.data.flavor||'').indexOf('custom:')!==0) r.data.flavor=primeiroSku(); }); renderTable(); }
+  schedCalc();
+}).catch(function(e){ document.getElementById('breakdown').innerHTML='<div class="vm-empty" style="color:#c0392b">Não foi possível carregar a tabela de preços ('+e.message+'). Recarregue a página.</div>'; });
 
 // ── MODALS ────────────────────────────────────────────────────────────────
 function getArchBase64(){
@@ -740,17 +703,13 @@ function openModal(){
   var bd=document.getElementById('modalSummaryRows');
   bd.innerHTML='';
   if(_lastCalcData&&_lastCalcData.items){
-    var ips=+(document.getElementById('ips').value)||0;
-    var banda=+(document.getElementById('banda').value)||0;
-    var netCost=_lastCalcData.net_cost||0;
-    var supCost=getSupCost();
-    _lastCalcData.items.forEach(function(item,i){
-      var nm=rows[i]&&rows[i].data.nm?rows[i].data.nm:item.flavor;
+    _lastCalcData.items.forEach(function(item){
       var div=document.createElement('div'); div.className='modal-summary-row';
-      div.innerHTML='<span>'+nm+' ('+item.flavor+' ×'+item.qty+')</span><b>'+fmtBRL(item.total)+'</b>';
+      div.innerHTML='<span>'+(item.nome||'VM')+' ('+item.spec+' ×'+item.qtd+')</span><b>'+fmtBRL(item.subtotal)+'</b>';
       bd.appendChild(div);
     });
-    document.getElementById('modalTotal').textContent=fmtBRL(_lastCalcData.total+supCost);
+    if(_lastCalcData.sup>0){var ds=document.createElement('div');ds.className='modal-summary-row';ds.innerHTML='<span>Suporte adicional</span><b>'+fmtBRL(_lastCalcData.sup)+'</b>';bd.appendChild(ds);}
+    document.getElementById('modalTotal').textContent=fmtBRL(_lastCalcData.grand);
   } else {
     bd.innerHTML='<div style="font-size:12px;color:var(--ink3)">Configure as VMs para ver o resumo.</div>';
   }
@@ -760,6 +719,7 @@ function openModal(){
   document.getElementById('m-sendBtn').disabled=false;
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
+  montarTs('m');
 }
 function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow=''; }
 function openSpecial(){
@@ -771,6 +731,7 @@ function openSpecial(){
   _specialFile=null;
   document.getElementById('specialOverlay').classList.add('open');
   document.body.style.overflow='hidden';
+  montarTs('sp');
 }
 function closeSpecial(){ document.getElementById('specialOverlay').classList.remove('open'); document.body.style.overflow=''; }
 
@@ -790,42 +751,29 @@ function maskPhone2(el){
 }
 
 // ── SEND PROPOSTA ─────────────────────────────────────────────────────────
-function sendProposta(){
-  var emp=document.getElementById('m-empresa').value.trim();
-  var eml=document.getElementById('m-email').value.trim();
-  var nom=document.getElementById('m-nome').value.trim();
-  if(!emp||!eml||!nom){
-    document.getElementById('m-status').style.color='#c0392b';
-    document.getElementById('m-status').textContent='Preencha razão social, responsável e e-mail.';
-    return;
-  }
-  var btn=document.getElementById('m-sendBtn'); btn.disabled=true;
-  document.getElementById('m-status').style.color='var(--ink2)';
-  document.getElementById('m-status').textContent='Enviando...';
-  var h85=+(document.getElementById('sup-hrs-85').value)||0;
-  var h247=+(document.getElementById('sup-hrs-247').value)||0;
-  var payload={
-    empresa:emp, cnpj:document.getElementById('m-cnpj').value,
-    nome:nom, cargo:document.getElementById('m-cargo').value,
-    email:eml, whatsapp:document.getElementById('m-whatsapp').value,
-    segmento:document.getElementById('m-segmento').value,
-    prazo:document.getElementById('m-prazo').value,
-    ips:String(+(document.getElementById('ips').value)||1),
-    banda:String(+(document.getElementById('banda').value)||100),
-    obs:'', servicos:togs, vms:rows.map(function(r){return r.data;}),
-    estimativa:_lastCalcData?_lastCalcData.total:0,
-    suporte:supAtivo?(h85+'h 8x5 + '+h247+'h 24x7'):'Sem suporte',
-    arch_diagram:getArchBase64()
-  };
-  fetch('https://io.alliant.com.br/form/enviar.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(d.ok){document.getElementById('modalForm').style.display='none';document.getElementById('modalSuccess').style.display='block';}
-    else{document.getElementById('m-status').style.color='#c0392b';document.getElementById('m-status').textContent='Erro: '+(d.error||'Falha');btn.disabled=false;}
-  })
-  .catch(function(){document.getElementById('m-status').style.color='#c0392b';document.getElementById('m-status').textContent='Erro de conexão.';btn.disabled=false;});
+function postLead(payload, statusId, btn, formId, okId, k){
+  payload.turnstile=tsTok[k]; payload.website=document.getElementById('m-website')?document.getElementById('m-website').value:'';
+  fetch(API+'/api/public/orcamento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+  .then(function(r){return r.json().catch(function(){return {};}).then(function(d){if(!r.ok)throw new Error(d.detail||('Erro '+r.status));return d;});})
+  .then(function(){document.getElementById(formId).style.display='none';document.getElementById(okId).style.display='block';})
+  .catch(function(e){document.getElementById(statusId).style.color='#c0392b';document.getElementById(statusId).textContent=e.message;btn.disabled=false;resetTs(k);});
 }
-
+function sendProposta(){
+  var emp=document.getElementById('m-empresa').value.trim(), eml=document.getElementById('m-email').value.trim(), nom=document.getElementById('m-nome').value.trim();
+  var wa=document.getElementById('m-whatsapp').value.replace(/\D/g,'');
+  var st=document.getElementById('m-status');
+  if(!emp||!eml||!nom||wa.length<10){ st.style.color='#c0392b'; st.textContent='Preencha razão social, responsável, e-mail e WhatsApp.'; return; }
+  if(!tsTok.m){ st.style.color='#c0392b'; st.textContent='Conclua a verificação anti-robô.'; return; }
+  var btn=document.getElementById('m-sendBtn'); btn.disabled=true; st.style.color='var(--ink2)'; st.textContent='Enviando...';
+  var h85=+(document.getElementById('sup-hrs-85').value)||0, h247=+(document.getElementById('sup-hrs-247').value)||0;
+  var opc=[]; if(togs.dr) opc.push('Disaster Recovery'); if(togs.bo) opc.push('Backup offsite');
+  postLead({
+    empresa:emp, cnpj:document.getElementById('m-cnpj').value, nome:nom, cargo:document.getElementById('m-cargo').value, email:eml, telefone:wa,
+    segmento:document.getElementById('m-segmento').value, prazo:document.getElementById('m-prazo').value,
+    suporte:janela==='24x7'?'Plantão 24x7 (cotar)':'Janela comercial (inclusa)', opcoes:(opc.join(', ')||'-')+' · vigência '+(document.getElementById('vig').value)+' meses · pagamento '+(document.getElementById('pg').value),
+    vms:_lastCalcData?_lastCalcData.items:[], estimativa:_lastCalcData?_lastCalcData.grand:0
+  },'m-status',btn,'modalForm','modalSuccess','m');
+}
 // ── SEND ESPECIAL ─────────────────────────────────────────────────────────
 var _specialFile=null;
 function handleFile(file){
@@ -838,24 +786,17 @@ function handleFile(file){
 }
 function handleDrop(e){e.preventDefault();document.getElementById('sp-dropzone').style.borderColor='var(--border2)';var f=e.dataTransfer.files[0];if(f)handleFile(f);}
 function sendSpecial(){
-  var emp=document.getElementById('sp-empresa').value.trim();
-  var eml=document.getElementById('sp-email').value.trim();
-  var nom=document.getElementById('sp-nome').value.trim();
-  var obs=document.getElementById('sp-obs').value.trim();
-  if(!emp||!eml||!nom||!obs){document.getElementById('sp-status').style.color='#c0392b';document.getElementById('sp-status').textContent='Preencha empresa, responsável, e-mail e descrição.';return;}
-  var btn=document.getElementById('sp-sendBtn'); btn.disabled=true;
-  document.getElementById('sp-status').style.color='var(--ink2)'; document.getElementById('sp-status').textContent='Enviando...';
+  var emp=document.getElementById('sp-empresa').value.trim(), eml=document.getElementById('sp-email').value.trim(), nom=document.getElementById('sp-nome').value.trim(), obs=document.getElementById('sp-obs').value.trim();
+  var wa=document.getElementById('sp-whatsapp').value.replace(/\D/g,''); var st=document.getElementById('sp-status');
+  if(!emp||!eml||!nom||!obs||wa.length<10){ st.style.color='#c0392b'; st.textContent='Preencha empresa, responsável, e-mail, WhatsApp e descrição.'; return; }
+  if(!tsTok.sp){ st.style.color='#c0392b'; st.textContent='Conclua a verificação anti-robô.'; return; }
+  var btn=document.getElementById('sp-sendBtn'); btn.disabled=true; st.style.color='var(--ink2)'; st.textContent='Enviando...';
   function doSend(b64,fname){
-    var p={empresa:emp,cnpj:document.getElementById('sp-cnpj').value,nome:nom,email:eml,whatsapp:document.getElementById('sp-whatsapp').value,segmento:document.getElementById('sp-segmento').value,obs:obs,tipo:'projeto_especial',arquivo_nome:fname||'',arquivo_b64:b64||'',ips:'0',banda:'0',vms:[],servicos:{},prazo:'',cargo:'',arch_diagram:getArchBase64()};
-    fetch('https://io.alliant.com.br/form/enviar.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
-    .then(function(r){return r.json();})
-    .then(function(d){if(d.ok){document.getElementById('specialForm').style.display='none';document.getElementById('specialSuccess').style.display='block';}else{document.getElementById('sp-status').style.color='#c0392b';document.getElementById('sp-status').textContent='Erro: '+(d.error||'Falha');btn.disabled=false;}})
-    .catch(function(){document.getElementById('sp-status').style.color='#c0392b';document.getElementById('sp-status').textContent='Erro de conexão.';btn.disabled=false;});
+    postLead({tipo:'projeto_especial',empresa:emp,cnpj:document.getElementById('sp-cnpj').value,nome:nom,email:eml,telefone:wa,segmento:document.getElementById('sp-segmento').value,obs:obs,arquivo_nome:fname||'',arquivo_b64:b64||''},'sp-status',btn,'specialForm','specialSuccess','sp');
   }
   if(_specialFile){var reader=new FileReader();reader.onload=function(e){doSend(e.target.result.split(',')[1],_specialFile.name);};reader.readAsDataURL(_specialFile);}
   else doSend('','');
 }
-
 // ── CANVAS ────────────────────────────────────────────────────────────────
 function abbrev(n){
   if(!n)return'VM';if(n.length<=9)return n;
@@ -884,7 +825,7 @@ function abbrev(n){
         var d=r.data,col=i%cols,row=Math.floor(i/cols);
         var x=cols===1?(zL+zR)/2:zL+(zR-zL)*col/(cols-1||1);
         var y=rws===1?(zT+zB)/2:zT+(zB-zT)*row/(rws-1||1);
-        var win=(d.os&&d.os.indexOf('Windows')===0)||(d.flavor&&d.flavor.indexOf('win.')===0);
+        var win=(d.os&&d.os.indexOf('Windows')===0);
         nodes.push({x:x,y:y,r:Math.min(18,10+(+d.qty||1)*1.2),type:win?'win':'lin',label:abbrev(d.nm||'VM '+(i+1)),sub:d.flavor||'',qty:+d.qty||1,ha:!!d.ha});
       });
     }
@@ -941,11 +882,11 @@ function abbrev(n){
 })();
 
 // ── INIT ─────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded',function(){
-  addRow({nm:'Servidor de aplicação',os:'Linux',qty:2,flavor:'gp.medium'});
-  addRow({nm:'Banco de dados',os:'Linux',qty:1,flavor:'mo.medium'});
-  addRow({nm:'ERP Windows',os:'Windows Server 2025',qty:1,flavor:'win.gp.large'});
-});
+// linhas de exemplo: SKUs são resolvidos quando o catálogo carrega (fetch acima)
+rows=[{id:++rid,data:{nm:'Servidor de aplicação',os:'Linux',qty:2,flavor:'e1.medium'}},
+      {id:++rid,data:{nm:'Banco de dados',os:'Linux',qty:1,flavor:'p1.medium'}},
+      {id:++rid,data:{nm:'ERP Windows',os:'Windows Server 2025',qty:1,flavor:'e1.large'}}];
+document.addEventListener('DOMContentLoaded',function(){renderTable();});
 </script>
 </body>
 </html>
