@@ -216,6 +216,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
           <th class="col-num">Qtd</th>
           <th style="min-width:260px">Família / tamanho</th>
           <th style="min-width:150px">Disco adicional</th>
+          <th class="col-num" title="Réplica no site 2 — % do valor mensal da VM">DR</th>
           <th class="col-del"></th>
         </tr></thead>
         <tbody id="vmBody"></tbody>
@@ -454,6 +455,8 @@ function famLabel(f){return FAM_LABEL[f]||((P&&P.componentes[f]&&P.componentes[f
 function skuInfo(sku){ if(!P) return null; for(var f in P.skus_vm){ if(!Array.isArray(P.skus_vm[f])) continue; var s=P.skus_vm[f].find(function(x){return x.sku===sku;}); if(s) return {familia:f,s:s}; } return null; }
 function precoCustom(fam,vcpu,ram,disco,tier){ var c=P&&P.componentes[fam]; if(!c) return 0; var pd=(c.disco_gb||{})[tier]; if(pd==null){var ks=Object.keys(c.disco_gb||{}); pd=ks.length?c.disco_gb[ks[0]]:0;} return (+vcpu||0)*c.vcpu+(+ram||0)*c.ram_gb+(+disco||0)*pd; }
 function extraRow(d){ if(!P||!d.extra_gb) return 0; var fam=(d.flavor||'').indexOf('custom:')===0?d.flavor.slice(7):((skuInfo(d.flavor)||{}).familia); var c=P.componentes[fam]; if(!c) return 0; var pu=(c.disco_gb||{})[d.extra_tier]; if(pu==null){var ks=Object.keys(c.disco_gb||{}); pu=ks.length?c.disco_gb[ks[0]]:0;} return (+d.extra_gb||0)*pu; }
+function drCat(){ var x=svCat('dr.replicacao'); return (x&&x.unidade==='pct_vm'&&x.preco!=null)?x:null; }
+function drRow(d){ var x=drCat(); return (x&&d.dr)?precoRow(d)*(+x.preco||0)/100:0; }
 function precoRow(d){ if(!P) return 0; var base=0; if(d.flavor&&d.flavor.indexOf('custom:')===0){ base=precoCustom(d.flavor.slice(7),d.vcpu,d.ram,d.disco,d.tier); } else { var i=skuInfo(d.flavor); base=i?i.s.preco:0; } return base+extraRow(d); }
 function specRow(d){ if(d.flavor&&d.flavor.indexOf('custom:')===0) return famLabel(d.flavor.slice(7))+' sob medida '+(d.vcpu||0)+'v/'+(d.ram||0)+'G/'+(d.disco||0)+'GB '+(d.tier||'')+(d.extra_gb?' +'+d.extra_gb+'GB '+(d.extra_tier||''):''); var i=skuInfo(d.flavor); return (i?(d.flavor+' '+i.s.vcpu+'v/'+i.s.ram_gb+'G/'+i.s.disco_gb+'GB '+i.s.tier_disco):d.flavor)+(d.extra_gb?' +'+d.extra_gb+'GB '+(d.extra_tier||''):''); }
 function primeiroSku(){ for(var f in P.skus_vm){ if(Array.isArray(P.skus_vm[f])&&P.skus_vm[f].length) return P.skus_vm[f][Math.min(1,P.skus_vm[f].length-1)].sku; } return ''; }
@@ -478,6 +481,7 @@ function renderServicos(){
   SV_PADRAO.forEach(function(d){ if(!vistos[d.sku]) lista.push({sku:d.sku,descricao:d.label,unidade:'',preco:null,inativo:true}); });
   el.innerHTML=lista.map(function(x){
     var pad=SV_PADRAO.find(function(d){return d.sku===x.sku;})||{}; var label=pad.label||x.descricao, sub=pad.sub||'';
+    if(x.unidade==='pct_vm'){ return '<div class="tog-row"><div><div class="tog-label">'+label+'</div><div class="tog-sub">'+(sub?sub+' · ':'')+'<b>+'+(+x.preco)+'%</b> do valor mensal de cada VM (disco incluso) — marque a coluna <b>DR</b> nas máquinas que devem ter réplica</div></div><div class="tog"><button class="'+(rows.length&&rows.every(function(r){return r.data.dr;})?'on':'')+'" onclick="rows.forEach(function(r){r.data.dr=true;});renderTable();schedCalc();renderServicos()">Todas</button><button class="'+(rows.some(function(r){return r.data.dr;})?'':'on')+'" onclick="rows.forEach(function(r){r.data.dr=false;});renderTable();schedCalc();renderServicos()">Nenhuma</button></div></div>'; }
     if(x.inativo){ return '<div class="tog-row"><div><div class="tog-label">'+label+'</div><div class="tog-sub">'+sub+(sub?' · ':'')+'<b>sob consulta</b> — marque para receber cotação junto</div></div><div class="tog"><button class="'+(cotar[x.sku]?'on':'')+'" onclick="setCotar(\''+x.sku+'\',true)">Cotar</button><button class="'+(cotar[x.sku]?'':'on')+'" onclick="setCotar(\''+x.sku+'\',false)">Não</button></div></div>'; }
     var q=sv[x.sku]||0, u=x.unidade, uni={ip:'IPs',mbps:'Mbps',gb:'GB',vm:'VMs',hora:'horas'}[u];
     var ctl = u==='mes' ? '<div class="tog"><button class="'+(q?'on':'')+'" onclick="setSv(\''+x.sku+'\',1)">Sim</button><button class="'+(q?'':'on')+'" onclick="setSv(\''+x.sku+'\',0)">Não</button></div>'
@@ -628,6 +632,13 @@ function renderTable(){
       wrap.appendChild(ix); wrap.appendChild(tx); tdX.appendChild(wrap); }
     tr.appendChild(tdX);
 
+    // DR (réplica site 2) — % do mensal da VM, só se o serviço está ativo no catálogo
+    var tdR=document.createElement('td'); tdR.className='col-num'; var xd=drCat();
+    if(xd){ var cb=document.createElement('input'); cb.type='checkbox'; cb.checked=!!d.dr; cb.title='Réplica no site 2: +'+(+xd.preco)+'% do valor da VM'; cb.style.cssText='width:18px;height:18px;accent-color:var(--brand,#1d6aff);cursor:pointer';
+      cb.addEventListener('change',(function(i){return function(){upd(i,'dr',this.checked);};})(id)); tdR.appendChild(cb); }
+    else { tdR.innerHTML='<span style="font-size:10px;color:var(--ink3)">—</span>'; }
+    tr.appendChild(tdR);
+
     // Delete
     var tdD=document.createElement('td'); tdD.className='col-del';
     var db=document.createElement('button'); db.className='del-btn'; db.innerHTML='&times;';
@@ -651,7 +662,8 @@ function doCalc(){
     document.getElementById('btnOnline').style.display='none';
     return;
   }
-  var items=rows.map(function(r){var d=r.data,q=+d.qty||1,u=precoRow(d);return {nome:d.nm,qtd:q,spec:specRow(d),so:d.os||'Linux',unit:u,subtotal:u*q,win:(d.os||'').indexOf('Windows')===0};});
+  var items=rows.map(function(r){var d=r.data,q=+d.qty||1,u=precoRow(d);return {nome:d.nm,qtd:q,spec:specRow(d),so:d.os||'Linux',unit:u,subtotal:u*q,win:(d.os||'').indexOf('Windows')===0,dr:!!d.dr};});
+  rows.forEach(function(r){var d=r.data,q=+d.qty||1,u=drRow(d); if(u>0) items.push({nome:'DR · '+(d.nm||specRow(d)),qtd:q,spec:'réplica no site 2 · '+(+drCat().preco)+'% da VM',so:'',unit:u,subtotal:u*q,win:false,servico:'dr.replicacao'});});
   Object.keys(caas).forEach(function(k){var q=caas[k]; if(q>0){var t=((P.skus_caas||{}).tiers||[]).find(function(x){return x.sku===k;}); if(t) items.push({nome:'Kubernetes '+k,qtd:q,spec:t.descricao||k,so:'',unit:t.preco,subtotal:t.preco*q,win:false,caas:k});}});
   Object.keys(sv).forEach(function(k){var q=sv[k],x=svCat(k); if(q>0&&x) items.push({nome:(SV_PADRAO.find(function(d){return d.sku===k;})||{}).label||x.descricao,qtd:q,spec:x.descricao+' ('+(x.unidade_label||'')+')',so:'',unit:x.preco,subtotal:x.preco*q,win:false,servico:k});});
   var vmTotal=items.reduce(function(a,i){return a+i.subtotal;},0);
@@ -687,9 +699,9 @@ function doCalc(){
 }
 function contratarOnline(){
   var cart={}; rows.forEach(function(r,idx){var d=r.data,i=skuInfo(d.flavor); var so=(d.os||'').indexOf('Windows')===0?'windows':'linux';
-    if(i){ var k='vm:'+d.flavor+(d.extra_gb?':'+d.extra_gb+d.extra_tier:'')+':'+so;
-      if(cart[k]){cart[k].qtd+=+d.qty||1;} else cart[k]={tipo:'vm',modo:'sku',familia:i.familia,sku:d.flavor,qtd:+d.qty||1,so:so,preco:i.s.preco,label:d.flavor,nome:d.nm||'',extra_gb:+d.extra_gb||0,extra_tier:d.extra_tier||'',extra_valor:extraRow(d)}; }
-    else if((d.flavor||'').indexOf('custom:')===0){ var fam=d.flavor.slice(7); cart['custom:'+idx]={tipo:'vm',modo:'custom',familia:fam,sku:famLabel(fam)+' sob medida',qtd:+d.qty||1,so:so,preco:precoCustom(fam,d.vcpu,d.ram,d.disco,d.tier),label:(d.vcpu||0)+' vCPU · '+(d.ram||0)+' GB · '+(d.disco||0)+' GB '+(d.tier||''),nome:d.nm||'',vcpu:+d.vcpu||0,ram_gb:+d.ram||0,disco_gb:+d.disco||0,tier_disco:d.tier||'',extra_gb:+d.extra_gb||0,extra_tier:d.extra_tier||'',extra_valor:extraRow(d)}; }});
+    if(i){ var k='vm:'+d.flavor+(d.extra_gb?':'+d.extra_gb+d.extra_tier:'')+':'+so+(d.dr?':dr':'');
+      if(cart[k]){cart[k].qtd+=+d.qty||1;} else cart[k]={tipo:'vm',modo:'sku',familia:i.familia,sku:d.flavor,qtd:+d.qty||1,so:so,preco:i.s.preco,label:d.flavor,nome:d.nm||'',extra_gb:+d.extra_gb||0,extra_tier:d.extra_tier||'',extra_valor:extraRow(d),dr:!!d.dr,dr_valor:drRow(d)}; }
+    else if((d.flavor||'').indexOf('custom:')===0){ var fam=d.flavor.slice(7); cart['custom:'+idx]={tipo:'vm',modo:'custom',familia:fam,sku:famLabel(fam)+' sob medida',qtd:+d.qty||1,so:so,preco:precoCustom(fam,d.vcpu,d.ram,d.disco,d.tier),label:(d.vcpu||0)+' vCPU · '+(d.ram||0)+' GB · '+(d.disco||0)+' GB '+(d.tier||''),nome:d.nm||'',vcpu:+d.vcpu||0,ram_gb:+d.ram||0,disco_gb:+d.disco||0,tier_disco:d.tier||'',extra_gb:+d.extra_gb||0,extra_tier:d.extra_tier||'',extra_valor:extraRow(d),dr:!!d.dr,dr_valor:drRow(d)}; }});
   Object.keys(caas).forEach(function(k){var q=caas[k]; if(q>0){var t=((P.skus_caas||{}).tiers||[]).find(function(x){return x.sku===k;}); if(t) cart['caas:'+k]={tipo:'caas',familia:'caas',sku:k,qtd:q,so:'',preco:t.preco,label:k};}});
   Object.keys(sv).forEach(function(k){var q=sv[k],x=svCat(k); if(q>0&&x) cart['sv:'+k]={tipo:'servico',familia:'servico',sku:k,qtd:q,so:'',preco:x.preco,label:x.descricao+' ('+(x.unidade_label||'')+')'};});
   try{localStorage.setItem('alliant_carrinho',JSON.stringify({cart:cart,vigencia_meses:+document.getElementById('vig').value||12,forma_pagamento:document.getElementById('pg').value||'boleto',janela_suporte:janela,ts:Date.now()}));}catch(e){}
