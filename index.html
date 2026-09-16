@@ -404,8 +404,8 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 <script>
 // ---- estimador rápido ----
 var EST={dr:false,P:null,dr_pct:90,k8s:1200,k8:0,fam:'efficient',sku:'',servers:[],total:0,tsTok:'',tsW:null,drOn:true,k8On:true,
-  FALLBACK:{windows:{preco_vcpu:90,min_vcpu:2},componentes:{performance:{label:'Performance',vcpu:150,ram_gb:60,disco_gb:{'p1.nvme':1.8}},efficient:{label:'Efficient',vcpu:75,ram_gb:35,disco_gb:{'e1.ssd':0.9}},capacity:{label:'Capacity',vcpu:50,ram_gb:25,disco_gb:{'c1.hdd':0.35}}},
-    skus_vm:{performance:[{sku:'p1.small',vcpu:2,ram_gb:8,disco_gb:80,tier_disco:'p1.nvme',preco:880},{sku:'p1.medium',vcpu:4,ram_gb:16,disco_gb:160,tier_disco:'p1.nvme',preco:1760},{sku:'p1.large',vcpu:8,ram_gb:32,disco_gb:320,tier_disco:'p1.nvme',preco:3520},{sku:'p1.xlarge',vcpu:16,ram_gb:64,disco_gb:640,tier_disco:'p1.nvme',preco:7040}],
+  FALLBACK:{windows:{preco_vcpu:90,min_vcpu:2},componentes:{performance:{label:'Performance',vcpu:265.42,ram_gb:2.53,disco_gb:{'p1.nvme':0.494}},efficient:{label:'Efficient',vcpu:133.05,ram_gb:2.53,disco_gb:{'e1.ssd':0.297}},capacity:{label:'Capacity',vcpu:101.4,ram_gb:1.93,disco_gb:{'c1.hdd':0.118}}},
+    skus_vm:{performance:[{sku:'p1.small',vcpu:2,ram_gb:8,disco_gb:80,tier_disco:'p1.nvme',preco:590},{sku:'p1.medium',vcpu:4,ram_gb:16,disco_gb:160,tier_disco:'p1.nvme',preco:1180},{sku:'p1.large',vcpu:8,ram_gb:32,disco_gb:320,tier_disco:'p1.nvme',preco:2360},{sku:'p1.xlarge',vcpu:16,ram_gb:64,disco_gb:640,tier_disco:'p1.nvme',preco:4720}],
       efficient:[{sku:'e1.small',vcpu:2,ram_gb:4,disco_gb:80,tier_disco:'e1.ssd',preco:300},{sku:'e1.medium',vcpu:4,ram_gb:8,disco_gb:160,tier_disco:'e1.ssd',preco:600},{sku:'e1.large',vcpu:8,ram_gb:16,disco_gb:320,tier_disco:'e1.ssd',preco:1200},{sku:'e1.xlarge',vcpu:16,ram_gb:32,disco_gb:640,tier_disco:'e1.ssd',preco:2400}],
       capacity:[{sku:'c1.medium',vcpu:4,ram_gb:8,disco_gb:500,tier_disco:'c1.hdd',preco:480},{sku:'c1.large',vcpu:8,ram_gb:16,disco_gb:1000,tier_disco:'c1.hdd',preco:960}]}}};
 var EST_API=(location.hostname==='localhost'||location.protocol==='file:')?'http://localhost:8000':'https://backoffice.alliant.com.br';
