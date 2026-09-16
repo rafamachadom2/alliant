@@ -191,6 +191,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 .phys-link::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(107,95,82,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(107,95,82,.06) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
 .phys-top{text-align:center;font-family:"DM Mono",ui-monospace,monospace;font-size:12px;color:var(--blue);margin-bottom:26px;position:relative}
 .phys-top b{font-weight:600;margin-left:8px}
+.phys-ip{margin-left:16px;color:var(--steel);font-size:11px}.phys-ip code{color:var(--white)}
 .phys-line{position:relative;height:60px;display:flex;align-items:center}
 .phys-line .rail{position:absolute;left:44px;right:44px;top:50%;height:2px;background:rgba(107,95,82,.18);transform:translateY(-50%)}
 .phys-node{position:absolute;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:6px}
@@ -311,7 +312,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 </section>
 <section class="phys" id="fisica" aria-label="Física do enlace">
   <div class="phys-link">
-    <div class="phys-top">seu browser → DC-SP1 <b id="phMs">medindo…</b></div>
+    <div class="phys-top">seu browser → DC-SP1 <b id="phMs">medindo…</b><span id="phIp" class="phys-ip" hidden></span></div>
     <div class="phys-line">
       <div class="rail"></div>
       <span class="photon" style="animation-delay:0s"></span><span class="photon" style="animation-delay:-.8s"></span><span class="photon" style="animation-delay:-1.6s"></span>
@@ -376,7 +377,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
         <a class="cbtn blue" href="https://wa.me/5508000200030">WhatsApp 0800 020 0030</a>
         <a class="cbtn ghost" href="calculadora.html">Pedir proposta</a>
       </div>
-      <div class="contact-foot">Ou escreva para <a href="mailto:alliant@alliant.com.br" style="color:var(--blue);text-decoration:none">alliant@alliant.com.br</a> — resposta em até 1 dia útil.</div>
+      <div class="contact-foot">Ou escreva para <a href="mailto:vendas@alliant.com.br" style="color:var(--blue);text-decoration:none">vendas@alliant.com.br</a> — resposta em até 1 dia útil.</div>
     </div>
     <div class="contact-col">
       <div class="contact-tag">Já sou cliente</div>
@@ -393,7 +394,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 <footer>
   <div class="f-copy">© 2026 · Alliant Tecnologia Ltda · Remote-first · Brasil</div>
   <div class="f-links">
-    <a href="mailto:alliant@alliant.com.br">E-mail</a>
+    <a href="mailto:vendas@alliant.com.br">E-mail</a>
     <a href="https://wa.me/5508000200030">WhatsApp</a>
     <a href="privacidade.html">Privacidade</a>
   </div>
@@ -535,7 +536,8 @@ try{ fetch(EST_API+'/api/public/precos').then(function(r){return r.ok?r.json():n
   function one(){ var t0=performance.now(); return fetch(url+'?t='+Date.now()+Math.random(),{method:'HEAD',cache:'no-store',mode:'no-cors'}).then(function(){t.push(performance.now()-t0);}).catch(function(){}); }
   function run(i){ if(i>=N){ finish(); return; } one().then(function(){ if(t.length>=3){ var a=t.slice().sort(function(p,q){return p-q;}); show(a[Math.floor(a.length/2)],a.length); } setTimeout(function(){run(i+1);},120); }); }
   function finish(){ if(!t.length){ var e=$e('phMs'); if(e) e.textContent='sem medida'; var v=$e('phV'); if(v) v.textContent='—'; return; } var a=t.slice().sort(function(p,q){return p-q;}); show(a[Math.floor(a.length/2)],a.length); var tile=$e('phTile'); if(tile) tile.classList.remove('live'); }
-  var started=false; function start(){ if(started) return; started=true; one().then(function(){t.length=0; run(0);}); } // 1ª descartada (aquecimento TLS)
+  var started=false; function start(){ if(started) return; started=true; ip(); one().then(function(){t.length=0; run(0);}); }
+  function ip(){ try{ fetch('https://ping.alliant.one/json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){ var e=$e('phIp'); if(e&&j&&j.ip){ e.innerHTML='seu IP público: <code>'+String(j.ip).replace(/[^0-9a-f.:]/gi,'')+'</code>'; e.hidden=false; } }).catch(function(){}); }catch(e){} } // 1ª descartada (aquecimento TLS)
   if('IntersectionObserver' in window){ var sec=$e('fisica'); var io=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ start(); io.disconnect(); } },{threshold:.2}); if(sec) io.observe(sec); else start(); } else start();
 })();
 
