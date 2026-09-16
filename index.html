@@ -307,7 +307,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
       <div><div class="l">Estimativa mensal</div><div class="v" id="estV">R$ —<small>/mês</small></div></div>
       <div class="est-btns"><a class="est-cta ghost" href="calculadora.html" id="estGo">Refinar</a><a class="est-cta" onclick="estLeadOpen()">Contratar →</a></div>
     </div>
-    <div class="est-note">Backup de 14 dias, 1 IPv4 e tráfego ilimitado inclusos · sem cobrança por IOPS ou API.</div>
+    <div class="est-note">Backup de 14 dias, 1 IPv4 e tráfego ilimitado inclusos · VM Windows já inclui Windows Server (SPLA) · sem cobrança por IOPS ou API.</div>
   </div>
 </section>
 <section class="phys" id="fisica" aria-label="Física do enlace">
@@ -404,7 +404,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 <script>
 // ---- estimador rápido ----
 var EST={dr:false,P:null,dr_pct:90,k8s:1200,k8:0,fam:'efficient',sku:'',servers:[],total:0,tsTok:'',tsW:null,drOn:true,k8On:true,
-  FALLBACK:{componentes:{performance:{label:'Performance',vcpu:150,ram_gb:60,disco_gb:{'p1.nvme':1.8}},efficient:{label:'Efficient',vcpu:75,ram_gb:35,disco_gb:{'e1.ssd':0.9}},capacity:{label:'Capacity',vcpu:50,ram_gb:25,disco_gb:{'c1.hdd':0.35}}},
+  FALLBACK:{windows:{preco_vcpu:90,min_vcpu:2},componentes:{performance:{label:'Performance',vcpu:150,ram_gb:60,disco_gb:{'p1.nvme':1.8}},efficient:{label:'Efficient',vcpu:75,ram_gb:35,disco_gb:{'e1.ssd':0.9}},capacity:{label:'Capacity',vcpu:50,ram_gb:25,disco_gb:{'c1.hdd':0.35}}},
     skus_vm:{performance:[{sku:'p1.small',vcpu:2,ram_gb:8,disco_gb:80,tier_disco:'p1.nvme',preco:880},{sku:'p1.medium',vcpu:4,ram_gb:16,disco_gb:160,tier_disco:'p1.nvme',preco:1760},{sku:'p1.large',vcpu:8,ram_gb:32,disco_gb:320,tier_disco:'p1.nvme',preco:3520},{sku:'p1.xlarge',vcpu:16,ram_gb:64,disco_gb:640,tier_disco:'p1.nvme',preco:7040}],
       efficient:[{sku:'e1.small',vcpu:2,ram_gb:4,disco_gb:80,tier_disco:'e1.ssd',preco:300},{sku:'e1.medium',vcpu:4,ram_gb:8,disco_gb:160,tier_disco:'e1.ssd',preco:600},{sku:'e1.large',vcpu:8,ram_gb:16,disco_gb:320,tier_disco:'e1.ssd',preco:1200},{sku:'e1.xlarge',vcpu:16,ram_gb:32,disco_gb:640,tier_disco:'e1.ssd',preco:2400}],
       capacity:[{sku:'c1.medium',vcpu:4,ram_gb:8,disco_gb:500,tier_disco:'c1.hdd',preco:480},{sku:'c1.large',vcpu:8,ram_gb:16,disco_gb:1000,tier_disco:'c1.hdd',preco:960}]}}};
@@ -417,17 +417,19 @@ function famLabel(f){ var c=estCat().componentes[f]; return FAM_LABEL[f]||((c&&c
 function famSub(f){ return {performance:'vCPU dedicada',efficient:'sem contenção',capacity:'RAID local'}[f]||''; }
 function estBuildFam(){ var el=$e('estFam'); el.innerHTML=''; Object.keys(estCat().componentes).forEach(function(f){ var b=document.createElement('button'); b.dataset.f=f; b.className=f===EST.fam?'on':''; b.innerHTML=famLabel(f)+'<small>'+famSub(f)+'</small>'; b.onclick=function(){estFam(f);}; el.appendChild(b); }); }
 function estFam(f){ EST.fam=f; document.querySelectorAll('#estFam button').forEach(function(b){b.classList.toggle('on',b.dataset.f===f);}); var l=(estCat().skus_vm[f]||[]); EST.sku=l.length?l[Math.min(1,l.length-1)].sku:'custom'; estBuildSkus(); estSpec(); }
-function estBuildSkus(){ var el=$e('estSkus'); el.innerHTML=''; (estCat().skus_vm[EST.fam]||[]).forEach(function(k){ var b=document.createElement('button'); b.dataset.sku=k.sku; b.className=k.sku===EST.sku?'on':''; b.title=k.vcpu+' vCPU · '+k.ram_gb+' GB RAM · '+k.disco_gb+' GB disco · '+estMoney(k.preco)+'/mês'; b.innerHTML=k.sku.split('.')[1]+'<small>'+k.vcpu+'v·'+k.ram_gb+'G</small>'; b.onclick=function(){estSku(k.sku);}; el.appendChild(b); });
+function estBuildSkus(){ var el=$e('estSkus'); el.innerHTML=''; (estCat().skus_vm[EST.fam]||[]).forEach(function(k){ var b=document.createElement('button'); b.dataset.sku=k.sku; b.className=k.sku===EST.sku?'on':''; b.title=k.vcpu+' vCPU · '+k.ram_gb+' GB RAM · '+k.disco_gb+' GB disco · '+estMoney(k.preco)+'/mês'; b.innerHTML=k.sku.split('.')[1]+'<small>'+k.vcpu+'v·'+k.ram_gb+'G·'+(k.disco_gb>=1000?(k.disco_gb/1000)+'T':k.disco_gb+'G')+'</small>'; b.onclick=function(){estSku(k.sku);}; el.appendChild(b); });
   var c=document.createElement('button'); c.dataset.sku='custom'; c.className=EST.sku==='custom'?'on':''; c.innerHTML='sob medida<small>livre</small>'; c.onclick=function(){estSku('custom');}; el.appendChild(c); }
 function estSku(k){ EST.sku=k; document.querySelectorAll('#estSkus button').forEach(function(b){b.classList.toggle('on',b.dataset.sku===k);}); $e('estCustom').classList.toggle('off',k!=='custom'); $e('estExtraRow').classList.toggle('off',k==='custom'); estSpec(); }
 function estSkuInfo(){ return (estCat().skus_vm[EST.fam]||[]).find(function(x){return x.sku===EST.sku;}); }
 function estTierPrice(fam,tier){ var c=estCat().componentes[fam]||{}, d=c.disco_gb||{}; var v=d[tier]; if(v==null){ var ks=Object.keys(d); v=ks.length?d[ks[0]]:0; } return +v||0; }
-function estBuild(os){ var c=estCat().componentes[EST.fam]||{}, tier=Object.keys(c.disco_gb||{})[0]||'';
+function estLic(os,vc){ var w=(EST.P&&EST.P.windows)||EST.FALLBACK.windows; if(os!=='windows'||!w||!(+w.preco_vcpu>0)) return 0; return Math.max(vc,+w.min_vcpu||1)*(+w.preco_vcpu); }  // Windows Server SPLA por vCPU
+function estBuild(os){ var v=estBuild0(os); if(v){ v.lic=estLic(os,v.c); v.preco+=v.lic; } return v; }
+function estBuild0(os){ var c=estCat().componentes[EST.fam]||{}, tier=Object.keys(c.disco_gb||{})[0]||'';
   if(EST.sku==='custom'){ var vc=+$e('estC').value, r=+$e('estR').value, d=+$e('estD').value; return {os:os,fam:EST.fam,sku:'custom',size:famLabel(EST.fam).slice(0,4).toUpperCase()+'·'+vc+'v',c:vc,r:r,d:d,x:0,preco:vc*(c.vcpu||0)+r*(c.ram_gb||0)+d*estTierPrice(EST.fam,tier)}; }
   var k=estSkuInfo(); if(!k) return null; var x=+$e('estX').value; return {os:os,fam:EST.fam,sku:k.sku,size:k.sku,c:k.vcpu,r:k.ram_gb,d:k.disco_gb,x:x,preco:+k.preco+x*estTierPrice(EST.fam,k.tier_disco)}; }
 function estSpec(){ var c=+$e('estC').value, r=+$e('estR').value, d=+$e('estD').value, x=+$e('estX').value;
   $e('estCv').textContent=c+' vCPU'; $e('estRv').textContent=r+' GB'; $e('estDv').textContent=d>=1000?((d/1000).toFixed(d%1000?1:0)+' TB'):(d+' GB'); $e('estXv').textContent=x?('+'+(x>=1000?(x/1000)+' TB':x+' GB')):'nenhum';
-  var v=estBuild('linux'); var t=v?estMoney(v.preco)+'/mês':'—'; $e('estPrevL').textContent=t; $e('estPrevW').textContent=t; }
+  var v=estBuild('linux'), w=estBuild('windows'); $e('estPrevL').textContent=v?estMoney(v.preco)+'/mês':'—'; $e('estPrevW').textContent=w?estMoney(w.preco)+'/mês':'—'; }
 function estAdd(os){ if(EST.servers.length>=16) return; var v=estBuild(os); if(!v) return; EST.servers.push(v); estCalc(); }
 function estDel(i){ EST.servers.splice(i,1); estCalc(); }
 function estK8(d){ EST.k8=Math.max(0,Math.min(12,EST.k8+d)); if(EST.k8===1&&d>0) EST.k8=3; if(EST.k8<3&&d<0) EST.k8=0; estCalc(); }
@@ -435,9 +437,10 @@ function estTog(k){EST[k]=!EST[k]; if(k==='dr'){var b=$e('estDrBtn'); b.classLis
 function estMoney(v){return 'R$ '+Math.round(v).toLocaleString('pt-BR');}
 function estUnit(fam,c,ram,gb){ var P=EST.P||EST.FALLBACK, comp=(P.componentes||{})[fam]||EST.FALLBACK.componentes[fam]; var disco=comp.disco_gb||{}; var pd=disco['e1.ssd']||disco['p1.ssd']||disco[Object.keys(disco)[0]]||0; return c*comp.vcpu+ram*comp.ram_gb+(gb==null?80:gb)*pd; }
 function estCalc(){
-  var total=0; EST.servers.forEach(function(v){ total+=v.preco; });
+  var total=0, lic=0; EST.servers.forEach(function(v){ total+=v.preco-(v.lic||0); lic+=(v.lic||0); });
   if(EST.k8&&EST.k8On){ var wk=((estCat().skus_vm.efficient||[]).find(function(k){return k.vcpu===4;})||{}).preco||600; total+=EST.k8s+wk*EST.k8; }
   if(EST.dr&&EST.drOn) total*=1+EST.dr_pct/100;
+  total+=lic;  // licença Windows não replica no DR
   EST.total=total; var ext=[]; if(EST.dr&&!EST.drOn) ext.push('DR'); if(EST.k8&&!EST.k8On) ext.push('Kubernetes'); $e('estV').innerHTML=estMoney(total)+'<small>/mês'+(ext.length?' + '+ext.join(' e ')+' sob consulta':'')+'</small>';
   $e('estKv').textContent=EST.k8?(EST.k8+' workers'+(EST.k8On?'':' · cotar')):'off';
   var drb=$e('estDrBtn'); if(drb) drb.textContent=EST.dr?(EST.drOn?'ativo · desativar':'cotar · desativar'):(EST.drOn?'ativar':'sob consulta');
