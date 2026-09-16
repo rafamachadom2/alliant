@@ -151,6 +151,15 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 .est-hint{font-size:10.5px;color:var(--steel);opacity:.8}
 .est-arch svg .tile{cursor:pointer}.est-arch svg .tile:hover rect{stroke:#c0392b}
 
+.est-skus{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:30px;gap:5px;margin-bottom:8px;height:100px;align-content:start;overflow:hidden}
+.est-skus button{border:1px solid var(--border);background:transparent;border-radius:8px;padding:0 8px;font:inherit;font-size:11px;color:var(--white);cursor:pointer;line-height:1.1;display:flex;align-items:center;justify-content:space-between;gap:4px;white-space:nowrap;overflow:hidden}
+.est-skus button small{font-family:"DM Mono",ui-monospace,monospace;font-size:9px;color:var(--steel);margin-left:0}
+.est-skus button.on{background:var(--blue);border-color:var(--blue);color:#fff}.est-skus button.on small{color:rgba(255,255,255,.85)}
+.est-spec{position:relative;min-height:104px;margin-bottom:6px}
+.est-custom{border:1px dashed var(--border);border-radius:8px;padding:6px 8px 2px}
+.est-custom,.est-extra{position:absolute;left:0;right:0;top:0}
+.est-custom.off,.est-extra.off{visibility:hidden;pointer-events:none}
+
 .est-arch{background:var(--navy-mid);border:1px solid var(--border);border-radius:12px;padding:10px;display:flex;align-items:center}
 .est-arch{position:relative;flex-direction:column;justify-content:flex-start;padding:8px 8px 6px}#estCanvas{width:100%;display:block;border-radius:8px;cursor:default}
 .est-drbtn{position:absolute;left:50%;transform:translateX(-50%);background:#1d6aff;color:#fff;border:0;border-radius:99px;padding:7px 14px;font:inherit;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(29,106,255,.3);white-space:nowrap}.est-drbtn:hover{background:#3d8bff}
@@ -255,20 +264,22 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
     <div class="est-body">
       <div class="est-ctl" id="estCtl">
         <div class="est-head"><b>Arquitetura</b></div>
-        <div class="est-lbl">1 · Perfil do servidor</div>
-        <div class="est-seg" id="estProf">
-          <button data-p="gp" class="on" onclick="estProf('gp')">General<small>1 vCPU : 4 GB</small></button>
-          <button data-p="mem" onclick="estProf('mem')">Memory<small>1 vCPU : 8 GB</small></button>
-          <button data-p="cpu" onclick="estProf('cpu')">Compute<small>1 vCPU : 2 GB</small></button>
+        <div class="est-lbl">1 · Família</div>
+        <div class="est-seg" id="estFam"></div>
+        <div class="est-lbl">2 · Tamanho (catálogo)</div>
+        <div class="est-skus" id="estSkus"></div>
+        <div class="est-spec">
+        <div class="est-custom off" id="estCustom">
+          <div class="est-row"><label>vCPU</label><output id="estCv">4 vCPU</output><input type="range" id="estC" min="1" max="32" value="4" oninput="estSpec()"></div>
+          <div class="est-row"><label>RAM</label><output id="estRv">8 GB</output><input type="range" id="estR" min="1" max="128" value="8" oninput="estSpec()"></div>
+          <div class="est-row"><label>Disco</label><output id="estDv">80 GB</output><input type="range" id="estD" min="40" max="2000" step="20" value="80" oninput="estSpec()"></div>
         </div>
-        <div class="est-row"><label>vCPU</label><output id="estCv">4 vCPU · 16 GB RAM</output><input type="range" id="estC" min="1" max="32" value="4" oninput="estSpec()"></div>
-        <div class="est-row"><label>Disco SSD</label><output id="estDv">80 GB</output><input type="range" id="estD" min="40" max="2000" step="20" value="80" oninput="estSpec()"></div>
-        <div class="est-lbl">2 · Adicione ao site</div>
+        <div class="est-row est-extra" id="estExtraRow"><label>Disco adicional</label><output id="estXv">nenhum</output><input type="range" id="estX" min="0" max="2000" step="50" value="0" oninput="estSpec()"></div>
+        </div>
+        <div class="est-lbl">3 · Adicionar</div>
         <div class="est-addgrid">
-          <button onclick="estAdd('linux','efficient')"><span><i class="dot lnx"></i>Linux</span><em>Efficient</em></button>
-          <button onclick="estAdd('linux','performance')"><span><i class="dot lnx"></i>Linux</span><em>Performance</em></button>
-          <button onclick="estAdd('windows','efficient')"><span><i class="dot win"></i>Windows</span><em>Efficient</em></button>
-          <button onclick="estAdd('windows','performance')"><span><i class="dot win"></i>Windows</span><em>Performance</em></button>
+          <button onclick="estAdd('linux')"><span><i class="dot lnx"></i>Linux</span><em id="estPrevL">—</em></button>
+          <button onclick="estAdd('windows')"><span><i class="dot win"></i>Windows Server</span><em id="estPrevW">—</em></button>
         </div>
         <div class="est-k8"><span><i class="dot k8"></i>Kubernetes</span><span class="est-step"><button onclick="estK8(-1)">−</button><b id="estKv">off</b><button onclick="estK8(1)">+</button></span></div>
         <div class="est-dr" id="estDrRow"><span>Réplica no site 2 (DR)</span><button id="estDrBtn" onclick="estTog('dr')">ativar</button></div>
@@ -300,7 +311,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 </section>
 <section class="phys" id="fisica" aria-label="Física do enlace">
   <div class="phys-link">
-    <div class="phys-top">seu browser → borda da rede <b id="phMs">medindo…</b></div>
+    <div class="phys-top">seu browser → DC-SP1 <b id="phMs">medindo…</b></div>
     <div class="phys-line">
       <div class="rail"></div>
       <span class="photon" style="animation-delay:0s"></span><span class="photon" style="animation-delay:-.8s"></span><span class="photon" style="animation-delay:-1.6s"></span>
@@ -313,7 +324,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
   <div class="phys-grid">
     <div class="phys-tile"><div class="k">Física do enlace</div><div class="v">≥ 294 µs</div><div class="d">Ida SP-A → SP-B no vidro.<br>Não negociável.</div></div>
     <div class="phys-tile"><div class="k">RTT teórico</div><div class="v">≥ 588 µs</div><div class="d">Limite inferior. Switching ainda não entrou.</div></div>
-    <div class="phys-tile live" id="phTile"><div class="k">Seu browser <i></i></div><div class="v" id="phV">—</div><div class="d" id="phD">medindo neste dispositivo, agora</div></div>
+    <div class="phys-tile live" id="phTile"><div class="k">Seu browser → DC-SP1 <i></i></div><div class="v" id="phV">—</div><div class="d" id="phD">medindo neste dispositivo, agora</div></div>
     <div class="phys-tile"><div class="k">Failover</div><div class="v">&lt; 5 min</div><div class="d">300 s. Software, não fóton.</div></div>
     <div class="phys-tile"><div class="k">Distância</div><div class="v">60 km+</div><div class="d">Dois prédios ligados por fibra própria. Não uma “região”.</div></div>
     <div class="phys-tile"><div class="k">Fóton vs você</div><div class="v" id="phX">—</div><div class="d" id="phXd">quantas vezes seu RTT cabe no enlace interno (588 µs)</div></div>
@@ -391,28 +402,45 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 
 <script>
 // ---- estimador rápido ----
-var EST={dr:false,P:null,dr_pct:90,k8s:1200,k8:0,prof:'gp',servers:[],total:0,tsTok:'',tsW:null,drOn:true,k8On:true,
-  PROF:{gp:{r:4,l:'GP'},mem:{r:8,l:'MEM'},cpu:{r:2,l:'CPU'}},
-  FALLBACK:{componentes:{performance:{vcpu:150,ram_gb:60,disco_gb:{'p1.ssd':1.2}},efficient:{vcpu:75,ram_gb:35,disco_gb:{'e1.ssd':0.9}}}}};
+var EST={dr:false,P:null,dr_pct:90,k8s:1200,k8:0,fam:'efficient',sku:'',servers:[],total:0,tsTok:'',tsW:null,drOn:true,k8On:true,
+  FALLBACK:{componentes:{performance:{label:'Performance',vcpu:150,ram_gb:60,disco_gb:{'p1.nvme':1.8}},efficient:{label:'Efficient',vcpu:75,ram_gb:35,disco_gb:{'e1.ssd':0.9}},capacity:{label:'Capacity',vcpu:50,ram_gb:25,disco_gb:{'c1.hdd':0.35}}},
+    skus_vm:{performance:[{sku:'p1.small',vcpu:2,ram_gb:8,disco_gb:80,tier_disco:'p1.nvme',preco:880},{sku:'p1.medium',vcpu:4,ram_gb:16,disco_gb:160,tier_disco:'p1.nvme',preco:1760},{sku:'p1.large',vcpu:8,ram_gb:32,disco_gb:320,tier_disco:'p1.nvme',preco:3520},{sku:'p1.xlarge',vcpu:16,ram_gb:64,disco_gb:640,tier_disco:'p1.nvme',preco:7040}],
+      efficient:[{sku:'e1.small',vcpu:2,ram_gb:4,disco_gb:80,tier_disco:'e1.ssd',preco:300},{sku:'e1.medium',vcpu:4,ram_gb:8,disco_gb:160,tier_disco:'e1.ssd',preco:600},{sku:'e1.large',vcpu:8,ram_gb:16,disco_gb:320,tier_disco:'e1.ssd',preco:1200},{sku:'e1.xlarge',vcpu:16,ram_gb:32,disco_gb:640,tier_disco:'e1.ssd',preco:2400}],
+      capacity:[{sku:'c1.medium',vcpu:4,ram_gb:8,disco_gb:500,tier_disco:'c1.hdd',preco:480},{sku:'c1.large',vcpu:8,ram_gb:16,disco_gb:1000,tier_disco:'c1.hdd',preco:960}]}}};
 var EST_API=(location.hostname==='localhost'||location.protocol==='file:')?'http://localhost:8000':'https://backoffice.alliant.com.br';
 var EST_TS=(location.hostname==='localhost'||location.protocol==='file:')?'1x00000000000000000000AA':'0x4AAAAAAExq6_kU3LpNgS2m';
+var FAM_LABEL={performance:'Performance',efficient:'Efficient',capacity:'Capacity'};
 function $e(id){return document.getElementById(id);}
-function estProf(p){EST.prof=p;document.querySelectorAll('#estProf button').forEach(function(b){b.classList.toggle('on',b.dataset.p===p);});estSpec();}
-function estSpec(){ var c=+$e('estC').value, d=+$e('estD').value; $e('estCv').textContent=c+' vCPU · '+(c*EST.PROF[EST.prof].r)+' GB RAM'; $e('estDv').textContent=d>=1000?((d/1000).toFixed(d%1000?1:0)+' TB'):(d+' GB'); }
-function estAdd(os,fam){ if(EST.servers.length>=16) return; var c=+$e('estC').value, d=+$e('estD').value; EST.servers.push({os:os,fam:fam,prof:EST.prof,size:EST.PROF[EST.prof].l+'·'+c+'v',c:c,r:c*EST.PROF[EST.prof].r,d:d}); estCalc(); }
+function estCat(){ return EST.P||EST.FALLBACK; }
+function famLabel(f){ var c=estCat().componentes[f]; return FAM_LABEL[f]||((c&&c.label)||f).split(' (')[0]; }
+function famSub(f){ return {performance:'vCPU dedicada',efficient:'sem contenção',capacity:'RAID local'}[f]||''; }
+function estBuildFam(){ var el=$e('estFam'); el.innerHTML=''; Object.keys(estCat().componentes).forEach(function(f){ var b=document.createElement('button'); b.dataset.f=f; b.className=f===EST.fam?'on':''; b.innerHTML=famLabel(f)+'<small>'+famSub(f)+'</small>'; b.onclick=function(){estFam(f);}; el.appendChild(b); }); }
+function estFam(f){ EST.fam=f; document.querySelectorAll('#estFam button').forEach(function(b){b.classList.toggle('on',b.dataset.f===f);}); var l=(estCat().skus_vm[f]||[]); EST.sku=l.length?l[Math.min(1,l.length-1)].sku:'custom'; estBuildSkus(); estSpec(); }
+function estBuildSkus(){ var el=$e('estSkus'); el.innerHTML=''; (estCat().skus_vm[EST.fam]||[]).forEach(function(k){ var b=document.createElement('button'); b.dataset.sku=k.sku; b.className=k.sku===EST.sku?'on':''; b.title=k.vcpu+' vCPU · '+k.ram_gb+' GB RAM · '+k.disco_gb+' GB disco · '+estMoney(k.preco)+'/mês'; b.innerHTML=k.sku.split('.')[1]+'<small>'+k.vcpu+'v·'+k.ram_gb+'G</small>'; b.onclick=function(){estSku(k.sku);}; el.appendChild(b); });
+  var c=document.createElement('button'); c.dataset.sku='custom'; c.className=EST.sku==='custom'?'on':''; c.innerHTML='sob medida<small>livre</small>'; c.onclick=function(){estSku('custom');}; el.appendChild(c); }
+function estSku(k){ EST.sku=k; document.querySelectorAll('#estSkus button').forEach(function(b){b.classList.toggle('on',b.dataset.sku===k);}); $e('estCustom').classList.toggle('off',k!=='custom'); $e('estExtraRow').classList.toggle('off',k==='custom'); estSpec(); }
+function estSkuInfo(){ return (estCat().skus_vm[EST.fam]||[]).find(function(x){return x.sku===EST.sku;}); }
+function estTierPrice(fam,tier){ var c=estCat().componentes[fam]||{}, d=c.disco_gb||{}; var v=d[tier]; if(v==null){ var ks=Object.keys(d); v=ks.length?d[ks[0]]:0; } return +v||0; }
+function estBuild(os){ var c=estCat().componentes[EST.fam]||{}, tier=Object.keys(c.disco_gb||{})[0]||'';
+  if(EST.sku==='custom'){ var vc=+$e('estC').value, r=+$e('estR').value, d=+$e('estD').value; return {os:os,fam:EST.fam,sku:'custom',size:famLabel(EST.fam).slice(0,4).toUpperCase()+'·'+vc+'v',c:vc,r:r,d:d,x:0,preco:vc*(c.vcpu||0)+r*(c.ram_gb||0)+d*estTierPrice(EST.fam,tier)}; }
+  var k=estSkuInfo(); if(!k) return null; var x=+$e('estX').value; return {os:os,fam:EST.fam,sku:k.sku,size:k.sku,c:k.vcpu,r:k.ram_gb,d:k.disco_gb,x:x,preco:+k.preco+x*estTierPrice(EST.fam,k.tier_disco)}; }
+function estSpec(){ var c=+$e('estC').value, r=+$e('estR').value, d=+$e('estD').value, x=+$e('estX').value;
+  $e('estCv').textContent=c+' vCPU'; $e('estRv').textContent=r+' GB'; $e('estDv').textContent=d>=1000?((d/1000).toFixed(d%1000?1:0)+' TB'):(d+' GB'); $e('estXv').textContent=x?('+'+(x>=1000?(x/1000)+' TB':x+' GB')):'nenhum';
+  var v=estBuild('linux'); var t=v?estMoney(v.preco)+'/mês':'—'; $e('estPrevL').textContent=t; $e('estPrevW').textContent=t; }
+function estAdd(os){ if(EST.servers.length>=16) return; var v=estBuild(os); if(!v) return; EST.servers.push(v); estCalc(); }
 function estDel(i){ EST.servers.splice(i,1); estCalc(); }
 function estK8(d){ EST.k8=Math.max(0,Math.min(12,EST.k8+d)); if(EST.k8===1&&d>0) EST.k8=3; if(EST.k8<3&&d<0) EST.k8=0; estCalc(); }
 function estTog(k){EST[k]=!EST[k]; if(k==='dr'){var b=$e('estDrBtn'); b.classList.toggle('on',EST.dr);} estCalc();}
 function estMoney(v){return 'R$ '+Math.round(v).toLocaleString('pt-BR');}
 function estUnit(fam,c,ram,gb){ var P=EST.P||EST.FALLBACK, comp=(P.componentes||{})[fam]||EST.FALLBACK.componentes[fam]; var disco=comp.disco_gb||{}; var pd=disco['e1.ssd']||disco['p1.ssd']||disco[Object.keys(disco)[0]]||0; return c*comp.vcpu+ram*comp.ram_gb+(gb==null?80:gb)*pd; }
 function estCalc(){
-  var total=0; EST.servers.forEach(function(v){ v.preco=estUnit(v.fam,v.c,v.r,v.d); total+=v.preco; });
-  if(EST.k8&&EST.k8On) total+=EST.k8s+estUnit('efficient',4,8)*EST.k8;
+  var total=0; EST.servers.forEach(function(v){ total+=v.preco; });
+  if(EST.k8&&EST.k8On){ var wk=((estCat().skus_vm.efficient||[]).find(function(k){return k.vcpu===4;})||{}).preco||600; total+=EST.k8s+wk*EST.k8; }
   if(EST.dr&&EST.drOn) total*=1+EST.dr_pct/100;
   EST.total=total; var ext=[]; if(EST.dr&&!EST.drOn) ext.push('DR'); if(EST.k8&&!EST.k8On) ext.push('Kubernetes'); $e('estV').innerHTML=estMoney(total)+'<small>/mês'+(ext.length?' + '+ext.join(' e ')+' sob consulta':'')+'</small>';
   $e('estKv').textContent=EST.k8?(EST.k8+' workers'+(EST.k8On?'':' · cotar')):'off';
   var drb=$e('estDrBtn'); if(drb) drb.textContent=EST.dr?(EST.drOn?'ativo · desativar':'cotar · desativar'):(EST.drOn?'ativar':'sob consulta');
-  var q=EST.servers.map(function(v){return 'v='+v.os+':'+v.fam+':'+v.c+':'+v.r+':'+v.d;}).join('&');
+  var q=EST.servers.map(function(v){return 'v='+v.os+':'+v.fam+':'+v.sku+':'+v.c+':'+v.r+':'+v.d+':'+(v.x||0);}).join('&');
   $e('estGo').href='calculadora.html?'+q+'&k8='+EST.k8+(EST.dr?'&dr=1':'');
   estDraw();
 }
@@ -422,7 +450,7 @@ function estDraw(){ EST.dirty=true; $e('estDrOverlay').hidden=EST.dr; }
   var cv,ctx,W,H,dpr,nodes=[],drawn=[],conns=[],tick=0;
   function setup(){cv=$e('estCanvas');if(!cv)return;dpr=window.devicePixelRatio||1;resize();window.addEventListener('resize',resize);cv.addEventListener('click',onClick);cv.addEventListener('mousemove',onMove);requestAnimationFrame(loop);}
   function resize(){var r=cv.parentElement.getBoundingClientRect();W=Math.max((r.width||400)-16,280);H=Math.round(Math.max(300,Math.min(380,W*.78)));cv.width=W*dpr;cv.height=H*dpr;cv.style.height=H+'px';ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);EST.dirty=true;}
-  function groups(){ var g=[],m={}; EST.servers.forEach(function(v,i){ var k=v.os+'|'+v.fam+'|'+v.prof+'|'+v.c+'|'+v.d; if(!m[k]){m[k]={os:v.os,fam:v.fam,size:v.size,c:v.c,r:v.r,d:v.d,qty:0,idx:[]};g.push(m[k]);} m[k].qty++; m[k].idx.push(i); }); return g; }
+  function groups(){ var g=[],m={}; EST.servers.forEach(function(v,i){ var k=v.os+'|'+v.fam+'|'+v.sku+'|'+v.c+'|'+v.r+'|'+v.d+'|'+(v.x||0); if(!m[k]){m[k]={os:v.os,fam:v.fam,size:v.size,c:v.c,r:v.r,d:v.d,x:v.x||0,qty:0,idx:[]};g.push(m[k]);} m[k].qty++; m[k].idx.push(i); }); return g; }
   function buildLayout(){
     nodes=[];conns=[];
     var inet={x:W*.5,y:H*.09,type:'inet',label:'Internet',r:14}; nodes.push(inet);
@@ -432,7 +460,7 @@ function estDraw(){ EST.dirty=true; $e('estDrOverlay').hidden=EST.dr; }
     var gs=groups(), cnt=gs.length;
     if(cnt){ var cols=Math.min(cnt,5),rws=Math.ceil(cnt/cols), zL=W*.08,zR=W*.92, zT=EST.k8?H*.84:H*.72, zB=H*.90;
       gs.forEach(function(g,i){ var col=i%cols,row=Math.floor(i/cols); var x=cols===1?(zL+zR)/2:zL+(zR-zL)*col/(cols-1||1); var y=rws===1?(zT+zB)/2:zT+(zB-zT)*row/(rws-1||1);
-        nodes.push({x:x,y:y,r:Math.min(18,11+g.qty*1.2),type:g.os==='windows'?'win':'lin',label:g.size,sub:g.r+'G · '+(g.d>=1000?(g.d/1000)+'T':g.d+'G')+' · '+(g.fam==='performance'?'perf':'eff'),qty:g.qty,g:g}); });
+        nodes.push({x:x,y:y,r:Math.min(18,11+g.qty*1.2),type:g.os==='windows'?'win':'lin',label:g.size,sub:g.c+'v · '+g.r+'G · '+((g.d+g.x)>=1000?((g.d+g.x)/1000)+'T':(g.d+g.x)+'G'),qty:g.qty,g:g}); });
     }
     var vms=nodes.filter(function(n){return n.type==='win'||n.type==='lin';});
     conns.push({a:inet,b:dc1,s:'inet',lw:1.5,dash:[4,5]});
@@ -484,7 +512,7 @@ function estLeadSend(){
   var nome=$e('estNome').value.trim(), emp=$e('estEmp').value.trim(), eml=$e('estEmail').value.trim(), wa=$e('estWa').value.replace(/\D/g,''), stt=$e('estStatus');
   if(!nome||!emp||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(eml)){ stt.textContent='Preencha nome, empresa e um e-mail válido.'; return; }
   if(wa&&wa.length<10){ stt.textContent='WhatsApp com DDD + número.'; return; }
-  var grp={}; EST.servers.forEach(function(v){ var k=v.os+'|'+v.fam+'|'+v.size+'|'+v.d; (grp[k]=grp[k]||{nome:(v.os==='windows'?'Windows Server':'Linux'),qtd:0,spec:v.c+' vCPU · '+v.r+' GB · '+v.d+' GB · '+v.fam,so:v.os==='windows'?'Windows':'Linux',subtotal:0}); grp[k].qtd++; grp[k].subtotal+=v.preco; });
+  var grp={}; EST.servers.forEach(function(v){ var k=v.os+'|'+v.fam+'|'+v.sku+'|'+v.c+'|'+v.r+'|'+v.d+'|'+(v.x||0); (grp[k]=grp[k]||{nome:(v.os==='windows'?'Windows Server':'Linux')+' · '+v.sku,qtd:0,spec:v.c+' vCPU · '+v.r+' GB · '+v.d+' GB'+(v.x?' + '+v.x+' GB extra':'')+' · '+famLabel(v.fam),so:v.os==='windows'?'Windows':'Linux',subtotal:0}); grp[k].qtd++; grp[k].subtotal+=v.preco; });
   var vms=Object.keys(grp).map(function(k){return grp[k];});
   var op=[]; if(EST.dr) op.push('DR / réplica no site 2 '+(EST.drOn?'(+'+EST.dr_pct+'%)':'(sob consulta)')); if(EST.k8) op.push('Kubernetes gerenciado · '+EST.k8+' workers'+(EST.k8On?'':' (sob consulta)'));
   var payload={tipo:'estimador_home',empresa:emp,nome:nome,email:eml,whatsapp:wa,estimativa:Math.round(EST.total),vms:vms,opcoes:op.join('; ')||'-',obs:'Pedido pelo estimador da home (Contratar).',turnstile:EST.tsTok,website:$e('estSite').value};
@@ -494,15 +522,15 @@ function estLeadSend(){
   .then(function(){ $e('estLead').hidden=true; $e('estOk').hidden=false; })
   .catch(function(e){ stt.textContent=e.message; btn.disabled=false; if(EST.tsW!==null&&window.turnstile){turnstile.reset(EST.tsW);EST.tsTok='';} });
 }
-EST.servers=[{os:'linux',fam:'efficient',prof:'gp',size:'GP·4v',c:4,r:16,d:80},{os:'linux',fam:'efficient',prof:'gp',size:'GP·4v',c:4,r:16,d:80},{os:'windows',fam:'performance',prof:'mem',size:'MEM·8v',c:8,r:64,d:250}];
-estSpec(); estCalc();
-try{ fetch(EST_API+'/api/public/precos').then(function(r){return r.ok?r.json():null;}).then(function(p){ if(p&&p.componentes){ EST.P=p; var dr=(p.servicos_adicionais||[]).find(function(x){return x.sku==='dr.replicacao';}); EST.drOn=!!(dr&&dr.unidade==='pct_vm'&&+dr.preco>0&&dr.ativo!==false&&!dr.inativo); if(EST.drOn) EST.dr_pct=+dr.preco; var ks=((p.skus_caas||{}).tiers||[]).filter(function(t){return t.ativo!==false&&!t.inativo;}); EST.k8On=ks.length>0; if(ks[0]) EST.k8s=+ks[0].preco; estCalc(); } }).catch(function(){}); }catch(e){}
+function estInit(){ estBuildFam(); estFam(EST.fam); if(!EST.servers.length){ EST.fam='efficient'; estFam('efficient'); estSku('e1.medium'); EST.servers.push(estBuild('linux'),estBuild('linux')); EST.fam='performance'; estFam('performance'); estSku('p1.medium'); EST.servers.push(estBuild('windows')); EST.fam='efficient'; estFam('efficient'); } EST.servers=EST.servers.filter(Boolean); estCalc(); }
+estInit();
+try{ fetch(EST_API+'/api/public/precos').then(function(r){return r.ok?r.json():null;}).then(function(p){ if(p&&p.componentes){ EST.P=p; var dr=(p.servicos_adicionais||[]).find(function(x){return x.sku==='dr.replicacao';}); EST.drOn=!!(dr&&dr.unidade==='pct_vm'&&+dr.preco>0&&dr.ativo!==false&&!dr.inativo); if(EST.drOn) EST.dr_pct=+dr.preco; var ks=((p.skus_caas||{}).tiers||[]).filter(function(t){return t.ativo!==false&&!t.inativo;}); EST.k8On=ks.length>0; if(ks[0]) EST.k8s=+ks[0].preco; EST.servers=[]; estInit(); } }).catch(function(){}); }catch(e){}
 // ---- física do enlace: RTT real do browser até a borda (HEAD no próprio site, sem cache, mediana de 12) ----
 (function(){
-  var N=12, t=[], url=location.protocol==='file:'?'https://alliant.com.br/favicon.ico':(location.origin+'/favicon.ico');
+  var N=12, t=[], url='https://ping.alliant.one/';
   function fmt(ms){return ms<10?ms.toFixed(1)+' ms':Math.round(ms)+' ms';}
   function show(med,n){ var e=$e('phMs'); if(e) e.textContent=fmt(med); var v=$e('phV'); if(v) v.textContent=fmt(med);
-    var d=$e('phD'); if(d) d.textContent='mediana de '+n+' amostras · medido neste dispositivo, agora';
+    var d=$e('phD'); if(d) d.textContent='até o DC-SP1 · mediana de '+n+' amostras · medido agora';
     var x=$e('phX'); if(x) x.textContent=Math.max(1,Math.round(med/0.588))+'×'; }
   function one(){ var t0=performance.now(); return fetch(url+'?t='+Date.now()+Math.random(),{method:'HEAD',cache:'no-store',mode:'no-cors'}).then(function(){t.push(performance.now()-t0);}).catch(function(){}); }
   function run(i){ if(i>=N){ finish(); return; } one().then(function(){ if(t.length>=3){ var a=t.slice().sort(function(p,q){return p-q;}); show(a[Math.floor(a.length/2)],a.length); } setTimeout(function(){run(i+1);},120); }); }

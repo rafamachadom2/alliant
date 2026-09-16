@@ -724,6 +724,8 @@ fetch(API+'/api/public/precos').then(function(r){if(!r.ok)throw new Error('HTTP 
   P=p;
   if(p.backup&&p.backup.incluso_dias) document.getElementById('bkDias').textContent=p.backup.incluso_dias;
   if(p.suporte){ document.getElementById('hint85').textContent='R$ '+Math.round(+p.suporte.hora_excedente_comercial||180); document.getElementById('hint247').textContent='R$ '+Math.round(+p.suporte.hora_excedente_fora_comercial||240); if(p.suporte.janela_comercial) document.getElementById('supJanela').textContent=p.suporte.janela_comercial.toLowerCase(); }
+  if(window._k8pref&&P.skus_caas&&P.skus_caas.tiers&&P.skus_caas.tiers.length){ caas[P.skus_caas.tiers[0].sku]=1; }
+  rows.forEach(function(r){ var d=r.data; if(d.extra_gb&&!d.extra_tier){ var fam=(d.flavor||'').indexOf('custom:')===0?d.flavor.slice(7):((skuInfo(d.flavor)||{}).familia); var c=P.componentes[fam]; if(c) d.extra_tier=Object.keys(c.disco_gb||{})[0]; } if((d.flavor||'').indexOf('custom:')===0&&!d.tier){ var c2=P.componentes[d.flavor.slice(7)]; if(c2) d.tier=Object.keys(c2.disco_gb||{})[0]; } });
   renderCaas(); renderServicos();
   if(!rows.length) addRow(); else { rows.forEach(function(r){ if(!skuInfo(r.data.flavor)&&(r.data.flavor||'').indexOf('custom:')!==0) r.data.flavor=primeiroSku(); }); renderTable(); }
   schedCalc();
@@ -924,6 +926,17 @@ function abbrev(n){
 rows=[{id:++rid,data:{nm:'Servidor de aplicação',os:'Linux',qty:2,flavor:'e1.medium'}},
       {id:++rid,data:{nm:'Banco de dados',os:'Linux',qty:1,flavor:'p1.medium'}},
       {id:++rid,data:{nm:'ERP Windows',os:'Windows Server 2025',qty:1,flavor:'e1.large'}}];
+// vindo do estimador da home: ?v=os:fam:sku:vcpu:ram:disco:extra&v=...&k8=N&dr=1
+(function(){
+  var qs=new URLSearchParams(location.search), vs=qs.getAll('v'); if(!vs.length) return;
+  var agg={}, out=[];
+  vs.forEach(function(v){ var p=v.split(':'); if(p.length<7) return; var k=v; if(agg[k]){agg[k].data.qty++; return;}
+    var os=p[0]==='windows'?'Windows Server 2025':'Linux', fam=p[1], sku=p[2], d={nm:(p[0]==='windows'?'Windows':'Linux')+' '+(sku==='custom'?fam:sku),os:os,qty:1,dr:qs.get('dr')==='1'};
+    if(sku==='custom'){ d.flavor='custom:'+fam; d.vcpu=+p[3]; d.ram=+p[4]; d.disco=+p[5]; } else { d.flavor=sku; if(+p[6]>0){ d.extra_gb=+p[6]; } }
+    agg[k]={id:++rid,data:d}; out.push(agg[k]); });
+  if(out.length) rows=out;
+  var k8=+qs.get('k8')||0; if(k8>0){ window._k8pref=k8; }
+})();
 document.addEventListener('DOMContentLoaded',function(){renderTable();});
 
 if(location.hash==='#especial'){window.addEventListener('load',function(){setTimeout(function(){if(typeof openSpecial==='function')openSpecial();},400);});}
