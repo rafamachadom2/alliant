@@ -917,6 +917,8 @@ rows=[{id:++rid,data:{nm:'Servidor de aplicação',os:'Linux',qty:2,flavor:'e1.m
       {id:++rid,data:{nm:'Banco de dados',os:'Linux',qty:1,flavor:'p1.medium'}},
       {id:++rid,data:{nm:'ERP Windows',os:'Windows Server 2025',qty:1,flavor:'e1.large'}}];
 document.addEventListener('DOMContentLoaded',function(){renderTable();});
+
+if(location.hash==='#especial'){window.addEventListener('load',function(){setTimeout(function(){if(typeof openSpecial==='function')openSpecial();},400);});}
 </script>
 </body>
 </html>
