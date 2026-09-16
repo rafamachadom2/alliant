@@ -26,6 +26,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 .nav-links{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
 .nav-links a{font-size:14px;color:var(--steel);text-decoration:none}
 .nav-links a:hover,.nav-links a.on{color:var(--ink)}
+.nav-links a.cta{display:inline-flex;align-items:center;gap:8px;color:#f5f0e8;background:#1a1612;padding:9px 16px;border-radius:8px;font-weight:600}.nav-links a.cta:hover{background:#1d6aff;color:#fff}
+@media(max-width:640px){nav{padding:16px 5%;flex-wrap:wrap;gap:12px}.nav-logo svg{height:26px!important}.nav-links{gap:12px;width:100%;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border)}.nav-links a{font-size:13px}.nav-links a.cta{padding:8px 12px;font-size:13px;margin-left:auto}main{padding:10px 5% 60px}}
 main{padding:10px 6% 80px}
 .head{max-width:700px;margin-bottom:30px}
 .badge{display:inline-block;border-left:2px solid var(--blue);padding-left:12px;font-size:12px;font-weight:500;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}
@@ -107,8 +109,8 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
   <div class="nav-links">
     <a href="calculadora.html">Planos e preços</a>
     <a href="calculadora.html">Sob medida</a>
-    <a href="mailto:alliant@alliant.com.br">Contato</a>
-    <a href="https://portal.alliant.com.br/">Entrar</a>
+    <a href="index.html#contato">Contato</a>
+    <a href="https://portal.alliant.com.br/" class="cta"><svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M7 17a5 5 0 0 1 0-10 6 6 0 0 1 11.3 1.5A4 4 0 0 1 18 17z"/></svg>Minha nuvem</a>
   </div>
 </nav>
 
