@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+  <stop stop-color="#f4f0e7"/><stop offset="1" stop-color="#e9e1d3"/>
+ </linearGradient>
+</defs>
+<rect width="1920" height="1080" fill="url(#bg)"/>
+<g fill="#265c88">
+ <path opacity=".08" d="M-100 850C280 760 550 910 920 815s610-55 1100-145v410H-100z">
+  <animateTransform attributeName="transform" type="translate" values="0 0;70 -8;0 0" dur="18s" repeatCount="indefinite"/>
+ </path>
+ <path opacity=".045" d="M-100 930c430-115 760 30 1110-65s560-50 1010-125v340H-100z">
+  <animateTransform attributeName="transform" type="translate" values="0 0;-55 6;0 0" dur="24s" repeatCount="indefinite"/>
+ </path>
+</g>
+</svg>

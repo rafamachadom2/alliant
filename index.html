@@ -15,7 +15,8 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:"DM Sans",sans-serif;background:#f5f0e8;color:#1a1612;overflow-x:hidden;min-height:100vh}
-body::after{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(107,95,82,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(107,95,82,0.07) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%);pointer-events:none;z-index:0}
+/* fundo: ondas animadas (SVG com SMIL só anima como <img>, não como background-image) */
+.bgwave{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:0}
 .page{position:relative;z-index:1;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;}
 nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6%;}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
@@ -34,7 +35,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 .contact-head h2{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(28px,3.4vw,40px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:8px}
 .contact-head p{color:var(--steel);font-size:16px;line-height:1.6}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.contact-col{background:#fff;border:1px solid var(--border);border-radius:14px;padding:26px}
+.contact-col{background:#f7f3ec;border:1px solid rgba(26,22,18,.55);border-radius:14px;padding:26px}
 .contact-tag{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:10px}
 .contact-col h3{font-size:20px;font-weight:700;letter-spacing:-.3px;margin-bottom:6px}
 .contact-col p{color:var(--steel);font-size:14px;line-height:1.6;margin-bottom:18px}
@@ -53,7 +54,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(42px,5.5vw,82px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:12px}
 .accent{background:linear-gradient(135deg,#1d6aff,#6637e8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-tagline{font-family:"Syne",sans-serif;font-size:clamp(13px,1.2vw,16px);font-weight:400;color:var(--steel);font-style:italic;margin-bottom:28px;letter-spacing:.2px}
-.hero-sub{font-size:16px;color:var(--steel);line-height:1.7;font-weight:300;max-width:560px;margin-bottom:40px}
+.hero-sub{font-size:16px;color:var(--steel);line-height:1.7;font-weight:300;max-width:560px;margin-bottom:40px}.hero-sub .mono{font-family:"DM Mono",ui-monospace,monospace;color:var(--white);font-size:15px}
 .hero-actions{display:flex;flex-direction:column;gap:12px}
 .btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;width:fit-content}
 .btn-p:hover{background:var(--blue-bright);transform:translateY(-1px)}
@@ -112,12 +113,105 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
   footer{padding:22px 5%;flex-direction:column;text-align:center}
   .f-links{justify-content:center;flex-wrap:wrap;gap:16px}
 }
+
+/* ---- estimador rápido (hero direita) ---- */
+.hero{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;max-width:none;align-items:center}
+.est{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 20px 16px;box-shadow:0 12px 40px rgba(26,22,18,.08);position:relative}
+.est-body{display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:stretch;min-height:380px}
+.est-ctl,.est-lead,.est-ok{display:flex;flex-direction:column;min-height:380px}
+.est [hidden]{display:none!important}
+.est-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.est-head b{font-size:15px}.est-head a{font-size:11px;color:var(--steel);cursor:pointer;text-decoration:underline}
+.est-fam{display:flex;gap:6px;margin-bottom:12px}
+.est-fam button{flex:1;border:1px solid var(--border);background:transparent;border-radius:8px;padding:7px 6px;font:inherit;font-size:12px;color:var(--steel);cursor:pointer}
+.est-fam button.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+.est-row{display:grid;grid-template-columns:1fr auto;gap:0 8px;align-items:center;margin-bottom:5px}
+.est-row label{font-size:12.5px;color:var(--white);display:flex;align-items:center;gap:6px}
+.est-row output{font-family:"DM Mono",ui-monospace,monospace;font-size:11px;color:var(--steel)}
+.est-row input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--blue);height:18px;margin:0}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;background:#d35400}.dot.win{background:#0078d4}.dot.k8{background:#1d6aff}
+.est-dr{margin-top:auto;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:10px;font-size:12.5px}
+.est-dr button{border:1px solid rgba(26,106,255,.4);background:rgba(26,106,255,.08);color:var(--blue);border-radius:99px;padding:5px 12px;font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+.est-dr button.on{background:var(--blue);color:#fff}
+.est-lbl{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--steel);margin:6px 0 6px}
+.est-seg{display:flex;gap:4px;margin-bottom:6px}
+.est-seg button{flex:1;border:1px solid var(--border);background:transparent;border-radius:8px;padding:6px 2px;font:inherit;font-size:11.5px;font-weight:700;color:var(--white);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.1}
+.est-seg button small{font-family:"DM Mono",ui-monospace,monospace;font-size:9px;font-weight:400;color:var(--steel)}
+.est-seg button.on{background:var(--blue);border-color:var(--blue);color:#fff}.est-seg button.on small{color:rgba(255,255,255,.85)}
+.est-disk button{font-size:11px;font-weight:600;padding:5px 2px}
+.est-addgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.est-addgrid button{border:1px dashed rgba(107,95,82,.45);background:#fff;border-radius:9px;padding:8px 6px;font:inherit;font-size:12px;color:var(--white);cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:2px;line-height:1.2}
+.est-addgrid button em{font-style:normal;font-size:10px;color:var(--steel)}
+.est-addgrid button:hover{border-color:var(--blue);background:var(--cyan-dim)}
+.est-addgrid button span{display:flex;align-items:center;gap:6px;font-weight:600}
+.est-k8{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;padding:6px 0 4px}
+.est-k8 span{display:flex;align-items:center;gap:6px}
+.est-step button{width:24px;height:24px;border:1px solid var(--border);background:#fff;border-radius:6px;font:inherit;font-size:14px;cursor:pointer;color:var(--white)}
+.est-step b{font-family:"DM Mono",ui-monospace,monospace;font-size:11px;min-width:56px;text-align:center;font-weight:500}
+.est-hint{font-size:10.5px;color:var(--steel);opacity:.8}
+.est-arch svg .tile{cursor:pointer}.est-arch svg .tile:hover rect{stroke:#c0392b}
+
+.est-arch{background:var(--navy-mid);border:1px solid var(--border);border-radius:12px;padding:10px;display:flex;align-items:center}
+.est-arch{position:relative;flex-direction:column;justify-content:flex-start;padding:8px 8px 6px}#estCanvas{width:100%;display:block;border-radius:8px;cursor:default}
+.est-drbtn{position:absolute;left:50%;transform:translateX(-50%);background:#1d6aff;color:#fff;border:0;border-radius:99px;padding:7px 14px;font:inherit;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(29,106,255,.3);white-space:nowrap}.est-drbtn:hover{background:#3d8bff}
+.est-legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:10px;color:var(--steel);padding:6px 4px 0}.est-legend span{display:inline-flex;align-items:center;gap:4px}.est-legend i{width:8px;height:8px;border-radius:50%;display:inline-block}.est-legend em{font-style:normal;margin-left:auto;opacity:.8}
+.est-arch svg .cta{cursor:pointer}
+.est-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:14px}
+.est-foot .v{font-family:"DM Mono",ui-monospace,monospace;font-size:28px;font-weight:600;color:var(--white);letter-spacing:-1px;line-height:1}
+.est-foot .v small{font-size:12px;color:var(--steel);font-weight:400;letter-spacing:0}
+.est-foot .l{font-size:11px;color:var(--steel);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.est-btns{display:flex;gap:8px}
+.est-cta{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;cursor:pointer}
+.est-cta:hover{background:var(--blue-bright)}
+.est-cta.ghost{background:transparent;color:var(--white);border:1px solid var(--border)}.est-cta.ghost:hover{background:var(--cyan-dim)}
+.est-note{font-size:11px;color:var(--steel);opacity:.8;margin-top:10px;line-height:1.5}
+.est-lead input{border:1px solid var(--border);border-radius:8px;padding:9px 10px;font:inherit;font-size:13px;margin-bottom:8px;background:#fff;color:var(--white)}
+.est-lead input:focus{outline:none;border-color:var(--blue)}
+.est-lead-p{font-size:12px;color:var(--steel);line-height:1.5;margin-bottom:10px}
+.est-ts{min-height:0;margin-bottom:6px}
+.est-send{margin-top:auto;border:0;background:#1a1612;color:#f5f0e8;border-radius:8px;padding:10px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.est-send[disabled]{opacity:.5}
+.est-status{font-size:11px;color:#c0392b;min-height:14px;margin-top:6px}
+.est-ok{justify-content:center;align-items:flex-start;gap:8px}.est-ok b{font-size:18px}.est-ok p{font-size:13px;color:var(--steel);line-height:1.5}.est-ok a{font-size:12px;color:var(--blue);cursor:pointer;text-decoration:underline}
+@media(max-width:1000px){.hero{grid-template-columns:1fr;gap:28px}}
+@media(max-width:560px){.est-body{grid-template-columns:1fr;min-height:0}.est-ctl,.est-lead,.est-ok{min-height:0}.est-arch{order:-1}}
+
+/* ---- física do enlace ---- */
+.phys{padding:56px 6% 24px}
+.phys-link{background:#f7f3ec;border:1px solid rgba(26,22,18,.55);border-radius:16px;padding:22px 28px 18px;position:relative;overflow:hidden}
+.phys-link::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(107,95,82,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(107,95,82,.06) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.phys-top{text-align:center;font-family:"DM Mono",ui-monospace,monospace;font-size:12px;color:var(--blue);margin-bottom:26px;position:relative}
+.phys-top b{font-weight:600;margin-left:8px}
+.phys-line{position:relative;height:60px;display:flex;align-items:center}
+.phys-line .rail{position:absolute;left:44px;right:44px;top:50%;height:2px;background:rgba(107,95,82,.18);transform:translateY(-50%)}
+.phys-node{position:absolute;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:6px}
+.phys-node i{width:30px;height:30px;border-radius:50%;background:rgba(29,106,255,.10);border:1px solid rgba(29,106,255,.35);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px rgba(29,106,255,.06)}
+.phys-node i svg{width:14px;height:14px;stroke:var(--blue);fill:none;stroke-width:1.6}
+.phys-node span{font-family:"DM Mono",ui-monospace,monospace;font-size:11px;color:var(--white)}
+.phys-node.a{left:44px}.phys-node.b{left:calc(100% - 44px)}
+.photon{position:absolute;top:50%;width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 8px rgba(29,106,255,.7);transform:translate(-50%,-50%);animation:ph 2.4s linear infinite;opacity:.9}
+.photon.back{background:#0091b5;box-shadow:0 0 8px rgba(0,145,181,.7);animation-name:phb}
+@keyframes ph{from{left:44px}to{left:calc(100% - 44px)}}
+@keyframes phb{from{left:calc(100% - 44px)}to{left:44px}}
+.phys-cap{text-align:center;font-family:"DM Mono",ui-monospace,monospace;font-size:11px;color:var(--steel);margin-top:8px;position:relative}
+.phys-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.phys-tile{background:#f7f3ec;border:1px solid rgba(26,22,18,.55);border-radius:14px;padding:18px 20px;position:relative}
+.phys-tile .k{font-size:12px;color:var(--steel);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.phys-tile .k i{width:8px;height:8px;border-radius:50%;background:var(--blue);display:none;box-shadow:0 0 0 3px rgba(29,106,255,.15)}
+.phys-tile.live .k i{display:inline-block;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.phys-tile .v{font-family:"DM Mono",ui-monospace,monospace;font-size:34px;font-weight:500;letter-spacing:-1px;line-height:1;color:var(--white);margin-bottom:8px}
+.phys-tile .d{font-size:13px;color:var(--steel);line-height:1.5}
+@media(max-width:860px){.phys-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.phys{padding:36px 5% 16px}.phys-grid{grid-template-columns:1fr}.phys-tile .v{font-size:28px}.phys-link{padding:16px 14px}}
 @media(max-width:800px){.about{grid-template-columns:1fr}footer{flex-direction:column;text-align:center}}
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </head>
 <body>
 <div class="glow1"></div>
 <div class="glow2"></div>
+<img class="bgwave" src="bg-nuvem.svg" alt="" aria-hidden="true">
 <div class="page">
 <nav>
   <a href="#" class="nav-logo">
@@ -135,15 +229,16 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
   <div class="nav-links">
     <a href="calculadora.html">Planos e preços</a>
     <a href="#contato">Contato</a>
+    <a href="https://suporte.alliant.com.br/">Suporte</a>
     <a href="https://portal.alliant.com.br/" class="cta"><svg viewBox="0 0 24 24"><path d="M7 17a5 5 0 0 1 0-10 6 6 0 0 1 11.3 1.5A4 4 0 0 1 18 17z"/></svg>Minha nuvem</a>
   </div>
 </nav>
 <section class="hero">
   <div class="hero-left">
     <div class="hero-badge">IaaS Enterprise Ready</div>
-    <h1>Onde cada milissegundo<br><span class="accent">faz a diferença.</span></h1>
+    <h1>Onde cada milissegundo<br><span class="accent">é física, não slogan.</span></h1>
     <p class="hero-tagline">Nuvem privada dedicada. Sem dividir com ninguém.</p>
-    <p class="hero-sub">Estamos construindo a primeira nuvem privada de verdade do Brasil. Dados que nunca saem do país. Suporte humano real. Performance sem desculpas. Chega de depender de big tech estrangeira.</p>
+    <p class="hero-sub">Dois sites em São Paulo, 60 km+ de fibra, <span class="mono">n = 1,468</span>. Um fóton leva <span class="mono">294 µs</span>.</p>
     <div class="hero-actions">
       <a href="calculadora.html" class="btn-p">
         Ver planos e montar minha nuvem
@@ -153,8 +248,75 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
         <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
         WhatsApp 0800 020 0030
       </a>
-      <span class="cta-note">Sem big tech. Sem lock-in. Sem desculpas. &mdash; Lançamento Q2 2027</span>
+      <span class="cta-note">Sem big tech. Sem lock-in. Sem desculpas. &mdash; Acesso antecipado · clientes em produção desde set/2026</span>
     </div>
+  </div>
+  <div class="est" id="est" aria-label="Estimativa rápida">
+    <div class="est-body">
+      <div class="est-ctl" id="estCtl">
+        <div class="est-head"><b>Arquitetura</b></div>
+        <div class="est-lbl">1 · Perfil do servidor</div>
+        <div class="est-seg" id="estProf">
+          <button data-p="gp" class="on" onclick="estProf('gp')">General<small>1 vCPU : 4 GB</small></button>
+          <button data-p="mem" onclick="estProf('mem')">Memory<small>1 vCPU : 8 GB</small></button>
+          <button data-p="cpu" onclick="estProf('cpu')">Compute<small>1 vCPU : 2 GB</small></button>
+        </div>
+        <div class="est-row"><label>vCPU</label><output id="estCv">4 vCPU · 16 GB RAM</output><input type="range" id="estC" min="1" max="32" value="4" oninput="estSpec()"></div>
+        <div class="est-row"><label>Disco SSD</label><output id="estDv">80 GB</output><input type="range" id="estD" min="40" max="2000" step="20" value="80" oninput="estSpec()"></div>
+        <div class="est-lbl">2 · Adicione ao site</div>
+        <div class="est-addgrid">
+          <button onclick="estAdd('linux','efficient')"><span><i class="dot lnx"></i>Linux</span><em>Efficient</em></button>
+          <button onclick="estAdd('linux','performance')"><span><i class="dot lnx"></i>Linux</span><em>Performance</em></button>
+          <button onclick="estAdd('windows','efficient')"><span><i class="dot win"></i>Windows</span><em>Efficient</em></button>
+          <button onclick="estAdd('windows','performance')"><span><i class="dot win"></i>Windows</span><em>Performance</em></button>
+        </div>
+        <div class="est-k8"><span><i class="dot k8"></i>Kubernetes</span><span class="est-step"><button onclick="estK8(-1)">−</button><b id="estKv">off</b><button onclick="estK8(1)">+</button></span></div>
+        <div class="est-dr" id="estDrRow"><span>Réplica no site 2 (DR)</span><button id="estDrBtn" onclick="estTog('dr')">ativar</button></div>
+      </div>
+      <div class="est-lead" id="estLead" hidden>
+        <div class="est-head"><b>Contratar</b><a onclick="estLeadClose()">voltar</a></div>
+        <p class="est-lead-p">Mandamos a proposta com esse desenho e o contrato para assinatura eletrônica.</p>
+        <input id="estNome" placeholder="Seu nome" autocomplete="name">
+        <input id="estEmp" placeholder="Empresa" autocomplete="organization">
+        <input id="estEmail" type="email" placeholder="E-mail corporativo" autocomplete="email">
+        <input id="estWa" placeholder="WhatsApp (DDD + número)" inputmode="tel" oninput="estMaskPhone(this)">
+        <input id="estSite" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <div id="ts-est" class="est-ts"></div>
+        <button class="est-send" id="estSend" onclick="estLeadSend()">Enviar e receber proposta →</button>
+        <div class="est-status" id="estStatus"></div>
+      </div>
+      <div class="est-ok" id="estOk" hidden><b>Recebido!</b><p>Sua proposta chega por e-mail em até 1 dia útil, com o desenho ao lado.</p><a onclick="estLeadClose(true)">voltar</a></div>
+      <div class="est-arch" id="estArch"><canvas id="estCanvas" aria-label="Arquitetura do ambiente"></canvas>
+        <button class="est-drbtn" id="estDrOverlay" onclick="estTog('dr')">Ativar redundância</button>
+        <div class="est-legend"><span><i style="background:#d35400"></i>Linux</span><span><i style="background:#0078d4"></i>Windows</span><span><i style="background:#1d6aff"></i>Kubernetes</span><span><i style="background:#0091b5"></i>Réplica DR</span><em>clique num servidor para remover</em></div>
+      </div>
+    </div>
+    <div class="est-foot">
+      <div><div class="l">Estimativa mensal</div><div class="v" id="estV">R$ —<small>/mês</small></div></div>
+      <div class="est-btns"><a class="est-cta ghost" href="calculadora.html" id="estGo">Refinar</a><a class="est-cta" onclick="estLeadOpen()">Contratar →</a></div>
+    </div>
+    <div class="est-note">Backup de 14 dias, 1 IPv4 e tráfego ilimitado inclusos · sem cobrança por IOPS ou API.</div>
+  </div>
+</section>
+<section class="phys" id="fisica" aria-label="Física do enlace">
+  <div class="phys-link">
+    <div class="phys-top">seu browser → borda da rede <b id="phMs">medindo…</b></div>
+    <div class="phys-line">
+      <div class="rail"></div>
+      <span class="photon" style="animation-delay:0s"></span><span class="photon" style="animation-delay:-.8s"></span><span class="photon" style="animation-delay:-1.6s"></span>
+      <span class="photon back" style="animation-delay:-.4s"></span><span class="photon back" style="animation-delay:-1.2s"></span><span class="photon back" style="animation-delay:-2s"></span>
+      <div class="phys-node a"><i><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i><span>SP-A</span></div>
+      <div class="phys-node b"><i><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i><span>SP-B</span></div>
+    </div>
+    <div class="phys-cap">60 km+ de fibra própria &nbsp;·&nbsp; n = 1,468 &nbsp;·&nbsp; 1-way ≥ 294 µs</div>
+  </div>
+  <div class="phys-grid">
+    <div class="phys-tile"><div class="k">Física do enlace</div><div class="v">≥ 294 µs</div><div class="d">Ida SP-A → SP-B no vidro.<br>Não negociável.</div></div>
+    <div class="phys-tile"><div class="k">RTT teórico</div><div class="v">≥ 588 µs</div><div class="d">Limite inferior. Switching ainda não entrou.</div></div>
+    <div class="phys-tile live" id="phTile"><div class="k">Seu browser <i></i></div><div class="v" id="phV">—</div><div class="d" id="phD">medindo neste dispositivo, agora</div></div>
+    <div class="phys-tile"><div class="k">Failover</div><div class="v">&lt; 5 min</div><div class="d">300 s. Software, não fóton.</div></div>
+    <div class="phys-tile"><div class="k">Distância</div><div class="v">60 km+</div><div class="d">Dois prédios ligados por fibra própria. Não uma “região”.</div></div>
+    <div class="phys-tile"><div class="k">Fóton vs você</div><div class="v" id="phX">—</div><div class="d" id="phXd">quantas vezes seu RTT cabe no enlace interno (588 µs)</div></div>
   </div>
 </section>
 <div class="cred-strip">
@@ -165,7 +327,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
   <div class="about-item">
     <div class="about-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
     <div class="about-title">Dados 100% no Brasil</div>
-    <div class="about-desc">Dois sites em São Paulo separados por +60km. Conformidade com LGPD por arquitetura, sem configuração adicional.</div>
+    <div class="about-desc">Dois sites em São Paulo separados por 60 km+ de fibra própria. Conformidade com LGPD por arquitetura, sem configuração adicional.</div>
   </div>
   <div class="about-item">
     <div class="about-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
@@ -228,6 +390,127 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 </div>
 
 <script>
+// ---- estimador rápido ----
+var EST={dr:false,P:null,dr_pct:90,k8s:1200,k8:0,prof:'gp',servers:[],total:0,tsTok:'',tsW:null,drOn:true,k8On:true,
+  PROF:{gp:{r:4,l:'GP'},mem:{r:8,l:'MEM'},cpu:{r:2,l:'CPU'}},
+  FALLBACK:{componentes:{performance:{vcpu:150,ram_gb:60,disco_gb:{'p1.ssd':1.2}},efficient:{vcpu:75,ram_gb:35,disco_gb:{'e1.ssd':0.9}}}}};
+var EST_API=(location.hostname==='localhost'||location.protocol==='file:')?'http://localhost:8000':'https://backoffice.alliant.com.br';
+var EST_TS=(location.hostname==='localhost'||location.protocol==='file:')?'1x00000000000000000000AA':'0x4AAAAAAExq6_kU3LpNgS2m';
+function $e(id){return document.getElementById(id);}
+function estProf(p){EST.prof=p;document.querySelectorAll('#estProf button').forEach(function(b){b.classList.toggle('on',b.dataset.p===p);});estSpec();}
+function estSpec(){ var c=+$e('estC').value, d=+$e('estD').value; $e('estCv').textContent=c+' vCPU · '+(c*EST.PROF[EST.prof].r)+' GB RAM'; $e('estDv').textContent=d>=1000?((d/1000).toFixed(d%1000?1:0)+' TB'):(d+' GB'); }
+function estAdd(os,fam){ if(EST.servers.length>=16) return; var c=+$e('estC').value, d=+$e('estD').value; EST.servers.push({os:os,fam:fam,prof:EST.prof,size:EST.PROF[EST.prof].l+'·'+c+'v',c:c,r:c*EST.PROF[EST.prof].r,d:d}); estCalc(); }
+function estDel(i){ EST.servers.splice(i,1); estCalc(); }
+function estK8(d){ EST.k8=Math.max(0,Math.min(12,EST.k8+d)); if(EST.k8===1&&d>0) EST.k8=3; if(EST.k8<3&&d<0) EST.k8=0; estCalc(); }
+function estTog(k){EST[k]=!EST[k]; if(k==='dr'){var b=$e('estDrBtn'); b.classList.toggle('on',EST.dr);} estCalc();}
+function estMoney(v){return 'R$ '+Math.round(v).toLocaleString('pt-BR');}
+function estUnit(fam,c,ram,gb){ var P=EST.P||EST.FALLBACK, comp=(P.componentes||{})[fam]||EST.FALLBACK.componentes[fam]; var disco=comp.disco_gb||{}; var pd=disco['e1.ssd']||disco['p1.ssd']||disco[Object.keys(disco)[0]]||0; return c*comp.vcpu+ram*comp.ram_gb+(gb==null?80:gb)*pd; }
+function estCalc(){
+  var total=0; EST.servers.forEach(function(v){ v.preco=estUnit(v.fam,v.c,v.r,v.d); total+=v.preco; });
+  if(EST.k8&&EST.k8On) total+=EST.k8s+estUnit('efficient',4,8)*EST.k8;
+  if(EST.dr&&EST.drOn) total*=1+EST.dr_pct/100;
+  EST.total=total; var ext=[]; if(EST.dr&&!EST.drOn) ext.push('DR'); if(EST.k8&&!EST.k8On) ext.push('Kubernetes'); $e('estV').innerHTML=estMoney(total)+'<small>/mês'+(ext.length?' + '+ext.join(' e ')+' sob consulta':'')+'</small>';
+  $e('estKv').textContent=EST.k8?(EST.k8+' workers'+(EST.k8On?'':' · cotar')):'off';
+  var drb=$e('estDrBtn'); if(drb) drb.textContent=EST.dr?(EST.drOn?'ativo · desativar':'cotar · desativar'):(EST.drOn?'ativar':'sob consulta');
+  var q=EST.servers.map(function(v){return 'v='+v.os+':'+v.fam+':'+v.c+':'+v.r+':'+v.d;}).join('&');
+  $e('estGo').href='calculadora.html?'+q+'&k8='+EST.k8+(EST.dr?'&dr=1':'');
+  estDraw();
+}
+function estDraw(){ EST.dirty=true; $e('estDrOverlay').hidden=EST.dr; }
+// canvas animado (mesmo estilo da calculadora)
+(function(){
+  var cv,ctx,W,H,dpr,nodes=[],drawn=[],conns=[],tick=0;
+  function setup(){cv=$e('estCanvas');if(!cv)return;dpr=window.devicePixelRatio||1;resize();window.addEventListener('resize',resize);cv.addEventListener('click',onClick);cv.addEventListener('mousemove',onMove);requestAnimationFrame(loop);}
+  function resize(){var r=cv.parentElement.getBoundingClientRect();W=Math.max((r.width||400)-16,280);H=Math.round(Math.max(300,Math.min(380,W*.78)));cv.width=W*dpr;cv.height=H*dpr;cv.style.height=H+'px';ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);EST.dirty=true;}
+  function groups(){ var g=[],m={}; EST.servers.forEach(function(v,i){ var k=v.os+'|'+v.fam+'|'+v.prof+'|'+v.c+'|'+v.d; if(!m[k]){m[k]={os:v.os,fam:v.fam,size:v.size,c:v.c,r:v.r,d:v.d,qty:0,idx:[]};g.push(m[k]);} m[k].qty++; m[k].idx.push(i); }); return g; }
+  function buildLayout(){
+    nodes=[];conns=[];
+    var inet={x:W*.5,y:H*.09,type:'inet',label:'Internet',r:14}; nodes.push(inet);
+    var dc1={x:W*.3,y:H*.40,type:'dc',label:'DC-SP1',sub:'primário',r:20}; nodes.push(dc1);
+    var dc2={x:W*.7,y:H*.40,type:EST.dr?'dc2':'dc2off',label:'DC-SP2',sub:EST.dr?'réplica ativa':'contingência',r:20}; nodes.push(dc2);
+    var k8=null; if(EST.k8){ k8={x:W*.3,y:H*.66,type:'k8s',label:'Kubernetes',sub:EST.k8+' workers · HA',r:15}; nodes.push(k8); }
+    var gs=groups(), cnt=gs.length;
+    if(cnt){ var cols=Math.min(cnt,5),rws=Math.ceil(cnt/cols), zL=W*.08,zR=W*.92, zT=EST.k8?H*.84:H*.72, zB=H*.90;
+      gs.forEach(function(g,i){ var col=i%cols,row=Math.floor(i/cols); var x=cols===1?(zL+zR)/2:zL+(zR-zL)*col/(cols-1||1); var y=rws===1?(zT+zB)/2:zT+(zB-zT)*row/(rws-1||1);
+        nodes.push({x:x,y:y,r:Math.min(18,11+g.qty*1.2),type:g.os==='windows'?'win':'lin',label:g.size,sub:g.r+'G · '+(g.d>=1000?(g.d/1000)+'T':g.d+'G')+' · '+(g.fam==='performance'?'perf':'eff'),qty:g.qty,g:g}); });
+    }
+    var vms=nodes.filter(function(n){return n.type==='win'||n.type==='lin';});
+    conns.push({a:inet,b:dc1,s:'inet',lw:1.5,dash:[4,5]});
+    conns.push({a:inet,b:dc2,s:EST.dr?'inet':'off',lw:1.5,dash:[4,5]});
+    conns.push({a:dc1,b:dc2,s:EST.dr?'link':'off',lw:2,dash:[6,3]});
+    vms.forEach(function(v){conns.push({a:dc1,b:v,s:'dc',lw:1.5,dash:[]}); if(EST.dr) conns.push({a:dc2,b:v,s:'dr',lw:1,dash:[3,4]});});
+    if(k8){ conns.push({a:dc1,b:k8,s:'dc',lw:1.5,dash:[]}); if(EST.dr) conns.push({a:dc2,b:k8,s:'dr',lw:1,dash:[3,4]}); }
+    while(drawn.length<nodes.length)drawn.push(null); drawn.length=nodes.length;
+    nodes.forEach(function(n,i){ if(!drawn[i]||drawn[i].key!==(n.type+n.label)) drawn[i]={x:n.x,y:n.y+16,r:n.r,alpha:0,key:n.type+n.label}; });
+    var b=$e('estDrOverlay'); if(b&&!EST.dr){ b.style.top=(dc2.y+dc2.r+30)+'px'; b.style.left=dc2.x+'px'; }
+  }
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function loop(){requestAnimationFrame(loop);tick++; if(EST.dirty){buildLayout();EST.dirty=false;}
+    nodes.forEach(function(n,i){var d=drawn[i];d.x=lerp(d.x,n.x,.09);d.y=lerp(d.y,n.y,.09);d.r=lerp(d.r,n.r,.1);d.alpha=lerp(d.alpha,1,.06);});
+    draw(); }
+  var ST={inet:'rgba(29,106,255,0.5)',dc:'rgba(26,22,18,0.3)',dr:'rgba(0,145,181,0.55)',link:'rgba(29,106,255,0.45)',off:'rgba(107,95,82,0.18)'};
+  var NC={lin:'rgba(211,84,0,',win:'rgba(0,120,212,',dc:'rgba(29,106,255,',dc2:'rgba(0,145,181,',dc2off:'rgba(120,110,100,',inet:'rgba(107,95,82,',k8s:'rgba(29,106,255,'};
+  function drawConn(fd,td,c){var a=Math.min(fd.alpha,td.alpha)*.85;if(a<.02)return;ctx.save();ctx.globalAlpha=a;ctx.strokeStyle=ST[c.s]||ST.dc;ctx.lineWidth=c.lw;ctx.setLineDash(c.dash);ctx.lineDashOffset=c.s==='off'?0:-(tick*.35);ctx.beginPath();ctx.moveTo(fd.x,fd.y);ctx.quadraticCurveTo((fd.x+td.x)/2,(fd.y+td.y)/2-10,td.x,td.y);ctx.stroke();ctx.restore();}
+  function drawNode(d,n){
+    if(d.alpha<.02)return;var col=NC[n.type]||NC.inet, off=n.type==='dc2off';ctx.save();ctx.globalAlpha=d.alpha*(off?.6:1);
+    if(!off){var g=ctx.createRadialGradient(d.x,d.y,d.r*.2,d.x,d.y,d.r*2.2);g.addColorStop(0,col+'0.1)');g.addColorStop(1,col+'0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(d.x,d.y,d.r*2.2,0,Math.PI*2);ctx.fill();}
+    ctx.fillStyle=col+(off?'0.04)':'0.07)');ctx.strokeStyle=col+'0.55)';ctx.lineWidth=n.type==='dc'||n.type==='dc2'||off?2:1.5;if(off)ctx.setLineDash([4,3]);ctx.shadowColor=col+'0.3)';ctx.shadowBlur=off?0:8;ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;ctx.setLineDash([]);
+    if(n.hover){ctx.strokeStyle='rgba(192,57,43,.8)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(d.x,d.y,d.r+3,0,Math.PI*2);ctx.stroke();}
+    ctx.fillStyle=col+'0.85)';ctx.font='bold '+(d.r*.62)+'px "DM Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+    var icon=n.type==='dc'||n.type==='dc2'||off?'DC':n.type==='inet'?'--':n.type==='k8s'?'K8s':n.qty>1?'x'+n.qty:n.type==='win'?'W':'L';
+    ctx.fillText(icon,d.x,d.y);ctx.font='600 9px "DM Sans",sans-serif';ctx.fillStyle=off?'rgba(107,95,82,0.6)':'rgba(26,22,18,0.75)';ctx.fillText((n.label||'').substring(0,14),d.x,d.y+d.r+10);
+    if(n.sub){ctx.font='8px "DM Mono",monospace';ctx.fillStyle='rgba(107,95,82,0.6)';ctx.fillText(n.sub.substring(0,18),d.x,d.y+d.r+20);}
+    ctx.restore();
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.save();ctx.strokeStyle='rgba(107,95,82,0.05)';ctx.lineWidth=1;for(var x=0;x<W;x+=28){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}for(var y=0;y<H;y+=28){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}ctx.restore();
+    conns.forEach(function(c){var fi=nodes.indexOf(c.a),ti=nodes.indexOf(c.b);if(fi>=0&&ti>=0)drawConn(drawn[fi],drawn[ti],c);});
+    nodes.forEach(function(n,i){drawNode(drawn[i],n);});
+    if(!EST.servers.length&&!EST.k8){ctx.save();ctx.font='10px "DM Mono",monospace';ctx.fillStyle='rgba(107,95,82,.6)';ctx.textAlign='center';ctx.fillText('escolha o perfil e adicione servidores',W/2,H*.82);ctx.restore();}
+    if(EST.dr){ctx.save();var txt=EST.drOn?'\u2726 DR ATIVO · RPO 15 min':'\u2726 DR · sob consulta';ctx.font='bold 10px "DM Sans",sans-serif';var tw=ctx.measureText(txt).width,px=W*.7,py=H*.40+52,pw=tw+22,ph=18;ctx.fillStyle='rgba(0,145,181,0.10)';ctx.strokeStyle='rgba(0,145,181,0.5)';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(px-pw/2,py-ph/2,pw,ph,9);ctx.fill();ctx.stroke();ctx.fillStyle='rgba(0,145,181,0.95)';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(txt,px,py);ctx.restore();}
+  }
+  function hit(e){var r=cv.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;for(var i=0;i<nodes.length;i++){var d=drawn[i];if(!d)continue;if(Math.hypot(mx-d.x,my-d.y)<=d.r+4)return nodes[i];}return null;}
+  function onMove(e){var n=hit(e);nodes.forEach(function(x){x.hover=false;});if(n&&(n.g||n.type==='dc2off'||n.type==='dc2'||n.type==='k8s')){n.hover=n.g?true:false;cv.style.cursor='pointer';cv.title=n.g?('remover 1× '+n.label+' ('+n.sub+')'):n.type==='k8s'?'Kubernetes gerenciado':(EST.dr?'desativar DR':'ativar redundância');}else{cv.style.cursor='default';cv.title='';}}
+  function onClick(e){var n=hit(e);if(!n)return;if(n.g){EST.servers.splice(n.g.idx[n.g.idx.length-1],1);estCalc();}else if(n.type==='dc2off'||n.type==='dc2'){estTog('dr');}}
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(setup,60);});
+})();
+// ---- contratar (lead) ----
+function estLeadOpen(){ $e('estCtl').hidden=true; $e('estOk').hidden=true; $e('estLead').hidden=false; estMountTs(); setTimeout(function(){$e('estNome').focus();},50); }
+function estLeadClose(){ $e('estLead').hidden=true; $e('estOk').hidden=true; $e('estCtl').hidden=false; }
+function estMountTs(){ if(EST.tsW!==null) return; if(!window.turnstile){ setTimeout(estMountTs,300); return; } EST.tsW=turnstile.render('#ts-est',{sitekey:EST_TS,theme:'light',language:'pt-BR',callback:function(t){EST.tsTok=t;},'expired-callback':function(){EST.tsTok='';}}); }
+function estMaskPhone(el){ var v=el.value.replace(/\D/g,'').substring(0,11),r=''; if(v.length>0)r='('+v.substring(0,2); if(v.length>2)r+=') '; if(v.length>2&&v.length<=10)r+=v.substring(2,6)+(v.length>6?'-'+v.substring(6,10):''); else if(v.length>2)r+=v.substring(2,7)+(v.length>7?'-'+v.substring(7,11):''); el.value=r; }
+function estLeadSend(){
+  var nome=$e('estNome').value.trim(), emp=$e('estEmp').value.trim(), eml=$e('estEmail').value.trim(), wa=$e('estWa').value.replace(/\D/g,''), stt=$e('estStatus');
+  if(!nome||!emp||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(eml)){ stt.textContent='Preencha nome, empresa e um e-mail válido.'; return; }
+  if(wa&&wa.length<10){ stt.textContent='WhatsApp com DDD + número.'; return; }
+  var grp={}; EST.servers.forEach(function(v){ var k=v.os+'|'+v.fam+'|'+v.size+'|'+v.d; (grp[k]=grp[k]||{nome:(v.os==='windows'?'Windows Server':'Linux'),qtd:0,spec:v.c+' vCPU · '+v.r+' GB · '+v.d+' GB · '+v.fam,so:v.os==='windows'?'Windows':'Linux',subtotal:0}); grp[k].qtd++; grp[k].subtotal+=v.preco; });
+  var vms=Object.keys(grp).map(function(k){return grp[k];});
+  var op=[]; if(EST.dr) op.push('DR / réplica no site 2 '+(EST.drOn?'(+'+EST.dr_pct+'%)':'(sob consulta)')); if(EST.k8) op.push('Kubernetes gerenciado · '+EST.k8+' workers'+(EST.k8On?'':' (sob consulta)'));
+  var payload={tipo:'estimador_home',empresa:emp,nome:nome,email:eml,whatsapp:wa,estimativa:Math.round(EST.total),vms:vms,opcoes:op.join('; ')||'-',obs:'Pedido pelo estimador da home (Contratar).',turnstile:EST.tsTok,website:$e('estSite').value};
+  var btn=$e('estSend'); btn.disabled=true; stt.textContent='';
+  fetch(EST_API+'/api/public/orcamento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+  .then(function(r){return r.json().catch(function(){return {};}).then(function(d){if(!r.ok)throw new Error(d.detail||('Erro '+r.status));return d;});})
+  .then(function(){ $e('estLead').hidden=true; $e('estOk').hidden=false; })
+  .catch(function(e){ stt.textContent=e.message; btn.disabled=false; if(EST.tsW!==null&&window.turnstile){turnstile.reset(EST.tsW);EST.tsTok='';} });
+}
+EST.servers=[{os:'linux',fam:'efficient',prof:'gp',size:'GP·4v',c:4,r:16,d:80},{os:'linux',fam:'efficient',prof:'gp',size:'GP·4v',c:4,r:16,d:80},{os:'windows',fam:'performance',prof:'mem',size:'MEM·8v',c:8,r:64,d:250}];
+estSpec(); estCalc();
+try{ fetch(EST_API+'/api/public/precos').then(function(r){return r.ok?r.json():null;}).then(function(p){ if(p&&p.componentes){ EST.P=p; var dr=(p.servicos_adicionais||[]).find(function(x){return x.sku==='dr.replicacao';}); EST.drOn=!!(dr&&dr.unidade==='pct_vm'&&+dr.preco>0&&dr.ativo!==false&&!dr.inativo); if(EST.drOn) EST.dr_pct=+dr.preco; var ks=((p.skus_caas||{}).tiers||[]).filter(function(t){return t.ativo!==false&&!t.inativo;}); EST.k8On=ks.length>0; if(ks[0]) EST.k8s=+ks[0].preco; estCalc(); } }).catch(function(){}); }catch(e){}
+// ---- física do enlace: RTT real do browser até a borda (HEAD no próprio site, sem cache, mediana de 12) ----
+(function(){
+  var N=12, t=[], url=location.protocol==='file:'?'https://alliant.com.br/favicon.ico':(location.origin+'/favicon.ico');
+  function fmt(ms){return ms<10?ms.toFixed(1)+' ms':Math.round(ms)+' ms';}
+  function show(med,n){ var e=$e('phMs'); if(e) e.textContent=fmt(med); var v=$e('phV'); if(v) v.textContent=fmt(med);
+    var d=$e('phD'); if(d) d.textContent='mediana de '+n+' amostras · medido neste dispositivo, agora';
+    var x=$e('phX'); if(x) x.textContent=Math.max(1,Math.round(med/0.588))+'×'; }
+  function one(){ var t0=performance.now(); return fetch(url+'?t='+Date.now()+Math.random(),{method:'HEAD',cache:'no-store',mode:'no-cors'}).then(function(){t.push(performance.now()-t0);}).catch(function(){}); }
+  function run(i){ if(i>=N){ finish(); return; } one().then(function(){ if(t.length>=3){ var a=t.slice().sort(function(p,q){return p-q;}); show(a[Math.floor(a.length/2)],a.length); } setTimeout(function(){run(i+1);},120); }); }
+  function finish(){ if(!t.length){ var e=$e('phMs'); if(e) e.textContent='sem medida'; var v=$e('phV'); if(v) v.textContent='—'; return; } var a=t.slice().sort(function(p,q){return p-q;}); show(a[Math.floor(a.length/2)],a.length); var tile=$e('phTile'); if(tile) tile.classList.remove('live'); }
+  var started=false; function start(){ if(started) return; started=true; one().then(function(){t.length=0; run(0);}); } // 1ª descartada (aquecimento TLS)
+  if('IntersectionObserver' in window){ var sec=$e('fisica'); var io=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ start(); io.disconnect(); } },{threshold:.2}); if(sec) io.observe(sec); else start(); } else start();
+})();
+
 document.addEventListener("DOMContentLoaded",function(){
 var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});},{threshold:0.1});
 document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.observe(el);});
