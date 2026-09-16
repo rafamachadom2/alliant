@@ -420,7 +420,7 @@ function sendForm(){try{
   status.style.display='inline-block';status.style.color='var(--ink2)';status.textContent='Enviando...';
   fetch('https://io.alliant.com.br/form/enviar.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
   .then(function(r){return r.json();})
-  .then(function(d){if(d.ok){status.style.color='#27ae60';status.textContent='Enviado! Retornaremos em ate 24h.';btn.style.display='none';}else{status.style.color='#c0392b';status.textContent='Erro: '+(d.error||'Falha');btn.disabled=false;btn.style.opacity='1';}  })
+  .then(function(d){if(d.ok){status.style.color='#27ae60';status.textContent='Enviado! Retornaremos em até 1 dia útil.';btn.style.display='none';}else{status.style.color='#c0392b';status.textContent='Erro: '+(d.error||'Falha');btn.disabled=false;btn.style.opacity='1';}  })
   .catch(function(){status.style.color='#c0392b';status.textContent='Erro de conexao.';btn.disabled=false;btn.style.opacity='1';});
 }catch(e2){alert('Erro JS: '+e2.message);console.error(e2);}}
 if(!window._vmInit){window._vmInit=true;
