@@ -288,8 +288,9 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
       <div class="est-lead" id="estLead" hidden>
         <div class="est-head"><b>Contratar</b><a onclick="estLeadClose()">voltar</a></div>
         <p class="est-lead-p">Mandamos a proposta com esse desenho e o contrato para assinatura eletrônica.</p>
-        <input id="estNome" placeholder="Seu nome" autocomplete="name">
+        <input id="estNome" placeholder="Nome e sobrenome" autocomplete="name">
         <input id="estEmp" placeholder="Empresa" autocomplete="organization">
+        <input id="estCnpj" placeholder="CNPJ" inputmode="numeric" maxlength="18" oninput="estMaskCnpj(this)">
         <input id="estEmail" type="email" placeholder="E-mail corporativo" autocomplete="email">
         <input id="estWa" placeholder="WhatsApp (DDD + número)" inputmode="tel" oninput="estMaskPhone(this)">
         <input id="estSite" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
@@ -297,7 +298,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
         <button class="est-send" id="estSend" onclick="estLeadSend()">Enviar e receber proposta →</button>
         <div class="est-status" id="estStatus"></div>
       </div>
-      <div class="est-ok" id="estOk" hidden><b>Recebido!</b><p>Sua proposta chega por e-mail em até 1 dia útil, com o desenho ao lado.</p><a onclick="estLeadClose(true)">voltar</a></div>
+      <div class="est-ok" id="estOk" hidden><b>Recebido!</b><p>Enviamos agora um resumo do ambiente com o desenho ao lado; a proposta formal chega em até 1 dia útil.</p><a onclick="estLeadClose(true)">voltar</a></div>
       <div class="est-arch" id="estArch"><canvas id="estCanvas" aria-label="Arquitetura do ambiente"></canvas>
         <button class="est-drbtn" id="estDrOverlay" onclick="estTog('dr')">Ativar redundância</button>
         <div class="est-legend"><span><i style="background:#d35400"></i>Linux</span><span><i style="background:#0078d4"></i>Windows</span><span><i style="background:#1d6aff"></i>Kubernetes</span><span><i style="background:#0091b5"></i>Réplica DR</span><em>clique num servidor para remover</em></div>
@@ -511,14 +512,19 @@ function estLeadOpen(){ $e('estCtl').hidden=true; $e('estOk').hidden=true; $e('e
 function estLeadClose(){ $e('estLead').hidden=true; $e('estOk').hidden=true; $e('estCtl').hidden=false; }
 function estMountTs(){ if(EST.tsW!==null) return; if(!window.turnstile){ setTimeout(estMountTs,300); return; } EST.tsW=turnstile.render('#ts-est',{sitekey:EST_TS,theme:'light',language:'pt-BR',callback:function(t){EST.tsTok=t;},'expired-callback':function(){EST.tsTok='';}}); }
 function estMaskPhone(el){ var v=el.value.replace(/\D/g,'').substring(0,11),r=''; if(v.length>0)r='('+v.substring(0,2); if(v.length>2)r+=') '; if(v.length>2&&v.length<=10)r+=v.substring(2,6)+(v.length>6?'-'+v.substring(6,10):''); else if(v.length>2)r+=v.substring(2,7)+(v.length>7?'-'+v.substring(7,11):''); el.value=r; }
+function cnpjOk(c){c=String(c).replace(/\D/g,'');if(c.length!==14||/^(\d)\1+$/.test(c))return false;var w=[6,5,4,3,2,9,8,7,6,5,4,3,2];for(var t=12;t<14;t++){var s=0,ww=w.slice(13-t);for(var i=0;i<t;i++)s+=c[i]*ww[i];var d=s%11<2?0:11-s%11;if(d!=c[t])return false;}return true;}
+function canvasPng(id){try{var c=document.getElementById(id);if(!c||!c.width)return '';var o=document.createElement('canvas');o.width=c.width;o.height=c.height;var x=o.getContext('2d');x.fillStyle='#f5f0e8';x.fillRect(0,0,o.width,o.height);x.drawImage(c,0,0);return o.toDataURL('image/png').split(',')[1];}catch(e){return '';}}
+function estMaskCnpj(el){var d=el.value.replace(/\D/g,'').substring(0,14),r='';if(d.length>0)r=d.substring(0,2);if(d.length>2)r+='.'+d.substring(2,5);if(d.length>5)r+='.'+d.substring(5,8);if(d.length>8)r+='/'+d.substring(8,12);if(d.length>12)r+='-'+d.substring(12,14);el.value=r;}
 function estLeadSend(){
-  var nome=$e('estNome').value.trim(), emp=$e('estEmp').value.trim(), eml=$e('estEmail').value.trim(), wa=$e('estWa').value.replace(/\D/g,''), stt=$e('estStatus');
+  var nome=$e('estNome').value.trim(), emp=$e('estEmp').value.trim(), cnpj=$e('estCnpj').value, eml=$e('estEmail').value.trim(), wa=$e('estWa').value.replace(/\D/g,''), stt=$e('estStatus');
   if(!nome||!emp||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(eml)){ stt.textContent='Preencha nome, empresa e um e-mail válido.'; return; }
-  if(wa&&wa.length<10){ stt.textContent='WhatsApp com DDD + número.'; return; }
+  if(nome.split(/\s+/).length<2){ stt.textContent='Informe nome e sobrenome.'; return; }
+  if(!cnpjOk(cnpj)){ stt.textContent='Informe um CNPJ válido.'; return; }
+  if(wa.length<10){ stt.textContent='WhatsApp com DDD + número.'; return; }
   var grp={}; EST.servers.forEach(function(v){ var k=v.os+'|'+v.fam+'|'+v.sku+'|'+v.c+'|'+v.r+'|'+v.d+'|'+(v.x||0); (grp[k]=grp[k]||{nome:(v.os==='windows'?'Windows Server':'Linux')+' · '+v.sku,qtd:0,spec:v.c+' vCPU · '+v.r+' GB · '+v.d+' GB'+(v.x?' + '+v.x+' GB extra':'')+' · '+famLabel(v.fam),so:v.os==='windows'?'Windows':'Linux',subtotal:0}); grp[k].qtd++; grp[k].subtotal+=v.preco; });
   var vms=Object.keys(grp).map(function(k){return grp[k];});
   var op=[]; if(EST.dr) op.push('DR / réplica no site 2 '+(EST.drOn?'(+'+EST.dr_pct+'%)':'(sob consulta)')); if(EST.k8) op.push('Kubernetes gerenciado · '+EST.k8+' workers'+(EST.k8On?'':' (sob consulta)'));
-  var payload={tipo:'estimador_home',empresa:emp,nome:nome,email:eml,whatsapp:wa,estimativa:Math.round(EST.total),vms:vms,opcoes:op.join('; ')||'-',obs:'Pedido pelo estimador da home (Contratar).',turnstile:EST.tsTok,website:$e('estSite').value};
+  var payload={tipo:'estimador_home',empresa:emp,cnpj:cnpj,nome:nome,email:eml,whatsapp:wa,arquitetura_b64:canvasPng('estCanvas'),estimativa:Math.round(EST.total),vms:vms,opcoes:op.join('; ')||'-',obs:'Pedido pelo estimador da home (Contratar).',turnstile:EST.tsTok,website:$e('estSite').value};
   var btn=$e('estSend'); btn.disabled=true; stt.textContent='';
   fetch(EST_API+'/api/public/orcamento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
   .then(function(r){return r.json().catch(function(){return {};}).then(function(d){if(!r.ok)throw new Error(d.detail||('Erro '+r.status));return d;});})

@@ -353,7 +353,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
       </div>
       <div class="mrow">
         <div class="mfield"><label>Razão social *</label><input type="text" id="m-empresa" placeholder="Acme Tecnologia Ltda"></div>
-        <div class="mfield"><label>CNPJ</label><input type="text" id="m-cnpj" placeholder="00.000.000/0000-00" maxlength="18" oninput="maskCNPJ2(this)"></div>
+        <div class="mfield"><label>CNPJ *</label><input type="text" id="m-cnpj" placeholder="00.000.000/0000-00" maxlength="18" oninput="maskCNPJ2(this)"></div>
       </div>
       <div class="mrow">
         <div class="mfield"><label>Responsável *</label><input type="text" id="m-nome" placeholder="João Silva"></div>
@@ -361,7 +361,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
       </div>
       <div class="mrow">
         <div class="mfield"><label>E-mail *</label><input type="email" id="m-email" placeholder="joao@empresa.com.br"></div>
-        <div class="mfield"><label>WhatsApp</label><input type="tel" id="m-whatsapp" placeholder="(11) 99999-9999" maxlength="15" oninput="maskPhone2(this)"></div>
+        <div class="mfield"><label>WhatsApp *</label><input type="tel" id="m-whatsapp" placeholder="(11) 99999-9999" maxlength="15" oninput="maskPhone2(this)"></div>
       </div>
       <div class="mrow">
         <div class="mfield"><label>Segmento</label>
@@ -408,7 +408,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
       <p class="modal-sub">Seu ambiente não se encaixa nos flavors padrão? Descreva sua necessidade e nossa equipe monta uma proposta sob medida.</p>
       <div class="mrow">
         <div class="mfield"><label>Razão social *</label><input type="text" id="sp-empresa" placeholder="Acme Tecnologia Ltda"></div>
-        <div class="mfield"><label>CNPJ</label><input type="text" id="sp-cnpj" placeholder="00.000.000/0000-00" maxlength="18" oninput="maskCNPJ2(this)"></div>
+        <div class="mfield"><label>CNPJ *</label><input type="text" id="sp-cnpj" placeholder="00.000.000/0000-00" maxlength="18" oninput="maskCNPJ2(this)"></div>
       </div>
       <div class="mrow">
         <div class="mfield"><label>Responsável *</label><input type="text" id="sp-nome" placeholder="João Silva"></div>
@@ -796,7 +796,10 @@ function maskPhone2(el){
 }
 
 // ── SEND PROPOSTA ─────────────────────────────────────────────────────────
+function cnpjOk(c){c=String(c).replace(/\D/g,'');if(c.length!==14||/^(\d)\1+$/.test(c))return false;var w=[6,5,4,3,2,9,8,7,6,5,4,3,2];for(var t=12;t<14;t++){var s=0,ww=w.slice(13-t);for(var i=0;i<t;i++)s+=c[i]*ww[i];var d=s%11<2?0:11-s%11;if(d!=c[t])return false;}return true;}
+function canvasPng(id){try{var c=document.getElementById(id);if(!c||!c.width)return '';var o=document.createElement('canvas');o.width=c.width;o.height=c.height;var x=o.getContext('2d');x.fillStyle='#f5f0e8';x.fillRect(0,0,o.width,o.height);x.drawImage(c,0,0);return o.toDataURL('image/png').split(',')[1];}catch(e){return '';}}
 function postLead(payload, statusId, btn, formId, okId, k){
+  if(payload.tipo!=='projeto_especial'&&!payload.arquitetura_b64) payload.arquitetura_b64=canvasPng('archCanvas');
   payload.turnstile=tsTok[k]; payload.website=document.getElementById('m-website')?document.getElementById('m-website').value:'';
   fetch(API+'/api/public/orcamento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
   .then(function(r){return r.json().catch(function(){return {};}).then(function(d){if(!r.ok)throw new Error(d.detail||('Erro '+r.status));return d;});})
@@ -808,6 +811,8 @@ function sendProposta(){
   var wa=document.getElementById('m-whatsapp').value.replace(/\D/g,'');
   var st=document.getElementById('m-status');
   if(!emp||!eml||!nom||wa.length<10){ st.style.color='#c0392b'; st.textContent='Preencha razão social, responsável, e-mail e WhatsApp.'; return; }
+  if(nom.split(/\s+/).length<2){ st.style.color='#c0392b'; st.textContent='Informe nome e sobrenome do responsável.'; return; }
+  if(!cnpjOk(document.getElementById('m-cnpj').value)){ st.style.color='#c0392b'; st.textContent='Informe um CNPJ válido.'; return; }
   if(!tsTok.m){ st.style.color='#c0392b'; st.textContent='Conclua a verificação anti-robô.'; return; }
   var btn=document.getElementById('m-sendBtn'); btn.disabled=true; st.style.color='var(--ink2)'; st.textContent='Enviando...';
   var h85=+(document.getElementById('sup-hrs-85').value)||0, h247=+(document.getElementById('sup-hrs-247').value)||0;
@@ -834,6 +839,8 @@ function sendSpecial(){
   var emp=document.getElementById('sp-empresa').value.trim(), eml=document.getElementById('sp-email').value.trim(), nom=document.getElementById('sp-nome').value.trim(), obs=document.getElementById('sp-obs').value.trim();
   var wa=document.getElementById('sp-whatsapp').value.replace(/\D/g,''); var st=document.getElementById('sp-status');
   if(!emp||!eml||!nom||!obs||wa.length<10){ st.style.color='#c0392b'; st.textContent='Preencha empresa, responsável, e-mail, WhatsApp e descrição.'; return; }
+  if(nom.split(/\s+/).length<2){ st.style.color='#c0392b'; st.textContent='Informe nome e sobrenome do responsável.'; return; }
+  if(!cnpjOk(document.getElementById('sp-cnpj').value)){ st.style.color='#c0392b'; st.textContent='Informe um CNPJ válido.'; return; }
   if(!tsTok.sp){ st.style.color='#c0392b'; st.textContent='Conclua a verificação anti-robô.'; return; }
   var btn=document.getElementById('sp-sendBtn'); btn.disabled=true; st.style.color='var(--ink2)'; st.textContent='Enviando...';
   function doSend(b64,fname){
