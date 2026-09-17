@@ -120,6 +120,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 .est-body{display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:stretch;min-height:380px}
 .est-ctl,.est-lead,.est-ok{display:flex;flex-direction:column;min-height:380px}
 .est [hidden]{display:none!important}
+@keyframes estshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}.shake{animation:estshake .3s 2}
 .est-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
 .est-head b{font-size:15px}.est-head a{font-size:11px;color:var(--steel);cursor:pointer;text-decoration:underline}
 .est-fam{display:flex;gap:6px;margin-bottom:12px}
@@ -442,7 +443,7 @@ function estCalc(){
   if(EST.k8&&EST.k8On){ var wk=((estCat().skus_vm.efficient||[]).find(function(k){return k.vcpu===4;})||{}).preco||600; total+=EST.k8s+wk*EST.k8; }
   if(EST.dr&&EST.drOn) total*=1+EST.dr_pct/100;
   total+=lic;  // licença Windows não replica no DR
-  EST.total=total; var ext=[]; if(EST.dr&&!EST.drOn) ext.push('DR'); if(EST.k8&&!EST.k8On) ext.push('Kubernetes'); $e('estV').innerHTML=estMoney(total)+'<small>/mês'+(ext.length?' + '+ext.join(' e ')+' sob consulta':'')+'</small>';
+  EST.total=total; var ext=[]; if(EST.dr&&!EST.drOn) ext.push('DR'); if(EST.k8&&!EST.k8On) ext.push('Kubernetes'); $e('estV').innerHTML=((!EST.servers.length&&!EST.k8)?'R$ —':estMoney(total))+'<small>/mês'+(ext.length?' + '+ext.join(' e ')+' sob consulta':'')+'</small>';
   $e('estKv').textContent=EST.k8?(EST.k8+' workers'+(EST.k8On?'':' · cotar')):'off';
   var drb=$e('estDrBtn'); if(drb) drb.textContent=EST.dr?(EST.drOn?'ativo · desativar':'cotar · desativar'):(EST.drOn?'ativar':'sob consulta');
   var q=EST.servers.map(function(v){return 'v='+v.os+':'+v.fam+':'+v.sku+':'+v.c+':'+v.r+':'+v.d+':'+(v.x||0);}).join('&');
@@ -508,7 +509,7 @@ function estDraw(){ EST.dirty=true; $e('estDrOverlay').hidden=EST.dr; }
   document.addEventListener('DOMContentLoaded',function(){setTimeout(setup,60);});
 })();
 // ---- contratar (lead) ----
-function estLeadOpen(){ $e('estCtl').hidden=true; $e('estOk').hidden=true; $e('estLead').hidden=false; estMountTs(); setTimeout(function(){$e('estNome').focus();},50); }
+function estLeadOpen(){ if(!EST.servers.length&&!EST.k8){ $e('estV').classList.add('shake'); setTimeout(function(){$e('estV').classList.remove('shake');},600); return; } $e('estCtl').hidden=true; $e('estOk').hidden=true; $e('estLead').hidden=false; estMountTs(); setTimeout(function(){$e('estNome').focus();},50); }
 function estLeadClose(){ $e('estLead').hidden=true; $e('estOk').hidden=true; $e('estCtl').hidden=false; }
 function estMountTs(){ if(EST.tsW!==null) return; if(!window.turnstile){ setTimeout(estMountTs,300); return; } EST.tsW=turnstile.render('#ts-est',{sitekey:EST_TS,theme:'light',language:'pt-BR',callback:function(t){EST.tsTok=t;},'expired-callback':function(){EST.tsTok='';}}); }
 function estMaskPhone(el){ var v=el.value.replace(/\D/g,'').substring(0,11),r=''; if(v.length>0)r='('+v.substring(0,2); if(v.length>2)r+=') '; if(v.length>2&&v.length<=10)r+=v.substring(2,6)+(v.length>6?'-'+v.substring(6,10):''); else if(v.length>2)r+=v.substring(2,7)+(v.length>7?'-'+v.substring(7,11):''); el.value=r; }
@@ -531,7 +532,7 @@ function estLeadSend(){
   .then(function(){ $e('estLead').hidden=true; $e('estOk').hidden=false; })
   .catch(function(e){ stt.textContent=e.message; btn.disabled=false; if(EST.tsW!==null&&window.turnstile){turnstile.reset(EST.tsW);EST.tsTok='';} });
 }
-function estInit(){ estBuildFam(); estFam(EST.fam); if(!EST.servers.length){ EST.fam='efficient'; estFam('efficient'); estSku('e1.medium'); EST.servers.push(estBuild('linux'),estBuild('linux')); EST.fam='performance'; estFam('performance'); estSku('p1.medium'); EST.servers.push(estBuild('windows')); EST.fam='efficient'; estFam('efficient'); } EST.servers=EST.servers.filter(Boolean); estCalc(); }
+function estInit(){ estBuildFam(); estFam(EST.fam); if(!EST.sku) estSku('e1.medium'); EST.servers=EST.servers.filter(Boolean); estCalc(); }
 estInit();
 try{ fetch(EST_API+'/api/public/precos').then(function(r){return r.ok?r.json():null;}).then(function(p){ if(p&&p.componentes){ EST.P=p; var dr=(p.servicos_adicionais||[]).find(function(x){return x.sku==='dr.replicacao';}); EST.drOn=!!(dr&&dr.unidade==='pct_vm'&&+dr.preco>0&&dr.ativo!==false&&!dr.inativo); if(EST.drOn) EST.dr_pct=+dr.preco; var ks=((p.skus_caas||{}).tiers||[]).filter(function(t){return t.ativo!==false&&!t.inativo;}); EST.k8On=ks.length>0; if(ks[0]) EST.k8s=+ks[0].preco; EST.servers=[]; estInit(); } }).catch(function(){}); }catch(e){}
 // ---- física do enlace: RTT real do browser até a borda (HEAD no próprio site, sem cache, mediana de 12) ----
