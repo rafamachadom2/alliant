@@ -120,6 +120,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 .est-body{display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:stretch;min-height:380px}
 .est-ctl,.est-lead,.est-ok{display:flex;flex-direction:column;min-height:380px}
 .est [hidden]{display:none!important}
+.est-msg{font-size:11px;color:#c0392b;margin-top:6px}
 @keyframes estshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}.shake{animation:estshake .3s 2}
 .est-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
 .est-head b{font-size:15px}.est-head a{font-size:11px;color:var(--steel);cursor:pointer;text-decoration:underline}
@@ -283,6 +284,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
           <button onclick="estAdd('linux')"><span><i class="dot lnx"></i>Linux</span><em id="estPrevL">—</em></button>
           <button onclick="estAdd('windows')"><span><i class="dot win"></i>Windows Server</span><em id="estPrevW">—</em></button>
         </div>
+        <div class="est-msg" id="estMsg" hidden></div>
         <div class="est-k8"><span><i class="dot k8"></i>Kubernetes</span><span class="est-step"><button onclick="estK8(-1)">−</button><b id="estKv">off</b><button onclick="estK8(1)">+</button></span></div>
         <div class="est-dr" id="estDrRow"><span>Réplica no site 2 (DR)</span><button id="estDrBtn" onclick="estTog('dr')">ativar</button></div>
       </div>
@@ -432,7 +434,8 @@ function estBuild0(os){ var c=estCat().componentes[EST.fam]||{}, tier=Object.key
 function estSpec(){ var c=+$e('estC').value, r=+$e('estR').value, d=+$e('estD').value, x=+$e('estX').value;
   $e('estCv').textContent=c+' vCPU'; $e('estRv').textContent=r+' GB'; $e('estDv').textContent=d>=1000?((d/1000).toFixed(d%1000?1:0)+' TB'):(d+' GB'); $e('estXv').textContent=x?('+'+(x>=1000?(x/1000)+' TB':x+' GB')):'nenhum';
   var v=estBuild('linux'), w=estBuild('windows'); $e('estPrevL').textContent=v?estMoney(v.preco)+'/mês':'—'; $e('estPrevW').textContent=w?estMoney(w.preco)+'/mês':'—'; }
-function estAdd(os){ if(EST.servers.length>=16) return; var v=estBuild(os); if(!v) return; EST.servers.push(v); estCalc(); }
+var EST_MAX=24;
+function estAdd(os){ var m=$e('estMsg'); if(EST.servers.length>=EST_MAX){ if(m){ m.textContent='Limite de '+EST_MAX+' servidores no estimador — use a calculadora para ambientes maiores.'; m.hidden=false; clearTimeout(EST._mt); EST._mt=setTimeout(function(){m.hidden=true;},3500);} return; } var v=estBuild(os); if(!v) return; EST.servers.push(v); if(m) m.hidden=true; estCalc(); }
 function estDel(i){ EST.servers.splice(i,1); estCalc(); }
 function estK8(d){ EST.k8=Math.max(0,Math.min(12,EST.k8+d)); if(EST.k8===1&&d>0) EST.k8=3; if(EST.k8<3&&d<0) EST.k8=0; estCalc(); }
 function estTog(k){EST[k]=!EST[k]; if(k==='dr'){var b=$e('estDrBtn'); b.classList.toggle('on',EST.dr);} estCalc();}
