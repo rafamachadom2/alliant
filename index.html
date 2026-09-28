@@ -9,7 +9,7 @@
 <title>Alliant — Infraestrutura Cloud para o Brasil</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Cabinet+Grotesk:wght@700;800&family=DM+Serif+Display:ital@0;1&family=Raleway:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&family=Raleway:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--navy:#f5f0e8;--navy-mid:#ede8df;--blue:#1d6aff;--blue-bright:#3d8bff;--cyan:#1a6aff;--cyan-dim:rgba(26,106,255,0.08);--steel:#6b5f52;--white:#1a1612;--white-dim:rgba(26,22,18,0.6);--border:rgba(107,95,82,0.16);--border-bright:rgba(26,106,255,0.25)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -32,7 +32,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 /* contato: dois públicos */
 .contact{padding:72px 6% 64px;border-top:1px solid var(--border)}
 .contact-head{max-width:640px;margin-bottom:32px}
-.contact-head h2{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(28px,3.4vw,40px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:8px}
+.contact-head h2{font-family:"Syne",sans-serif;font-size:clamp(28px,3.4vw,40px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:8px}
 .contact-head p{color:var(--steel);font-size:16px;line-height:1.6}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .contact-col{background:#f7f3ec;border:1px solid rgba(26,22,18,.55);border-radius:14px;padding:26px}
@@ -48,10 +48,9 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 
 .hero{display:grid;grid-template-columns:1fr;padding:60px 6% 80px;max-width:860px}
 .hero-left{}
-.hero-badge{display:inline-block;border-left:2px solid var(--cyan);padding-left:12px;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:500;color:var(--cyan);letter-spacing:1px;text-transform:uppercase;margin-bottom:28px}
 
 
-h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(42px,5.5vw,82px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:12px}
+h1{font-family:"Syne",sans-serif;font-size:clamp(42px,5.5vw,82px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:12px}
 .accent{background:linear-gradient(135deg,#1d6aff,#6637e8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-tagline{font-family:"Syne",sans-serif;font-size:clamp(13px,1.2vw,16px);font-weight:400;color:var(--steel);font-style:italic;margin-bottom:28px;letter-spacing:.2px}
 .hero-sub{font-size:16px;color:var(--steel);line-height:1.7;font-weight:300;max-width:560px;margin-bottom:40px}.hero-sub .mono{font-family:"DM Mono",ui-monospace,monospace;color:var(--white);font-size:15px}
@@ -61,6 +60,15 @@ h1{font-family:"Cabinet Grotesk",sans-serif;font-size:clamp(42px,5.5vw,82px);fon
 .btn-w{display:inline-flex;align-items:center;gap:8px;background:rgba(37,180,90,.08);border:1px solid rgba(37,180,90,.3);color:rgb(20,140,70);padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;width:fit-content}
 .btn-w:hover{background:rgba(37,180,90,.15)}
 .btn-p svg,.btn-w svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.hero-anchor{margin:-22px 0 30px;font-size:14px;color:var(--steel);line-height:1.6;max-width:560px}.hero-anchor b{color:var(--white);font-weight:600}.hero-anchor .mono{font-family:"DM Mono",ui-monospace,monospace;color:var(--blue);font-size:17px;font-weight:600}.hero-anchor small{display:block;font-size:12px;opacity:.75}
+.est-hint{font-size:11px;color:var(--steel);opacity:.8;line-height:1.5;margin-top:6px}
+.p-chip small{font-weight:400;opacity:.65;margin-left:2px}
+.how{padding:56px 6% 20px}.how-head h2{font-family:"Syne",sans-serif;font-size:clamp(24px,3vw,34px);margin-bottom:8px}.how-head p{color:var(--steel);font-size:16px;margin-bottom:28px}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.how-col{background:var(--navy-mid);padding:28px 26px}.how-col.alliant{background:#e9e3d8}.how-tag{font-family:"DM Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+.how-col ul{list-style:none;padding:0;margin:0}.how-col li{font-size:13.5px;line-height:1.55;color:var(--steel);padding:7px 0;border-top:1px solid var(--border)}.how-col li:first-child{border-top:0}.how-col li b{color:var(--white)}
+.how-foot{margin-top:14px;font-size:12px;color:var(--steel);opacity:.8}.how-foot a{color:inherit}
+@media(max-width:860px){.how-grid{grid-template-columns:1fr}}
 .cta-note{font-size:11px;color:var(--steel);margin-top:8px;letter-spacing:.2px;opacity:.55}
 .divider{border:none;border-top:1px solid var(--border);margin:0 6%}
 .cred-strip{padding:28px 6%;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--navy-mid)}
@@ -87,14 +95,13 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 .glow2{position:fixed;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(180,140,80,.07) 0%,transparent 70%);bottom:0;left:-50px;pointer-events:none;z-index:0}
 
 /* ---- celular ---- */
-@media(max-width:640px){
+@media(max-width:640px){#lgpd{bottom:0!important;left:0!important;right:0!important;border-radius:12px 12px 0 0!important;padding:10px 14px!important;box-shadow:0 -4px 20px rgba(0,0,0,.08)!important}#lgpd p{font-size:12px!important}#lgpd button{padding:8px 14px!important}
   nav{padding:16px 5%;flex-wrap:wrap;gap:12px}
   .nav-logo svg{height:26px!important}
   .nav-links{gap:14px;width:100%;justify-content:space-between;order:2;padding-top:12px;border-top:1px solid var(--border)}
   .nav-links a{font-size:13px}
   .nav-links a.cta{padding:8px 12px;font-size:13px;margin-left:auto}
   .hero{padding:32px 5% 40px}
-  .hero-badge{margin-bottom:18px;font-size:11px}
   h1{font-size:34px;letter-spacing:-1px;line-height:1.1}
   .hero-tagline{font-size:14px;margin-bottom:18px}
   .hero-sub{font-size:15px;margin-bottom:26px}
@@ -123,7 +130,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 .est-msg{font-size:11px;color:#c0392b;margin-top:6px}
 @keyframes estshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}.shake{animation:estshake .3s 2}
 .est-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
-.est-head b{font-size:15px}.est-head a{font-size:11px;color:var(--steel);cursor:pointer;text-decoration:underline}
+.est-head b{font-size:15px}.est-cta{font-family:inherit;border:0}.est-lnk{background:none;border:0;padding:0;font:inherit;font-size:11px;color:var(--steel);cursor:pointer;text-decoration:underline}.est-head a{font-size:11px;color:var(--steel);cursor:pointer;text-decoration:underline}
 .est-fam{display:flex;gap:6px;margin-bottom:12px}
 .est-fam button{flex:1;border:1px solid var(--border);background:transparent;border-radius:8px;padding:7px 6px;font:inherit;font-size:12px;color:var(--steel);cursor:pointer}
 .est-fam button.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
@@ -240,6 +247,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
   </a>
   <div class="nav-links">
     <a href="calculadora.html">Planos e preços</a>
+    <a href="#como-funciona">Como funciona</a>
     <a href="#contato">Contato</a>
     <a href="https://suporte.alliant.com.br/">Suporte</a>
     <a href="https://portal.alliant.com.br/" class="cta"><svg viewBox="0 0 24 24"><path d="M7 17a5 5 0 0 1 0-10 6 6 0 0 1 11.3 1.5A4 4 0 0 1 18 17z"/></svg>Minha nuvem</a>
@@ -249,7 +257,8 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
   <div class="hero-left">
     <h1>Onde cada milissegundo<br><span class="accent">é física, não slogan.</span></h1>
     <p class="hero-tagline">Nuvem privada dedicada. Sem dividir com ninguém.</p>
-    <p class="hero-sub">Dois sites em São Paulo, 60 km+ de fibra, <span class="mono">n = 1,468</span>. Um fóton leva <span class="mono">294 µs</span>.</p>
+    <p class="hero-sub">Dois campi em São Paulo — <b>Vinhedo</b> e <b>Osasco</b>, ~70 km entre eles. Um fóton leva <span class="mono">294 µs</span> de um ao outro.</p>
+    <div class="hero-anchor" id="heroAnchor"><b id="haSpec">Linux 4 vCPU · 8 GB · 160 GB</b> a partir de <span class="mono" id="haPrice">R$ 298/mês</span><small>HA de host e backup 14 dias inclusos · tráfego ilimitado · sem IOPS, sem API</small></div>
     <div class="hero-actions">
       <a href="calculadora.html" class="btn-p">
         Ver planos e montar minha nuvem
@@ -285,10 +294,11 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
         </div>
         <div class="est-msg" id="estMsg" hidden></div>
         <div class="est-k8"><span><i class="dot k8"></i>Kubernetes</span><span class="est-step"><button onclick="estK8(-1)">−</button><b id="estKv">off</b><button onclick="estK8(1)">+</button></span></div>
-        <div class="est-dr" id="estDrRow"><span>Réplica no site 2 (DR)</span><button id="estDrBtn" onclick="estTog('dr')">ativar</button></div>
+        <div class="est-dr" id="estDrRow"><span>Réplica no 2º campus (DR)</span><button id="estDrBtn" onclick="estTog('dr')">ativar</button></div>
+        <div class="est-hint">Cópia do ambiente no outro campus (Vinhedo ↔ Osasco), RPO/RTO sob desenho. Não confundir com o HA de host, que já está incluso.</div>
       </div>
       <div class="est-lead" id="estLead" hidden>
-        <div class="est-head"><b>Contratar</b><a onclick="estLeadClose()">voltar</a></div>
+        <div class="est-head"><b>Solicitar proposta</b><button type="button" class="est-lnk" onclick="estLeadClose()">voltar</button></div>
         <p class="est-lead-p">Mandamos a proposta com esse desenho e o contrato para assinatura eletrônica.</p>
         <input id="estNome" placeholder="Nome e sobrenome" autocomplete="name">
         <input id="estEmp" placeholder="Empresa" autocomplete="organization">
@@ -300,7 +310,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
         <button class="est-send" id="estSend" onclick="estLeadSend()">Enviar e receber proposta →</button>
         <div class="est-status" id="estStatus"></div>
       </div>
-      <div class="est-ok" id="estOk" hidden><b>Recebido!</b><p>Enviamos agora um resumo do ambiente com o desenho ao lado; a proposta formal chega em até 1 dia útil.</p><a onclick="estLeadClose(true)">voltar</a></div>
+      <div class="est-ok" id="estOk" hidden><b>Recebido!</b><p>Enviamos agora um resumo do ambiente com o desenho ao lado; a proposta formal chega em até 1 dia útil.</p><button type="button" class="est-lnk" onclick="estLeadClose(true)">voltar</button></div>
       <div class="est-arch" id="estArch"><canvas id="estCanvas" aria-label="Arquitetura do ambiente"></canvas>
         <button class="est-drbtn" id="estDrOverlay" onclick="estTog('dr')">Ativar redundância</button>
         <div class="est-legend"><span><i style="background:#d35400"></i>Linux</span><span><i style="background:#0078d4"></i>Windows</span><span><i style="background:#1d6aff"></i>Kubernetes</span><span><i style="background:#0091b5"></i>Réplica DR</span><em>clique num servidor para remover</em></div>
@@ -308,41 +318,41 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
     </div>
     <div class="est-foot">
       <div><div class="l">Estimativa mensal</div><div class="v" id="estV">R$ —<small>/mês</small></div></div>
-      <div class="est-btns"><a class="est-cta ghost" href="calculadora.html" id="estGo">Refinar</a><a class="est-cta" onclick="estLeadOpen()">Contratar →</a></div>
+      <div class="est-btns"><a class="est-cta ghost" href="calculadora.html" id="estGo">Refinar</a><button type="button" class="est-cta" onclick="estLeadOpen()">Solicitar proposta →</button></div>
     </div>
     <div class="est-note">Backup de 14 dias, 1 IPv4 e tráfego ilimitado inclusos · VM Windows já inclui Windows Server (SPLA) · sem cobrança por IOPS ou API.</div>
   </div>
 </section>
 <section class="phys" id="fisica" aria-label="Física do enlace">
   <div class="phys-link">
-    <div class="phys-top">seu browser → DC-SP1 <b id="phMs">medindo…</b><span id="phIp" class="phys-ip" hidden></span></div>
+    <div class="phys-top">seu browser → DC-SP1 (Vinhedo) <b id="phMs">medindo…</b><span id="phIp" class="phys-ip" hidden></span></div>
     <div class="phys-line">
       <div class="rail"></div>
       <span class="photon" style="animation-delay:0s"></span><span class="photon" style="animation-delay:-.8s"></span><span class="photon" style="animation-delay:-1.6s"></span>
       <span class="photon back" style="animation-delay:-.4s"></span><span class="photon back" style="animation-delay:-1.2s"></span><span class="photon back" style="animation-delay:-2s"></span>
-      <div class="phys-node a"><i><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i><span>SP-A</span></div>
-      <div class="phys-node b"><i><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i><span>SP-B</span></div>
+      <div class="phys-node a"><i><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i><span>Vinhedo</span></div>
+      <div class="phys-node b"><i><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i><span>Osasco</span></div>
     </div>
-    <div class="phys-cap">60 km+ de fibra própria &nbsp;·&nbsp; n = 1,468 &nbsp;·&nbsp; 1-way ≥ 294 µs</div>
+    <div class="phys-cap">Vinhedo ↔ Osasco &nbsp;·&nbsp; ~70 km entre campi &nbsp;·&nbsp; n = 1,468 &nbsp;·&nbsp; 1-way ≥ 294 µs</div>
   </div>
   <div class="phys-grid">
-    <div class="phys-tile"><div class="k">Física do enlace</div><div class="v">≥ 294 µs</div><div class="d">Ida SP-A → SP-B no vidro.<br>Não negociável.</div></div>
+    <div class="phys-tile"><div class="k">Física do enlace</div><div class="v">≥ 294 µs</div><div class="d">Ida Vinhedo → Osasco no vidro.<br>Não negociável.</div></div>
     <div class="phys-tile"><div class="k">RTT teórico</div><div class="v">≥ 588 µs</div><div class="d">Limite inferior. Switching ainda não entrou.</div></div>
-    <div class="phys-tile live" id="phTile"><div class="k">Seu browser → DC-SP1 <i></i></div><div class="v" id="phV">—</div><div class="d" id="phD">medindo neste dispositivo, agora</div></div>
-    <div class="phys-tile"><div class="k">Failover</div><div class="v">&lt; 5 min</div><div class="d">300 s. Software, não fóton.</div></div>
-    <div class="phys-tile"><div class="k">Distância</div><div class="v">60 km+</div><div class="d">Dois prédios ligados por fibra própria. Não uma “região”.</div></div>
+    <div class="phys-tile live" id="phTile"><div class="k">Seu browser → DC-SP1 · Vinhedo <i></i></div><div class="v" id="phV">—</div><div class="d" id="phD">medindo neste dispositivo, agora</div></div>
+    <div class="phys-tile"><div class="k">Failover</div><div class="v">&lt; 5 min</div><div class="d">300 s. Software Alliant no host, não fóton.</div></div>
+    <div class="phys-tile"><div class="k">Distância</div><div class="v">~70 km</div><div class="d">Dois campi distintos, interconectados sem passar pela internet pública. Não uma “região”.</div></div>
     <div class="phys-tile"><div class="k">Fóton vs você</div><div class="v" id="phX">—</div><div class="d" id="phXd">quantas vezes seu RTT cabe no enlace interno (588 µs)</div></div>
   </div>
 </section>
 <div class="cred-strip">
-  <span class="cred-line">Com mais de 18 anos construindo infraestrutura crítica, estamos levando a sério a criação da nuvem privada que o Brasil merece.</span>
+  <span class="cred-line">Alliant Tecnologia, desde 2008 em infraestrutura crítica. A Alliant Cloud é o produto novo dessa história — em produção desde set/2026, catálogo ainda abrindo.</span>
 </div>
 
 <div class="about">
   <div class="about-item">
     <div class="about-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
     <div class="about-title">Dados 100% no Brasil</div>
-    <div class="about-desc">Dois sites em São Paulo separados por 60 km+ de fibra própria. Conformidade com LGPD por arquitetura, sem configuração adicional.</div>
+    <div class="about-desc">Servidores em dois campi <b>Ascenty</b> — Vinhedo e Osasco (SP). A planta é do data center; máquina, isolamento e contrato são Alliant, controladora dos dados. LGPD por arquitetura; ISO 27001/27017/27018 em processo de certificação.</div>
   </div>
   <div class="about-item">
     <div class="about-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
@@ -355,15 +365,32 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
     <div class="about-desc">Ao contrário de clouds públicas, não cobramos por tráfego, IOPS ou chamadas de API. Preço fixo, todo mês.</div>
   </div>
 </div>
+<section class="how" id="como-funciona">
+  <div class="how-head"><h2>Como funciona</h2><p>A planta é do data center. A máquina, o isolamento e o contrato são Alliant.</p></div>
+  <div class="how-grid">
+    <div class="how-col">
+      <div class="how-tag">Ascenty · facility</div>
+      <ul><li>Prédio, hall, energia, gerador, UPS, refrigeração</li><li>Segurança física e meet-me-room</li><li>Certificações do data center</li><li>Interconexão entre os campi de Vinhedo e Osasco</li></ul>
+    </div>
+    <div class="how-col alliant">
+      <div class="how-tag">Alliant · produto e contrato</div>
+      <ul><li>Servidores e storage dedicados, isolamento entre clientes</li><li>Hypervisor, HA de host, backup 14 dias e retenção</li><li>Portal “Minha nuvem”, IP, SPLA Windows, suporte em português</li><li>Fatura fixa: sem IOPS, tráfego ou API · desenho de DR no 2º campus</li></ul>
+    </div>
+    <div class="how-col fail">
+      <div class="how-tag">O que acontece quando falha</div>
+      <ul><li><b>Um host cai</b> → sua VM volta em outro host do mesmo campus em &lt; 5 min. Incluso.</li><li><b>O campus inteiro cai</b> → só com réplica no 2º campus (DR, sob proposta, RPO/RTO do seu desenho).</li><li><b>Sua internet cai</b> → fora do escopo; VPN e link dedicado ajudam.</li></ul>
+    </div>
+  </div>
+  <div class="how-foot">Enlace entre campi: interconexão de campus, sem passar pela internet pública · <a href="privacidade.html">Política de privacidade</a> · SLA e status page: em breve</div>
+</section>
 <div class="partners">
-  <div class="partners-label">Ecossistema de parceiros</div>
+  <div class="partners-label">Quem faz o quê</div>
   <div class="partners-row">
-    <div class="p-chip"><span class="p-dot"></span>HPE</div>
-    <div class="p-chip"><span class="p-dot"></span>Dell Technologies</div>
-    <div class="p-chip"><span class="p-dot"></span>OpenStack Foundation</div>
-    <div class="p-chip"><span class="p-dot"></span>Ubuntu / Canonical</div>
-    <div class="p-chip"><span class="p-dot"></span>Check Point</div>
-    <div class="p-chip"><span class="p-dot"></span>Microsoft</div>
+    <div class="p-chip"><span class="p-dot"></span>Ascenty<small>campi e planta · Vinhedo, Osasco</small></div>
+    <div class="p-chip"><span class="p-dot"></span>Dell / HPE<small>servidores e storage</small></div>
+    <div class="p-chip"><span class="p-dot"></span>Microsoft<small>SPLA Windows Server</small></div>
+    <div class="p-chip"><span class="p-dot"></span>Canonical / OpenStack<small>control plane</small></div>
+    <div class="p-chip"><span class="p-dot"></span>Check Point<small>perímetro</small></div>
   </div>
 </div>
 <section class="contact" id="contato">
@@ -373,12 +400,12 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
   </div>
   <div class="contact-grid">
     <div class="contact-col">
-      <div class="contact-tag">Quero contratar</div>
+      <div class="contact-tag">Quero uma proposta</div>
       <h3>Falar com vendas</h3>
       <p>Planos, migração do seu ambiente atual ou um projeto fora do catálogo.</p>
       <div class="contact-row">
         <a class="cbtn blue" href="https://wa.me/5508000200030">WhatsApp 0800 020 0030</a>
-        <a class="cbtn ghost" href="calculadora.html">Pedir proposta</a>
+        <a class="cbtn ghost" href="calculadora.html">Solicitar proposta</a>
       </div>
       <div class="contact-foot">Ou escreva para <a href="mailto:vendas@alliant.com.br" style="color:var(--blue);text-decoration:none">vendas@alliant.com.br</a> — resposta em até 1 dia útil.</div>
     </div>
@@ -445,9 +472,9 @@ function estCalc(){
   if(EST.k8&&EST.k8On){ var wk=((estCat().skus_vm.efficient||[]).find(function(k){return k.vcpu===4;})||{}).preco||600; total+=EST.k8s+wk*EST.k8; }
   if(EST.dr&&EST.drOn) total*=1+EST.dr_pct/100;
   total+=lic;  // licença Windows não replica no DR
-  EST.total=total; var ext=[]; if(EST.dr&&!EST.drOn) ext.push('DR'); if(EST.k8&&!EST.k8On) ext.push('Kubernetes'); $e('estV').innerHTML=((!EST.servers.length&&!EST.k8)?'R$ —':estMoney(total))+'<small>/mês'+(ext.length?' + '+ext.join(' e ')+' sob consulta':'')+'</small>';
-  $e('estKv').textContent=EST.k8?(EST.k8+' workers'+(EST.k8On?'':' · cotar')):'off';
-  var drb=$e('estDrBtn'); if(drb) drb.textContent=EST.dr?(EST.drOn?'ativo · desativar':'cotar · desativar'):(EST.drOn?'ativar':'sob consulta');
+  EST.total=total; var ext=[]; if(EST.dr&&!EST.drOn) ext.push('DR'); if(EST.k8&&!EST.k8On) ext.push('Kubernetes'); $e('estV').innerHTML=((!EST.servers.length&&!EST.k8)?'R$ —':estMoney(total))+'<small>/mês'+(ext.length?' + '+ext.join(' e ')+' sob proposta':'')+'</small>';
+  $e('estKv').textContent=EST.k8?(EST.k8+' workers'+(EST.k8On?'':' · sob proposta')):(EST.k8On?'off':'em breve · sob proposta');
+  var drb=$e('estDrBtn'); if(drb) drb.textContent=EST.dr?(EST.drOn?'ativo · desativar':'cotar · desativar'):(EST.drOn?'ativar':'sob proposta');
   var q=EST.servers.map(function(v){return 'v='+v.os+':'+v.fam+':'+v.sku+':'+v.c+':'+v.r+':'+v.d+':'+(v.x||0);}).join('&');
   $e('estGo').href='calculadora.html?'+q+'&k8='+EST.k8+(EST.dr?'&dr=1':'');
   estDraw();
@@ -462,8 +489,8 @@ function estDraw(){ EST.dirty=true; $e('estDrOverlay').hidden=EST.dr; }
   function buildLayout(){
     nodes=[];conns=[];
     var inet={x:W*.5,y:H*.09,type:'inet',label:'Internet',r:14}; nodes.push(inet);
-    var dc1={x:W*.3,y:H*.40,type:'dc',label:'DC-SP1',sub:'primário',r:20}; nodes.push(dc1);
-    var dc2={x:W*.7,y:H*.40,type:EST.dr?'dc2':'dc2off',label:'DC-SP2',sub:EST.dr?'réplica ativa':'contingência',r:20}; nodes.push(dc2);
+    var dc1={x:W*.3,y:H*.40,type:'dc',label:'DC-SP1 · Vinhedo',sub:'primário',r:20}; nodes.push(dc1);
+    var dc2={x:W*.7,y:H*.40,type:EST.dr?'dc2':'dc2off',label:'DC-SP2 · Osasco',sub:EST.dr?'réplica ativa':'contingência',r:20}; nodes.push(dc2);
     var k8=null; if(EST.k8){ k8={x:W*.3,y:H*.66,type:'k8s',label:'Kubernetes',sub:EST.k8+' workers · HA',r:15}; nodes.push(k8); }
     var gs=groups(), cnt=gs.length;
     if(cnt){ var cols=Math.min(cnt,5),rws=Math.ceil(cnt/cols), zL=W*.08,zR=W*.92, zT=EST.k8?H*.84:H*.72, zB=H*.90;
@@ -527,14 +554,15 @@ function estLeadSend(){
   var grp={}; EST.servers.forEach(function(v){ var k=v.os+'|'+v.fam+'|'+v.sku+'|'+v.c+'|'+v.r+'|'+v.d+'|'+(v.x||0); (grp[k]=grp[k]||{nome:(v.os==='windows'?'Windows Server':'Linux')+' · '+v.sku,qtd:0,spec:v.c+' vCPU · '+v.r+' GB · '+v.d+' GB'+(v.x?' + '+v.x+' GB extra':'')+' · '+famLabel(v.fam),so:v.os==='windows'?'Windows':'Linux',subtotal:0}); grp[k].qtd++; grp[k].subtotal+=v.preco; });
   var vms=Object.keys(grp).map(function(k){return grp[k];});
   var op=[]; if(EST.dr) op.push('DR / réplica no site 2 '+(EST.drOn?'(+'+EST.dr_pct+'%)':'(sob consulta)')); if(EST.k8) op.push('Kubernetes gerenciado · '+EST.k8+' workers'+(EST.k8On?'':' (sob consulta)'));
-  var payload={tipo:'estimador_home',empresa:emp,cnpj:cnpj,nome:nome,email:eml,whatsapp:wa,arquitetura_b64:canvasPng('estCanvas'),estimativa:Math.round(EST.total),vms:vms,opcoes:op.join('; ')||'-',obs:'Pedido pelo estimador da home (Contratar).',turnstile:EST.tsTok,website:$e('estSite').value};
+  var payload={tipo:'estimador_home',empresa:emp,cnpj:cnpj,nome:nome,email:eml,whatsapp:wa,arquitetura_b64:canvasPng('estCanvas'),estimativa:Math.round(EST.total),vms:vms,opcoes:op.join('; ')||'-',obs:'Solicitação de proposta pelo estimador da home.',turnstile:EST.tsTok,website:$e('estSite').value};
   var btn=$e('estSend'); btn.disabled=true; stt.textContent='';
   fetch(EST_API+'/api/public/orcamento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
   .then(function(r){return r.json().catch(function(){return {};}).then(function(d){if(!r.ok)throw new Error(d.detail||('Erro '+r.status));return d;});})
   .then(function(){ $e('estLead').hidden=true; $e('estOk').hidden=false; })
   .catch(function(e){ stt.textContent=e.message; btn.disabled=false; if(EST.tsW!==null&&window.turnstile){turnstile.reset(EST.tsW);EST.tsTok='';} });
 }
-function estInit(){ estBuildFam(); estFam(EST.fam); if(!EST.sku) estSku('e1.medium'); EST.servers=EST.servers.filter(Boolean); estCalc(); }
+function estAnchor(){ try{ var k=(estCat().skus_vm.efficient||[]).find(function(x){return x.sku==='e1.medium';}); if(!k) return; $e('haSpec').textContent='Linux '+k.vcpu+' vCPU · '+k.ram_gb+' GB · '+k.disco_gb+' GB'+(String(k.tier_disco||'').indexOf('nvme')>-1?' NVMe':' SSD'); $e('haPrice').textContent=estMoney(k.preco)+'/mês'; }catch(e){} }
+function estInit(){ estAnchor(); estBuildFam(); estFam(EST.fam); if(!EST.sku) estSku('e1.medium'); EST.servers=EST.servers.filter(Boolean); if(!EST.servers.length&&!EST._seeded){ EST._seeded=true; var v=estBuild('linux'); if(v) EST.servers.push(v); } estCalc(); }
 estInit();
 try{ fetch(EST_API+'/api/public/precos').then(function(r){return r.ok?r.json():null;}).then(function(p){ if(p&&p.componentes){ EST.P=p; var dr=(p.servicos_adicionais||[]).find(function(x){return x.sku==='dr.replicacao';}); EST.drOn=!!(dr&&dr.unidade==='pct_vm'&&+dr.preco>0&&dr.ativo!==false&&!dr.inativo); if(EST.drOn) EST.dr_pct=+dr.preco; var ks=((p.skus_caas||{}).tiers||[]).filter(function(t){return t.ativo!==false&&!t.inativo;}); EST.k8On=ks.length>0; if(ks[0]) EST.k8s=+ks[0].preco; EST.servers=[]; estInit(); } }).catch(function(){}); }catch(e){}
 // ---- física do enlace: RTT real do browser até a borda (HEAD no próprio site, sem cache, mediana de 12) ----
@@ -567,7 +595,7 @@ document.querySelectorAll('.fade-in:not(.visible)').forEach(function(el){obs.obs
 </div>
 <script>
 (function(){
-  try{ if(localStorage.getItem('lgpd_choice')||localStorage.getItem('lgpd_ok')) document.getElementById('lgpd').style.display='none'; }catch(e){}
+  try{ var _lg=document.getElementById('lgpd'); _lg.style.display='none'; if(!(localStorage.getItem('lgpd_choice')||localStorage.getItem('lgpd_ok'))) setTimeout(function(){ _lg.style.display=''; },2500); }catch(e){}
 })();
 function lgpdAceitar(){
   try{ localStorage.setItem('lgpd_choice','essential'); }catch(e){}

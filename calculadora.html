@@ -203,8 +203,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
     <canvas id="archCanvas"></canvas>
     <div class="arch-legend">
       <span class="leg-item"><span class="leg-dot" style="background:rgba(107,95,82,0.5)"></span>Internet</span>
-      <span class="leg-item"><span class="leg-dot" style="background:rgba(29,106,255,0.6)"></span>DC-SP1</span>
-      <span class="leg-item"><span class="leg-dot" style="background:rgba(0,145,181,0.6)"></span>DC-SP2</span>
+      <span class="leg-item"><span class="leg-dot" style="background:rgba(29,106,255,0.6)"></span>DC-SP1 · Vinhedo</span>
+      <span class="leg-item"><span class="leg-dot" style="background:rgba(0,145,181,0.6)"></span>DC-SP2 · Osasco</span>
       <span class="leg-item"><span class="leg-dot" style="background:rgba(211,84,0,0.6)"></span>Linux VM</span>
       <span class="leg-item"><span class="leg-dot" style="background:rgba(0,120,212,0.6)"></span>Windows VM</span>
       <span class="leg-item"><span class="leg-dot" style="background:rgba(211,84,0,0.9);border-radius:2px;width:12px;height:9px;font-size:8px;color:#fff;display:flex;align-items:center;justify-content:center">H</span>HA ativo</span>
@@ -495,7 +495,7 @@ function renderServicos(){
   el.innerHTML=lista.map(function(x){
     var pad=SV_PADRAO.find(function(d){return d.sku===x.sku;})||{}; var label=pad.label||x.descricao, sub=pad.sub||'';
     if(x.unidade==='pct_vm'){ return '<div class="tog-row"><div><div class="tog-label">'+label+'</div><div class="tog-sub">'+(sub?sub+' · ':'')+'<b>+'+(+x.preco)+'%</b> do valor mensal de cada VM (disco incluso) — marque a coluna <b>DR</b> nas máquinas que devem ter réplica</div></div><div class="tog"><button class="'+(rows.length&&rows.every(function(r){return r.data.dr;})?'on':'')+'" onclick="rows.forEach(function(r){r.data.dr=true;});renderTable();schedCalc();renderServicos()">Todas</button><button class="'+(rows.some(function(r){return r.data.dr;})?'':'on')+'" onclick="rows.forEach(function(r){r.data.dr=false;});renderTable();schedCalc();renderServicos()">Nenhuma</button></div></div>'; }
-    if(x.inativo){ return '<div class="tog-row"><div><div class="tog-label">'+label+'</div><div class="tog-sub">'+sub+(sub?' · ':'')+'<b>sob consulta</b> — marque para receber cotação junto</div></div><div class="tog"><button class="'+(cotar[x.sku]?'on':'')+'" onclick="setCotar(\''+x.sku+'\',true)">Cotar</button><button class="'+(cotar[x.sku]?'':'on')+'" onclick="setCotar(\''+x.sku+'\',false)">Não</button></div></div>'; }
+    if(x.inativo){ return '<div class="tog-row"><div><div class="tog-label">'+label+'</div><div class="tog-sub">'+sub+(sub?' · ':'')+'<b>sob proposta</b> — marque para receber cotação junto</div></div><div class="tog"><button class="'+(cotar[x.sku]?'on':'')+'" onclick="setCotar(\''+x.sku+'\',true)">Cotar</button><button class="'+(cotar[x.sku]?'':'on')+'" onclick="setCotar(\''+x.sku+'\',false)">Não</button></div></div>'; }
     var q=sv[x.sku]||0, u=x.unidade, uni={ip:'IPs',mbps:'Mbps',gb:'GB',vm:'VMs',hora:'horas'}[u];
     var ctl = u==='mes' ? '<div class="tog"><button class="'+(q?'on':'')+'" onclick="setSv(\''+x.sku+'\',1)">Sim</button><button class="'+(q?'':'on')+'" onclick="setSv(\''+x.sku+'\',0)">Não</button></div>'
       : '<div style="display:flex;align-items:center;gap:6px"><input type="number" min="0" value="'+(q||'')+'" placeholder="0" style="width:74px;padding:6px 8px;font-size:12px" onchange="setSv(\''+x.sku+'\',this.value)"><span style="font-size:11px;color:var(--ink3)">'+(uni||'')+'</span>'+(u==='vm'?' <button onclick="setSv(\''+x.sku+'\','+totalVms()+');renderServicos()" style="font-size:10px;padding:4px 8px;border:1px solid var(--border);background:var(--surface);border-radius:6px;cursor:pointer">todas ('+totalVms()+')</button>':'')+'</div>';
@@ -503,7 +503,7 @@ function renderServicos(){
   }).join('');
 }
 function setCaas(k,d){ caas[k]=Math.max(0,Math.min(50,(caas[k]||0)+d)); renderCaas(); schedCalc(); }
-function renderCaas(){ var el=document.getElementById('caasBody'); if(!el||!P) return; var tiers=((P.skus_caas||{}).tiers||[]); if(!tiers.length){el.innerHTML='<div class="vm-empty">Sem tiers cadastrados.</div>';return;}
+function renderCaas(){ var el=document.getElementById('caasBody'); if(!el||!P) return; var tiers=((P.skus_caas||{}).tiers||[]); if(!tiers.length){el.innerHTML='<div class="vm-empty">Kubernetes gerenciado: <b>em breve</b>. Precisa agora? Marque na proposta e desenhamos junto — sob proposta.</div>';return;}
   el.innerHTML=tiers.map(function(t){var q=caas[t.sku]||0;return '<div class="tog-row" style="gap:12px"><div><div class="tog-label" style="font-family:\'DM Mono\',monospace">'+t.sku+'</div><div class="tog-sub">'+(t.descricao||'')+' · <b>'+fmtBRL(t.preco)+'</b>/mês</div></div><div class="tog"><button onclick="setCaas(\''+t.sku+'\',-1)">−</button><button class="'+(q?'on':'')+'" style="cursor:default;min-width:34px">'+q+'</button><button onclick="setCaas(\''+t.sku+'\',1)">+</button></div></div>';}).join(''); }
 var _lastCalcData = null;
 var _calcTimer = null;
@@ -868,8 +868,8 @@ function abbrev(n){
     var hasDR=togs.dr,hasBO=togs.bo,show2=hasDR||hasBO;
     var inet={x:show2?W*.3:W*.5,y:H*.10,type:'inet',label:'Internet',r:15*SC}; nodes.push(inet);
     var inet2=null; if(show2){inet2={x:W*.7,y:H*.10,type:'inet',label:'Internet',r:15*SC};nodes.push(inet2);}
-    var dc1={x:show2?W*.3:W*.5,y:H*.50,type:'dc',label:'DC-SP1',sub:'primário',r:20*SC}; nodes.push(dc1);
-    var dc2=null; if(show2){dc2={x:W*.7,y:H*.50,type:'dc2',label:'DC-SP2',sub:hasDR?'réplica ativa':'contingência',r:20*SC};nodes.push(dc2);}
+    var dc1={x:show2?W*.3:W*.5,y:H*.50,type:'dc',label:'DC-SP1 · Vinhedo',sub:'primário',r:20*SC}; nodes.push(dc1);
+    var dc2=null; if(show2){dc2={x:W*.7,y:H*.50,type:'dc2',label:'DC-SP2 · Osasco',sub:hasDR?'réplica ativa':'contingência',r:20*SC};nodes.push(dc2);}
     var cnt=rows.length;
     if(cnt>0){
       var cols=Math.min(cnt,4),rws=Math.ceil(cnt/cols);
