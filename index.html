@@ -32,7 +32,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 /* contato: dois públicos */
 .contact{padding:72px 6% 64px;border-top:1px solid var(--border)}
 .contact-head{max-width:640px;margin-bottom:32px}
-.contact-head h2{font-family:"Syne",sans-serif;font-size:clamp(28px,3.4vw,40px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:8px}
+.contact-head h2{font-family:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif;font-size:clamp(28px,3.4vw,40px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:8px}
 .contact-head p{color:var(--steel);font-size:16px;line-height:1.6}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .contact-col{background:#f7f3ec;border:1px solid rgba(26,22,18,.55);border-radius:14px;padding:26px}
@@ -50,7 +50,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:28px 6
 .hero-left{}
 
 
-h1{font-family:"Syne",sans-serif;font-size:clamp(42px,5.5vw,82px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:12px}
+h1{font-family:-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",Arial,sans-serif;font-size:clamp(42px,5.5vw,82px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:12px}
 .accent{background:linear-gradient(135deg,#1d6aff,#6637e8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-tagline{font-family:"Syne",sans-serif;font-size:clamp(13px,1.2vw,16px);font-weight:400;color:var(--steel);font-style:italic;margin-bottom:28px;letter-spacing:.2px}
 .hero-sub{font-size:16px;color:var(--steel);line-height:1.7;font-weight:300;max-width:560px;margin-bottom:40px}.hero-sub .mono{font-family:"DM Mono",ui-monospace,monospace;color:var(--white);font-size:15px}
@@ -562,7 +562,7 @@ function estLeadSend(){
   .catch(function(e){ stt.textContent=e.message; btn.disabled=false; if(EST.tsW!==null&&window.turnstile){turnstile.reset(EST.tsW);EST.tsTok='';} });
 }
 function estAnchor(){ try{ var k=(estCat().skus_vm.efficient||[]).find(function(x){return x.sku==='e1.medium';}); if(!k) return; $e('haSpec').textContent='Linux '+k.vcpu+' vCPU · '+k.ram_gb+' GB · '+k.disco_gb+' GB'+(String(k.tier_disco||'').indexOf('nvme')>-1?' NVMe':' SSD'); $e('haPrice').textContent=estMoney(k.preco)+'/mês'; }catch(e){} }
-function estInit(){ estAnchor(); estBuildFam(); estFam(EST.fam); if(!EST.sku) estSku('e1.medium'); EST.servers=EST.servers.filter(Boolean); if(!EST.servers.length&&!EST._seeded){ EST._seeded=true; var v=estBuild('linux'); if(v) EST.servers.push(v); } estCalc(); }
+function estInit(){ estAnchor(); estBuildFam(); estFam(EST.fam); if(!EST.sku) estSku('e1.medium'); EST.servers=EST.servers.filter(Boolean); if(!EST.servers.length){ var v=estBuild('linux'); if(v) EST.servers.push(v); } estCalc(); }
 estInit();
 try{ fetch(EST_API+'/api/public/precos').then(function(r){return r.ok?r.json():null;}).then(function(p){ if(p&&p.componentes){ EST.P=p; var dr=(p.servicos_adicionais||[]).find(function(x){return x.sku==='dr.replicacao';}); EST.drOn=!!(dr&&dr.unidade==='pct_vm'&&+dr.preco>0&&dr.ativo!==false&&!dr.inativo); if(EST.drOn) EST.dr_pct=+dr.preco; var ks=((p.skus_caas||{}).tiers||[]).filter(function(t){return t.ativo!==false&&!t.inativo;}); EST.k8On=ks.length>0; if(ks[0]) EST.k8s=+ks[0].preco; EST.servers=[]; estInit(); } }).catch(function(){}); }catch(e){}
 // ---- física do enlace: RTT real do browser até a borda (HEAD no próprio site, sem cache, mediana de 12) ----
