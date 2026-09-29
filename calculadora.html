@@ -868,8 +868,8 @@ function abbrev(n){
     var hasDR=togs.dr,hasBO=togs.bo,show2=hasDR||hasBO;
     var inet={x:show2?W*.3:W*.5,y:H*.10,type:'inet',label:'Internet',r:15*SC}; nodes.push(inet);
     var inet2=null; if(show2){inet2={x:W*.7,y:H*.10,type:'inet',label:'Internet',r:15*SC};nodes.push(inet2);}
-    var dc1={x:show2?W*.3:W*.5,y:H*.50,type:'dc',label:'DC-SP1 · Vinhedo',sub:'primário',r:20*SC}; nodes.push(dc1);
-    var dc2=null; if(show2){dc2={x:W*.7,y:H*.50,type:'dc2',label:'DC-SP2 · Osasco',sub:hasDR?'réplica ativa':'contingência',r:20*SC};nodes.push(dc2);}
+    var dc1={x:show2?W*.3:W*.5,y:H*.50,type:'dc',label:'Vinhedo',sub:'DC-SP1 · primário',r:20*SC}; nodes.push(dc1);
+    var dc2=null; if(show2){dc2={x:W*.7,y:H*.50,type:'dc2',label:'Osasco',sub:hasDR?'DC-SP2 · réplica':'DC-SP2 · contingência',r:20*SC};nodes.push(dc2);}
     var cnt=rows.length;
     if(cnt>0){
       var cols=Math.min(cnt,4),rws=Math.ceil(cnt/cols);

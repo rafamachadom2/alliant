@@ -56,7 +56,7 @@ h1{font-family:var(--display);font-size:clamp(48px,6.2vw,92px);font-weight:400;l
 .hero-tagline{font-family:"Syne",sans-serif;font-size:clamp(13px,1.2vw,16px);font-weight:400;color:var(--steel);font-style:italic;margin-bottom:28px;letter-spacing:.2px}
 .hero-sub{font-size:16px;color:var(--steel);line-height:1.7;font-weight:300;max-width:560px;margin-bottom:40px}.hero-sub .mono{font-family:"DM Mono",ui-monospace,monospace;color:var(--white);font-size:15px}
 .hero-actions{display:flex;flex-direction:column;gap:12px}
-.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;width:fit-content}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--navy);padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;width:fit-content}
 .btn-p:hover{background:var(--blue-bright);transform:translateY(-1px)}
 .btn-w{display:inline-flex;align-items:center;gap:8px;background:rgba(37,180,90,.08);border:1px solid rgba(37,180,90,.3);color:rgb(20,140,70);padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15px;transition:all .2s;width:fit-content}
 .btn-w:hover{background:rgba(37,180,90,.15)}
@@ -234,6 +234,54 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 @media(max-width:560px){.phys{padding:36px 5% 16px}.phys-grid{grid-template-columns:1fr}.phys-tile .v{font-size:28px}.phys-link{padding:16px 14px}}
 @media(max-width:800px){.about{grid-template-columns:1fr}footer{flex-direction:column;text-align:center}}
 .phys-tile .v{color:var(--acc)}.est-btns .est-cta.ghost{color:var(--white)}
+
+/* ---- preview 3: direção "294 µs" ---- */
+.eyebrow{font-family:"DM Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--steel)}
+.mega-hero{min-height:calc(100vh - 72px);padding:6vh 6% 5vh;display:flex;flex-direction:column;justify-content:space-between}
+.mega{font-family:"DM Mono",ui-monospace,monospace;font-size:clamp(120px,24vw,340px);font-weight:500;letter-spacing:-.08em;line-height:.8;margin:3vh 0 2vh;color:var(--white)}
+.mega-u{font-family:var(--display);font-style:italic;font-size:.22em;letter-spacing:-.02em;color:var(--acc);margin-left:.08em}
+.mega-bottom{display:grid;grid-template-columns:1.3fr 1fr;gap:5vw;align-items:end}
+h1.mega-copy{font-family:var(--display);font-size:clamp(26px,3.2vw,50px);font-weight:400;letter-spacing:-.5px;line-height:1.02;margin:0;max-width:820px}
+h1.mega-copy small{display:block;font-family:"DM Sans",sans-serif;font-size:15px;line-height:1.55;color:var(--steel);margin-top:16px;max-width:560px;font-weight:300}
+.telemetry{font-family:"DM Mono",ui-monospace,monospace;font-size:12px;border-top:1px solid var(--white);padding-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.telemetry .tk{display:block;color:var(--steel);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}.telemetry b{display:block;font-weight:500;font-size:20px;color:var(--acc);margin:4px 0 2px}.telemetry .td{display:block;font-size:10.5px;color:var(--steel);line-height:1.4;font-family:"DM Sans",sans-serif}
+.blk{padding:10vh 6%;border-top:1px solid var(--border)}
+.section-head{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:end;margin-bottom:48px}
+.section-head h2{font-family:var(--display);font-size:clamp(44px,7vw,110px);font-weight:400;letter-spacing:-.04em;line-height:.88;margin:0}.section-head h2 em{font-style:italic;color:var(--acc)}
+.section-head p{font-size:16px;line-height:1.6;color:var(--steel);max-width:480px;margin:0}.section-head p b{color:var(--white);font-weight:600}
+.blk-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:22px}.blk-actions .cta-note{margin:0}
+.phys.blk{padding-top:10vh}.phys .section-head{margin-bottom:32px}
+.fail-grid{display:grid;grid-template-columns:1fr 1fr;gap:5vw}.hosts{border:1px solid var(--white);border-radius:12px;overflow:hidden;background:var(--navy-mid)}
+.host{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--border);font-family:"DM Mono",ui-monospace,monospace;font-size:13px}.host:last-child{border:0}
+.st{width:10px;height:10px;border-radius:50%;background:#1f7a4d}.host.dead{opacity:.45;text-decoration:line-through}.host.dead .st{background:#a23a32}
+.eventlog{font-family:"DM Mono",ui-monospace,monospace;font-size:13px;margin-top:22px}.eventlog div{padding:11px 0;border-bottom:1px solid var(--border)}.eventlog .muted{color:var(--steel);font-size:11px}
+.quote-blk{padding:14vh 6%}.quote{font-family:var(--display);font-size:clamp(52px,8vw,130px);letter-spacing:-.04em;line-height:.88;max-width:1200px}.quote em{font-style:italic;color:var(--acc)}.quote small{display:block;font-family:"DM Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);margin-bottom:22px}
+.quote-sub{font-size:22px;color:var(--steel);margin-top:36px;font-weight:300}
+.compare{width:100%;border-collapse:collapse;font-family:"DM Mono",ui-monospace,monospace;font-size:13px}.compare th,.compare td{padding:16px 8px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}.compare th{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--steel)}.compare td:nth-child(2){color:var(--white);font-weight:500}.compare td:nth-child(3){color:var(--steel)}
+.how.blk .how-grid{margin-top:0}
+.contact-head h2{font-size:clamp(44px,7vw,110px);line-height:.88;letter-spacing:-.04em}.contact-head h2 em{font-style:italic;color:var(--acc)}
+@media(max-width:860px){.mega-bottom,.section-head,.fail-grid{grid-template-columns:1fr}.telemetry{grid-template-columns:1fr}.mega{font-size:34vw}.section-head{gap:16px;margin-bottom:28px}}
+.phys.recuo{padding:4vh 6% 6vh;border-top:0}.phys.recuo .phys-grid{margin-top:12px}
+.cred-strip{padding:26px 6%;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--navy-mid)}.cred-line{font-family:var(--display);font-size:clamp(20px,2.4vw,30px);line-height:1.25;color:var(--white)}.cred-line em{font-style:italic;color:var(--acc)}
+
+.dc-sim{display:grid;grid-template-columns:1.6fr .8fr;gap:28px;align-items:start}
+#sim{width:100%;height:auto;background:var(--navy-mid);border:1px solid var(--border);border-radius:16px}
+#sim .box{fill:#fff;stroke:var(--border);stroke-width:1}#sim .dcbox{fill:rgba(255,255,255,.35);stroke:var(--white);stroke-width:1}
+#sim text{font-family:"DM Mono",ui-monospace,monospace;fill:var(--white)}#sim .lbl{font-size:11px;text-anchor:middle;fill:var(--steel)}#sim .hl{font-size:10px;text-anchor:middle;fill:var(--steel)}
+#sim .dctitle{font-size:13px;font-weight:500}#sim .dcsub{font-size:10px;fill:var(--steel)}#sim .foot{font-size:10px;fill:var(--steel)}#sim .tiny{font-size:9px;fill:var(--steel)}
+#sim .st{fill:#1f7a4d}#sim .link{fill:none;stroke:var(--acc);stroke-width:1.5;stroke-dasharray:4 4;animation:simdash 1.2s linear infinite}#sim .link.off{stroke:var(--border);animation:none;stroke-dasharray:2 4}
+#sim .link.xc{stroke:var(--border);animation:none}#sim .link.xc.on{stroke:var(--acc);animation:simdash 1.2s linear infinite}
+@keyframes simdash{to{stroke-dashoffset:-16}}
+#sim .host.dead .box{fill:#f3e2df;stroke:#a23a32}#sim .host.dead .st{fill:#a23a32}#sim .host.dead .hl{fill:#a23a32;text-decoration:line-through}
+#sim .dc.dead .dcbox{fill:rgba(162,58,50,.06);stroke:#a23a32;stroke-dasharray:6 4}#sim .dc.dead .st{fill:#a23a32}#sim .dc.dead .box{opacity:.55}
+#sim .vm{transition:transform .9s cubic-bezier(.4,0,.2,1)}#sim .vm rect{fill:var(--acc);stroke:none}#sim .vm text{fill:#fff;font-size:11px;font-weight:500}
+#sim .vm.ghost rect{fill:none;stroke:var(--steel);stroke-dasharray:3 3}#sim .vm.ghost text{fill:var(--steel)}
+#sim .vm.live rect{fill:var(--acc);stroke:none}#sim .vm.live text{fill:#fff}
+#sim .vm.down rect{fill:#a23a32;opacity:.5}#sim .vm.moving rect{filter:drop-shadow(0 6px 10px rgba(40,82,121,.35))}
+#sim .vault rect{fill:var(--acc);stroke:none}#sim .vault text{fill:#fff;font-size:10px}#sim .vault.ghost rect{fill:none;stroke:var(--steel);stroke-dasharray:3 3}#sim .vault.ghost text{fill:var(--steel)}#sim .vault.live rect{fill:#1f7a4d}
+.sim-ctl{display:flex;flex-direction:column;gap:14px}.sim-dr{font-size:13px;color:var(--white);display:flex;align-items:center;gap:8px}.sim-dr span{color:var(--steel)}.sim-dr input{accent-color:var(--acc)}
+.sim-btns{display:flex;gap:10px;flex-wrap:wrap}.sim-btns .btn-p,.sim-btns .btn-w{padding:11px 16px;font-size:13px}.sim-btns button:disabled{opacity:.5;cursor:default}
+@media(max-width:900px){.dc-sim{grid-template-columns:1fr}}
 </style>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </head>
@@ -257,34 +305,47 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
   </a>
   <div class="nav-links">
     <a href="calculadora.html">Planos e preços</a>
+    <a href="#construa">Monte sua nuvem</a>
+    <a href="#fatura">Fatura</a>
     <a href="#como-funciona">Como funciona</a>
     <a href="#contato">Contato</a>
     <a href="https://suporte.alliant.com.br/">Suporte</a>
     <a href="https://portal.alliant.com.br/" class="cta"><svg viewBox="0 0 24 24"><path d="M7 17a5 5 0 0 1 0-10 6 6 0 0 1 11.3 1.5A4 4 0 0 1 18 17z"/></svg>Minha nuvem</a>
   </div>
 </nav>
-<section class="hero">
-  <div class="hero-left">
-    <h1>Onde cada milissegundo<br><span class="accent">é física, não slogan.</span></h1>
-    <div class="hero-meter" aria-label="Medidas ao vivo">
-      <div class="hm"><div class="hm-k">você → Vinhedo</div><div class="hm-v"><b id="hmMs">medindo…</b></div><div class="hm-d">ida e volta, agora, neste dispositivo</div></div>
-      <div class="hm"><div class="hm-k">Vinhedo → Osasco</div><div class="hm-v"><b>294</b> µs</div><div class="hm-d">um fóton no vidro, ~70 km · n = 1,468</div></div>
-      <div class="hm"><div class="hm-k">fóton vs você</div><div class="hm-v"><b id="hmX">—</b></div><div class="hm-d">quantas vezes seu RTT cabe no enlace</div></div>
-    </div>
-    <p class="hero-tagline">Nuvem privada dedicada, em dois campi em São Paulo. Sem dividir com ninguém.</p>
-    <div class="hero-anchor" id="heroAnchor"><b id="haSpec">Linux 4 vCPU · 8 GB · 160 GB</b> a partir de <span class="mono" id="haPrice">R$ 298/mês</span><small>HA de host e backup 14 dias inclusos · tráfego ilimitado · sem IOPS, sem API</small></div>
-    <div class="hero-actions">
-      <a href="calculadora.html" class="btn-p">
-        Ver planos e montar minha nuvem
-        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-      </a>
-      <a href="https://wa.me/5508000200030" class="btn-w">
-        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        WhatsApp 0800 020 0030
-      </a>
-      <span class="cta-note">Acesso antecipado · clientes em produção desde set/2026</span>
+<section class="mega-hero">
+  <div class="eyebrow">Alliant · nuvem privada · ao vivo</div>
+  <div class="mega"><span class="mega-n">294</span><span class="mega-u">µs</span></div>
+  <div class="mega-bottom">
+    <h1 class="mega-copy">Onde cada milissegundo <span class="accent">é física, não slogan.</span><br><small>Tempo de um fóton (ida) no vidro entre os dois campi, ~70 km, n = 1,468. Não é o RTT do seu browser — esse está ao lado.</small></h1>
+    <div class="telemetry">
+      <div><span class="tk">você → Vinhedo</span><b id="hmMs">medindo…</b><span class="td">ida e volta, agora, neste dispositivo</span></div>
+      <div><span class="tk">fóton vs você</span><b id="hmX">—</b><span class="td">quantas vezes seu RTT cabe no enlace</span></div>
+      <div><span class="tk">interconexão</span><b>sem internet pública</b><span class="td">campi Ascenty · planta deles, máquina nossa</span></div>
     </div>
   </div>
+</section>
+<section class="phys recuo" id="fisica" aria-label="Física do enlace">
+  <div class="phys-link">
+    <div class="phys-top">enlace entre os campi <span id="phIp" class="phys-ip" hidden></span><b id="phMs" hidden></b></div>
+    <div class="phys-line">
+      <div class="rail"></div>
+      <span class="photon" style="animation-delay:0s"></span><span class="photon" style="animation-delay:-.8s"></span><span class="photon" style="animation-delay:-1.6s"></span>
+      <span class="photon back" style="animation-delay:-.4s"></span><span class="photon back" style="animation-delay:-1.2s"></span><span class="photon back" style="animation-delay:-2s"></span>
+      <div class="phys-node a"><i><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i><span>Vinhedo</span></div>
+      <div class="phys-node b"><i><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i><span>Osasco</span></div>
+    </div>
+    <div class="phys-cap">Vinhedo ↔ Osasco &nbsp;·&nbsp; ~70 km entre campi &nbsp;·&nbsp; n = 1,468 &nbsp;·&nbsp; 1-way ≥ 294 µs</div>
+  </div>
+  <div class="phys-grid">
+    <div class="phys-tile"><div class="k">RTT teórico</div><div class="v">≥ 588 µs</div><div class="d">Limite inferior. Switching ainda não entrou.</div></div>
+    <div class="phys-tile"><div class="k">Failover</div><div class="v">&lt; 5 min</div><div class="d">300 s. Software Alliant no host, não fóton.</div></div>
+    <div class="phys-tile"><div class="k">Distância</div><div class="v">~70 km</div><div class="d">Dois campi distintos, interconectados sem passar pela internet pública. Não uma “região”.</div></div>
+  </div>
+</section>
+
+<section class="blk" id="construa">
+  <div class="section-head"><h2>Construa.<br><em>Não preencha.</em></h2><p>O orçamento vira arquitetura. Escolha família, tamanho e sistema; adicione servidores; veja o desenho e o preço mudarem. <b id="haSpec">Linux 4 vCPU · 8 GB · 160 GB</b> a partir de <b id="haPrice">R$ 298/mês</b>, HA de host e backup 14 dias inclusos.</p></div>
   <div class="est" id="est" aria-label="Estimativa rápida">
     <div class="est-body">
       <div class="est-ctl" id="estCtl">
@@ -336,48 +397,86 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
     </div>
     <div class="est-note">Backup de 14 dias, 1 IPv4 e tráfego ilimitado inclusos · VM Windows já inclui Windows Server (SPLA) · sem cobrança por IOPS ou API.</div>
   </div>
-</section>
-<section class="phys" id="fisica" aria-label="Física do enlace">
-  <div class="phys-link">
-    <div class="phys-top">enlace entre os campi <span id="phIp" class="phys-ip" hidden></span><b id="phMs" hidden></b></div>
-    <div class="phys-line">
-      <div class="rail"></div>
-      <span class="photon" style="animation-delay:0s"></span><span class="photon" style="animation-delay:-.8s"></span><span class="photon" style="animation-delay:-1.6s"></span>
-      <span class="photon back" style="animation-delay:-.4s"></span><span class="photon back" style="animation-delay:-1.2s"></span><span class="photon back" style="animation-delay:-2s"></span>
-      <div class="phys-node a"><i><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i><span>Vinhedo</span></div>
-      <div class="phys-node b"><i><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></i><span>Osasco</span></div>
-    </div>
-    <div class="phys-cap">Vinhedo ↔ Osasco &nbsp;·&nbsp; ~70 km entre campi &nbsp;·&nbsp; n = 1,468 &nbsp;·&nbsp; 1-way ≥ 294 µs</div>
-  </div>
-  <div class="phys-grid">
-    <div class="phys-tile"><div class="k">RTT teórico</div><div class="v">≥ 588 µs</div><div class="d">Limite inferior. Switching ainda não entrou.</div></div>
-    <div class="phys-tile"><div class="k">Failover</div><div class="v">&lt; 5 min</div><div class="d">300 s. Software Alliant no host, não fóton.</div></div>
-    <div class="phys-tile"><div class="k">Distância</div><div class="v">~70 km</div><div class="d">Dois campi distintos, interconectados sem passar pela internet pública. Não uma “região”.</div></div>
+  <div class="blk-actions">
+    <a href="calculadora.html" class="btn-p">Ver planos e montar minha nuvem <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    <a href="https://wa.me/5508000200030" class="btn-w">WhatsApp 0800 020 0030</a>
+    <span class="cta-note">Acesso antecipado · clientes em produção desde set/2026</span>
   </div>
 </section>
-<div class="cred-strip">
-  <span class="cred-line">Alliant Tecnologia, desde 2008 em infraestrutura crítica. A Alliant Cloud é o produto novo dessa história — em produção desde set/2026, catálogo ainda abrindo.</span>
-</div>
 
-<div class="about">
-  <div class="about-item">
-    <div class="about-num">01 · BR</div>
-    <div class="about-title">Dados 100% no Brasil</div>
-    <div class="about-desc">Servidores em dois campi <b>Ascenty</b> — Vinhedo e Osasco (SP). A planta é do data center; máquina, isolamento e contrato são Alliant, controladora dos dados. LGPD por arquitetura; ISO 27001/27017/27018 em processo de certificação.</div>
+
+
+
+<section class="blk" id="ha">
+  <div class="section-head"><h2>Tire<br><em>da tomada.</em></h2><p>Três mecanismos, três preços. <b>HA de host</b> acontece dentro do campus e está incluso: a VM volta em outro host em menos de 5 min. <b>Cópia off-site</b> é o backup guardado no outro campus: restaura em horas. <b>DR</b> é a réplica viva em Osasco, sob proposta, com RPO/RTO do seu desenho. Teste os três.</p></div>
+  <div class="dc-sim">
+    <svg id="sim" viewBox="0 0 1000 480" role="img" aria-label="Simulação: dois campi, hosts, firewall e réplica">
+      <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6b5f52"/></marker></defs>
+      <!-- internet -->
+      <g class="inet"><rect x="440" y="14" width="120" height="34" rx="17" class="box"/><text x="500" y="36" class="lbl">Internet</text></g>
+      <path id="up1" class="link" d="M470 48 C 420 90, 300 90, 240 118"/>
+      <path id="up2" class="link off" d="M530 48 C 580 90, 700 90, 760 118"/>
+      <!-- Vinhedo -->
+      <g id="dc1" class="dc">
+        <rect x="40" y="118" width="400" height="345" rx="14" class="dcbox"/>
+        <text x="60" y="144" class="dctitle">DC-SP1 · Vinhedo</text><text x="420" y="144" class="dcsub" text-anchor="end">primário</text>
+        <g class="fw"><rect x="150" y="160" width="200" height="30" rx="6" class="box"/><text x="250" y="180" class="lbl">firewall · par em HA</text></g>
+        <g class="host" id="h1"><rect x="55" y="215" width="85" height="120" rx="8" class="box"/><text x="97" y="330" class="hl">compute-01</text><circle cx="130" cy="226" r="4" class="st"/></g>
+        <g class="host" id="h2"><rect x="150" y="215" width="85" height="120" rx="8" class="box"/><text x="192" y="330" class="hl">compute-02</text><circle cx="225" cy="226" r="4" class="st"/></g>
+        <g class="host" id="h3"><rect x="245" y="215" width="85" height="120" rx="8" class="box"/><text x="287" y="330" class="hl">compute-03</text><circle cx="320" cy="226" r="4" class="st"/></g>
+        <g class="host" id="h4"><rect x="340" y="215" width="85" height="120" rx="8" class="box"/><text x="382" y="330" class="hl">compute-04</text><circle cx="415" cy="226" r="4" class="st"/></g>
+        <g class="stor"><rect x="55" y="355" width="370" height="34" rx="6" class="box"/><text x="240" y="377" class="lbl">storage NVMe · espelhado entre hosts</text></g>
+        <text x="60" y="442" class="foot">HA de host: incluso · alvo &lt; 5 min · backup 14 dias incluso</text>
+      </g>
+      <!-- interconexão -->
+      <path id="xc" class="link xc" d="M440 372 L 560 372"/>
+      <text x="500" y="362" class="tiny" text-anchor="middle">interconexão</text>
+      <text x="500" y="392" class="tiny" text-anchor="middle">~70 km · sem internet pública</text>
+      <!-- Osasco -->
+      <g id="dc2" class="dc">
+        <rect x="560" y="118" width="400" height="345" rx="14" class="dcbox"/>
+        <text x="580" y="144" class="dctitle">DC-SP2 · Osasco</text><text x="940" y="144" class="dcsub" id="dc2sub" text-anchor="end">contingência</text>
+        <g class="fw"><rect x="650" y="160" width="200" height="30" rx="6" class="box"/><text x="750" y="180" class="lbl">firewall · par em HA</text></g>
+        <g class="host" id="r1"><rect x="580" y="215" width="110" height="120" rx="8" class="box"/><text x="635" y="330" class="hl">compute-01</text><circle cx="680" cy="226" r="4" class="st"/></g>
+        <g class="host" id="r2"><rect x="700" y="215" width="110" height="120" rx="8" class="box"/><text x="755" y="330" class="hl">compute-02</text><circle cx="800" cy="226" r="4" class="st"/></g>
+        <g class="host" id="r3"><rect x="820" y="215" width="120" height="120" rx="8" class="box"/><text x="880" y="330" class="hl">compute-03</text><circle cx="930" cy="226" r="4" class="st"/></g>
+        <g class="stor"><rect x="580" y="355" width="360" height="34" rx="6" class="box"/><text x="760" y="377" class="lbl" id="stor2">storage NVMe · sem réplica</text></g>
+        <g id="vault" class="vault ghost"><rect x="580" y="400" width="360" height="26" rx="6"/><text x="760" y="417" text-anchor="middle">cópia off-site · backup cifrado · 14 dias</text></g>
+        <text x="580" y="442" class="foot" id="dc2foot">DR: sob proposta · ative a réplica ao lado</text>
+      </g>
+      <!-- réplica (fantasma) e VM -->
+      <g id="vmr" class="vm ghost" style="transform:translate(755px,262px)"><rect x="-36" y="-16" width="72" height="32" rx="6"/><text y="5" text-anchor="middle">réplica</text></g>
+      <g id="vm" class="vm" style="transform:translate(287px,262px)"><rect x="-36" y="-16" width="72" height="32" rx="6"/><text y="5" text-anchor="middle">sua VM</text></g>
+    </svg>
+    <div class="sim-ctl">
+      <label class="sim-dr"><input type="checkbox" id="simOff"> Cópia off-site em Osasco · <span>backup, R$ por GB</span></label>
+      <label class="sim-dr"><input type="checkbox" id="simDr"> Réplica viva em Osasco (DR) · <span>sob proposta</span></label>
+      <div class="sim-btns">
+        <button type="button" class="btn-p" id="killHost">Derrubar compute-03</button>
+        <button type="button" class="btn-p" id="killDc">Derrubar Vinhedo</button>
+        <button type="button" class="btn-w" id="simReset">Restaurar</button>
+      </div>
+      <div class="eventlog" id="halog"><div>00:00.000 — carga saudável em Vinhedo · compute-03</div><div class="muted">simulação do mecanismo · não é o seu cluster</div></div>
+    </div>
   </div>
-  <div class="about-item">
-    <div class="about-num">02 · PT-BR</div>
-    <div class="about-title">Suporte em português</div>
-    <div class="about-desc">Engenheiros distribuídos em todo o Brasil. Time remoto-first que conhece seu ambiente e responde de verdade.</div>
-  </div>
-  <div class="about-item">
-    <div class="about-num">03 · R$ FIXO</div>
-    <div class="about-title">Sem surpresas na fatura</div>
-    <div class="about-desc">Ao contrário de clouds públicas, não cobramos por tráfego, IOPS ou chamadas de API. Preço fixo, todo mês.</div>
-  </div>
-</div>
-<section class="how" id="como-funciona">
-  <div class="how-head"><h2>Como funciona</h2><p>A planta é do data center. A máquina, o isolamento e o contrato são Alliant.</p></div>
+</section>
+
+<section class="blk" id="fatura">
+  <div class="section-head"><h2>Uma fatura.<br><em>Sem enigma.</em></h2><p>Preço compreensível também é engenharia de produto. O que entra no mensal, e o que na cloud pública vira linha extra.</p></div>
+  <table class="compare"><thead><tr><th>Recurso</th><th>Alliant</th><th>Hyperscaler típico</th></tr></thead><tbody>
+    <tr><td>VM + HA de host</td><td>Incluso no mensal</td><td>Instância + arquitetura/serviço adicional</td></tr>
+    <tr><td>Disco do SKU</td><td>Incluso</td><td>Volume/tier separado</td></tr>
+    <tr><td>Backup 14 dias</td><td>Incluso</td><td>Política/serviço à parte</td></tr>
+    <tr><td>1 IPv4 por VM</td><td>Incluso</td><td>IP público com cobrança própria</td></tr>
+    <tr><td>Tráfego / IOPS / API</td><td>Sem cobrança</td><td>Egress, IOPS e requests compõem a fatura</td></tr>
+    <tr><td>Windows Server</td><td>SPLA incluso</td><td>Licença/BYOL conforme serviço</td></tr>
+    <tr><td>DR no 2º campus</td><td>Sob proposta</td><td>Outra região + serviços adicionais</td></tr>
+  </tbody></table>
+</section>
+
+<div class="cred-strip"><span class="cred-line"><em>Não existe nuvem. Existe computador.</em> O nosso roda em Vinhedo e Osasco — máquina Alliant, planta Ascenty.</span></div>
+<section class="how blk" id="como-funciona">
+  <div class="section-head"><h2>Como<br><em>funciona.</em></h2><p>A planta é do data center. A máquina, o isolamento e o contrato são Alliant.</p></div>
   <div class="how-grid">
     <div class="how-col">
       <div class="how-tag">Ascenty · facility</div>
@@ -406,7 +505,7 @@ footer{padding:28px 6%;border-top:1px solid var(--border);display:flex;justify-c
 </div>
 <section class="contact" id="contato">
   <div class="contact-head">
-    <h2>Como podemos ajudar?</h2>
+    <h2>Sua cloud.<br><em>Com desenho.</em></h2>
     <p>Gente de verdade, no Brasil, em português. Escolha o seu caso.</p>
   </div>
   <div class="contact-grid">
@@ -500,8 +599,8 @@ function estDraw(){ EST.dirty=true; $e('estDrOverlay').hidden=EST.dr; }
   function buildLayout(){
     nodes=[];conns=[];
     var inet={x:W*.5,y:H*.09,type:'inet',label:'Internet',r:14}; nodes.push(inet);
-    var dc1={x:W*.3,y:H*.40,type:'dc',label:'DC-SP1 · Vinhedo',sub:'primário',r:20}; nodes.push(dc1);
-    var dc2={x:W*.7,y:H*.40,type:EST.dr?'dc2':'dc2off',label:'DC-SP2 · Osasco',sub:EST.dr?'réplica ativa':'contingência',r:20}; nodes.push(dc2);
+    var dc1={x:W*.3,y:H*.40,type:'dc',label:'Vinhedo',sub:'DC-SP1 · primário',r:20}; nodes.push(dc1);
+    var dc2={x:W*.7,y:H*.40,type:EST.dr?'dc2':'dc2off',label:'Osasco',sub:EST.dr?'DC-SP2 · réplica':'DC-SP2 · contingência',r:20}; nodes.push(dc2);
     var k8=null; if(EST.k8){ k8={x:W*.3,y:H*.66,type:'k8s',label:'Kubernetes',sub:EST.k8+' workers · HA',r:15}; nodes.push(k8); }
     var gs=groups(), cnt=gs.length;
     if(cnt){ var cols=Math.min(cnt,5),rws=Math.ceil(cnt/cols), zL=W*.08,zR=W*.92, zT=EST.k8?H*.84:H*.72, zB=H*.90;
@@ -588,7 +687,7 @@ try{ fetch(EST_API+'/api/public/precos').then(function(r){return r.ok?r.json():n
   function finish(){ if(!t.length){ var e=$e('phMs'); if(e) e.textContent='sem medida'; var h=$e('hmMs'); if(h) h.textContent='—'; var v=$e('phV'); if(v) v.textContent='—'; return; } var a=t.slice().sort(function(p,q){return p-q;}); show(a[Math.floor(a.length/2)],a.length); var tile=$e('phTile'); if(tile) tile.classList.remove('live'); }
   var started=false; function start(){ if(started) return; started=true; ip(); one().then(function(){t.length=0; run(0);}); }
   function ip(){ try{ fetch('https://ping.alliant.one/json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(j){ var e=$e('phIp'); if(e&&j&&j.ip){ e.innerHTML='seu IP público: <code>'+String(j.ip).replace(/[^0-9a-f.:]/gi,'')+'</code>'; e.hidden=false; } }).catch(function(){}); }catch(e){} } // 1ª descartada (aquecimento TLS)
-  if('IntersectionObserver' in window){ var sec=$e('fisica'); var io=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ start(); io.disconnect(); } },{threshold:.2}); if(sec) io.observe(sec); else start(); } else start();
+  start();
 })();
 
 document.addEventListener("DOMContentLoaded",function(){
@@ -612,6 +711,38 @@ function lgpdAceitar(){
   try{ localStorage.setItem('lgpd_choice','essential'); }catch(e){}
   document.getElementById('lgpd').style.display='none';
 }
+
+
+(function(){
+  var vm=$e('vm'), vmr=$e('vmr'), log=$e('halog'), dr=$e('simDr'), off=$e('simOff'), busy=false, t0;
+  if(!vm) return;
+  function ts(ms){ var s=(ms/1000); return '00:'+(s<10?'0':'')+s.toFixed(3).replace('.',':').slice(0,6); }
+  function line(txt,cls){ var d=document.createElement('div'); if(cls) d.className=cls; d.textContent=txt; log.appendChild(d); }
+  function clear(){ log.innerHTML=''; }
+  function setOff(on){ $e('vault').classList.toggle('ghost',!on); }
+  function lock(){ $e('killHost').disabled=true; $e('killDc').disabled=true; }
+  function setDr(on){ vmr.classList.toggle('ghost',!on); $e('stor2').textContent=on?'storage NVMe · réplica da sua VM':'storage NVMe · sem réplica'; $e('dc2foot').textContent=on?'DR ativo: réplica contínua · RPO/RTO do desenho':(off.checked?'cópia off-site: restaura em horas · DR sob proposta':'DR: sob proposta · ative a réplica ao lado'); $e('dc2sub').textContent=on?'réplica':'contingência'; $e('xc').classList.toggle('on',on); }
+  function reset(){ busy=false; ['h1','h2','h3','h4','dc1'].forEach(function(i){$e(i).classList.remove('dead');}); vm.classList.remove('down','moving'); vm.style.transform='translate(287px,262px)'; vmr.classList.remove('live'); vmr.querySelector('text').textContent='réplica'; $e('vault').classList.remove('live'); $e('up1').classList.remove('off'); $e('up2').classList.add('off'); setOff(off.checked); setDr(dr.checked); clear(); line('00:00.000 — carga saudável em Vinhedo · compute-03'); line('simulação do mecanismo · não é o seu cluster','muted'); $e('killHost').disabled=false; $e('killDc').disabled=false; }
+  dr.addEventListener('change',function(){ if(!busy) reset(); else setDr(dr.checked); });
+  off.addEventListener('change',function(){ if(!busy) reset(); else { setOff(off.checked); setDr(dr.checked); } });
+  $e('simReset').onclick=reset;
+  $e('killHost').onclick=function(){ if(busy) return; busy=true; lock(); clear(); $e('h3').classList.add('dead'); line('00:00.000 — compute-03 indisponível em Vinhedo');
+    setTimeout(function(){ line('00:00.214 — HA detectou a falha · storage espelhado intacto'); },400);
+    setTimeout(function(){ line('00:01.082 — VM iniciando em compute-01, mesmo campus'); vm.classList.add('moving'); vm.style.transform='translate(97px,262px)'; },900);
+    setTimeout(function(){ line('00:02.104 — carga operacional ● mesmo IP, mesma rede'); line('HA de host · incluso · alvo real < 5 min','muted'); vm.classList.remove('moving'); busy=false; line('Restaurar para testar outro cenário','muted'); },2000); };
+  $e('killDc').onclick=function(){ if(busy) return; busy=true; lock(); clear(); $e('dc1').classList.add('dead'); $e('up1').classList.add('off'); line('00:00.000 — campus de Vinhedo inteiro fora (energia, enlace, o que for)');
+    if(!dr.checked && !off.checked){ vm.classList.add('down'); setTimeout(function(){ line('00:00.214 — HA de host não resolve: não há outro host no mesmo campus disponível'); },400);
+      setTimeout(function(){ line('— sua VM fica indisponível até Vinhedo voltar'); line('Sem cópia nem réplica no 2º campus, é assim. Marque uma das duas e derrube de novo.','muted'); busy=false; },1000); return; }
+    if(!dr.checked && off.checked){ vm.classList.add('down'); setTimeout(function(){ line('00:00.214 — HA de host não resolve: o campus inteiro está fora'); },400);
+      setTimeout(function(){ line('00:00.900 — equipe inicia restauração a partir da cópia off-site em Osasco'); $e('vault').classList.add('live'); },900);
+      setTimeout(function(){ line('~ horas — VM restaurada em Osasco · compute-02 · dados do último backup (até 24 h atrás)'); vmr.classList.remove('ghost'); vmr.classList.add('live'); vmr.querySelector('text').textContent='restaurada'; },1900);
+      setTimeout(function(){ line('~ horas — IP público anunciado por Osasco · carga operacional ●'); $e('up2').classList.remove('off'); line('Cópia off-site: perde até um dia de dados, volta em horas. Para minutos e segundos, é DR.','muted'); busy=false; },2800); return; }
+    setTimeout(function(){ line('00:00.214 — monitoramento perde Vinhedo · Osasco tem a réplica'); },400);
+    setTimeout(function(){ line('00:00.900 — réplica promovida em Osasco · compute-02'); vmr.classList.add('live'); vm.classList.add('down'); },900);
+    setTimeout(function(){ line('00:01.600 — IP público anunciado por Osasco · firewall com as mesmas regras'); $e('up2').classList.remove('off'); },1600);
+    setTimeout(function(){ line('00:02.400 — carga operacional em Osasco ●'); line('DR · sob proposta · RPO/RTO definidos no seu desenho, não aqui','muted'); busy=false; },2400); };
+  reset();
+})();
 </script>
 </body>
 </html>
