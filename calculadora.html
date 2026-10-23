@@ -505,9 +505,18 @@ function renderServicos(){
     return '<div class="tog-row"><div><div class="tog-label">'+label+'</div><div class="tog-sub">'+(sub?sub+' · ':'')+(x.descricao!==label?x.descricao+' · ':'')+'<b>'+fmtBRL(x.preco)+'</b> '+(x.unidade_label||'')+'</div></div>'+ctl+'</div>';
   }).join('');
 }
+// Kubernetes: preço do tier = taxa de gestão + control plane (cp_n × VM do catálogo); nós de trabalho são VMs à parte
+function caasTiers(){ return (((P||{}).skus_caas||{}).tiers||[]).slice().sort(function(a,b){return caasPreco(a)-caasPreco(b);}); }
+function caasCp(t){ var cp=t.cp||{}; var l=((P||{}).skus_vm||{})[cp.familia]||[]; var s=l.find(function(x){return x.sku===cp.sku;}); return s?{n:+t.cp_n||1,sku:cp.sku,unit:+s.preco}:null; }
+function caasPreco(t){ var cp=caasCp(t); return (+t.preco||0)+(cp?cp.n*cp.unit:0); }
+function caasNome(t){ var m=/(starter|performance)/i.exec(t.sku+' '+(t.descricao||'')); return m?m[1].charAt(0).toUpperCase()+m[1].slice(1).toLowerCase():t.sku; }
+function caasNo(t){ var cp=t.cp||{}; var l=((P||{}).skus_vm||{})[cp.familia]||[]; return l.find(function(x){return x.sku===cp.sku;})||l[0]||null; }
 function setCaas(k,d){ caas[k]=Math.max(0,Math.min(50,(caas[k]||0)+d)); renderCaas(); schedCalc(); }
-function renderCaas(){ var el=document.getElementById('caasBody'); if(!el||!P) return; var tiers=((P.skus_caas||{}).tiers||[]); if(!tiers.length){el.innerHTML='<div class="vm-empty">Kubernetes gerenciado: <b>em breve</b>. Precisa agora? Marque na proposta e desenhamos junto — sob proposta.</div>';return;}
-  el.innerHTML=tiers.map(function(t){var q=caas[t.sku]||0;return '<div class="tog-row" style="gap:12px"><div><div class="tog-label" style="font-family:\'DM Mono\',monospace">'+t.sku+'</div><div class="tog-sub">'+(t.descricao||'')+' · <b>'+fmtBRL(t.preco)+'</b>/mês</div></div><div class="tog"><button onclick="setCaas(\''+t.sku+'\',-1)">−</button><button class="'+(q?'on':'')+'" style="cursor:default;min-width:34px">'+q+'</button><button onclick="setCaas(\''+t.sku+'\',1)">+</button></div></div>';}).join(''); }
+function renderCaas(){ var el=document.getElementById('caasBody'); if(!el||!P) return; var tiers=caasTiers(); if(!tiers.length){el.innerHTML='<div class="vm-empty">Kubernetes gerenciado: <b>em breve</b>. Precisa agora? Marque na proposta e desenhamos junto — sob proposta.</div>';return;}
+  el.innerHTML=tiers.map(function(t){var q=caas[t.sku]||0, cp=caasCp(t), no=caasNo(t);
+    var det=cp?('gestão '+fmtBRL(t.preco)+' + '+cp.n+'× '+cp.sku+' control plane '+fmtBRL(cp.unit)):('gestão '+fmtBRL(t.preco));
+    return '<div class="tog-row" style="gap:12px"><div><div class="tog-label">'+caasNome(t)+' <span style="font-family:\'DM Mono\',monospace;font-weight:400;opacity:.7">'+t.sku+'</span></div><div class="tog-sub">'+(t.descricao||'')+'</div><div class="tog-sub">'+det+' = <b>'+fmtBRL(caasPreco(t))+'</b>/mês'+(no?' · nós de trabalho a partir de '+fmtBRL(no.preco)+'/nó ('+no.sku+')':'')+'</div></div><div class="tog"><button onclick="setCaas(\''+t.sku+'\',-1)">−</button><button class="'+(q?'on':'')+'" style="cursor:default;min-width:34px">'+q+'</button><button onclick="setCaas(\''+t.sku+'\',1)">+</button></div></div>';}).join('');
+  el.insertAdjacentHTML('beforeend','<div class="tog-sub" style="opacity:.8">O cluster inclui gestão, control plane, backup diário e 100 GB de volumes por nó. Os nós de trabalho são VMs do catálogo acima, escolhidas no pedido.</div>'); }
 var _lastCalcData = null;
 var _calcTimer = null;
 
@@ -680,7 +689,7 @@ function doCalc(){
   }
   var items=rows.map(function(r){var d=r.data,q=+d.qty||1,u=precoRow(d)+licRow(d);return {nome:d.nm,qtd:q,spec:specRow(d),so:d.os||'Linux',unit:u,subtotal:u*q,win:(d.os||'').indexOf('Windows')===0,lic:licRow(d),dr:!!d.dr};});
   rows.forEach(function(r){var d=r.data,q=+d.qty||1,u=drRow(d); if(u>0) items.push({nome:'DR · '+(d.nm||specRow(d)),qtd:q,spec:'réplica no site 2 · '+(+drCat().preco)+'% da VM',so:'',unit:u,subtotal:u*q,win:false,servico:'dr.replicacao'});});
-  Object.keys(caas).forEach(function(k){var q=caas[k]; if(q>0){var t=((P.skus_caas||{}).tiers||[]).find(function(x){return x.sku===k;}); if(t) items.push({nome:'Kubernetes '+k,qtd:q,spec:t.descricao||k,so:'',unit:t.preco,subtotal:t.preco*q,win:false,caas:k});}});
+  Object.keys(caas).forEach(function(k){var q=caas[k]; if(q>0){var t=((P.skus_caas||{}).tiers||[]).find(function(x){return x.sku===k;}); if(t){var u=caasPreco(t); items.push({nome:'Kubernetes '+caasNome(t),qtd:q,spec:(t.descricao||k)+' · gestão + control plane',so:'',unit:u,subtotal:u*q,win:false,caas:k});}}});
   Object.keys(sv).forEach(function(k){var q=sv[k],x=svCat(k); if(q>0&&x) items.push({nome:(SV_PADRAO.find(function(d){return d.sku===k;})||{}).label||x.descricao,qtd:q,spec:x.descricao+' ('+(x.unidade_label||'')+')',so:'',unit:x.preco,subtotal:x.preco*q,win:false,servico:k});});
   var vmTotal=items.reduce(function(a,i){return a+i.subtotal;},0);
   var supCost=getSupCost(), grandTotal=vmTotal+supCost, anyWin=items.some(function(i){return i.win;});
@@ -718,7 +727,7 @@ function contratarOnline(){
     if(i){ var k='vm:'+d.flavor+(d.extra_gb?':'+d.extra_gb+d.extra_tier:'')+':'+so+(d.dr?':dr':'');
       if(cart[k]){cart[k].qtd+=+d.qty||1;} else cart[k]={tipo:'vm',modo:'sku',familia:i.familia,sku:d.flavor,qtd:+d.qty||1,so:so,preco:i.s.preco+licRow(d),lic_windows:licRow(d),label:d.flavor,nome:d.nm||'',extra_gb:+d.extra_gb||0,extra_tier:d.extra_tier||'',extra_valor:extraRow(d),dr:!!d.dr,dr_valor:drRow(d)}; }
     else if((d.flavor||'').indexOf('custom:')===0){ var fam=d.flavor.slice(7); cart['custom:'+idx]={tipo:'vm',modo:'custom',familia:fam,sku:famLabel(fam)+' sob medida',qtd:+d.qty||1,so:so,preco:precoCustom(fam,d.vcpu,d.ram,d.disco,d.tier)+licRow(d),lic_windows:licRow(d),label:(d.vcpu||0)+' vCPU · '+(d.ram||0)+' GB · '+(d.disco||0)+' GB '+(d.tier||''),nome:d.nm||'',vcpu:+d.vcpu||0,ram_gb:+d.ram||0,disco_gb:+d.disco||0,tier_disco:d.tier||'',extra_gb:+d.extra_gb||0,extra_tier:d.extra_tier||'',extra_valor:extraRow(d),dr:!!d.dr,dr_valor:drRow(d)}; }});
-  Object.keys(caas).forEach(function(k){var q=caas[k]; if(q>0){var t=((P.skus_caas||{}).tiers||[]).find(function(x){return x.sku===k;}); if(t) cart['caas:'+k]={tipo:'caas',familia:'caas',sku:k,qtd:q,so:'',preco:t.preco,label:k};}});
+  Object.keys(caas).forEach(function(k){var q=caas[k]; if(q>0){var t=((P.skus_caas||{}).tiers||[]).find(function(x){return x.sku===k;}); if(t) cart['caas:'+k]={tipo:'caas',familia:'caas',sku:k,qtd:q,so:'',preco:caasPreco(t),label:caasNome(t)+' · gestão + control plane'};}});
   Object.keys(sv).forEach(function(k){var q=sv[k],x=svCat(k); if(q>0&&x) cart['sv:'+k]={tipo:'servico',familia:'servico',sku:k,qtd:q,so:'',preco:x.preco,label:x.descricao+' ('+(x.unidade_label||'')+')'};});
   try{localStorage.setItem('alliant_carrinho',JSON.stringify({cart:cart,vigencia_meses:+document.getElementById('vig').value||12,forma_pagamento:document.getElementById('pg').value||'boleto',janela_suporte:janela,ts:Date.now()}));}catch(e){}
   location.href='cadastro.html';
@@ -732,7 +741,7 @@ fetch(API+'/api/public/precos').then(function(r){if(!r.ok)throw new Error('HTTP 
   P=p;
   if(p.backup&&p.backup.incluso_dias) document.getElementById('bkDias').textContent=p.backup.incluso_dias;
   if(p.suporte){ document.getElementById('hint85').textContent='R$ '+Math.round(+p.suporte.hora_excedente_comercial||180); document.getElementById('hint247').textContent='R$ '+Math.round(+p.suporte.hora_excedente_fora_comercial||240); if(p.suporte.janela_comercial) document.getElementById('supJanela').textContent=p.suporte.janela_comercial.toLowerCase(); }
-  if(window._k8pref&&P.skus_caas&&P.skus_caas.tiers&&P.skus_caas.tiers.length){ caas[P.skus_caas.tiers[0].sku]=1; }
+  if(window._k8pref&&caasTiers().length){ var pref=caasTiers().find(function(t){return t.sku===window._k8tier;})||caasTiers()[0]; caas[pref.sku]=1; }
   rows.forEach(function(r){ var d=r.data; if(d.extra_gb&&!d.extra_tier){ var fam=(d.flavor||'').indexOf('custom:')===0?d.flavor.slice(7):((skuInfo(d.flavor)||{}).familia); var c=P.componentes[fam]; if(c) d.extra_tier=Object.keys(c.disco_gb||{})[0]; } if((d.flavor||'').indexOf('custom:')===0&&!d.tier){ var c2=P.componentes[d.flavor.slice(7)]; if(c2) d.tier=Object.keys(c2.disco_gb||{})[0]; } });
   renderCaas(); renderServicos();
   if(!rows.length) addRow(); else { rows.forEach(function(r){ if(!skuInfo(r.data.flavor)&&(r.data.flavor||'').indexOf('custom:')!==0) r.data.flavor=primeiroSku(); }); renderTable(); }
@@ -951,7 +960,7 @@ rows=[{id:++rid,data:{nm:'Servidor de aplicação',os:'Linux',qty:2,flavor:'e1.m
     if(sku==='custom'){ d.flavor='custom:'+fam; d.vcpu=+p[3]; d.ram=+p[4]; d.disco=+p[5]; } else { d.flavor=sku; if(+p[6]>0){ d.extra_gb=+p[6]; } }
     agg[k]={id:++rid,data:d}; out.push(agg[k]); });
   if(out.length) rows=out;
-  var k8=+qs.get('k8')||0; if(k8>0){ window._k8pref=k8; }
+  var k8=+qs.get('k8')||0; if(k8>0){ window._k8pref=k8; window._k8tier=qs.get('k8t')||''; }
 })();
 document.addEventListener('DOMContentLoaded',function(){renderTable();});
 

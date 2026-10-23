@@ -368,7 +368,7 @@ h1.mega-copy small{display:block;font-family:"DM Sans",sans-serif;font-size:15px
           <button onclick="estAdd('windows')"><span><i class="dot win"></i>Windows Server</span><em id="estPrevW">—</em></button>
         </div>
         <div class="est-msg" id="estMsg" hidden></div>
-        <div class="est-k8"><span><i class="dot k8"></i>Kubernetes</span><span class="est-step"><button onclick="estK8(-1)">−</button><b id="estKv">off</b><button onclick="estK8(1)">+</button></span></div>
+        <div class="est-k8"><span><i class="dot k8"></i>Kubernetes <button id="estK8t" onclick="estK8Tier()" title="trocar o tipo de cluster" style="font:inherit;font-size:11px;padding:1px 8px;border:1px solid currentColor;border-radius:999px;background:transparent;color:inherit;cursor:pointer">Starter</button></span><span class="est-step"><button onclick="estK8(-1)">−</button><b id="estKv">off</b><button onclick="estK8(1)">+</button></span></div>
         <div class="est-dr" id="estDrRow"><span>Réplica no 2º campus (DR)</span><button id="estDrBtn" onclick="estTog('dr')">ativar</button></div>
         <div class="est-hint">Cópia do ambiente no outro campus (Vinhedo ↔ Osasco), RPO/RTO sob desenho. Não confundir com o HA de host, que já está incluso.</div>
       </div>
@@ -543,7 +543,7 @@ h1.mega-copy small{display:block;font-family:"DM Sans",sans-serif;font-size:15px
 
 <script>
 // ---- estimador rápido ----
-var EST={dr:false,P:null,dr_pct:90,k8s:1200,k8:0,fam:'efficient',sku:'',servers:[],total:0,tsTok:'',tsW:null,drOn:true,k8On:true,
+var EST={dr:false,P:null,dr_pct:90,k8s:1200,k8:0,k8T:[],k8i:0,fam:'efficient',sku:'',servers:[],total:0,tsTok:'',tsW:null,drOn:true,k8On:true,
   FALLBACK:{windows:{preco_vcpu:90,min_vcpu:2},componentes:{performance:{label:'Performance',vcpu:119.08,ram_gb:17.06,disco_gb:{'p1.nvme':0.766}},efficient:{label:'Efficient',vcpu:39.87,ram_gb:5.07,disco_gb:{'e1.nvme':0.611}},capacity:{label:'Capacity',vcpu:34.36,ram_gb:4.37,disco_gb:{'c1.hdd':0.168}}},
     skus_vm:{performance:[{sku:'p1.small',vcpu:2,ram_gb:8,disco_gb:80,tier_disco:'p1.nvme',preco:436},{sku:'p1.medium',vcpu:4,ram_gb:16,disco_gb:160,tier_disco:'p1.nvme',preco:872},{sku:'p1.large',vcpu:8,ram_gb:32,disco_gb:320,tier_disco:'p1.nvme',preco:1744},{sku:'p1.xlarge',vcpu:16,ram_gb:64,disco_gb:640,tier_disco:'p1.nvme',preco:3487}],
       efficient:[{sku:'e1.small',vcpu:2,ram_gb:4,disco_gb:80,tier_disco:'e1.nvme',preco:149},{sku:'e1.medium',vcpu:4,ram_gb:8,disco_gb:160,tier_disco:'e1.nvme',preco:298},{sku:'e1.large',vcpu:8,ram_gb:16,disco_gb:320,tier_disco:'e1.nvme',preco:596},{sku:'e1.xlarge',vcpu:16,ram_gb:32,disco_gb:640,tier_disco:'e1.nvme',preco:1191}],
@@ -574,19 +574,26 @@ var EST_MAX=24;
 function estAdd(os){ var m=$e('estMsg'); if(EST.servers.length>=EST_MAX){ if(m){ m.textContent='Limite de '+EST_MAX+' servidores no estimador — use a calculadora para ambientes maiores.'; m.hidden=false; clearTimeout(EST._mt); EST._mt=setTimeout(function(){m.hidden=true;},3500);} return; } var v=estBuild(os); if(!v) return; EST.servers.push(v); if(m) m.hidden=true; estCalc(); }
 function estDel(i){ EST.servers.splice(i,1); estCalc(); }
 function estK8(d){ EST.k8=Math.max(0,Math.min(12,EST.k8+d)); if(EST.k8===1&&d>0) EST.k8=3; if(EST.k8<3&&d<0) EST.k8=0; estCalc(); }
+// tipo de cluster (Starter/Performance): preço = gestão + control plane (cp_n × VM do catálogo); nó de trabalho = VM de 4 vCPU da mesma família
+function estK8Tier(){ if(EST.k8T.length>1){ EST.k8i=(EST.k8i+1)%EST.k8T.length; if(!EST.k8) EST.k8=3; } estCalc(); }
+function estK8Cur(){ return EST.k8T[EST.k8i]||null; }
+function estK8Nome(t){ var m=/(starter|performance)/i.exec(t.sku+' '+(t.descricao||'')); return m?m[1].charAt(0).toUpperCase()+m[1].slice(1).toLowerCase():t.sku; }
+function estK8Preco(t){ var cp=t.cp||{}, s=((estCat().skus_vm||{})[cp.familia]||[]).find(function(x){return x.sku===cp.sku;}); return (+t.preco||0)+(s?(+t.cp_n||1)*(+s.preco):0); }
+function estK8Worker(t){ var fam=(t&&t.cp&&t.cp.familia)||'efficient'; var l=(estCat().skus_vm||{})[fam]||estCat().skus_vm.efficient||[]; return (l.find(function(k){return k.vcpu===4;})||l[0]||{}).preco||600; }
 function estTog(k){EST[k]=!EST[k]; if(k==='dr'){var b=$e('estDrBtn'); b.classList.toggle('on',EST.dr);} estCalc();}
 function estMoney(v){return 'R$ '+Math.round(v).toLocaleString('pt-BR');}
 function estUnit(fam,c,ram,gb){ var P=EST.P||EST.FALLBACK, comp=(P.componentes||{})[fam]||EST.FALLBACK.componentes[fam]; var disco=comp.disco_gb||{}; var pd=disco['e1.ssd']||disco['p1.ssd']||disco[Object.keys(disco)[0]]||0; return c*comp.vcpu+ram*comp.ram_gb+(gb==null?80:gb)*pd; }
 function estCalc(){
   var total=0, lic=0; EST.servers.forEach(function(v){ total+=v.preco-(v.lic||0); lic+=(v.lic||0); });
-  if(EST.k8&&EST.k8On){ var wk=((estCat().skus_vm.efficient||[]).find(function(k){return k.vcpu===4;})||{}).preco||600; total+=EST.k8s+wk*EST.k8; }
+  var kt=estK8Cur(); if(kt){ EST.k8s=estK8Preco(kt); } var ktb=$e('estK8t'); if(ktb){ ktb.textContent=kt?estK8Nome(kt):'Starter'; ktb.style.display=EST.k8T.length>1?'':'none'; }
+  if(EST.k8&&EST.k8On){ var wk=estK8Worker(kt); total+=EST.k8s+wk*EST.k8; }
   if(EST.dr&&EST.drOn) total*=1+EST.dr_pct/100;
   total+=lic;  // licença Windows não replica no DR
   EST.total=total; var ext=[]; if(EST.dr&&!EST.drOn) ext.push('DR'); if(EST.k8&&!EST.k8On) ext.push('Kubernetes'); $e('estV').innerHTML=((!EST.servers.length&&!EST.k8)?'R$ —':estMoney(total))+'<small>/mês'+(ext.length?' + '+ext.join(' e ')+' sob proposta':'')+'</small>';
-  $e('estKv').textContent=EST.k8?(EST.k8+' workers'+(EST.k8On?'':' · sob proposta')):(EST.k8On?'off':'em breve · sob proposta');
+  $e('estKv').textContent=EST.k8?(EST.k8+' workers'+(kt?' · '+estK8Nome(kt):'')+(EST.k8On?'':' · sob proposta')):(EST.k8On?'off':'em breve · sob proposta');
   var drb=$e('estDrBtn'); if(drb) drb.textContent=EST.dr?(EST.drOn?'ativo · desativar':'cotar · desativar'):(EST.drOn?'ativar':'sob proposta');
   var q=EST.servers.map(function(v){return 'v='+v.os+':'+v.fam+':'+v.sku+':'+v.c+':'+v.r+':'+v.d+':'+(v.x||0);}).join('&');
-  $e('estGo').href='calculadora.html?'+q+'&k8='+EST.k8+(EST.dr?'&dr=1':'');
+  $e('estGo').href='calculadora.html?'+q+'&k8='+EST.k8+(estK8Cur()?'&k8t='+encodeURIComponent(estK8Cur().sku):'')+(EST.dr?'&dr=1':'');
   estDraw();
 }
 function estDraw(){ EST.dirty=true; $e('estDrOverlay').hidden=EST.dr; }
@@ -663,7 +670,7 @@ function estLeadSend(){
   if(wa.length<10){ stt.textContent='WhatsApp com DDD + número.'; return; }
   var grp={}; EST.servers.forEach(function(v){ var k=v.os+'|'+v.fam+'|'+v.sku+'|'+v.c+'|'+v.r+'|'+v.d+'|'+(v.x||0); (grp[k]=grp[k]||{nome:(v.os==='windows'?'Windows Server':'Linux')+' · '+v.sku,qtd:0,spec:v.c+' vCPU · '+v.r+' GB · '+v.d+' GB'+(v.x?' + '+v.x+' GB extra':'')+' · '+famLabel(v.fam),so:v.os==='windows'?'Windows':'Linux',subtotal:0}); grp[k].qtd++; grp[k].subtotal+=v.preco; });
   var vms=Object.keys(grp).map(function(k){return grp[k];});
-  var op=[]; if(EST.dr) op.push('DR / réplica no site 2 '+(EST.drOn?'(+'+EST.dr_pct+'%)':'(sob consulta)')); if(EST.k8) op.push('Kubernetes gerenciado · '+EST.k8+' workers'+(EST.k8On?'':' (sob consulta)'));
+  var op=[]; if(EST.dr) op.push('DR / réplica no site 2 '+(EST.drOn?'(+'+EST.dr_pct+'%)':'(sob consulta)')); if(EST.k8) op.push('Kubernetes gerenciado '+(estK8Cur()?estK8Nome(estK8Cur())+' ':'')+'· '+EST.k8+' workers'+(EST.k8On?'':' (sob consulta)'));
   var payload={tipo:'estimador_home',empresa:emp,cnpj:cnpj,nome:nome,email:eml,whatsapp:wa,arquitetura_b64:canvasPng('estCanvas'),estimativa:Math.round(EST.total),vms:vms,opcoes:op.join('; ')||'-',obs:'Solicitação de proposta pelo estimador da home.',turnstile:EST.tsTok,website:$e('estSite').value};
   var btn=$e('estSend'); btn.disabled=true; stt.textContent='';
   fetch(EST_API+'/api/public/orcamento',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
@@ -674,7 +681,7 @@ function estLeadSend(){
 function estAnchor(){ try{ var k=(estCat().skus_vm.efficient||[]).find(function(x){return x.sku==='e1.medium';}); if(!k) return; $e('haSpec').textContent='Linux '+k.vcpu+' vCPU · '+k.ram_gb+' GB · '+k.disco_gb+' GB'+(String(k.tier_disco||'').indexOf('nvme')>-1?' NVMe':' SSD'); $e('haPrice').textContent=estMoney(k.preco)+'/mês'; }catch(e){} }
 function estInit(){ estAnchor(); estBuildFam(); estFam(EST.fam); if(!EST.sku) estSku('e1.medium'); EST.servers=EST.servers.filter(Boolean); if(!EST.servers.length){ var v=estBuild('linux'); if(v) EST.servers.push(v); } estCalc(); }
 estInit();
-try{ fetch(EST_API+'/api/public/precos').then(function(r){return r.ok?r.json():null;}).then(function(p){ if(p&&p.componentes){ EST.P=p; var dr=(p.servicos_adicionais||[]).find(function(x){return x.sku==='dr.replicacao';}); EST.drOn=!!(dr&&dr.unidade==='pct_vm'&&+dr.preco>0&&dr.ativo!==false&&!dr.inativo); if(EST.drOn) EST.dr_pct=+dr.preco; var ks=((p.skus_caas||{}).tiers||[]).filter(function(t){return t.ativo!==false&&!t.inativo;}); EST.k8On=ks.length>0; if(ks[0]) EST.k8s=+ks[0].preco; EST.servers=[]; estInit(); } }).catch(function(){}); }catch(e){}
+try{ fetch(EST_API+'/api/public/precos').then(function(r){return r.ok?r.json():null;}).then(function(p){ if(p&&p.componentes){ EST.P=p; var dr=(p.servicos_adicionais||[]).find(function(x){return x.sku==='dr.replicacao';}); EST.drOn=!!(dr&&dr.unidade==='pct_vm'&&+dr.preco>0&&dr.ativo!==false&&!dr.inativo); if(EST.drOn) EST.dr_pct=+dr.preco; var ks=((p.skus_caas||{}).tiers||[]).filter(function(t){return t.ativo!==false&&!t.inativo;}); EST.k8On=ks.length>0; EST.k8T=ks.slice().sort(function(a,b){return estK8Preco(a)-estK8Preco(b);}); EST.k8i=0; if(EST.k8T[0]) EST.k8s=estK8Preco(EST.k8T[0]); EST.servers=[]; estInit(); } }).catch(function(){}); }catch(e){}
 // ---- física do enlace: RTT real do browser até a borda (HEAD no próprio site, sem cache, mediana de 12) ----
 (function(){
   var N=12, t=[], url='https://ping.alliant.one/';
